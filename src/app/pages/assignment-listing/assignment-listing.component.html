@@ -1,0 +1,34 @@
+<div class="container p-5">
+  <div class="row">
+    <div class="batch-select d-flex justify-content-xl-end">
+      <app-dropdown [dropdownLabel]="'ILP Batch 04'" [firstDropdownElement]="'ILP Batch 03'" [secondDropdownElement]="'ILP Batch 02'" [thirdDropdownElement]="'ILP Batch 01'"></app-dropdown>
+    </div>
+    <div class="col-12 d-flex justify-content-between align-items-center py-5">
+      <h4>Assignments</h4>
+      <div class="left-button-dropdown d-flex flex-row justify-content-between">
+        <app-button [buttonLabel]="'Create new'" class="custom-button"></app-button>
+      </div>
+     </div>
+  </div>
+  <div class="assignments d-flex flex-column gap-2">
+    <div class="pending-assignments">
+      <h5 class="mb-5">Pending Assignments</h5>
+      <div class="card-container d-flex flex-column gap-4">
+        <app-listing-card [cardMainIconSRC]="'assets/AssignmentListingMainIcon.png'" [cardMainTitle]="'GG Hospital'" [cardFirstSubTitle]="'20-June 2024'" [cardSecondSubTitle]="'Due by 11:00 PM 23-June-2024'" [cardLeftText]="'21/38'" [cardLeftIcon]="'bi bi-people-fill fs-5'"></app-listing-card>
+        <app-listing-card [cardMainIconSRC]="'assets/AssignmentListingMainIcon.png'" [cardMainTitle]="'Portfolio'" [cardFirstSubTitle]="'18-June 2024'" [cardSecondSubTitle]="'Due by 11:00 PM 20-June-2024'" [cardLeftText]="'3/38'" [cardLeftIcon]="'bi bi-people-fill fs-5'"></app-listing-card>
+        <app-listing-card [cardMainIconSRC]="'assets/AssignmentListingMainIcon.png'" [cardMainTitle]="'Case Study'" [cardFirstSubTitle]="'1-June 2024'" [cardSecondSubTitle]="'Due by 11:00 PM 13-June-2024'" [cardLeftText]="'7/38'" [cardLeftIcon]="'bi bi-people-fill fs-5'"></app-listing-card>
+      </div>
+    </div>
+    <div class="completed-assignments mt-5">
+        <h5 class="mb-5">Completed Assignments</h5>
+        <div class="card-container d-flex flex-column gap-4">
+          <app-listing-card [cardMainIconSRC]="'assets/AssignmentListingMainIcon.png'" [cardMainTitle]="'GG Hospital'" [cardFirstSubTitle]="'20-June 2024'" [cardSecondSubTitle]="'Due by 11:00 PM 23-June-2024'" [cardLeftText]="'21/38'" [cardLeftIcon]="'bi bi-people-fill fs-5'"></app-listing-card>
+          <app-listing-card [cardMainIconSRC]="'assets/AssignmentListingMainIcon.png'" [cardMainTitle]="'Portfolio'" [cardFirstSubTitle]="'18-June 2024'" [cardSecondSubTitle]="'Due by 11:00 PM 20-June-2024'" [cardLeftText]="'3/38'" [cardLeftIcon]="'bi bi-people-fill fs-5'"></app-listing-card>
+          <app-listing-card [cardMainIconSRC]="'assets/AssignmentListingMainIcon.png'" [cardMainTitle]="'Case Study'" [cardFirstSubTitle]="'1-June 2024'" [cardSecondSubTitle]="'Due by 11:00 PM 13-June-2024'" [cardLeftText]="'7/38'" [cardLeftIcon]="'bi bi-people-fill fs-5'"></app-listing-card>
+          <div class="completed-assignments d-flex flex-column align-items-end">
+            <p>view all <i class="bi bi-arrow-right"></i></p>
+          </div>
+        </div>
+    </div>
+  </div>
+ </div>

@@ -1,0 +1,13 @@
+.custom-button {
+  margin-right: 20%;
+}
+@media screen and (max-width: 760px) {
+  .left-button-dropdown{
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
+  }
+  .custom-button {
+    margin-bottom: 20%;
+  }
+}

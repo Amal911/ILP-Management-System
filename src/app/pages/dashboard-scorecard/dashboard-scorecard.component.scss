@@ -1,0 +1,14 @@
+.sidebar{
+    width: 20vw;
+    height: 100vh;
+    background-color: #1A2440;
+    position: sticky;
+    top: 0;
+}
+.dashboard-scorecard{
+    width: calc(80vw);
+    background-color: #f5faff;
+    .title{
+        font-weight: 700;
+    }
+}

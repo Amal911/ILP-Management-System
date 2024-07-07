@@ -8,28 +8,24 @@
      </div>
   </div>
   <div class="assignments d-flex flex-column gap-2">
-    <div class="pending-assignments">
+    <div class="pending-leave-requests">
       <h5 class="mb-5">Pending Leave Requests</h5>
       <div class="card-container d-flex flex-column gap-4">
-        <app-listing-card [cardMainIconSRC]="'assets/Leave-request.svg'" [cardMainTitle]="'Amal E A'" [cardSmallSubTitle]="'ILP Batch 03 2023-24'" [cardFirstSubTitle]="'Sick leave'" [cardSecondSubTitle]="'Requested for 14 may'" [cardLeftText]="'Trainer Approved'" [cardStatusFlag]="'green'" [cardLeftIcon]="'bi bi-circle-fill'"></app-listing-card>
-        <app-listing-card [cardMainIconSRC]="'assets/Leave-request.svg'" [cardMainTitle]="'Devipriya MS'" [cardSmallSubTitle]="'ILP Batch 03 2023-24'" [cardFirstSubTitle]="'Sick leave'" [cardSecondSubTitle]="'Requested for 10 may'" [cardLeftText]="'Trainer Approved'" [cardStatusFlag]="'green'" [cardLeftIcon]="'bi bi-circle-fill'"></app-listing-card>
-        <app-listing-card [cardMainIconSRC]="'assets/Leave-request.svg'" [cardMainTitle]="'Reshmi M'" [cardSmallSubTitle]="'ILP Batch 03 2023-24'" [cardFirstSubTitle]="'Sick leave'" [cardSecondSubTitle]="'Requested for 7 may'" [cardLeftText]="'Trainer Rejected'" [cardStatusFlag]="'red'" [cardLeftIcon]="'bi bi-circle-fill'"></app-listing-card>
-        <div class="completed-assignments d-flex flex-column align-items-end">
+        <app-listing-card [cardItems]="pendingLeaveRequests"></app-listing-card>
+       <div class="completed-assignments d-flex flex-column align-items-end">
           <p>view all <i class="bi bi-arrow-right"></i></p>
         </div>
       </div>
     </div>
-    <div class="completed-assignments mt-5">
+    <div class="leave-request-history mt-5">
       <div class="col-12 d-flex justify-content-between align-items-center py-5">
-        <h5 class="mb-5">Leave Request History</h5>
-        <div class="left-button-dropdown d-flex flex-row justify-content-between mb-5">
-          <app-dropdown [dropdownLabel]="'L&D Approved'" [firstDropdownElement]="'L&D Rejected'" [secondDropdownElement]="'Trainer Approved'" [thirdDropdownElement]="'Trainer Rejected'" class="custom-button"></app-dropdown>
+        <h5>Leave Request History</h5>
+        <div class="left-button-dropdown d-flex flex-row justify-content-between">
+          <app-dropdown [dropDownLabel]="'L&D Approved'" [dropDownElements]="['Action', 'Another action', 'Something else here']" class="custom-button"></app-dropdown>
         </div>
       </div>
         <div class="card-container d-flex flex-column gap-4">
-          <app-listing-card [cardMainIconSRC]="'assets/Leave-request.svg'" [cardMainTitle]="'Amal E A'" [cardSmallSubTitle]="'ILP Batch 03 2023-24'" [cardFirstSubTitle]="'20-June 2024'" [cardSecondSubTitle]="'Due by 11:00 PM 23-June-2024'" [cardLeftText]="'Trainer Approved'" [cardStatusFlag]="'green'" [cardLeftIcon]="'bi bi-circle-fill'"></app-listing-card>
-          <app-listing-card [cardMainIconSRC]="'assets/Leave-request.svg'" [cardMainTitle]="'Devipriya MS'" [cardSmallSubTitle]="'ILP Batch 03 2023-24'" [cardFirstSubTitle]="'18-June 2024'" [cardSecondSubTitle]="'Due by 11:00 PM 20-June-2024'" [cardLeftText]="'Trainer Rejected'" [cardStatusFlag]="'red'" [cardLeftIcon]="'bi bi-circle-fill'"></app-listing-card>
-          <app-listing-card [cardMainIconSRC]="'assets/Leave-request.svg'" [cardMainTitle]="'Reshmi M'" [cardSmallSubTitle]="'ILP Batch 03 2023-24'" [cardFirstSubTitle]="'1-June 2024'" [cardSecondSubTitle]="'Due by 11:00 PM 13-June-2024'" [cardLeftText]="'Trainer Rejected'" [cardStatusFlag]="'red'" [cardLeftIcon]="'bi bi-circle-fill'"></app-listing-card>
+          <app-listing-card [cardItems]="leaveRequestHistory"></app-listing-card>
           <div class="completed-assignments d-flex flex-column align-items-end">
             <p>view all <i class="bi bi-arrow-right"></i></p>
           </div>

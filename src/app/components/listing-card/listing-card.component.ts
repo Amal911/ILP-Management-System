@@ -9,26 +9,15 @@ import { Component, Input } from '@angular/core';
   styleUrl: './listing-card.component.scss'
 })
 export class ListingCardComponent {
-@Input() cardMainTitle:string='';
-@Input() cardFirstSubTitle:string='';
-@Input() cardSecondSubTitle:string='';
-@Input() cardLeftText: string='';
-@Input() cardStatusFlag: string='';
-@Input() cardLeftIcon: string='';
-@Input() cardMainIconSRC:string='';
-@Input() cardSmallSubTitle:string='';
 
+@Input() cardItems:any[]=[];
 
-
-
-get cardLeftIconColor(): string {
-  if(this.cardStatusFlag=='green'){
+getLeftIconColor(cardStatusFlag: string): string {
+  if (cardStatusFlag === 'green') {
     return 'green';
-  }
-  else if(this.cardStatusFlag=='red'){
-    return'red';
-  }
-  else{
+  } else if (cardStatusFlag === 'red') {
+    return 'red';
+  } else {
     return 'black';
   }
 }

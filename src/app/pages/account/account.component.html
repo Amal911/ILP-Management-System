@@ -1,0 +1,31 @@
+<div class="topbar">
+    <div class="sidebar"></div>
+</div>
+<div class="account mt-2">
+    <div class="container accountheader mt-1 mb-3 d-flex justify-content-between align-items-center">
+        <h2>ACCOUNTS</h2>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAccountModal">
+            Create New
+        </button>
+    </div>
+    <div class="d-flex justify-content-end mb-3">
+        <div class="me-2" *ngIf="showYearSelect">
+            <label for="year" class="form-label-placeholder">Select Year</label>
+            <select class="form-select" id="year" [formControl]="yearControl">
+                <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+        </div>
+        <div class="ms-2 me-2">
+            <label for="role" class="form-label-placeholder">Select Role</label>
+            <select class="form-select" id="role" [formControl]="roleControl">
+                <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+            </select>
+        </div>
+        <div class="mt-4 me-4">
+            <input type="text" pInputText placeholder="  Search" [formControl]="searchControl" id="searchControl">
+        </div>
+    </div>
+    <div class="table"><app-table [columns]="tableColumns" [data]="tableData" [searchControl]="searchControl">
+        </app-table></div>
+</div>
+<app-createaccountmodal></app-createaccountmodal>

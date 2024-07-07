@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListingCardComponent } from './listing-card.component';
+import { ListingCardComponent } from './batch-listing-card.component';
 
 describe('ListingCardComponent', () => {
   let component: ListingCardComponent;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ListingCardComponent } from "../../components/listing-card/listing-card.component";
+import { ListingCardComponent } from "../../components/batch-listing-card/batch-listing-card.component";
 import { ButtonComponent } from "../../components/button/button.component";
 
 @Component({
@@ -13,76 +13,88 @@ export class BatchListingComponent {
   batches = [
     {
       cardMainIconSRC: 'assets/Vector.svg',
-      cardMainTitle: 'ILP Batch 03',
-      cardFirstSubTitle: '39 trainees',
-      cardSecondSubTitle: 'Developer batch',
-      cardLeftText: 'Active',
-      cardStatusFlag: 'green',
+      batch_name: 'ILP Batch 03',
+      batch_strength: '39',
+      batch_type_name: 'Developer batch',
+      is_active: true,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
     },
     {
       cardMainIconSRC: 'assets/Vector.svg',
-      cardMainTitle: 'ILP Batch 02',
-      cardFirstSubTitle: '30 trainees',
-      cardSecondSubTitle: 'BA batch',
-      cardLeftText: 'Active',
-      cardStatusFlag: 'green',
+      batch_name: 'ILP Batch 02',
+      batch_strength: '30',
+      batch_type_name: 'BA batch',
+      is_active: true,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
     },
     {
       cardMainIconSRC: 'assets/Vector.svg',
-      cardMainTitle: 'ILP Batch 01',
-      cardFirstSubTitle: '33 trainees',
-      cardSecondSubTitle: 'Developer batch',
-      cardLeftText: 'Completed',
-      cardStatusFlag: 'red',
+      batch_name: 'ILP Batch 01',
+      batch_strength: '33',
+      batch_type_name: 'Developer batch',
+      is_active: true,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
     },
     {
       cardMainIconSRC: 'assets/Vector.svg',
-      cardMainTitle: 'ILP Batch 03',
-      cardFirstSubTitle: '31 trainees',
-      cardSecondSubTitle: 'BA batch',
-      cardLeftText: 'Completed',
-      cardStatusFlag: 'red',
+      batch_name: 'ILP Batch 03',
+      batch_strength: '31',
+      batch_type_name: 'BA batch',
+      is_active: true,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
     },
     {
       cardMainIconSRC: 'assets/Vector.svg',
-      cardMainTitle: 'ILP Batch 02',
-      cardFirstSubTitle: '34 trainees',
-      cardSecondSubTitle: 'Developer batch',
-      cardLeftText: 'Active',
-      cardStatusFlag: 'green',
+      batch_name: 'ILP Batch 02',
+      batch_strength: '34',
+      batch_type_name: 'Developer batch',
+      is_active: true,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
     },
     {
       cardMainIconSRC: 'assets/Vector.svg',
-      cardMainTitle: 'ILP Batch 01',
-      cardFirstSubTitle: '12 trainees',
-      cardSecondSubTitle: 'BA batch',
-      cardLeftText: 'Completed',
-      cardStatusFlag: 'red',
+      batch_name: 'ILP Batch 01',
+      batch_strength: '12',
+      batch_type_name: 'BA batch',
+      is_active: true,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
     },
     {
       cardMainIconSRC: 'assets/Vector.svg',
-      cardMainTitle: 'ILP Batch 02',
-      cardFirstSubTitle: '34 trainees',
-      cardSecondSubTitle: 'Developer batch',
-      cardLeftText: 'Completed',
-      cardStatusFlag: 'red',
+      batch_name: 'ILP Batch 02',
+      batch_strength: '34',
+      batch_type_name: 'Developer batch',
+      is_active: true,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
     },
     {
       cardMainIconSRC: 'assets/Vector.svg',
-      cardMainTitle: 'ILP Batch 01',
-      cardFirstSubTitle: '39 trainees',
-      cardSecondSubTitle: 'Developer batch',
-      cardLeftText: 'Completed',
-      cardStatusFlag: 'red',
+      batch_name: 'ILP Batch 01',
+      batch_strength: '39',
+      batch_type_name: 'Developer batch',
+      is_active: true,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
     }
   ];
+  constructor() {
+    this.setRequestStatusInHistory();
+  }
 
+  setRequestStatusInHistory() {
+    this.batches.forEach(request => {
+      if (request.is_active) {
+        request.cardLeftText = 'Active';
+      } else {
+        request.cardLeftText = 'Inactive';
+      }
+    });
+  }
 }

@@ -4,16 +4,15 @@
       <img [src]="elements.cardMainIconSRC" class="custom-batch-icon">
     </div>
     <div class="card-writings col-8 d-flex flex-column justify-content-center  align-items-start" >
-      <h5 class="card-title text-left  custom-title">{{elements.cardMainTitle}}</h5>
-      <p class="m-0 card-small-sub-title ">{{elements.cardSmallSubTitle}}</p>
-      <p class="card-text text-left mb-0 custom-text">{{elements.cardFirstSubTitle}}</p>
-      <p class="card-text text-left custom-text">{{elements.cardSecondSubTitle}}</p>
+      <h5 class="card-title text-left  custom-title">{{elements.assessment_title}}</h5>
+      <p class="card-text text-left mb-0 custom-text">{{elements.post_date}}</p>
+      <p class="card-text text-left custom-text">Due by {{elements.due_date}}</p>
     </div>
     <div class="col-2 d-flex flex-column justify-content-end align-items-start ">
       <div class="d-flex flex-row align-items-center justify-content-start custom-icon-and-text" >
         <p></p>
-        <p [ngStyle]="{'color': getLeftIconColor(elements.cardStatusFlag)}"  class="custom-status-icon mb-3 mx-2"><i class="{{elements.cardLeftIcon}}"></i></p>
-        <p class="custom-status {{ getLeftIconColor(elements.cardStatusFlag)}}">{{elements.cardLeftText}}</p>
+        <p class="custom-status-icon mb-3 mx-2"><i class="{{elements.cardLeftIcon}}"></i></p>
+        <p class="custom-status">{{elements.totalCountOfTrainees}}/{{elements.totalSubmits}}</p>
       </div>
     </div>
   </div>

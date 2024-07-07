@@ -4,7 +4,7 @@
       <app-dropdown [dropDownLabel]="'ILP Batch 04'" [dropDownElements]="['ILP Batch 03', 'ILP Batch 02', 'ILP Batch 01']" ></app-dropdown>
     </div>
     <div class="col-12 d-flex justify-content-between align-items-center py-5">
-      <h4>Assignments</h4>
+      <h4>Assessments</h4>
       <div class="left-button-dropdown d-flex flex-row justify-content-between">
         <app-button [buttonLabel]="'Create new'" class="custom-button"></app-button>
       </div>
@@ -12,15 +12,15 @@
   </div>
   <div class="assignments d-flex flex-column gap-2">
     <div class="pending-assignments">
-      <h5 class="mb-5">Pending Assignments</h5>
+      <h5 class="mb-5">Pending Assessments</h5>
       <div class="card-container d-flex flex-column">
-        <app-listing-card [cardItems]="pendingAssignments"></app-listing-card>
+        <app-assignment-listing-card [cardItems]="pendingAssignments"></app-assignment-listing-card>
        </div>
     </div>
     <div class="completed-assignments mt-5">
-        <h5 class="mb-5">Completed Assignments</h5>
+        <h5 class="mb-5">Completed Assessments</h5>
         <div class="card-container d-flex flex-column">
-        <app-listing-card [cardItems]="completedAssignments"></app-listing-card>
+        <app-assignment-listing-card [cardItems]="completedAssessments"></app-assignment-listing-card>
         <div class="completed-assignments d-flex flex-column align-items-end">
             <p>view all <i class="bi bi-arrow-right"></i></p>
           </div>

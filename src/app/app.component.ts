@@ -2,7 +2,7 @@ import { LeaveRequestComponent } from './pages/leave-request/leave-request.compo
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonComponent } from "./components/button/button.component";
-import { ListingCardComponent } from "./components/listing-card/listing-card.component";
+import { ListingCardComponent } from "./components/batch-listing-card/batch-listing-card.component";
 import { BatchListingComponent } from "./pages/batch-listing/batch-listing.component";
 import { AssignmentListingComponent } from "./pages/assignment-listing/assignment-listing.component";
 import { DropdownComponent } from "./components/dropdown/dropdown.component";

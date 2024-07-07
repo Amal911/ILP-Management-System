@@ -1,80 +1,109 @@
 import { Component } from '@angular/core';
 import { DropdownComponent } from "../../components/dropdown/dropdown.component";
 import { ButtonComponent } from "../../components/button/button.component";
-import { ListingCardComponent } from "../../components/listing-card/listing-card.component";
+import { ListingCardComponent } from "../../components/batch-listing-card/batch-listing-card.component";
+import { LeaveRequestCardComponent } from "../../components/leave-request-card/leave-request-card.component";
 
 @Component({
     selector: 'app-leave-request',
     standalone: true,
     templateUrl: './leave-request.component.html',
     styleUrl: './leave-request.component.scss',
-    imports: [DropdownComponent, ButtonComponent, ListingCardComponent]
+    imports: [DropdownComponent, ButtonComponent, ListingCardComponent, LeaveRequestCardComponent]
 })
 export class LeaveRequestComponent {
   pendingLeaveRequests = [
     {
       cardMainIconSRC: 'assets/Leave-request.svg',
-      cardMainTitle: 'Amal E A',
-      cardSmallSubTitle: 'ILP Batch 03 2023-24',
-      cardFirstSubTitle: 'Sick leave',
-      cardSecondSubTitle: 'Requested for 14 May',
-      cardLeftText: 'Trainer Approved',
-      cardStatusFlag: 'green',
+      name: 'Amal E A',
+      batch_name: 'ILP Batch 03 2023-24',
+      description: 'Sick leave',
+      leave_date_from: '2024-07-11',
+      leave_date_to: '2024-07-12',
+      is_approved_trainer: true,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
     },
     {
       cardMainIconSRC: 'assets/Leave-request.svg',
-      cardMainTitle: 'Devipriya MS',
-      cardSmallSubTitle: 'ILP Batch 03 2023-24',
-      cardFirstSubTitle: 'Sick leave',
-      cardSecondSubTitle: 'Requested for 10 May',
-      cardLeftText: 'Trainer Approved',
-      cardStatusFlag: 'green',
+      name: 'Devipriya MS',
+      batch_name: 'ILP Batch 03 2023-24',
+      description: 'Sick leave',
+      leave_date_from: '2024-07-11',
+      leave_date_to: '2024-07-11',
+      is_approved_trainer: true,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
     },
     {
       cardMainIconSRC: 'assets/Leave-request.svg',
-      cardMainTitle: 'Reshmi M',
-      cardSmallSubTitle: 'ILP Batch 03 2023-24',
-      cardFirstSubTitle: 'Sick leave',
-      cardSecondSubTitle: 'Requested for 7 May',
-      cardLeftText: 'Trainer Rejected',
-      cardStatusFlag: 'red',
+      name: 'Reshmi M',
+      batch_name: 'ILP Batch 03 2023-24',
+      description: 'Sick leave',
+      leave_date_from: '2024-07-11',
+      leave_date_to: '2024-07-11',
+      is_approved_trainer: false,
+      cardLeftText: '',
       cardLeftIcon: 'bi bi-circle-fill'
-    }
-  ];
+    }];
 
-  leaveRequestHistory = [
-    {
-      cardMainIconSRC: 'assets/Leave-request.svg',
-      cardMainTitle: 'Amal E A',
-      cardSmallSubTitle: 'ILP Batch 03 2023-24',
-      cardFirstSubTitle: '20 June 2024',
-      cardSecondSubTitle: 'Due by 11:00 PM 23 June 2024',
-      cardLeftText: 'Trainer Approved',
-      cardStatusFlag: 'green',
-      cardLeftIcon: 'bi bi-circle-fill',
-      getLeftIconColor: ('green')
-    },
-    {
-      cardMainIconSRC: 'assets/Leave-request.svg',
-      cardMainTitle: 'Devipriya MS',
-      cardSmallSubTitle: 'ILP Batch 03 2023-24',
-      cardFirstSubTitle: '18 June 2024',
-      cardSecondSubTitle: 'Due by 11:00 PM 20 June 2024',
-      cardLeftText: 'Trainer Rejected',
-      cardStatusFlag: 'red',
-      cardLeftIcon: 'bi bi-circle-fill'
-    },
-    {
-      cardMainIconSRC: 'assets/Leave-request.svg',
-      cardMainTitle: 'Reshmi M',
-      cardSmallSubTitle: 'ILP Batch 03 2023-24',
-      cardFirstSubTitle: '1 June 2024',
-      cardSecondSubTitle: 'Due by 11:00 PM 13 June 2024',
-      cardLeftText: 'Trainer Rejected',
-      cardStatusFlag: 'red',
-      cardLeftIcon: 'bi bi-circle-fill'
-    }
-  ];
+    leaveRequestHistory = [
+      {
+        cardMainIconSRC: 'assets/Leave-request.svg',
+        name: 'Amal E A',
+        batch_name: 'ILP Batch 03 2023-24',
+        description: 'Sick leave',
+        leave_date_from: '2024-07-11',
+        leave_date_to: '2024-07-11',
+        is_approved_trainer: true,
+        cardLeftText: '',
+        cardLeftIcon: 'bi bi-circle-fill'
+      },
+      {
+        cardMainIconSRC: 'assets/Leave-request.svg',
+        name: 'Devipriya MS',
+        batch_name: 'ILP Batch 03 2023-24',
+        description: 'Sick leave',
+        leave_date_from: '2024-07-11',
+        leave_date_to: '2024-07-11',
+        is_approved_trainer: false,
+        cardLeftText: '',
+        cardLeftIcon: 'bi bi-circle-fill'
+      },
+      {
+        cardMainIconSRC: 'assets/Leave-request.svg',
+        name: 'Reshmi M',
+        batch_name: 'ILP Batch 03 2023-24',
+        description: 'Sick leave',
+        leave_date_from: '2024-07-11',
+        leave_date_to: '2024-07-11',
+        is_approved_trainer: false,
+        cardLeftText: '',
+        cardLeftIcon: 'bi bi-circle-fill'
+      }
+    ];
+  constructor() {
+    this.setRequestStatus();
+    this.setRequestStatusInHistory();
+
+  }
+  setRequestStatus() {
+    this.pendingLeaveRequests.forEach(request => {
+      if (request.is_approved_trainer) {
+        request.cardLeftText = 'Trainer Approved';
+      } else {
+        request.cardLeftText = 'Trainer Rejected';
+      }
+    });
+  }
+  setRequestStatusInHistory() {
+    this.leaveRequestHistory.forEach(request => {
+      if (request.is_approved_trainer) {
+        request.cardLeftText = 'Trainer Approved';
+      } else {
+        request.cardLeftText = 'Trainer Rejected';
+      }
+    });
+  }
+
 }

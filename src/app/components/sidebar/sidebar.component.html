@@ -1,1 +1,18 @@
-<p>sidebar works!</p>
+<nav class="sidebar">
+    <div class="experion_logo">
+        <img src="assets\Logo-in-white-1 1.svg" alt="experion logo">
+    </div>
+    <div class="sidebar-contents">
+        <ul>
+            @for (item of getSidebarItems(); track item.name) {
+            <li>
+                <!-- <a [routerLink]="item.link">{{ item.name }}</a> -->
+                <a>
+                    <i [class]="item.icon"></i>
+                    {{ item.name }}
+                </a>
+            </li>
+            }
+        </ul>
+    </div>
+</nav>

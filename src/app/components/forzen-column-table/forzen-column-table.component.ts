@@ -20,6 +20,9 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 export class ForzenColumnTableComponent {
 
   @Input() tableTitle:string='Total Score'
+
+  @Input() tableData:any;
+
   balanceFrozen: boolean = false;
 
     // customers!: Customer[];
@@ -27,11 +30,8 @@ export class ForzenColumnTableComponent {
     constructor() {}
 
     ngOnInit() {
-       
-    }
-
-    formatCurrency(value: number) {
-        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+       console.log(this.tableData)
+       console.log(this.customer)
     } 
 
     customer = [

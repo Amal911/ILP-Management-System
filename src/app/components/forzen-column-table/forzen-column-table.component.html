@@ -2,37 +2,32 @@
   <div id="table">
     <h5>{{tableTitle}}</h5>
     <p-table
-      [value]="customer"
+      [value]="tableData"
       [scrollable]="true"
-      scrollHeight="400px"
+      scrollHeight="1000px"
       styleClass="mt-3"
     >
       <ng-template pTemplate="header">
         <tr>
           <th style="min-width: 50px" pFrozenColumn>Id</th>
-          <th style="min-width: 200px" pFrozenColumn>Name</th>
-          <th style="min-width: 200px">Country</th>
-          <th style="min-width: 200px">Date</th>
-          <th style="min-width: 200px">Company</th>
-          <th style="min-width: 200px">Status</th>
-          <th style="min-width: 200px">Activity</th>
-          <th style="min-width: 200px">Representative</th>
-          <th style="min-width: 200px">Balance</th>
+          <th style="min-width: 100px" pFrozenColumn>Name</th>
+          <th style="min-width: 50px">Daily Assessment</th>
+          <th style="min-width: 50px">Live Assessment</th>
+          <th style="min-width: 50px">Module Assessment</th>
+          <th style="min-width: 50px">Case Study</th>
+          <th style="min-width: 50px">Project</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-customer>
+      <ng-template pTemplate="body" let-data>
         <tr>
-          <td style="min-width: 100px" pFrozenColumn>{{ customer.id }}</td>
-          <td pFrozenColumn>{{ customer.name }}</td>
-          <td>{{ customer.country.name }}</td>
-          <td>{{ customer.date }}</td>
-          <td>{{ customer.company }}</td>
-          <td>{{ customer.status }}</td>
-          <td>{{ customer.activity }}</td>
-          <td>{{ customer.representative.name }}</td>
-          <td alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen">
-            {{ formatCurrency(customer.balance) }}
-          </td>
+          <td style="min-width: 100px" pFrozenColumn>{{ data.id }}</td>
+          <td pFrozenColumn>{{ data.name }}</td>
+          <td>{{ data.daily_assessment }}</td>
+          <td>{{ data.live_assessment }}</td>
+          <td>{{ data.module_assessment }}</td>
+          <td>{{ data.case_study }}</td>
+          <td>{{ data.project }}</td>
+
         </tr>
       </ng-template>
     </p-table>

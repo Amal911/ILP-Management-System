@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DoughnutGraphChartComponent } from '../doughnut-graph-chart/doughnut-graph-chart.component';
 interface ScoreCardData{
   title:string;
@@ -14,7 +14,7 @@ interface ScoreCardData{
 
 export class DoughnutGraphCarouselComponent {
   
-  scoreCardData:ScoreCardData[] = [
+  @Input() scoreCardData:ScoreCardData[] = [
     {
       title:'Total',
       score:85

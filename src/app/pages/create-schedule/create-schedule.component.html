@@ -1,0 +1,43 @@
+<div class="container d-flex flex-row p-0">
+  <div class="sidebar"></div>
+  <div class="schedule-container">
+    <div class="dropdown-container d-flex flex-row justify-content-end mx-5">
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle mb-5"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Dropdown button
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle mb-5"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Dropdown button
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </div>
+    </div>
+    <app-schedule-operations
+      [scheduleOperation]="'CREATE SCHEDULE'"
+      [showDropdownButtons]="true"
+    ></app-schedule-operations>
+  </div>
+</div>

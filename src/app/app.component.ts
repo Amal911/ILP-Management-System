@@ -1,17 +1,36 @@
-import { Component } from '@angular/core';
+import { LeaveRequestComponent } from './pages/leave-request/leave-request.component';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ButtonComponent } from './components/button/button.component';
+import { ListingCardComponent } from './components/batch-listing-card/batch-listing-card.component';
+import { BatchListingComponent } from './pages/batch-listing/batch-listing.component';
+import { AssignmentListingComponent } from './pages/assignment-listing/assignment-listing.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { AccountComponent } from './pages/account/account.component';
-import { SidebarComponent } from "./components/sidebar/sidebar.component";
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { UserService } from './services/user.service';
 import { CommonModule } from '@angular/common';
-import { TopbarComponent } from "./components/topbar/topbar.component";
+import { TopbarComponent } from './components/topbar/topbar.component';
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.scss',
-    imports: [RouterOutlet, SidebarComponent, CommonModule, TopbarComponent, AccountComponent]
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+  imports: [
+    RouterOutlet,
+    ButtonComponent,
+    ListingCardComponent,
+    BatchListingComponent,
+    AssignmentListingComponent,
+    DropdownComponent,
+    LeaveRequestComponent,
+    SidebarComponent,
+    CommonModule,
+    TopbarComponent,
+    AccountComponent,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent {
   title = 'ilp-management-system';

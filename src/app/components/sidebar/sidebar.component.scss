@@ -1,0 +1,56 @@
+.sidebar {
+    width: 18vw;
+    display: flex;
+    flex-direction: column;
+    background-color: #1f2a48;
+    color: #ffffff;
+    position: fixed;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+
+    .experion_logo {
+        display: flex;
+        justify-content: center;
+
+        img {
+            padding-top: 30%;
+            padding-bottom: 30%;
+
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+    }
+
+    .sidebar-contents {
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+
+            li {
+                padding: .8rem;
+                font-size: 1rem;
+
+                &:hover {
+                    background-color: #3066be;
+                    border-radius: .5rem;
+                    cursor: pointer;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: #ffffff;
+                    display: flex;
+                    align-items: center;
+
+                    i {
+                        padding-right: 8%;
+                        padding-left: 6%;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -5,8 +5,24 @@ import { User } from '../interfaces/user';
 @Injectable({
   providedIn: 'root'
 })
-
 export class UserService {
+  private currentUser: any = null;
+
+  constructor() { }
+
+  setCurrentUser(user: any) {
+    this.currentUser = user;
+  }
+
+  getCurrentUser() {
+    return this.currentUser;
+  }
+  getUserName() {
+    return this.currentUser ? this.currentUser.name : null;
+  }
+  getUserRole() {
+    return this.currentUser ? this.currentUser.role : null;
+  }
 
   private users: User[] = [{
     "trainees": [
@@ -70,11 +86,9 @@ export class UserService {
         "id": 10,
         "name": "Kavita",
       },
-  
+
     ]
   }]
-
-  constructor() { }
 
   getUsers(): Observable<User[]> {
     return of(this.users);

@@ -1,1 +1,43 @@
-<p>login works!</p>
+<div class="row login-page">
+    <div class="col image-container h-100">
+        <img src="images/Rectangle 3.svg" alt="firstLogin SVG" class="svg-image first-image">
+        <img src="images/Rectangle 9.svg" alt="secondLogin SVG" class="svg-image second-image">
+    </div>
+    <div class="col d-flex justify-content-center align-items-center h-100">
+        <div class="card login-card">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-group d-flex justify-content-center">
+                    <img src="images/logindemo.png" alt="Logo" class="form-image">
+                </div>
+                <div class="form-group justify-content-center">
+                    <input type="text" class="form-control" formControlName="email" placeholder="Email Id" required>
+                    <div *ngIf="(loginForm.controls['email'].touched||submitted )&&loginForm.controls ['email'].errors?.['required']"
+                        class="validation-message">
+                        This is a required field.
+                    </div>
+                    <div *ngIf="(loginForm.controls['email'].touched||submitted )&&loginForm.controls['email'].errors?.['email']"
+                        class="validation-message">
+                        Please enter a valid email.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" formControlName="password" placeholder="Password"
+                        required>
+                    <div *ngIf="(loginForm.controls['password'].touched ||submitted )&&loginForm.controls['password'].errors?.['required']"
+                        class="validation-message">
+                        This is a required field
+                    </div>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <input class="btn btn-primary" type="submit" value="LOGIN">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- @if ((loginForm.controls.username.touched || submitted)
+&&loginForm.controls.username.errors?.required) -->

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarComponent } from "../../components/sidebar/sidebar.component";
+
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { SelectDropdownComponent } from '../../components/select-dropdown/select-dropdown.component';
 import { NgIf } from '@angular/common';
@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
   standalone: true,
   templateUrl: './assignments.component.html',
   styleUrls: ['./assignments.component.scss'],
-  imports: [SidebarComponent, ReactiveFormsModule, SelectDropdownComponent, NgIf, FormsModule]
+  imports: [ ReactiveFormsModule, SelectDropdownComponent, NgIf, FormsModule]
 })
 export class AssignmentsComponent implements OnInit {
   assignmentForm!: FormGroup;

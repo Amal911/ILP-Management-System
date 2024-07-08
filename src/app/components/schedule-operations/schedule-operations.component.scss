@@ -1,12 +1,17 @@
+.schedule-operation-container{
+  background-color: #ffffff;
+  width:80%;
+  box-shadow: 0 0 10px rgb(0, 0, 0,0.1);
+}
 .custom-input {
   width: 100%;
   background-color: #F5FAFF;
   color: #000;
   border:none;
   border-bottom: 2px solid #000;
+
 }
-.schedule-operation-container{
-  background-color: #ffffff;
-  width:90%;
-  height: 60%;
+input:focus,input:active,textarea:focus,textarea:active,.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none;
 }

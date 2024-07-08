@@ -1,4 +1,4 @@
-<div class="container schedule-operation-container mb-1 p-1">
+<div class="container schedule-operation-container mb-1 p-5">
   <div
     class="container d-flex flex-row justify-content-between align-items-center mt-5"
   >
@@ -14,7 +14,7 @@
           <label for="exampleInputEmail1" class="form-label">Title</label>
           <input
             type="text"
-            class="form-control mb-5 custom-input"
+            class="form-control custom-input"
             formControlName="title"
             id="titleInput"
             aria-describedby="emailHelp"
@@ -29,105 +29,14 @@
             "
           >
             <span *ngIf="scheduleForm.get('title')?.errors?.['required']"
-              >This is a required field</span
+              >*This is a required field</span
             >
             <span *ngIf="scheduleForm.get('title')?.errors?.['minlength']"
-              >This field must be at least 5 characters long</span
+              >*This field must be at least 5 characters long</span
             >
           </div>
         </div>
 
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label"
-            >Description</label
-          >
-          <input
-            type="text"
-            class="form-control mb-5 custom-input"
-            formControlName="description"
-            id="descriptionInput"
-          />
-          <div
-            class="text-danger"
-            *ngIf="
-              scheduleForm.get('description')?.invalid &&
-              (isFormSubmitted ||
-                scheduleForm.get('description')?.touched ||
-                scheduleForm.get('description')?.dirty)
-            "
-          >
-            <span *ngIf="scheduleForm.get('description')?.errors?.['required']"
-              >This is a required field</span
-            >
-            <span *ngIf="scheduleForm.get('description')?.errors?.['minlength']"
-              >This field must be at least 5 characters long</span
-            >
-            <span *ngIf="scheduleForm.get('description')?.errors?.['maxlength']"
-              >This field must not exceed 500 characters</span
-            >
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <button
-            class="btn btn-secondary dropdown-toggle mb-5"
-            type="button"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Dropdown button
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </div>
-
-        <div class="dropdown">
-          <button
-            class="btn btn-secondary dropdown-toggle mb-5"
-            type="button"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Dropdown button
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-6 gap-2">
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Date</label>
-          <input
-            type="date"
-            class="form-control mb-5 custom-input"
-            formControlName="date"
-            id="dateInput"
-          />
-          <div
-            class="text-danger"
-            *ngIf="
-              scheduleForm.get('date')?.invalid &&
-              (isFormSubmitted ||
-                scheduleForm.get('date')?.touched ||
-                scheduleForm.get('date')?.dirty)
-            "
-          >
-            <span *ngIf="scheduleForm.get('date')?.errors?.['required']"
-              >This is a required field</span
-            >
-            <span *ngIf="scheduleForm.get('date')?.errors?.['dateNotInPast']"
-              >Please choose a future date</span
-            >
-          </div>
-        </div>
 
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label"
@@ -135,7 +44,7 @@
           >
           <input
             type="time"
-            class="form-control mb-5 custom-input"
+            class="form-control custom-input"
             formControlName="startTime"
             id="startingTime"
           />
@@ -149,9 +58,8 @@
             "
           >
             <span *ngIf="scheduleForm.get('startTime')?.errors?.['required']"
-              >This is a required field</span
+              >*This is a required field</span
             >
-            <!-- <span *ngIf="scheduleForm.get('startTime')?.errors?.['timeOutsideOfficeHours']">Please choose a time within office hours (9:00 AM - 6:00 PM)</span> -->
           </div>
         </div>
 
@@ -161,7 +69,7 @@
           >
           <input
             type="time"
-            class="form-control mb-5 custom-input"
+            class="form-control custom-input"
             formControlName="endTime"
             id="startingTime"
           />
@@ -175,16 +83,121 @@
             "
           >
             <span *ngIf="scheduleForm.get('endTime')?.errors?.['required']"
-              >This is a required field</span
+              >*This is a required field</span
             >
-            <!-- <span *ngIf="scheduleForm.get('startTime')?.errors?.['timeOutsideOfficeHours']">Please choose a time within office hours (9:00 AM - 6:00 PM)</span> -->
           </div>
         </div>
+
+        <div class="col-md-12 d-flex justify-content-start gap-1">
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle mb-5"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle mb-5"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-md-6 gap-2">
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Date</label>
+          <input
+            type="date"
+            class="form-control custom-input"
+            formControlName="date"
+            id="dateInput"
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              scheduleForm.get('date')?.invalid &&
+              (isFormSubmitted ||
+                scheduleForm.get('date')?.touched ||
+                scheduleForm.get('date')?.dirty)
+            "
+          >
+            <span *ngIf="scheduleForm.get('date')?.errors?.['required']"
+              >*This is a required field</span
+            >
+            <span *ngIf="scheduleForm.get('date')?.errors?.['dateNotInPast']"
+              >*Please choose a future date</span
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Description</label
+          >
+          <textarea
+            type="text"
+            class="form-control custom-input"
+            formControlName="description"
+            id="descriptionInput"
+            rows="5"
+          ></textarea>
+          <div
+            class="text-danger"
+            *ngIf="
+              scheduleForm.get('description')?.invalid &&
+              (isFormSubmitted ||
+                scheduleForm.get('description')?.touched ||
+                scheduleForm.get('description')?.dirty)
+            "
+          >
+            <span *ngIf="scheduleForm.get('description')?.errors?.['required']"
+              >*This is a required field</span
+            >
+            <span *ngIf="scheduleForm.get('description')?.errors?.['minlength']"
+              >*This field must be at least 5 characters long</span
+            >
+            <span *ngIf="scheduleForm.get('description')?.errors?.['maxlength']"
+              >*This field must not exceed 500 characters</span
+            >
+          </div>
+        </div>
+
+
+
+
+
+
+
       </div>
 
-      <div class="col-md-12 d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary mx-5">cancel</button>
-        <button type="submit" class="btn btn-primary mx-5" (click)="onSubmit()">
+
+
+      <div class="col-md-12 d-flex justify-content-end gap-5">
+        <button type="submit" class="btn btn-primary">cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">
           Submit
         </button>
       </div>

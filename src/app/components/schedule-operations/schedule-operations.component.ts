@@ -33,26 +33,22 @@ export class ScheduleOperationsComponent implements OnInit {
   }
   dateNotInPast(control: AbstractControl): { [key: string]: boolean } | null {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set time to 00:00:00.000
+    today.setHours(0, 0, 0, 0);
     const selectedDate = new Date(control.value);
-    selectedDate.setHours(0, 0, 0, 0); // Set time to 00:00:00.000
+    selectedDate.setHours(0, 0, 0, 0);
 
     if (selectedDate.getTime() < today.getTime()) {
       return { 'dateNotInPast': true };
     }
     return null;
   }
-  // timeOutsideOfficeHours(control: AbstractControl): { [key: string]: boolean } | null {
-  //   const time = control.value;
-  //   const [hours, minutes] = time.split(':').map(Number);
-  //   if (hours < 9 || (hours === 18 && minutes > 0) || hours > 18) {
-  //     return { 'timeOutsideOfficeHours': true };
-  //   }
-  //   return null;
-  // }
-  onSubmit(){
-   const isFormValid=this.scheduleForm.valid;
-   this.isFormSubmitted=true;
+  onSubmit():void{
+    this.isFormSubmitted = true;
+    if (this.scheduleForm.valid) {
+      console.log(this.scheduleForm.value);
+    } else {
+      console.log('Form is invalid');
+    }
 
 }}
 

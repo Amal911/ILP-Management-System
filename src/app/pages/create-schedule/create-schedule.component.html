@@ -1,0 +1,181 @@
+<div class="top-margin"></div>
+<div class="d-flex flex-row">
+    <div class="sidebar mr-5">
+    </div>
+    <div class="col-md-9 mb-3 ml-5">
+        <div class="container mt-5">
+            <form [formGroup]="createScheduleForm" (ngSubmit)="onSubmit()">
+
+                <div class="d-flex flex-row justify-content-end mx-0 gap-2">
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label>Program</label>
+                                <select class="form-control" formControlName="program" name="program">
+                                    <option value="">Select Program</option>
+                                    <option value="program1">ILP Batch 2023-24</option>
+                                    <option value="program2">ILP Batch 2022-23</option>
+                                </select>
+                                <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
+                                    class="text-danger">
+                                    <div *ngIf="createScheduleForm.get('module')?.errors?.['required']">Module
+                                        is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-1 ">
+                        <div class="col-md-6 mb-3 ">
+                            <div class="form-group">
+                                <label>Batch</label>
+                                <select class="form-control" formControlName="batch" name="batch">
+                                    <option value="">Select Batch</option>
+                                    <option value="batch1">Batch 1</option>
+                                    <option value="batch2">Batch 2</option>
+                                </select>
+                                <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
+                                    class="text-danger">
+                                    <div *ngIf="createScheduleForm.get('module')?.errors?.['required']">Module
+                                        is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-column h-12rem">
+                    <div class="">
+                        <div class="form-container">
+                            <div class="d-flex flex-row justify-content-between">
+                                <div class="page-title">
+                                    <h2>CREATE SCHEDULE</h2>
+                                </div>
+                                <div class="upload-button justify-content-between">
+                                    <button class="btn btn-outline-secondary"><i class="bi bi-plus"></i>Upload
+                                        Schedule</button>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label>Title</label>
+                                        <input type="text" class="form-control" formControlName="title" name="title">
+                                        <div *ngIf="createScheduleForm.get('title')?.invalid && createScheduleForm.get('title')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('title')?.errors?.['required']">Title is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label>Date</label>
+                                        <input type="date" class="form-control" formControlName="date" name="date">
+                                        <div *ngIf="createScheduleForm.get('date')?.invalid && createScheduleForm.get('date')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('date')?.errors?.['required']">Date is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group mt-3">
+                                        <label>Description</label>
+                                        <input type="text" class="form-control" formControlName="description"
+                                            name="description">
+                                        <div *ngIf="createScheduleForm.get('description')?.invalid && createScheduleForm.get('description')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('description')?.errors?.['required']">
+                                                Description
+                                                is
+                                                required.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group mt-3">
+                                        <label>Start Time</label>
+                                        <input type="time" class="form-control" formControlName="startTime"
+                                            name="startTime">
+                                        <div *ngIf="createScheduleForm.get('startTime')?.invalid && createScheduleForm.get('startTime')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('startTime')?.errors?.['required']">Start
+                                                Time is
+                                                required.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group mt-3">
+                                        <label>Module</label>
+                                        <select class="form-control" formControlName="module" name="module">
+                                            <option value="">Select Module</option>
+                                            <option value="module1">Module 1</option>
+                                            <option value="module2">Module 2</option>
+                                        </select>
+                                        <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('module')?.errors?.['required']">Module
+                                                is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group mt-3">
+                                        <label>End Time</label>
+                                        <input type="time" class="form-control" formControlName="endTime"
+                                            name="endTime">
+                                        <div *ngIf="createScheduleForm.get('endTime')?.invalid && createScheduleForm.get('endTime')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('endTime')?.errors?.['required']">End
+                                                Time is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group mt-3">
+                                        <label>Trainer</label>
+                                        <select class="form-control" formControlName="trainer" name="trainer">
+                                            <option value="">Select Trainer</option>
+                                            <option value="trainer1">Trainer 1</option>
+                                            <option value="trainer2">Trainer 2</option>
+                                        </select>
+                                        <div *ngIf="createScheduleForm.get('trainer')?.invalid && createScheduleForm.get('trainer')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('trainer')?.errors?.['required']">Trainer
+                                                is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="d-flex flex-row gap-3 mt-5 mb-3">
+                                <button type="button" class="btn btn-secondary ml-2" routerLink="">Cancel</button>
+                                <button type="submit" class="btn btn-primary ml-5">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

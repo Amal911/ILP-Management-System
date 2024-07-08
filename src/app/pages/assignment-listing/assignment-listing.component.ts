@@ -14,61 +14,49 @@ import { AssignmentListingCardComponent } from "../../components/assignment-list
 export class AssignmentListingComponent {
   pendingAssignments = [
     {
-      cardMainIconSRC: 'assets/AssignmentListingMainIcon.png',
       assessment_title: 'GG Hospital',
       post_date: '20-June 2024',
       due_date: '11/10/2024',
       totalCountOfTrainees: '38',
       totalSubmits:'21',
-      cardLeftIcon: 'bi bi-people-fill fs-5',
     },
     {
-      cardMainIconSRC: 'assets/AssignmentListingMainIcon.png',
       assessment_title: 'Portfolio',
       post_date: '18-June 2024',
       due_date: '20-June-2024 11:00 PM',
       totalCountOfTrainees: '38',
       totalSubmits: '3',
-      cardLeftIcon: 'bi bi-people-fill fs-5'
     },
     {
-      cardMainIconSRC: 'assets/AssignmentListingMainIcon.png',
       assessment_title: 'Case Study',
       post_date: '1-June 2024',
       due_date: '13-June-2024 11:00 PM',
       totalCountOfTrainees: '38',
       totalSubmits: '7',
-      cardLeftIcon: 'bi bi-people-fill fs-5'
     }
   ];
 
   completedAssessments = [
     {
-      cardMainIconSRC: 'assets/AssignmentListingMainIcon.png',
       assessment_title: 'GG Hospital',
       post_date: '20-June 2024',
       due_date: '23-June-2024 11:00 PM',
       totalCountOfTrainees: '38',
       totalSubmits: '21',
-      cardLeftIcon: 'bi bi-people-fill fs-5'
     },
     {
-      cardMainIconSRC: 'assets/AssignmentListingMainIcon.png',
       assessment_title: 'Portfolio',
       post_date: '18-June 2024',
       due_date: '20-June-2024 11:00 PM',
       totalCountOfTrainees: '38',
       totalSubmits: '3',
-      cardLeftIcon: 'bi bi-people-fill fs-5'
     },
     {
-      cardMainIconSRC: 'assets/AssignmentListingMainIcon.png',
       assessment_title: 'Portfolio',
       post_date: '18-June 2024',
       due_date: '20-June-2024 11:00 PM',
       totalCountOfTrainees: '38',
       totalSubmits: '3',
-      cardLeftIcon: 'bi bi-people-fill fs-5'
     },
   ];
   constructor(){}

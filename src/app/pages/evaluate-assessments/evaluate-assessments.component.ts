@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { evaluateAssessmentData } from '../../../models/evaluateAssessmentData.interface';
 
 @Component({
   selector: 'app-evaluate-assessments',
@@ -11,13 +12,16 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 })
 export class EvaluateAssessmentsComponent {
 
-  links:string[]=["https://google.com","https://wikipedia.com","https://google.com"];
-  docs:string[]=["Screenshot.png","Document.pdf"];
-  totalMarks:number=100;
-  assignmentTitle:string="OOPS Assignment";
-  submittedBy:string="Kailas Nadh J";
-  submittedOn:string="27 June 2024";
-  submittedAt:string="17:30";
+  @Input() assessment:evaluateAssessmentData = {
+    links: ["https://google.com", "https://wikipedia.com", "https://google.com"],
+    docs: ["Screenshot.png", "Document.pdf"],
+    totalMarks: 100,
+    assessmentTitle: "OOPS Assignment",
+    submittedBy: "Kailas Nadh J",
+    submittedOn: "27 June 2024",
+    submittedAt: "17:30"
+  };
+  
 
   public evaluateAssessmentForm= new FormGroup({
     score: new FormControl('',[Validators.required]),

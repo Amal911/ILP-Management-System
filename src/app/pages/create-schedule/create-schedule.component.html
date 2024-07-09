@@ -13,8 +13,10 @@
                                 <label>Program</label>
                                 <select class="form-control" formControlName="program" name="program">
                                     <option value="">Select Program</option>
-                                    <option value="program1">ILP Batch 2023-24</option>
-                                    <option value="program2">ILP Batch 2022-23</option>
+                                    @for(program of programs;track program){
+                                        <option value="{{program.name}}">{{program.name}}</option>
+
+                                    }
                                 </select>
                                 <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
                                     class="text-danger">
@@ -32,8 +34,10 @@
                                 <label>Batch</label>
                                 <select class="form-control" formControlName="batch" name="batch">
                                     <option value="">Select Batch</option>
-                                    <option value="batch1">Batch 1</option>
-                                    <option value="batch2">Batch 2</option>
+                                    @for(batch of batches;track batch){
+                                        <option value="{{batch.name}}">{{batch.name}}</option>
+
+                                    }
                                 </select>
                                 <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
                                     class="text-danger">
@@ -120,8 +124,10 @@
                                         <label>Module</label>
                                         <select class="form-control" formControlName="module" name="module">
                                             <option value="">Select Module</option>
-                                            <option value="module1">Module 1</option>
-                                            <option value="module2">Module 2</option>
+                                            @for(module of modules;track module){
+                                                <option value="{{module.name}}">{{module.name}}</option>
+        
+                                            }
                                         </select>
                                         <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
                                             class="text-danger">
@@ -153,8 +159,10 @@
                                         <label>Trainer</label>
                                         <select class="form-control" formControlName="trainer" name="trainer">
                                             <option value="">Select Trainer</option>
-                                            <option value="trainer1">Trainer 1</option>
-                                            <option value="trainer2">Trainer 2</option>
+                                            @for(trainer of trainers;track trainer){
+                                                <option value="{{trainer.name}}">{{trainer.name}}</option>
+        
+                                            }
                                         </select>
                                         <div *ngIf="createScheduleForm.get('trainer')?.invalid && createScheduleForm.get('trainer')?.touched"
                                             class="text-danger">

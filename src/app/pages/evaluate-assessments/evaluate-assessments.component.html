@@ -13,35 +13,35 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label>Title</label>
-                                        <p>{{assignmentTitle}}</p>
+                                        <p>{{assessment.assessmentTitle}}</p>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label>Submitted by</label>
-                                        <p>{{submittedBy}}</p>
+                                        <p>{{assessment.submittedBy}}</p>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label>Submitted on</label>
-                                        <p>{{submittedOn}}</p>
+                                        <p>{{assessment.submittedOn}}</p>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label>Submitted at</label>
-                                        <p>{{submittedAt}}</p>
+                                        <p>{{assessment.submittedAt}}</p>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label>Links submitted</label>
-                                        @for(link of links;track link){
+                                        @for(link of assessment.links;track link){
                                         <div>
                                             <button class="btn btn-outline-secondary my-1">
                                                 <i class="bi bi-link mx-1"></i>
@@ -56,7 +56,7 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label>Documents submitted</label>
-                                        @for(doc of docs;track doc){
+                                        @for(doc of assessment.docs;track doc){
                                         <div>
                                             <button class="btn btn-outline-secondary my-1">
                                                 <i class="bi bi-link mx-1"></i>
@@ -73,7 +73,7 @@
                                         <div class="d-flex flex-row">
                                             <input type="number" class="form-control" formControlName="score"
                                                 name="score" style="width: 100px;">
-                                            <div class="mx-2">/ {{totalMarks}}</div>
+                                            <div class="mx-2">/ {{assessment.totalMarks}}</div>
                                         </div>
 
                                         <div *ngIf="evaluateAssessmentForm.get('score')?.invalid && evaluateAssessmentForm.get('score')?.touched"

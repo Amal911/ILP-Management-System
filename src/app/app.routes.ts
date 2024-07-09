@@ -6,24 +6,22 @@ import { AssignmentListingComponent } from './pages/assignment-listing/assignmen
 
 export const routes: Routes = [
 
-    {path:'',component:},
+    // {path:'',component:},
     {path:'account', component:AccountComponent},
     // {path:'scorecard',component:},      //amal
     {path:'batches',component:BatchListingComponent},
-    // {path:'batches/create',component:},
-    // {path:'batches/manage/{id}',component:},
-
+    // {path:'batches/create',component:}, //jisna
+    // {path:'batches/manage/{id}',component:}, //jisna
     {path:'assessments',component:AssignmentListingComponent},
-    // {path:'assessments/create',component:},
-    // {path:'assessments/evaluate',component:},
-    // {path:'assessments/evaluate/{id}',component:},
-    // {path:'schedule',component:},
-    // {path:'schedule/{id}',component:},
-    // {path:'schedule/create',component:},
-    // {path:'schedule/upload',component:},
-    // {path:'schedule/edit',component:},
-    // {path:'assessments/online',component:},
-    // {path:'leave',component:},
-    // {path:'batches',component:BatchListingComponent},
+    // {path:'assessments/create',component:}, //reshmi
+    // {path:'assessments/evaluate',component:}, //thulasi
+    // {path:'assessments/evaluate/{id}',component:}, //kailas
+    // {path:'schedule',component:}, //
+    // {path:'schedule/{id}',component:}, //thulasi
+    // {path:'schedule/create',component:}, //kailas
+    // {path:'schedule/upload',component:}, //
+    // {path:'schedule/edit',component:}, //kailas
+    // {path:'assessments/online',component:}, // reshmi
+    {path:'leave',component:LeaveRequestComponent},
 
 ];

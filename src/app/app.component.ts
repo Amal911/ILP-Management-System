@@ -11,6 +11,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { UserService } from './services/user.service';
 import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './components/topbar/topbar.component';
+import { MainLayoutComponent } from './Layout/main-layout/main-layout.component';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ import { TopbarComponent } from './components/topbar/topbar.component';
     CommonModule,
     TopbarComponent,
     AccountComponent,
+    MainLayoutComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

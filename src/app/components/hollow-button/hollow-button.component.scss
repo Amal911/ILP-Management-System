@@ -1,0 +1,17 @@
+.custom-button {
+  border-color: #5576D9;
+  color: #5576D9;
+  font-size: 12px;
+  font-weight: 400;
+  height: 30px;
+  width: 120px;
+}
+.custom-button:hover{
+  border-color: #5576D9;
+  background-color: transparent;
+  color: #5576D9;
+}
+.custom-button:active{
+  background-color: #5576D9;
+  color: #ffffff;
+}

@@ -6,7 +6,7 @@ import { AssignmentListingComponent } from './pages/assignment-listing/assignmen
 
 export const routes: Routes = [
 
-    // {path:'',component:},
+    {path:'',component:},
     {path:'account', component:AccountComponent},
     // {path:'scorecard',component:},      //amal
     {path:'batches',component:BatchListingComponent},

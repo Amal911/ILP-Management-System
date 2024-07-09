@@ -14,11 +14,11 @@
                     <input type="text" class="form-control" formControlName="email" placeholder="Email Id" required>
                     <div *ngIf="(loginForm.controls['email'].touched||submitted )&&loginForm.controls ['email'].errors?.['required']"
                         class="validation-message">
-                        This is a required field.
+                        *This is a required field.
                     </div>
                     <div *ngIf="(loginForm.controls['email'].touched||submitted )&&loginForm.controls['email'].errors?.['email']"
                         class="validation-message">
-                        Please enter a valid email.
+                        *Please enter a valid email.
                     </div>
                 </div>
 
@@ -27,7 +27,7 @@
                         required>
                     <div *ngIf="(loginForm.controls['password'].touched ||submitted )&&loginForm.controls['password'].errors?.['required']"
                         class="validation-message">
-                        This is a required field
+                        *This is a required field
                     </div>
                 </div>
                 <div class="form-group d-flex justify-content-center">

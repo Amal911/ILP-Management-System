@@ -3,7 +3,7 @@
   <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
     <div class="batch-dropdown">
       <app-select-dropdown label="Batch" [options]="['ILP Batch-02', 'ILP Batch-03', 'ILP Batch-04', 'ILP Batch-05']"
-        defaultOption="Choose Batch" controlId="batch" [formControl]="batchControl">
+        defaultOption="Choose Batch" name="batchControl" ngDefaultControl controlId="batch" [formControl]="batchControl">
       </app-select-dropdown>
       <div *ngIf="batchControl?.touched && batchControl?.invalid" class="validation-message">
         <div *ngIf="batchControl?.errors?.['required']">* This is a required field.</div>
@@ -15,7 +15,7 @@
         <div class="form-group col-md-5 p-3">
           <app-select-dropdown label="Phase"
             [options]="['E-learning', 'Technical', 'Business Orientation', 'On-Job Training']"
-            defaultOption="Select phase" controlId="phase" [formControl]="phaseControl">
+            defaultOption="Select phase" controlId="phase" name="phaseControl" ngDefaultControl [formControl]="phaseControl">
           </app-select-dropdown>
           <div *ngIf="phaseControl?.touched && phaseControl?.invalid" class="validation-message">
             <div *ngIf="phaseControl?.errors?.['required']">* This is a required field.</div>
@@ -25,7 +25,7 @@
 
       <div class="form-group mb-3 p-3">
         <label for="title">Title</label>
-        <input type="text" class="form-control" formControlName="title" placeholder="Title" required>
+        <input type="text" class="form-control" name="title" ngDefaultControl formControlName="title" placeholder="Title" required>
         <div *ngIf="titleControl?.touched && titleControl?.invalid" class="validation-message">
           <div *ngIf="titleControl?.errors?.['required']">* This is a required field.</div>
           <div *ngIf="titleControl?.errors?.['minlength']">* Title must be at least 3 characters long.</div>
@@ -36,24 +36,24 @@
         <div class="form-group col-md-3 p-3">
           <app-select-dropdown label="Type of Assignment"
             [options]="['Case Study', 'Live Assessment', 'Daily Assessment', 'Module', 'Project']"
-            defaultOption="Evaluation Criteria" controlId="evaluationCriteria" [formControl]="evaluationCriteriaControl">
+            defaultOption="Evaluation Criteria" name="evaluationCriteriaControl" ngDefaultControl controlId="evaluationCriteria" [formControl]="evaluationCriteriaControl">
           </app-select-dropdown>
           <div *ngIf="evaluationCriteriaControl?.touched && evaluationCriteriaControl?.invalid" class="validation-message">
             <div *ngIf="evaluationCriteriaControl?.errors?.['required']">* This is a required field.</div>
           </div>
         </div>
-        <div class="form-group col-md-2 p-3">
+        <div class="form-group col-md-3 p-3">
           <app-select-dropdown label="Module"
             [options]="['OOPs-Java', 'Html-Css', 'JavaScript', 'Bootstrap', 'TypeScript']" defaultOption="Select Module"
-            controlId="selectModule" [formControl]="moduleControl">
+            controlId="selectModule" name="moduleControl" ngDefaultControl [formControl]="moduleControl">
           </app-select-dropdown>
           <div *ngIf="moduleControl?.touched && moduleControl?.invalid" class="validation-message">
             <div *ngIf="moduleControl?.errors?.['required']">* This is a required field.</div>
           </div>
         </div>
-        <div class="form-group col-md-2 p-3">
+        <div class="form-group col-md-3 p-3">
           <app-select-dropdown label="Trainer" [options]="['Suneesh', 'Lekshmi', 'Ashin']"
-            defaultOption="Select Trainer" controlId="selectTrainer" [formControl]="trainerControl">
+            defaultOption="Select Trainer" name="trainerControl" ngDefaultControl controlId="selectTrainer" [formControl]="trainerControl">
           </app-select-dropdown>
           <div *ngIf="trainerControl?.touched && trainerControl?.invalid" class="validation-message">
             <div *ngIf="trainerControl?.errors?.['required']">* This is a required field.</div>
@@ -65,18 +65,18 @@
         <label for="title">Do you need the trainee to submit something?</label>
         <div class="boolean-check">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" formControlName="submissionRequired" value="true">
+            <input class="form-check-input" type="radio" name="submissionRequired" ngDefaultControl formControlName="submissionRequired" value="true">
             <label class="form-check-label" for="inlineRadio1">Yes</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" formControlName="submissionRequired" value="false">
+            <input class="form-check-input" type="radio" name="submissionRequired" ngDefaultControl formControlName="submissionRequired" value="false">
             <label class="form-check-label" for="inlineRadio2">No</label>
           </div>
         </div>
       </div>
       <div class="form-group mb-3 p-3">
         <label for="dueDate">Due by</label>
-        <input type="date" class="form-control" formControlName="dueDate" placeholder="dd/mm/yyyy" name="date" required>
+        <input type="date" class="form-control" name="dueDateControl" ngDefaultControl formControlName="dueDate" placeholder="dd/mm/yyyy" name="date" required>
         <div *ngIf="dueDateControl?.invalid && dueDateControl?.touched" class="validation-message">
           <div *ngIf="dueDateControl?.errors?.['required']">* This is a required field.</div>
           <div *ngIf="dueDateControl?.errors?.['futureDate']">* The date must be today or in the future.</div>

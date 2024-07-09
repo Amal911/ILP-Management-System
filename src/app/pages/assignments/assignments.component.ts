@@ -10,7 +10,8 @@ import { formatDate } from '@angular/common';
   standalone: true,
   templateUrl: './assignments.component.html',
   styleUrls: ['./assignments.component.scss'],
-  imports: [ ReactiveFormsModule, SelectDropdownComponent, NgIf, FormsModule]
+  imports: [ ReactiveFormsModule, SelectDropdownComponent, NgIf, FormsModule],
+  
 })
 export class AssignmentsComponent implements OnInit {
   assignmentForm!: FormGroup;
@@ -63,6 +64,7 @@ export class AssignmentsComponent implements OnInit {
       console.log(this.assignmentForm.value);
     } else {
       this.validateAllFormFields(this.assignmentForm);
+      console.log("Invalid Form")
     }
   }
 

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { DashboardScorecardComponent } from './pages/dashboard-scorecard/dashboard-scorecard.component';
 import { AccountComponent } from './pages/account/account.component';
 import { BatchListingComponent } from './pages/batch-listing/batch-listing.component';
 import { LeaveRequestComponent } from './pages/leave-request/leave-request.component';
@@ -8,7 +9,7 @@ export const routes: Routes = [
 
     // {path:'',component:},
     {path:'account', component:AccountComponent},
-    // {path:'scorecard',component:},      //amal
+    {path:'scorecard',component:DashboardScorecardComponent},      //amal
     {path:'batches',component:BatchListingComponent},
     // {path:'batches/create',component:}, //jisna
     // {path:'batches/manage/{id}',component:}, //jisna

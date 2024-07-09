@@ -1,8 +1,10 @@
 import { LeaveRequestComponent } from './pages/leave-request/leave-request.component';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CreateScheduleComponent } from "./pages/create-schedule/create-schedule.component";
-import { EvaluateAssessmentsComponent } from "./pages/evaluate-assessments/evaluate-assessments.component";
+import { DoughnutGraphChartComponent } from './components/doughnut-graph-chart/doughnut-graph-chart.component';
+import { DoughnutGraphCarouselComponent } from './components/doughnut-graph-carousel/doughnut-graph-carousel.component';
+import { CreateScheduleComponent } from './pages/create-schedule/create-schedule.component';
+import { EvaluateAssessmentsComponent } from './pages/evaluate-assessments/evaluate-assessments.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ListingCardComponent } from './components/batch-listing-card/batch-listing-card.component';
 import { BatchListingComponent } from './pages/batch-listing/batch-listing.component';
@@ -31,8 +33,10 @@ import { TopbarComponent } from './components/topbar/topbar.component';
     CommonModule,
     TopbarComponent,
     AccountComponent,
-    CreateScheduleComponent, 
-    EvaluateAssessmentsComponent
+    CreateScheduleComponent,
+    EvaluateAssessmentsComponent,
+    DoughnutGraphChartComponent,
+    DoughnutGraphCarouselComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

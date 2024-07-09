@@ -1,0 +1,15 @@
+<div class="graph-card">
+    <div class="d-flex justify-content-center">
+        <h5 class="m-0 title">{{title}}</h5>
+    </div>
+  <div
+    class="position-relative d-flex justify-content-center align-items-center"
+  >
+    <div class="card flex justify-content-center">
+      <p-chart type="doughnut" [data]="data" [options]="options"/>
+    </div>
+    <div class="position-absolute">
+      <p class="m-0 score">{{ value }}%</p>
+    </div>
+  </div>
+</div>

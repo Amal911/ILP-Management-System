@@ -1,0 +1,6 @@
+.score-card-carousel {
+  display: flex;
+//   width: calc(80vw);
+  overflow-x: scroll;
+  scrollbar-width: none;
+}

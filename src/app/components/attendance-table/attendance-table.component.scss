@@ -1,0 +1,27 @@
+.remarks
+{
+  width: 16vw;
+  background-color: #F5FAFF;
+  color: #000;
+  border:none;
+}
+.search{
+  width: 16vw;
+  background-color: #F5FAFF;
+  border:none;
+
+}
+.form-check-input:checked {
+  background-color:#5576D9;
+}
+.form-check-input:focus,.form-check-input:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.p-datatable tbody tr td {
+  background-color: red;
+}
+.button-space{
+  width: 40px;
+}

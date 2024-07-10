@@ -11,6 +11,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { UserService } from './services/user.service';
 import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './components/topbar/topbar.component';
+import { SessionDetailsComponent } from "./components/session-details/session-details.component";
+import { SessionAttendanceComponent } from "./pages/session-attendance/session-attendance.component";
+import { AttendanceTableComponent } from "./components/attendance-table/attendance-table.component";
 
 @Component({
   selector: 'app-root',
@@ -29,7 +32,10 @@ import { TopbarComponent } from './components/topbar/topbar.component';
     CommonModule,
     TopbarComponent,
     AccountComponent,
-  ],
+    SessionDetailsComponent,
+    SessionAttendanceComponent,
+    AttendanceTableComponent
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent {

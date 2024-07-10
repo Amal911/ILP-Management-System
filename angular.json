@@ -32,9 +32,15 @@
               }
             ],
             "styles": [
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+               "node_modules/primeng/resources/primeng.min.css",
+               "node_modules/primeicons/primeicons.css",
               "src/styles.scss",
                "./node_modules/bootstrap/dist/css/bootstrap.min.css"
-            ],
+              
+              
+                      ]
+          ,
             "scripts": [
                "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
@@ -101,5 +107,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "e678a5f7-d098-482b-a632-70af5f20284f"
   }
 }

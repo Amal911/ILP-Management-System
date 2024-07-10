@@ -4,6 +4,8 @@ import { AccountComponent } from './pages/account/account.component';
 import { BatchListingComponent } from './pages/batch-listing/batch-listing.component';
 import { LeaveRequestComponent } from './pages/leave-request/leave-request.component';
 import { AssignmentListingComponent } from './pages/assignment-listing/assignment-listing.component';
+import { EvaluateAssessmentsComponent } from './pages/evaluate-assessments/evaluate-assessments.component';
+import { CreateScheduleComponent } from './pages/create-schedule/create-schedule.component';
 
 export const routes: Routes = [
 
@@ -16,10 +18,10 @@ export const routes: Routes = [
     {path:'assessments',component:AssignmentListingComponent},
     // {path:'assessments/create',component:}, //reshmi
     // {path:'assessments/evaluate',component:}, //thulasi
-    // {path:'assessments/evaluate/{id}',component:}, //kailas
+    {path:'assessments/evaluate',component:EvaluateAssessmentsComponent}, //kailas
     // {path:'schedule',component:}, //
     // {path:'schedule/{id}',component:}, //thulasi
-    // {path:'schedule/create',component:}, //kailas
+    {path:'schedule/create',component:CreateScheduleComponent}, //kailas
     // {path:'schedule/upload',component:}, //
     // {path:'schedule/edit',component:}, //kailas
     // {path:'assessments/online',component:}, // reshmi

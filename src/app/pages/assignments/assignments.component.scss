@@ -1,127 +1,15 @@
-.parent-container{
-  position: relative;
-  margin-left: 20vw;
-  padding:100px ;
- 
-}
-.container {
-    width: 100%;
-    // height:100vh;
-    font-size: 15px;
-    top: 300px;
-   
-  }
-
-
-.form-container {
- 
-  top: 300px;
-  box-shadow: 0 0 10px rgb(0, 0, 0,0.1);
-  
-}
-.batch-dropdown {
-  position: absolute;
-  top: 70px;
-  right: 40px;
-}
-
-
-.form-group{
- padding: 5px;
-}
-
-.main-title{
-    font-weight:700; 
-    font-size: 30px;
-    color:#27314B;
-}
-.form-control {
-  background-color: #F5FAFF;
-  width: 250px;
-  border: none;
-  border-bottom:1px solid black;
-  box-sizing: border-box;
-}
-
-.form-row{
-    display: flex;
-    flex-direction: row;
-    gap:100px;
-    width:900px;
-   
-}
-
-.table-dropdown{
-    border:1px solid #6A6A6A;
-    width: 40px;
-}
-.custom-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right center;
-    background-position-x: calc(100% - 10px); 
-    background-size: 40px 50px; 
-    padding-right: 30px; 
-    cursor: pointer;
-  }
-
-.confirm-submission{
-    margin-top: 10px;
-    padding: 20px;
-}
-.form-arrange{
-  border:2px solid #6A6A6A;
-  width:12rem;
-  padding:8px;
- 
-
-}
-.create-button{
-
-  margin-left: 50px;
-}
-.custom-btn-1 {
-  color: #5576D9;           
-  background-color: white;  
-  border-color: #5576D9; 
-  padding: 5px 20px; 
- 
-}
-
-.custom-btn-2 {
-  background-color: #5576D9; 
-  color: white;
-  border-color: #5576D9;
-  padding: 5px 20px; 
-}
-.validation-message {
-  color: red;
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
-}
 .parent-container {
-  position: relative;
+ 
   margin-left: 20vw;
-  padding: 100px;
-}
-
-.container {
-  width: 100%;
-  max-width: 900px;
-  font-size: 15px;
-  margin: auto;
-  padding: 20px;
+  margin-right: 2rem;
 }
 
 .form-container {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+  width: 100%;
+  font-size: 15px;
+  padding: 2rem;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
 
-.batch-dropdown {
-  position: absolute;
-  top: 20px;
-  right: 20px;
 }
 
 .main-title {
@@ -131,22 +19,63 @@
   margin-bottom: 20px;
 }
 
-
-
-.form-row {
+.row-components {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  gap: 10%;
 }
 
-// .form-group {
-//   flex: 1 1 100%;
-//   padding: 10px;
-// }
+
+
+.control_form {
+  background-color: #F5FAFF;
+  width: 250px;
+  border: none;
+  border-bottom: 1px solid black;
+  box-sizing: border-box;
+}
+
+.batch-dropdown {
+  top: 70px;
+  
+}
+
+.table-dropdown {
+  border: 1px solid #6A6A6A;
+  width: 40px;
+}
 
 .confirm-submission {
   margin-top: 10px;
   padding: 10px;
+}
+
+
+.create-button {
+  margin-left: 50px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.custom-btn-1 {
+  color: #5576D9;
+  background-color: white;
+  border-color: #5576D9;
+  padding: 10px 20px;
+  margin-right: 10px;
+}
+
+.custom-btn-2 {
+  background-color: #5576D9;
+  color: white;
+  border-color: #5576D9;
+  padding: 10px 20px;
+  margin-right: 10px;
+}
+
+.validation-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
 }
 
 .boolean-check {
@@ -154,30 +83,24 @@
   gap: 10px;
 }
 
-.create-button {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.custom-btn-1,
-.custom-btn-2 {
-  padding: 10px 20px;
-  margin-right: 10px;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 1002px) {
   .parent-container {
     margin-left: 5vw;
     width: 100%;
   }
 
   .batch-dropdown {
-    top: 50px;
-    right: 10px;
+    display: flex;
+    justify-content: end;
+    top: 70px;
+    
+     
   }
 
-  .form-row {
-    flex-direction: column;
+ 
+  .row-components{
+    display: flex;
+    align-items: center;
   }
 
   .custom-btn-1,
@@ -188,18 +111,16 @@
 }
 
 @media (max-width: 576px) {
-  .container {
-    padding: 10px;
+  .form-container {
+    padding: 2rem;
     width: 100%;
-
   }
 
-  .form-group {
+  .group_contents {
     padding: 5px;
   }
 
-  .form-control {
+  .control_form {
     width: 100%;
   }
 }
-

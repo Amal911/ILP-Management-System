@@ -13,6 +13,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { UserService } from './services/user.service';
 import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './components/topbar/topbar.component';
+import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,8 @@ import { TopbarComponent } from './components/topbar/topbar.component';
     TopbarComponent,
     AccountComponent,
     CreateScheduleComponent, 
-    EvaluateAssessmentsComponent
+    EvaluateAssessmentsComponent,
+    EditScheduleComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

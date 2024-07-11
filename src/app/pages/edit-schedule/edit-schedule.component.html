@@ -5,7 +5,7 @@
     <div class="col-md-9 mb-3 ml-5">
         <div class="container mt-5">
             <form [formGroup]="createScheduleForm" (ngSubmit)="onSubmit()">
-
+                <button type="button" class="btn btn-primary" (click)="editPage();">Edit</button>
                 <div class="d-flex flex-row justify-content-end mx-0 gap-2">
                     <div class="mb-3">
                         <div class="mb-3">
@@ -55,12 +55,12 @@
                         <div class="form-container">
                             <div class="d-flex flex-row justify-content-between">
                                 <div class="page-title">
-                                    <h2>CREATE SCHEDULE</h2>
+                                    <h2>EDIT SCHEDULE</h2>
                                 </div>
-                                <div class="upload-button justify-content-between">
+                                <!-- <div class="upload-button justify-content-between">
                                     <button class="btn btn-outline-secondary"><i class="bi bi-plus"></i>Upload
                                         Schedule</button>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row mt-5">
                                 <div class="col-md-6 mb-3">

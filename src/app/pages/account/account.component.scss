@@ -1,0 +1,47 @@
+.account{
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.15);
+}
+
+h2{
+    margin: 0;
+}
+
+.form-select{
+    width: 16vw;
+    background-color: #F5FAFF;
+    color: #000;
+    border:none;
+    border-bottom: 2px solid #000;
+}
+
+#searchControl{
+    width: 16vw;
+    height: 2.4rem;
+    border-radius: 0.25rem;
+    background-color: #F5FAFF;
+    color: #000;
+    border:none;
+    border-bottom: 2px solid #000;
+}
+
+#searchControl:focus,
+#searchControl:active,
+.form-select:focus,
+.form-select:active {
+        outline: none !important;
+        box-shadow: none;
+    }
+
+.side{
+    width: 17vw;
+    background-color: #1a2440;
+}
+
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
+

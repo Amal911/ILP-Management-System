@@ -1,8 +1,5 @@
-<div class="top-margin"></div>
 <div class="d-flex flex-row">
-    <div class="sidebar mr-5">
-    </div>
-    <div class="col-md-9 mb-3 ml-5">
+    <div class="mb-3 ml-5">
         <div class="container mt-5">
             <form [formGroup]="createScheduleForm" (ngSubmit)="onSubmit()">
 
@@ -15,7 +12,6 @@
                                     <option value="">Select Program</option>
                                     @for(program of programs;track program){
                                         <option value="{{program.name}}">{{program.name}}</option>
-
                                     }
                                 </select>
                                 <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"

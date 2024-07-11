@@ -14,13 +14,17 @@
     <div class="pending-assignments">
       <h5 class="mb-5">Pending Assessments</h5>
       <div class="card-container d-flex flex-column">
-        <app-assignment-listing-card [cardItems]="pendingAssignments"></app-assignment-listing-card>
+        @for (item of Assignments; track $index) {
+          <app-assignment-listing-card *ngIf="item.due_date > todayDate" [assignments]="item"></app-assignment-listing-card>
+          }
        </div>
     </div>
     <div class="completed-assignments mt-5">
         <h5 class="mb-5">Completed Assessments</h5>
         <div class="card-container d-flex flex-column">
-        <app-assignment-listing-card [cardItems]="completedAssessments"></app-assignment-listing-card>
+          @for (item of Assignments; track $index) {
+        <app-assignment-listing-card *ngIf="item.due_date < todayDate" [assignments]="item"></app-assignment-listing-card>
+          }
         <div class="completed-assignments d-flex flex-column align-items-end">
             <p>view all <i class="bi bi-arrow-right"></i></p>
           </div>

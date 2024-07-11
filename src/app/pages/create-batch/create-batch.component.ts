@@ -44,18 +44,19 @@ export class CreateBatchComponent {
       phaseName: ['', Validators.required],
       phaseStartDate: ['', Validators.required],
       numberOfDays: ['', Validators.required],
-      evaluationCriteriaOne: ['', Validators.required],
-      weightageOne: ['', Validators.required],
-      evaluationCriteriaTwo: ['', Validators.required],
-      weightageTwo: ['', Validators.required],
-      evaluationCriteriaThree: ['', Validators.required],
-      weightageThree: ['', Validators.required],
-      evaluationCriteriaFour: ['', Validators.required],
-      weightageFour: ['', Validators.required],
+      // evaluationCriteriaOne: ['', Validators.required],
+      // weightageOne: ['', Validators.required],
+      // evaluationCriteriaTwo: ['', Validators.required],
+      // weightageTwo: ['', Validators.required],
+      // evaluationCriteriaThree: ['', Validators.required],
+      // weightageThree: ['', Validators.required],
+      // evaluationCriteriaFour: ['', Validators.required],
+      //weightageFour: ['', Validators.required],
       assessmentTypeList: this.fb.array([this.getAssessmentTypeFields()])
     });
     
   }
+  
   getAssessmentTypeFields(): FormGroup {
     return this.fb.group({
       assessmentType: ['', Validators.required],

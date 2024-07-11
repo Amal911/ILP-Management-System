@@ -385,16 +385,17 @@
                         </div>
                       </div>
                     </div>
-                    <div formArrayName="assessmentTypeList" [formGroup]="createBatchForm">
+                    <div [formGroup]="createBatchForm">
+                    <div formArrayName="assessmentTypeList" >
                       <div *ngFor="let assessment of assessmentTypeListArray().controls; let index=index">
                         <div [formGroupName]="index">
                     <div id="criteriaList">
                       <div class="row mb-3 mt-3 criteria-item">
                         <div class="col-md-6">
                           <div class="form-group" [formGroup]="createBatchForm">
-                            <label for="evaluationCriteriaOne">Evaluation Criteria</label>
-                            <input type="text" id="evaluationCriteriaOne" class="form-control inputBox" formControlName="evaluationCriteriaOne">
-                            <div *ngIf="getFormControl('evaluationCriteriaOne').invalid && getFormControl('evaluationCriteriaOne').touched" class="text-danger">
+                            <label for="assessmentType{{index}}">Evaluation Criteria</label>
+                            <input type="text" id="assessmentType{{index}}" class="form-control inputBox" formControlName="evaluationCriteriaOne">
+                            <div *ngIf="getFormControl('assessmentTypeList').invalid && getFormControl('evaluationCriteriaOne').touched" class="text-danger">
                               * Evaluation criteria is required
                             </div>
                           </div>
@@ -402,20 +403,26 @@
                         <div class="col-md-2">
                           <div class="form-group" [formGroup]="createBatchForm">
                             <label for="weightageOne">Weightage</label>
-                            <input type="text" id="weightageOne" class="form-control inputBox" formControlName="weightageOne">
+                            <input type="text" id="weightageOne{{index}}" class="form-control inputBox" formControlName="weightageOne">
                             <div *ngIf="getFormControl('weightageOne').invalid && getFormControl('weightageOne').touched" class="text-danger">
                               * Weightage is required
                             </div>
                           </div>
                         </div>
+                        <div class="col pt-4">
+                          <!-- <i class="fa-solid fa-trash-can" (click)="removeAssessmentType(index)"></i> -->
+                          <i class="pi pi-trash" style="font-size: 1rem" (click)="removeAssessmentType(index)"></i>
+                        </div>
                       </div>
                     </div>
-                    <div class="d-flex justify-content-start mb-3">
-                      <button type="button" class="btn btn-light" id="addCriteriaBtn" (click)="addAssessmentType()">+ Add New Criteria</button>
-                    </div>
+                    
                   </div>
                 </div>
                 </div>
+                <div class="d-flex justify-content-start mb-3">
+                  <button type="button" class="btn btn-light" id="addCriteriaBtn" (click)="addAssessmentType()">+ Add New Criteria</button>
+                </div>
+              </div>
                     <div class="row">
                       <div class="col-10 mx-auto">
                         <div class="btn btn-light w-100">+ Add New Phase</div>

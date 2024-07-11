@@ -11,9 +11,4 @@ import { Component, Input } from '@angular/core';
 export class AppliedleaveCardsComponent {
 
   @Input() cardItems:any[]=[];
-
-  getLeftIconColor(is_approved_trainer: boolean): string {
-    return is_approved_trainer ? 'green' : 'red';
-  }
-
 }

@@ -11,6 +11,7 @@ import { CreateScheduleComponent } from './pages/create-schedule/create-schedule
 export const routes: Routes = [
 
   // {path:'',component:},
+  { path: '', component: DashboardScorecardComponent },
   { path: 'account', component: AccountComponent },
   { path: 'scorecard', component: DashboardScorecardComponent },      //amal
   { path: 'batches', component: BatchListingComponent },
@@ -27,7 +28,6 @@ export const routes: Routes = [
   // {path:'schedule/edit',component:}, //kailas
   // {path:'assessments/online',component:}, // reshmi
   { path: 'leave', component: LeaveRequestComponent },
-  { path: '', component: DashboardScorecardComponent },
   { path: 'trainee/leave', component: TraineeLeaveRequestComponent }
 
 ];

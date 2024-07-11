@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { AppliedleaveCardsComponent } from '../../components/appliedleave-cards/appliedleave-cards.component';
+import { ApplyleavemodalComponent } from '../../components/applyleavemodal/applyleavemodal.component';
 
 @Component({
   selector: 'app-trainee-leave-request',
   standalone: true,
-  imports: [ButtonComponent, AppliedleaveCardsComponent],
+  imports: [ButtonComponent, AppliedleaveCardsComponent, ApplyleavemodalComponent],
   templateUrl: './trainee-leave-request.component.html',
   styleUrl: './trainee-leave-request.component.scss'
 })
@@ -22,8 +23,7 @@ export class TraineeLeaveRequestComponent {
       requested_date: '2024-07-01',
       reason: 'Sick Leave',
       is_approved_trainer: true,
-      cardLeftText: '',
-      cardLeftIcon: 'bi bi-circle-fill'
+      is_approved_l_and_d: false,
     },
     {
       cardMainIconSRC: 'assets/Leave-request.svg',
@@ -34,9 +34,8 @@ export class TraineeLeaveRequestComponent {
       leave_date_to: '2024-07-12',
       requested_date: '2024-07-01',
       reason: 'Sick Leave',
-      is_approved_trainer: true,
-      cardLeftText: '',
-      cardLeftIcon: 'bi bi-circle-fill'
+      is_approved_trainer: false,
+      is_approved_l_and_d: false,
     },
     {
       cardMainIconSRC: 'assets/Leave-request.svg',
@@ -48,8 +47,7 @@ export class TraineeLeaveRequestComponent {
       requested_date: '2024-07-01',
       reason: 'Sick Leave',
       is_approved_trainer: true,
-      cardLeftText: '',
-      cardLeftIcon: 'bi bi-circle-fill'
+      is_approved_l_and_d: true,
     }];
 
 }

@@ -1,0 +1,25 @@
+.remarks {
+  width: 16vw;
+  background-color: #f5faff;
+  color: #000;
+  border: none;
+}
+.search {
+  width: 16vw;
+  background-color: #f5faff;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  border-bottom: 2px solid #000;}
+
+.form-check-input:checked {
+  background-color: #5576d9;
+}
+.form-check-input:focus,
+.form-check-input:active {
+  outline: none !important;
+  box-shadow: none;
+}
+.button-space {
+  width: 40px;
+}

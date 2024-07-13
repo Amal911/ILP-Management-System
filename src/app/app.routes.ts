@@ -1,3 +1,4 @@
+import { SessionAttendanceComponent } from './pages/session-attendance/session-attendance.component';
 import { Routes } from '@angular/router';
 import { DashboardScorecardComponent } from './pages/dashboard-scorecard/dashboard-scorecard.component';
 import { AccountComponent } from './pages/account/account.component';
@@ -23,7 +24,7 @@ export const routes: Routes = [
     // {path:'assessments/evaluate',component:}, //thulasi
     {path:'assessments/evaluate',component:EvaluateAssessmentsComponent}, //kailas
     // {path:'schedule',component:}, //
-    // {path:'schedule/{id}',component:}, //thulasi
+    {path:'schedule/id',component:SessionAttendanceComponent}, //thulasi
     {path:'schedule/create',component:CreateScheduleComponent}, //kailas
     // {path:'schedule/upload',component:}, //
     {path:'schedule/edit',component:EditScheduleComponent}, //kailas

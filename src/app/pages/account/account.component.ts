@@ -6,11 +6,12 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { User } from '../../interfaces/user';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../services/user.service';
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
     selector: 'app-account',
     standalone: true,
-    imports: [TableComponent, CreateaccountmodalComponent, NgFor, NgIf, ReactiveFormsModule],
+    imports: [TableComponent, CreateaccountmodalComponent, NgFor, NgIf, ReactiveFormsModule, ButtonComponent],
     templateUrl: './account.component.html',
     styleUrl: './account.component.scss'
 })

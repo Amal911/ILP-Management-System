@@ -2,6 +2,7 @@ import { SessionAttendanceComponent } from './pages/session-attendance/session-a
 import { Routes } from '@angular/router';
 import { DashboardScorecardComponent } from './pages/dashboard-scorecard/dashboard-scorecard.component';
 import { AccountComponent } from './pages/account/account.component';
+import { TraineeLeaveRequestComponent } from './pages/trainee-leave-request/trainee-leave-request.component';
 import { BatchListingComponent } from './pages/batch-listing/batch-listing.component';
 import { LeaveRequestComponent } from './pages/leave-request/leave-request.component';
 import { AssignmentListingComponent } from './pages/assignment-listing/assignment-listing.component';
@@ -30,5 +31,7 @@ export const routes: Routes = [
     {path:'schedule/edit',component:EditScheduleComponent}, //kailas
     // {path:'assessments/online',component:}, // reshmi
     {path:'leave',component:LeaveRequestComponent},
+    { path: 'trainee/leave', component: TraineeLeaveRequestComponent },
+
 
 ];

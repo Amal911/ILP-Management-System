@@ -1,0 +1,79 @@
+<div class="modal fade" id="applyLeaveModal" tabindex="-1" aria-labelledby="applyLeaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applyLeaveModalLabel">Leave Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="applyLeaveForm" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" formControlName="name">
+                        <div *ngIf="applyLeaveForm.get('name')?.invalid && applyLeaveForm.get('name')?.touched">
+                            <div *ngIf="applyLeaveForm.get('name')?.errors?.['required']" class="text-danger">This field
+                                is required.</div>
+                            <div *ngIf="applyLeaveForm.get('name')?.errors?.['minLength']" class="text-danger">Minimum 3
+                                characters required.</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="days" class="form-label">Number of Days</label>
+                        <input type="number" class="form-control" id="days" formControlName="days"
+                            (change)="onDaysChange()">
+                        <div *ngIf="applyLeaveForm.get('days')?.invalid && applyLeaveForm.get('days')?.touched">
+                            <div *ngIf="applyLeaveForm.get('days')?.errors?.['required']" class="text-danger">This field
+                                is required.</div>
+                            <div *ngIf="applyLeaveForm.get('days')?.errors?.['min']" class="text-danger">Minimum 1 day
+                                required.</div>
+                        </div>
+                    </div>
+                    <div *ngIf="applyLeaveForm.get('days')?.value === 1" class="mb-3">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" formControlName="date">
+                    </div>
+                    <div *ngIf="applyLeaveForm.get('days')?.value > 1" class="row mb-3">
+                        <div class="col">
+                            <label for="fromDate" class="form-label">From</label>
+                            <input type="date" class="form-control" id="fromDate" formControlName="fromDate">
+                        </div>
+                        <div class="col">
+                            <label for="toDate" class="form-label">To</label>
+                            <input type="date" class="form-control" id="toDate" formControlName="toDate">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reason" class="form-label">Reason</label>
+                        <input type="text" class="form-control" id="reason" formControlName="reason">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="trainerPoc" class="form-label">Trainer POC</label>
+                            <select class="form-select" id="trainerPoc" formControlName="trainerPoc">
+                                <option *ngFor="let poc of trainerPocs" [value]="poc">{{ poc }}</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="ldPoc" class="form-label">L&D POC</label>
+                            <select class="form-select" id="ldPoc" formControlName="ldPoc">
+                                <option *ngFor="let poc of ldPocs" [value]="poc">{{ poc }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" formControlName="description"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <app-button [buttonLabel]="'Submit'" class="custom-button" data-bs-dismiss="modal"
+                            (click)="onSubmit()"></app-button>
+                        <app-hollow-button [hollowButtonLabel]="'Cancel'" class="custom-button"
+                            data-bs-dismiss="modal"></app-hollow-button>
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

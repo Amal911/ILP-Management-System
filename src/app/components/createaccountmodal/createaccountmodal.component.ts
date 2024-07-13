@@ -1,11 +1,13 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ButtonComponent } from '../button/button.component';
+import { HollowButtonComponent } from '../hollow-button/hollow-button.component';
 
 @Component({
   selector: 'app-createaccountmodal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, ButtonComponent, HollowButtonComponent],
   templateUrl: './createaccountmodal.component.html',
   styleUrl: './createaccountmodal.component.scss'
 })

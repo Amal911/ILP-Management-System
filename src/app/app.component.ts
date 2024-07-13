@@ -1,6 +1,10 @@
 import { LeaveRequestComponent } from './pages/leave-request/leave-request.component';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { DoughnutGraphChartComponent } from './components/doughnut-graph-chart/doughnut-graph-chart.component';
+import { DoughnutGraphCarouselComponent } from './components/doughnut-graph-carousel/doughnut-graph-carousel.component';
+import { CreateScheduleComponent } from './pages/create-schedule/create-schedule.component';
+import { EvaluateAssessmentsComponent } from './pages/evaluate-assessments/evaluate-assessments.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ListingCardComponent } from './components/batch-listing-card/batch-listing-card.component';
 import { BatchListingComponent } from './pages/batch-listing/batch-listing.component';
@@ -14,6 +18,8 @@ import { TopbarComponent } from './components/topbar/topbar.component';
 import { SessionDetailsComponent } from "./components/session-details/session-details.component";
 import { SessionAttendanceComponent } from "./pages/session-attendance/session-attendance.component";
 import { AttendanceTableComponent } from "./components/attendance-table/attendance-table.component";
+import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
+import { MainLayoutComponent } from './Layout/main-layout/main-layout.component';
 
 @Component({
   selector: 'app-root',
@@ -21,21 +27,10 @@ import { AttendanceTableComponent } from "./components/attendance-table/attendan
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   imports: [
-    RouterOutlet,
-    ButtonComponent,
-    ListingCardComponent,
-    BatchListingComponent,
-    AssignmentListingComponent,
-    DropdownComponent,
-    LeaveRequestComponent,
-    SidebarComponent,
-    CommonModule,
-    TopbarComponent,
-    AccountComponent,
-    SessionDetailsComponent,
-    SessionAttendanceComponent,
-    AttendanceTableComponent
-],
+
+    MainLayoutComponent,
+  ],
+
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent {
@@ -43,7 +38,7 @@ export class AppComponent {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    const user = { name: 'DCruz', role: 'trainee' };
+    const user = { name: 'DCruz', role: 'admin' };
     this.userService.setCurrentUser(user);
   }
 }

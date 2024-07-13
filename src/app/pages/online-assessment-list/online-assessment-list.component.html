@@ -1,0 +1,21 @@
+<div class="container m-5 ">
+    <h2 class="title-line">ONLINE ASSESSMENTS</h2>
+  
+    <div class="sessions-allied">
+      <div class="card-container d-flex flex-column mt-4">
+        <h5>Pending</h5>
+        <ng-container *ngFor="let assessment of pendingAssessments">
+          <app-online-assessment-list-card [assessment]="assessment">
+          </app-online-assessment-list-card>
+        </ng-container>
+      </div>
+  
+      <div class="card-container d-flex flex-column mt-4">
+        <h5>Completed</h5>
+        <ng-container *ngFor="let assessment of completedAssessments">
+          <app-online-assessment-list-card  [assessment]="assessment"></app-online-assessment-list-card>
+  
+        </ng-container>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,138 @@
+<div class="container my-5">
+  <div class="card mb-4 shadow">
+    <div class="card-body">
+      <h3 class="card-title">GG Hospital Clone</h3>
+      <div class="col-12 d-flex justify-content-between">
+        <div class="text-start">
+          <p class="card-text mb-0 fw-bold">Trainer Name</p>
+          <p class="card-text">Lekshmi A</p>
+        </div>
+        <div class="text-start">
+          <p class="card-text mb-0 fw-bold">Created on</p>
+          <p class="card-text">22 Apr 2024</p>
+        </div>
+        <div class="text-start">
+          <p class="card-text mb-0 fw-bold">Due by</p>
+          <p class="card-text">23 Apr 2024, 23:59</p>
+        </div>
+      </div>
+      <p class="card-text mt-3">Description: You may use bootstrap as well.</p>
+    </div>
+  </div>
+  <div *ngIf="!submitted">
+  <div class="my-work-container" >
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title">My Work</h5>
+        <form [formGroup]="workForm" (ngSubmit)="onSubmit()">
+          <div class="row d-fle mb-3">
+            <div class="col-md-6">
+              <label for="link" class="form-label">Add link</label>
+              <input
+                type="url"
+                id="link"
+                class="form-control inputBox"
+                formControlName="link"
+                placeholder="https://link"
+              />
+              <div
+                *ngIf="
+                  workForm.get('link')?.touched && workForm.get('link')?.invalid
+                "
+                class="text-danger"
+              >
+                <div *ngIf="workForm.get('link')?.hasError('required')">
+                  * Link is required
+                </div>
+                <div *ngIf="workForm.get('link')?.hasError('pattern')">
+                  !Invalid URL format
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 d-flex align-items-end">
+              <button
+                type="button"
+                class="btn btn-outline-secondary uploadbtn"
+              >
+                + Upload file
+              </button>
+            </div>
+          </div>
+          <div class="col-6 mb-3">
+            <label for="comments" class="form-label">My comments</label>
+            <input
+              type="text"
+              id="comments"
+              class="form-control inputBox"
+              formControlName="comments"
+              placeholder="Link submitted"
+            />
+            <div
+              *ngIf="
+                workForm.get('comments')?.touched &&
+                workForm.get('comments')?.invalid
+              "
+              class="text-danger"
+            >
+              <div *ngIf="workForm.get('comments')?.hasError('required')">
+                * Comments are required
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-around align-content-lg-start">
+            <button
+              type="button"
+              class="btn btn-outline-secondary w-25"
+              (click)="onCancel()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary w-25" (click)="show()">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="submitted">
+  <div class="results">
+  <div class="results-container d-flex" >
+    <div class="my-work-container" >
+      <div class="card shadow">
+        <div class="subcards">
+          <div class="card-body">
+            <h5 class="score-label">My Work</h5>
+            <div class="row d-flex mb-3">
+              <div class="col-md-6">
+                <label for="link" class="score-label">Link Attached</label>
+                <a href="">https://GG/hospital/git</a>
+              </div>
+            </div>
+
+            <div class="col-6 mb-3">
+              <label for="comments" class="score-label">Documents</label>
+              <a href="">homepage.png</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="my-work-container">
+      <div class="card shadow">
+        <div class="subcards">
+          <div class="card-body text-start">
+            <h5 class="score-label">My Score</h5>
+            <p class="score-label mb-0">Score</p>
+            <p class="score-value mb-0">
+              90<span class="text-muted">/100</span>
+            </p>
+            <p class="comments-label mt-3 mb-0">Comments</p>
+            <p class="mb-0">Impressive work.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

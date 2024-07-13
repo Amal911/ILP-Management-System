@@ -1,27 +1,18 @@
-<div class="container session-details-container vw-100 p-4">
+<div class="container session-details-container">
   <div class="heading">
     <h2>Session Details</h2>
     <div class="details row">
       <div class="detail-content col-4">
-        <p class="detail-title">Title</p>
-        <p class="detail-data">{{ session.session_name }}</p>
+        <p class="detail-title">Title : {{ session.session_name }}</p>
       </div>
       <div class="detail-content col-4">
-        <p class="detail-title">Trainer</p>
-        <p class="detail-data">{{ session.trainer_name }}</p>
+        <p class="detail-title">Trainer : {{ session.trainer_name }}</p>
       </div>
       <div class="detail-content col-4">
-        <p class="detail-title">Date</p>
-        <p class="detail-data">{{ session.date }}</p>
+        <p class="detail-title">Date : {{ session.date }}</p>
       </div>
       <div class="mb-3 detail-content col-4">
-        <label for="formGroupExampleInput" class="form-label">Time</label>
-        <input
-          type="time"
-          class="form-control"
-          id="formGroupExampleInput"
-          value="{{ session.start_time }}-{{ session.end_time }}"
-        />
+        <p class="detail-title">Time : {{ session.start_time }}-{{ session.end_time }}</p>
       </div>
     </div>
   </div>

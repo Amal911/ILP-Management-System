@@ -29,7 +29,7 @@ import { ButtonComponent } from '../button/button.component';
   templateUrl: './attendance-table.component.html',
   styleUrl: './attendance-table.component.scss',
 })
-export class AttendanceTableComponent implements OnInit {
+export class AttendanceTableComponent {
   @Input() columns: any[] = [];
   @Input() absentees: any[] = [];
   @Output() attendanceDetailsEmitter = new EventEmitter<any>();
@@ -39,13 +39,10 @@ export class AttendanceTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.columns.forEach((trainee) => {
-      const isAbsent = this.absentees.some(
-        (absent) => absent.id === trainee.id
-      );
-      if (isAbsent) {
-        trainee.attendance = false;
-      }
+      const isAbsent = this.absentees.some((absent) => absent.id === trainee.id);
+      trainee.attendance = !isAbsent;
     });
+
     this.filteredColumns = [...this.columns];
     this.searchControl.valueChanges.subscribe((searchText) => {
       this.filteredColumns = this.columns.filter((column) =>
@@ -60,6 +57,8 @@ export class AttendanceTableComponent implements OnInit {
       columns: this.columns,
       absentees: this.absentees,
     };
+    console.log(attendanceDetails);
+
     this.attendanceDetailsEmitter.emit(attendanceDetails);
   }
 }

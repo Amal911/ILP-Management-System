@@ -1,26 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionDetailsComponent } from '../../components/session-details/session-details.component';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-import { TableComponent } from '../../components/table/table.component';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { AttendanceTableComponent } from '../../components/attendance-table/attendance-table.component';
+import { FormControl } from '@angular/forms';
 import { HollowButtonComponent } from '../../components/hollow-button/hollow-button.component';
 import { ButtonComponent } from '../../components/button/button.component';
+import { AttendanceTableComponent } from '../../components/attendance-table/attendance-table.component';
+import { SessionDetailsComponent } from '../../components/session-details/session-details.component';
 
 @Component({
   selector: 'app-session-attendance',
   standalone: true,
-  imports: [
-    SessionDetailsComponent,
-    TableModule,
-    CommonModule,
-    TableComponent,
-    ReactiveFormsModule,
-    AttendanceTableComponent,
-    HollowButtonComponent,
-    ButtonComponent,
-  ],
+  imports: [AttendanceTableComponent,ButtonComponent,HollowButtonComponent,SessionDetailsComponent],
   templateUrl: './session-attendance.component.html',
   styleUrl: './session-attendance.component.scss',
 })
@@ -76,7 +64,7 @@ export class SessionAttendanceComponent implements OnInit {
       const attendees = this.attendanceDetails.columns.map((trainee: any) => ({
         id: trainee.id,
         name: trainee.name,
-        attendance: trainee.attendance !== false,
+        attendance: trainee.attendance,
         remarks: trainee.remarks || '',
       }));
 

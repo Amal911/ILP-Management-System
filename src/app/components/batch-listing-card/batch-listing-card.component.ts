@@ -10,9 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ListingCardComponent {
 
-@Input() cardItems:any[]=[];
+@Input() batches:any='';
 
-getLeftIconColor(is_active: boolean): string {
-  return is_active ? 'green' : 'red';
-}
+
 }

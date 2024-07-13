@@ -11,7 +11,8 @@
                                 <select class="form-control" formControlName="program" name="program">
                                     <option value="">Select Program</option>
                                     @for(program of programs;track program){
-                                        <option value="{{program.name}}">{{program.name}}</option>
+                                    <option value="{{program.name}}">{{program.name}}</option>
+
                                     }
                                 </select>
                                 <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
@@ -31,8 +32,7 @@
                                 <select class="form-control" formControlName="batch" name="batch">
                                     <option value="">Select Batch</option>
                                     @for(batch of batches;track batch){
-                                        <option value="{{batch.name}}">{{batch.name}}</option>
-
+                                    <option value="{{batch.name}}">{{batch.name}}</option>
                                     }
                                 </select>
                                 <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
@@ -88,21 +88,6 @@
 
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group mt-3">
-                                        <label>Description</label>
-                                        <input type="text" class="form-control" formControlName="description"
-                                            name="description">
-                                        <div *ngIf="createScheduleForm.get('description')?.invalid && createScheduleForm.get('description')?.touched"
-                                            class="text-danger">
-                                            <div *ngIf="createScheduleForm.get('description')?.errors?.['required']">
-                                                Description
-                                                is
-                                                required.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group mt-3">
                                         <label>Start Time</label>
                                         <input type="time" class="form-control" formControlName="startTime"
                                             name="startTime">
@@ -111,26 +96,6 @@
                                             <div *ngIf="createScheduleForm.get('startTime')?.errors?.['required']">Start
                                                 Time is
                                                 required.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group mt-3">
-                                        <label>Module</label>
-                                        <select class="form-control" formControlName="module" name="module">
-                                            <option value="">Select Module</option>
-                                            @for(module of modules;track module){
-                                                <option value="{{module.name}}">{{module.name}}</option>
-        
-                                            }
-                                        </select>
-                                        <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
-                                            class="text-danger">
-                                            <div *ngIf="createScheduleForm.get('module')?.errors?.['required']">Module
-                                                is
-                                                required.
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -152,12 +117,34 @@
 
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group mt-3">
+                                        <label>Module</label>
+                                        <select class="form-control" formControlName="module" name="module">
+                                            <option value="">Select Module</option>
+                                            @for(module of modules;track module){
+                                            <option value="{{module.name}}">{{module.name}}</option>
+
+                                            }
+                                        </select>
+                                        <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('module')?.errors?.['required']">Module
+                                                is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group mt-3">
                                         <label>Trainer</label>
                                         <select class="form-control" formControlName="trainer" name="trainer">
                                             <option value="">Select Trainer</option>
                                             @for(trainer of trainers;track trainer){
-                                                <option value="{{trainer.name}}">{{trainer.name}}</option>
-        
+                                            <option value="{{trainer.name}}">{{trainer.name}}</option>
+
                                             }
                                         </select>
                                         <div *ngIf="createScheduleForm.get('trainer')?.invalid && createScheduleForm.get('trainer')?.touched"
@@ -166,6 +153,21 @@
                                                 is
                                                 required.
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group mt-3">
+                                        <label>Description</label>
+                                        <textarea class="form-control" formControlName="description"
+                                            name="description"></textarea>
+                                        <div *ngIf="createScheduleForm.get('description')?.invalid && createScheduleForm.get('description')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('description')?.errors?.['required']">
+                                                Description
+                                                is
+                                                required.</div>
                                         </div>
                                     </div>
                                 </div>

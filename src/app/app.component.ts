@@ -15,6 +15,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { UserService } from './services/user.service';
 import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './components/topbar/topbar.component';
+import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 import { MainLayoutComponent } from './Layout/main-layout/main-layout.component';
 
 @Component({
@@ -34,6 +35,9 @@ import { MainLayoutComponent } from './Layout/main-layout/main-layout.component'
     CommonModule,
     TopbarComponent,
     AccountComponent,
+    CreateScheduleComponent, 
+    EvaluateAssessmentsComponent,
+    EditScheduleComponent,
     MainLayoutComponent,
     CreateScheduleComponent,
     EvaluateAssessmentsComponent,

@@ -6,6 +6,7 @@ import { LeaveRequestComponent } from './pages/leave-request/leave-request.compo
 import { AssignmentListingComponent } from './pages/assignment-listing/assignment-listing.component';
 import { EvaluateAssessmentsComponent } from './pages/evaluate-assessments/evaluate-assessments.component';
 import { CreateScheduleComponent } from './pages/create-schedule/create-schedule.component';
+import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 
 export const routes: Routes = [
 
@@ -23,7 +24,7 @@ export const routes: Routes = [
     // {path:'schedule/{id}',component:}, //thulasi
     {path:'schedule/create',component:CreateScheduleComponent}, //kailas
     // {path:'schedule/upload',component:}, //
-    // {path:'schedule/edit',component:}, //kailas
+    {path:'schedule/edit',component:EditScheduleComponent}, //kailas
     // {path:'assessments/online',component:}, // reshmi
     {path:'leave',component:LeaveRequestComponent},
 

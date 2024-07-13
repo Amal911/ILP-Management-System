@@ -1,13 +1,14 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DropdownComponent } from "../../components/dropdown/dropdown.component";
 
 @Component({
-  selector: 'app-create-schedule',
-  standalone: true,
-  imports: [FormsModule,ReactiveFormsModule,NgIf],
-  templateUrl: './create-schedule.component.html',
-  styleUrl: './create-schedule.component.scss'
+    selector: 'app-create-schedule',
+    standalone: true,
+    templateUrl: './create-schedule.component.html',
+    styleUrl: './create-schedule.component.scss',
+    imports: [FormsModule, ReactiveFormsModule, NgIf, DropdownComponent]
 })
 export class CreateScheduleComponent {
 

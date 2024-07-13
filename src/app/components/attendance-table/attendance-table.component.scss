@@ -1,27 +1,25 @@
-.remarks
-{
+.remarks {
   width: 16vw;
-  background-color: #F5FAFF;
+  background-color: #f5faff;
   color: #000;
-  border:none;
+  border: none;
 }
-.search{
+.search {
   width: 16vw;
-  background-color: #F5FAFF;
-  border:none;
+  background-color: #f5faff;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  border-bottom: 2px solid #000;}
 
-}
 .form-check-input:checked {
-  background-color:#5576D9;
+  background-color: #5576d9;
 }
-.form-check-input:focus,.form-check-input:active {
+.form-check-input:focus,
+.form-check-input:active {
   outline: none !important;
   box-shadow: none;
 }
-
-.p-datatable tbody tr td {
-  background-color: red;
-}
-.button-space{
+.button-space {
   width: 40px;
 }

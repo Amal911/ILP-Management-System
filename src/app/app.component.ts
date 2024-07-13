@@ -18,6 +18,9 @@ import { TopbarComponent } from './components/topbar/topbar.component';
 import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 import { MainLayoutComponent } from './Layout/main-layout/main-layout.component';
 
+import { LoginComponent } from "./pages/login/login.component";
+
+
 @Component({
   selector: 'app-root',
   standalone: true,

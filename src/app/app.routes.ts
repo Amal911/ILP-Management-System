@@ -8,6 +8,8 @@ import { EvaluateAssessmentsComponent } from './pages/evaluate-assessments/evalu
 import { CreateScheduleComponent } from './pages/create-schedule/create-schedule.component';
 import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 
+import { CreateAssessmentComponent } from './pages/create-assessment/create-assessment.component';
+
 export const routes: Routes = [
 
     // {path:'',component:},
@@ -17,7 +19,7 @@ export const routes: Routes = [
     // {path:'batches/create',component:}, //jisna
     // {path:'batches/manage/{id}',component:}, //jisna
     {path:'assessments',component:AssignmentListingComponent},
-    // {path:'assessments/create',component:}, //reshmi
+    {path:'assessments/create',component:CreateAssessmentComponent}, //reshmi
     // {path:'assessments/evaluate',component:}, //thulasi
     {path:'assessments/evaluate',component:EvaluateAssessmentsComponent}, //kailas
     // {path:'schedule',component:}, //

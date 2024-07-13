@@ -1,0 +1,22 @@
+
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right center;
+  background-position-x: calc(100% - 10px);
+  background-size: 40px 50px;
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+
+
+.form-arrange{
+  border:2px solid #6A6A6A;
+  background-color: white;
+  width:12rem;
+  padding:8px;
+ 
+
+}

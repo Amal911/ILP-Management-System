@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { SelectDropdownComponent } from '../../components/select-dropdown/select-dropdown.component';
 import { NgIf } from '@angular/common';
-import { formatDate } from '@angular/common';
 
 @Component({
-  selector: 'app-assignments',
+  selector: 'app-create-assessment',
   standalone: true,
-  templateUrl: './assignments.component.html',
-  styleUrls: ['./assignments.component.scss'],
-  imports: [ ReactiveFormsModule, SelectDropdownComponent, NgIf, FormsModule],
-  
+  imports: [ReactiveFormsModule, SelectDropdownComponent,NgIf,FormsModule],
+  templateUrl: './create-assessment.component.html',
+  styleUrl: './create-assessment.component.scss'
 })
-export class AssignmentsComponent implements OnInit {
-  assignmentForm!: FormGroup;
+export class CreateAssessmentComponent  implements OnInit {
+  assessmentForm!: FormGroup;
   submitted = false;
 
   ngOnInit(): void {
-    this.assignmentForm = new FormGroup({
+    this.assessmentForm = new FormGroup({
       batch: new FormControl('', Validators.required),
       phase: new FormControl('', Validators.required),
       title: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -31,46 +28,46 @@ export class AssignmentsComponent implements OnInit {
   }
 
   get batchControl(): FormControl {
-    return this.assignmentForm.get('batch') as FormControl;
+    return this.assessmentForm.get('batch') as FormControl;
   }
 
   get phaseControl(): FormControl {
-    return this.assignmentForm.get('phase') as FormControl;
+    return this.assessmentForm.get('phase') as FormControl;
   }
 
   get titleControl(): FormControl {
-    return this.assignmentForm.get('title') as FormControl;
+    return this.assessmentForm.get('title') as FormControl;
   }
 
   get evaluationCriteriaControl(): FormControl {
-    return this.assignmentForm.get('evaluationCriteria') as FormControl;
+    return this.assessmentForm.get('evaluationCriteria') as FormControl;
   }
 
   get moduleControl(): FormControl {
-    return this.assignmentForm.get('module') as FormControl;
+    return this.assessmentForm.get('module') as FormControl;
   }
 
   get trainerControl(): FormControl {
-    return this.assignmentForm.get('trainer') as FormControl;
+    return this.assessmentForm.get('trainer') as FormControl;
   }
 
   get dueDateControl(): FormControl {
-    return this.assignmentForm.get('dueDate') as FormControl;
+    return this.assessmentForm.get('dueDate') as FormControl;
   }
 
   onSubmit(): void {
     this.submitted = true;
-    if (this.assignmentForm.valid) {
-      console.log(this.assignmentForm.value);
+    if (this.assessmentForm.valid) {
+      console.log(this.assessmentForm.value);
     } else {
-      this.validateAllFormFields(this.assignmentForm);
+      this.validateAllFormFields(this.assessmentForm);
       console.log("Invalid Form")
     }
   }
 
   onCancel(): void {
     this.submitted = false;
-    this.assignmentForm.reset();
+    this.assessmentForm.reset();
   }
 
   validateAllFormFields(formGroup: FormGroup) {

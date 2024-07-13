@@ -3,8 +3,10 @@
     background-color: #f5faff;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    width: calc(100% - 18vw);
+    position: sticky;
+    top: 0;
+    // width: calc(100% - 18vw);
+    width: 100%;
     left: 18vw;
     top: 0;
     z-index: 1000;

@@ -12,98 +12,71 @@ import { LeaveRequestCardComponent } from "../../components/leave-request-card/l
     imports: [DropdownComponent, ButtonComponent, ListingCardComponent, LeaveRequestCardComponent]
 })
 export class LeaveRequestComponent {
-  pendingLeaveRequests = [
+  LeaveRequests = [
     {
-      cardMainIconSRC: 'assets/Leave-request.svg',
       name: 'Amal E A',
       batch_name: 'ILP Batch 03 2023-24',
       description: 'Sick leave',
       leave_date_from: '2024-07-11',
       leave_date_to: '2024-07-12',
       is_approved_trainer: true,
-      cardLeftText: '',
-      cardLeftIcon: 'bi bi-circle-fill'
+      is_approved_l_and_d: false,
+      is_pending: true
     },
     {
-      cardMainIconSRC: 'assets/Leave-request.svg',
       name: 'Devipriya MS',
       batch_name: 'ILP Batch 03 2023-24',
       description: 'Sick leave',
       leave_date_from: '2024-07-11',
       leave_date_to: '2024-07-11',
       is_approved_trainer: true,
-      cardLeftText: '',
-      cardLeftIcon: 'bi bi-circle-fill'
+      is_approved_l_and_d: false,
+      is_pending: true
     },
     {
-      cardMainIconSRC: 'assets/Leave-request.svg',
       name: 'Reshmi M',
       batch_name: 'ILP Batch 03 2023-24',
       description: 'Sick leave',
       leave_date_from: '2024-07-11',
       leave_date_to: '2024-07-11',
       is_approved_trainer: false,
-      cardLeftText: '',
-      cardLeftIcon: 'bi bi-circle-fill'
-    }];
-
-    leaveRequestHistory = [
-      {
-        cardMainIconSRC: 'assets/Leave-request.svg',
-        name: 'Amal E A',
-        batch_name: 'ILP Batch 03 2023-24',
-        description: 'Sick leave',
-        leave_date_from: '2024-07-11',
-        leave_date_to: '2024-07-11',
-        is_approved_trainer: true,
-        cardLeftText: '',
-        cardLeftIcon: 'bi bi-circle-fill'
-      },
-      {
-        cardMainIconSRC: 'assets/Leave-request.svg',
-        name: 'Devipriya MS',
-        batch_name: 'ILP Batch 03 2023-24',
-        description: 'Sick leave',
-        leave_date_from: '2024-07-11',
-        leave_date_to: '2024-07-11',
-        is_approved_trainer: false,
-        cardLeftText: '',
-        cardLeftIcon: 'bi bi-circle-fill'
-      },
-      {
-        cardMainIconSRC: 'assets/Leave-request.svg',
-        name: 'Reshmi M',
-        batch_name: 'ILP Batch 03 2023-24',
-        description: 'Sick leave',
-        leave_date_from: '2024-07-11',
-        leave_date_to: '2024-07-11',
-        is_approved_trainer: false,
-        cardLeftText: '',
-        cardLeftIcon: 'bi bi-circle-fill'
-      }
+      is_approved_l_and_d: false,
+      is_pending: true
+    },
+    {
+      name: 'Amal E A',
+      batch_name: 'ILP Batch 03 2023-24',
+      description: 'Sick leave',
+      leave_date_from: '2024-07-11',
+      leave_date_to: '2024-07-11',
+      is_approved_trainer: true,
+      is_approved_l_and_d: false,
+      is_pending: false
+    },
+    {
+      name: 'Devipriya MS',
+      batch_name: 'ILP Batch 03 2023-24',
+      description: 'Sick leave',
+      leave_date_from: '2024-07-11',
+      leave_date_to: '2024-07-11',
+      is_approved_trainer: false,
+      is_approved_l_and_d: true,
+      is_pending: false
+    },
+    {
+      name: 'Reshmi M',
+      batch_name: 'ILP Batch 03 2023-24',
+      description: 'Sick leave',
+      leave_date_from: '2024-07-11',
+      leave_date_to: '2024-07-11',
+      is_approved_trainer: false,
+      is_approved_l_and_d: false,
+      is_pending: false
+    }
     ];
   constructor() {
-    this.setRequestStatus();
-    this.setRequestStatusInHistory();
 
   }
-  setRequestStatus() {
-    this.pendingLeaveRequests.forEach(request => {
-      if (request.is_approved_trainer) {
-        request.cardLeftText = 'Trainer Approved';
-      } else {
-        request.cardLeftText = 'Trainer Rejected';
-      }
-    });
-  }
-  setRequestStatusInHistory() {
-    this.leaveRequestHistory.forEach(request => {
-      if (request.is_approved_trainer) {
-        request.cardLeftText = 'Trainer Approved';
-      } else {
-        request.cardLeftText = 'Trainer Rejected';
-      }
-    });
-  }
+
 
 }

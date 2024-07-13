@@ -11,7 +11,11 @@
     <div class="pending-leave-requests">
       <h5 class="mb-5">Pending Leave Requests</h5>
       <div class="card-container d-flex flex-column gap-4">
-        <app-leave-request-card [cardItems]="pendingLeaveRequests"></app-leave-request-card>
+        @for (item of LeaveRequests; track $index) {
+          @if (item.is_pending) {
+        <app-leave-request-card [leave]="item"></app-leave-request-card>
+          }
+        }
        <div class="completed-assignments d-flex flex-column align-items-end">
           <p>view all <i class="bi bi-arrow-right"></i></p>
         </div>
@@ -25,7 +29,11 @@
         </div>
       </div>
         <div class="card-container d-flex flex-column gap-4">
-          <app-leave-request-card [cardItems]="leaveRequestHistory"></app-leave-request-card>
+          @for (item of LeaveRequests; track $index) {
+            @if (!item.is_pending) {
+              <app-leave-request-card [leave]="item"></app-leave-request-card>
+            }
+          }
           <div class="completed-assignments d-flex flex-column align-items-end">
             <p>view all <i class="bi bi-arrow-right"></i></p>
           </div>

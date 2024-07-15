@@ -13,7 +13,6 @@ import { SessionDetailsComponent } from '../../components/session-details/sessio
   styleUrl: './session-attendance.component.scss',
 })
 export class SessionAttendanceComponent implements OnInit {
-  // tableData: any[] = [];
   session: any;
   traineeTable: any[] = [];
   absentees: any[] = [];
@@ -80,9 +79,4 @@ export class SessionAttendanceComponent implements OnInit {
   }
 }
 
-// output = {
-//   sessionid:09,
-//   participants=[
-//     {},{}
-//   ]
-// }
+

@@ -36,7 +36,12 @@
           <tr>
             <td>{{ rowIndex + 1 }}</td>
             <td>{{ trainee.name }}</td>
-            <td>{{trainee.status}}</td>
+            <td><input
+              type="checkbox"
+              [(ngModel)]="trainee.attendance"
+              aria-label="attendance-checkbox"
+              [checked]="trainee.attendance"
+            /></td>
             <td>
               <input
                 type="text"
@@ -44,7 +49,7 @@
                 placeholder="Write your remarks here"
                 aria-label="Example text with button addon"
                 aria-describedby="button-addon1"
-                [(ngModel)]="trainee.score"
+                [(ngModel)]="trainee.remarks"
               />
             </td>
           </tr>

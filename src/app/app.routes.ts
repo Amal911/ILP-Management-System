@@ -13,6 +13,7 @@ import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.compo
 import { CreateAssessmentComponent } from './pages/create-assessment/create-assessment.component';
 import { BatchCreatePhaseTableComponent } from './pages/batch-create-phase-table/batch-create-phase-table.component';
 import { AssessmentHandedinComponent } from './pages/assessment-handedin/assessment-handedin.component';
+import { BatchCreateEvaluationCriteriaComponent } from './pages/batch-create-evaluation-criteria/batch-create-evaluation-criteria.component';
 
 export const routes: Routes = [
 
@@ -34,8 +35,11 @@ export const routes: Routes = [
     // {path:'assessments/online',component:}, // reshmi
     {path:'leave',component:LeaveRequestComponent},
     { path: 'trainee/leave', component: TraineeLeaveRequestComponent },
-    {path:'batch/create',component:BatchCreatePhaseTableComponent}, //jisna
-    { path: 'handed-in', component: AssessmentHandedinComponent },
+    {path:'batch/create-phase',component:BatchCreatePhaseTableComponent}, //jisna
+    { path: 'handed-in', component: AssessmentHandedinComponent },//thulasi
+    { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent },//thulasi
+
+
 
 
 

@@ -162,7 +162,13 @@
                     <table class="table table-bordered">
                       <thead>
                         <tr>
-                          <th *ngFor="let column of columns">{{ column }}</th>
+                          <!-- <th *ngFor="let column of columns" >{{ column }}</th> -->
+                          <th>Sl. No.</th>
+                          <th>Trainee Name</th>
+                          <th>Gender</th>
+                          <th>Mobile Number</th>
+                          <th>Experion Email ID</th>
+                          <th>Personal Email ID</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -348,6 +354,17 @@
                   <h5>Curriculum for the batch</h5>
                   <form>
                     <div class="row mt-5">
+                      <div class="col-md-6 mb-3">
+                        <label for="locationDropdown">Location (Optional)</label>
+                        <div class="dropdown form-group">
+                          <select id="locationDropdown" class="form-control" formControlName="locationDropdown">
+                            <option value="" disabled>Select a Location</option>
+                            <option value="Thiruvanathapuram">Thiruvanathapuram</option>
+                            <option value="Kochi">Kochi</option>
+                            <option value="Bangalore">Bangalore</option>
+                          </select>
+                        </div>
+                      </div>
                         <div class="col-md-6">
                           <div class="form-group" [formGroup]="createBatchForm">
                             <label for="phaseName">Phase Name</label>

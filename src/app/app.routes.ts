@@ -11,6 +11,7 @@ import { CreateScheduleComponent } from './pages/create-schedule/create-schedule
 import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 
 import { CreateAssessmentComponent } from './pages/create-assessment/create-assessment.component';
+import { AssessmentHandedinComponent } from './pages/assessment-handedin/assessment-handedin.component';
 
 export const routes: Routes = [
 
@@ -32,6 +33,8 @@ export const routes: Routes = [
     // {path:'assessments/online',component:}, // reshmi
     {path:'leave',component:LeaveRequestComponent},
     { path: 'trainee/leave', component: TraineeLeaveRequestComponent },
+    { path: 'handed-in', component: AssessmentHandedinComponent },
+
 
 
 ];

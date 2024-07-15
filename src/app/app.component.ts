@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 import { MainLayoutComponent } from './Layout/main-layout/main-layout.component';
+import { EditAccountModalComponent } from "./components/edit-account-modal/edit-account-modal.component";
 
 @Component({
   selector: 'app-root',
@@ -35,7 +36,7 @@ import { MainLayoutComponent } from './Layout/main-layout/main-layout.component'
     CommonModule,
     TopbarComponent,
     AccountComponent,
-    CreateScheduleComponent, 
+    CreateScheduleComponent,
     EvaluateAssessmentsComponent,
     EditScheduleComponent,
     MainLayoutComponent,
@@ -43,7 +44,8 @@ import { MainLayoutComponent } from './Layout/main-layout/main-layout.component'
     EvaluateAssessmentsComponent,
     DoughnutGraphChartComponent,
     DoughnutGraphCarouselComponent,
-  ],
+    EditAccountModalComponent
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent {

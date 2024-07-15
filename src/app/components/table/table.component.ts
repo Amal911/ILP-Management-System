@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -16,6 +16,7 @@ export class TableComponent {
   @Input() columns: { field: string, header: string, sortable: boolean, display: boolean }[] = [];
   @Input() data: any[] = [];
   @Input() searchControl: FormControl = new FormControl('');
+  @Input() modalId:string="";
 
 
 }

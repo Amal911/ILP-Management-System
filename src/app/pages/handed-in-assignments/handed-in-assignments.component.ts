@@ -1,9 +1,12 @@
+import { AnimationBuilder } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { FileUpload, FileUploadEvent, FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
+
 interface UploadEvent {
   originalEvent: Event;
   files: File[];
@@ -16,8 +19,10 @@ interface UploadEvent {
   templateUrl: './handed-in-assignments.component.html',
   styleUrl: './handed-in-assignments.component.scss',
   providers: [MessageService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  animations: [],
 })
+
 export class HandedInAssignmentsComponent {
 
   workForm: FormGroup;

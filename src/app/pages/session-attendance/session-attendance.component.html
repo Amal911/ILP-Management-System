@@ -1,0 +1,20 @@
+<div class="attendance-marking d-flex flex-column justify-content-center m-5 gap-5">
+  <app-session-details
+    [session]="session"
+    (sessionDetailEmitter)="onSessionDetailsEmit($event)"
+  />
+  <div class="container attendance-container ">
+    <app-attendance-table
+      [columns]="traineeTable"
+      [absentees]="absentees"
+      (attendanceDetailsEmitter)="onAttendanceDetailsEmit($event)"
+    />
+    <div
+      class="bottom-button d-flex flex-row align-items-center justify-content-center m-5 gap-5"
+    >
+      <app-hollow-button [hollowButtonLabel]="'cancel'"></app-hollow-button>
+      <div class="button-space"></div>
+      <app-button [buttonLabel]="'Submit'" (click)="onSubmit()"></app-button>
+    </div>
+  </div>
+</div>

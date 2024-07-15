@@ -20,80 +20,90 @@
     </div>
   </div>
   <div *ngIf="!submitted">
-  <div class="my-work-container" >
-    <div class="card shadow">
-      <div class="card-body">
-        <h5 class="card-title">My Work</h5>
-        <form [formGroup]="workForm" (ngSubmit)="onSubmit()">
-          <div class="row d-fle mb-3">
-            <div class="col-md-6">
-              <label for="link" class="form-label">Add link</label>
+    <div class="my-work-container-notsubmitted">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">My Work</h5>
+          <form [formGroup]="workForm" (ngSubmit)="onSubmit()">
+            <div class="row d-flex mb-3">
+              <div class="col-md-8 mb-3" formArrayName="links" *ngFor="let link of links.controls; let i = index">
+                <div [formGroupName]="i" class="d-flex align-items-center">
+                  <div class="flex-grow-1 me-2">
+                    <label for="link" class="form-label">Link</label>
+                    <input
+                      type="url"
+                      id="link"
+                      class="form-control inputBox"
+                      formControlName="link"
+                      placeholder="https://link"
+                    />
+                    <div
+                      *ngIf="links.controls[i].get('link')?.touched && links.controls[i].get('link')?.invalid"
+                      class="text-danger"
+                    >
+                      <div *ngIf="links.controls[i].get('link')?.hasError('required')">
+                        * Link is required
+                      </div>
+                      <div *ngIf="links.controls[i].get('link')?.hasError('pattern')">
+                        !Invalid URL format
+                      </div>
+                    </div>
+                  </div>
+                    <i class="fas fa-trash-alt trash-icon"(click)="removeLink(i)"></i>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-light mb-3" (click)="addLink()">Add Link</button>
+            <div class="col-12 mb-3">
+              <label for="documents">Upload Documents</label>
+              <div class="card flex justify-content-center">
+                <p-toast></p-toast>
+                <p-fileUpload 
+                  name="demo[]" 
+                  url="https://www.primefaces.org/cdn/api/upload.php" 
+                  (onUpload)="onUpload($event)"  
+                  [multiple]="true" 
+                  accept="" 
+                  maxFileSize="1000000" formControlName="fileUpload" ngDefaultControl>
+                  <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                      <li *ngFor="let file of uploadedFiles">
+                        {{ file.name }} - {{ file.size }} bytes
+                      </li>
+                    </ul>
+                  </ng-template>
+                </p-fileUpload>
+              </div>
+            </div>
+            <div class="col-md-8 mb-3">
+              <label for="comments" class="form-label">My comments</label>
               <input
-                type="url"
-                id="link"
+                type="text"
+                id="comments"
                 class="form-control inputBox"
-                formControlName="link"
-                placeholder="https://link"
+                formControlName="comments"
+                placeholder="Link submitted"
               />
               <div
-                *ngIf="
-                  workForm.get('link')?.touched && workForm.get('link')?.invalid
-                "
+                *ngIf="workForm.get('comments')?.touched && workForm.get('comments')?.invalid"
                 class="text-danger"
               >
-                <div *ngIf="workForm.get('link')?.hasError('required')">
-                  * Link is required
-                </div>
-                <div *ngIf="workForm.get('link')?.hasError('pattern')">
-                  !Invalid URL format
+                <div *ngIf="workForm.get('comments')?.hasError('required')">
+                  * Comments are required
                 </div>
               </div>
             </div>
-            <div class="col-md-5 d-flex align-items-end">
-              <button
-                type="button"
-                class="btn btn-outline-secondary uploadbtn"
-              >
-                + Upload file
+            <div class="d-flex justify-content-around align-content-lg-start">
+              <button type="button" class="btn btn-outline-secondary w-25" (click)="onCancel()">
+                Cancel
               </button>
+              <button type="submit" class="btn btn-primary w-25">Save</button>
             </div>
-          </div>
-          <div class="col-6 mb-3">
-            <label for="comments" class="form-label">My comments</label>
-            <input
-              type="text"
-              id="comments"
-              class="form-control inputBox"
-              formControlName="comments"
-              placeholder="Link submitted"
-            />
-            <div
-              *ngIf="
-                workForm.get('comments')?.touched &&
-                workForm.get('comments')?.invalid
-              "
-              class="text-danger"
-            >
-              <div *ngIf="workForm.get('comments')?.hasError('required')">
-                * Comments are required
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-around align-content-lg-start">
-            <button
-              type="button"
-              class="btn btn-outline-secondary w-25"
-              (click)="onCancel()"
-            >
-              Cancel
-            </button>
-            <button type="submit" class="btn btn-primary w-25" (click)="show()">Save</button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 <div *ngIf="submitted">
   <div class="results">
   <div class="results-container d-flex" >
@@ -103,17 +113,32 @@
           <div class="card-body">
             <h5 class="score-label">My Work</h5>
             <div class="row d-flex mb-3">
-              <div class="col-md-6">
-                <label for="link" class="score-label">Link Attached</label>
-                <a href="">https://GG/hospital/git</a>
+              <div class="col-6">
+                <label for="link" class="score-label">Link Attached</label><br>
+                <ul style="list-style-type: disc; color: blue;">
+                    <li *ngFor="let link of links.controls">
+                      <a href="">{{ link.get('link')?.value }}</a>
+                    </li>
+                  </ul>
               </div>
             </div>
-
             <div class="col-6 mb-3">
-              <label for="comments" class="score-label">Documents</label>
-              <a href="">homepage.png</a>
-            </div>
+                <label for="comments" class="score-label">Documents</label>
+                <ul>
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">
+                          {{ file.name }}
+                        </li>
+                      </ul>
+                </ul>
+              </div>
+              <div class="col-6 mb-3">
+                <label for="comments" class="score-label">Comments</label><br>
+                <label>{{ workForm.get('comments')?.value }}</label>
+              </div>
           </div>
+            
+            
         </div>
       </div>
     </div>

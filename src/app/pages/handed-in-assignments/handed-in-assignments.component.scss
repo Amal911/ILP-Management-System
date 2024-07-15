@@ -30,6 +30,11 @@
     margin: 2em 0;
     
   }
+  .my-work-container-notsubmitted {
+    width: 70%;
+    margin: 2em 0;
+    
+  }
   
   .uploadbtn {
     border-radius: 50px;
@@ -59,7 +64,10 @@
   .score-label, .comments-label {
     color: #333;
   }
-  
+  .trash-icon{
+    margin-top: 30px !important;
+    position: relative;
+  }
   /* Media Queries */
   
   @media (max-width: 1200px) {

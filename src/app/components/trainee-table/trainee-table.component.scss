@@ -1,4 +1,9 @@
-.remarks {
+.container{
+  width: 100%;
+  overflow-x: auto;
+}
+
+.marks {
   width: 16vw;
   background-color: #f5faff;
   color: #000;
@@ -22,10 +27,6 @@
 }
 .button-space {
   width: 40px;
-}
-
-td{
-  padding: 9px !important;
 }
 @media (max-width: 768px) {
   table {

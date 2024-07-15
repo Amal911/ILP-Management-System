@@ -12,6 +12,7 @@ import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.compo
 
 import { CreateAssessmentComponent } from './pages/create-assessment/create-assessment.component';
 import { BatchCreatePhaseTableComponent } from './pages/batch-create-phase-table/batch-create-phase-table.component';
+import { AssessmentHandedinComponent } from './pages/assessment-handedin/assessment-handedin.component';
 
 export const routes: Routes = [
 
@@ -34,6 +35,7 @@ export const routes: Routes = [
     {path:'leave',component:LeaveRequestComponent},
     { path: 'trainee/leave', component: TraineeLeaveRequestComponent },
     {path:'batch/create',component:BatchCreatePhaseTableComponent}, //jisna
+    { path: 'handed-in', component: AssessmentHandedinComponent },
 
 
 

@@ -9,10 +9,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class SessionDetailsComponent implements OnInit {
   @Input() session: any = '';
-  @Output() sessionDetailsEmitter = new EventEmitter<any>();
+  @Output() sessionDetailEmitter = new EventEmitter<any>();
 
   emitSessionDetails() {
-    this.sessionDetailsEmitter.emit(this.session);
+    this.sessionDetailEmitter.emit(this.session);
   }
 
   ngOnInit() {

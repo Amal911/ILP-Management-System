@@ -64,6 +64,9 @@ export class HandedInAssignmentsComponent {
       this.submitted = true;
    
   }
+  cancelUpload(index: number): void {
+    this.uploadedFiles.splice(index, 1);
+  }
   show(){
     this.submitted = true;
 

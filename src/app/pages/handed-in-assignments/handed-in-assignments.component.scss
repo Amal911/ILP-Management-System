@@ -69,6 +69,29 @@
     position: relative;
   }
   
+//prime ng customisation
+:host ::ng-deep .p-fileupload .p-fileupload-buttonbar {
+    height:10% !important;
+
+}
+:host ::ng-deep .p-fileupload .p-fileupload-buttonbar .p-fileupload-choose {
+    width: 15%;
+    height:10% !important;
+    background-color: #5576D9;
+}
+
+:host ::ng-deep .p-fileupload .p-fileupload-buttonbar .p-element {
+    padding: 2px;
+    background-color: #5576D9;
+    border-radius: 10px;
+    
+}
+
+  
+
+
+
+
   /* Media Queries */
   
   @media (max-width: 1200px) {

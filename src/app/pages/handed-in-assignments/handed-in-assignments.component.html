@@ -61,14 +61,17 @@
                 <p-fileUpload 
                   name="demo[]" 
                   url="https://www.primefaces.org/cdn/api/upload.php" 
+                  [auto]="false"
                   (onUpload)="onUpload($event)"  
                   [multiple]="true" 
                   accept="" 
-                  maxFileSize="1000000" formControlName="fileUpload" ngDefaultControl>
+                  maxFileSize="1000000">
                   <ng-template pTemplate="content">
                     <ul *ngIf="uploadedFiles.length">
                       <li *ngFor="let file of uploadedFiles">
                         {{ file.name }} - {{ file.size }} bytes
+                      <button type="button" class="btn btn-link" (click)="cancelUpload(file)">Cancel</button>
+
                       </li>
                     </ul>
                   </ng-template>

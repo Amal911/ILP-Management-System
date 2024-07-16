@@ -6,8 +6,9 @@
     <div class="card-writings col-8 d-flex flex-column justify-content-center  align-items-start" >
       <h5 class="card-title text-left  custom-title">{{leave.name}}</h5>
       <p class="m-0 card-small-sub-title ">{{leave.batch_name}}</p>
-      <p class="card-text text-left mb-0 custom-text">{{leave.description}}</p>
-      <p class="card-text text-left custom-text">Requested from {{leave.leave_date_from}} to {{leave.leave_date_to}}</p>
+      <p class="card-text text-left mb-0 custom-text">{{leave.reason}}</p>
+      <p class="card-text text-left custom-text" *ngIf="leave.days === '1'">Leave Date: {{leave.leave_date}}</p>
+      <p class="card-text text-left custom-text" *ngIf="leave.days !== '1'">Requested from {{leave.leave_date_from}} to {{leave.leave_date_to}}</p>
     </div>
     <div class="col-2 d-flex flex-column justify-content-end align-items-start ">
       <div  *ngIf="!leave. is_pending" class="d-flex flex-row align-items-center justify-content-start custom-icon-and-text" >

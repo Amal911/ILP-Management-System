@@ -73,7 +73,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group group_contents mb-3 p-3">
+        <div class="form-group group_contents mb-3 p-3" *ngIf="assessmentForm?.get('submissionRequired')?.value==='true'">
           <label for="dueDate">Due by</label>
           <input type="date" class="form-control control_form" name="dueDateControl" ngDefaultControl formControlName="dueDate" placeholder="dd/mm/yyyy" name="date" required>
           <div *ngIf="dueDateControl?.invalid && dueDateControl?.touched" class="validation-message">

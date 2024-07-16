@@ -12,9 +12,8 @@ import { ApplyleavemodalComponent } from '../../components/applyleavemodal/apply
 })
 export class TraineeLeaveRequestComponent {
 
-  pendingLeaveRequests = [
+  LeaveRequests = [
     {
-      cardMainIconSRC: 'assets/Leave-request.svg',
       name: 'Amal E A',
       batch_name: 'ILP Batch 03 2023-24',
       description: 'Hospital Emergency and need a consultation',
@@ -26,7 +25,6 @@ export class TraineeLeaveRequestComponent {
       is_approved_l_and_d: false,
     },
     {
-      cardMainIconSRC: 'assets/Leave-request.svg',
       name: 'Dharsan C Sajeev',
       batch_name: 'ILP Batch 03 2023-24',
       description: 'Hospital Emergency and need a consultation',
@@ -38,7 +36,6 @@ export class TraineeLeaveRequestComponent {
       is_approved_l_and_d: false,
     },
     {
-      cardMainIconSRC: 'assets/Leave-request.svg',
       name: 'Reshmi M',
       batch_name: 'ILP Batch 03 2023-24',
       description: 'Hospital Emergency and need a consultation',

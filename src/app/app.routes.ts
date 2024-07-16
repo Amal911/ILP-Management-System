@@ -11,6 +11,8 @@ import { CreateScheduleComponent } from './pages/create-schedule/create-schedule
 import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 
 import { CreateAssessmentComponent } from './pages/create-assessment/create-assessment.component';
+import { OnlineAssessmentListComponent } from './pages/online-assessment-list/online-assessment-list.component';
+import { OnlineAssessmentCreateComponent } from './pages/online-assessment-create/online-assessment-create.component';
 
 export const routes: Routes = [
 
@@ -29,7 +31,8 @@ export const routes: Routes = [
     {path:'schedule/create',component:CreateScheduleComponent}, //kailas
     // {path:'schedule/upload',component:}, //
     {path:'schedule/edit',component:EditScheduleComponent}, //kailas
-    // {path:'assessments/online',component:}, // reshmi
+    {path:'assessments/online',component:OnlineAssessmentListComponent}, // reshmi
+    {path:'assessments/online/create',component:OnlineAssessmentCreateComponent}, // reshmi
     {path:'leave',component:LeaveRequestComponent},
     { path: 'trainee/leave', component: TraineeLeaveRequestComponent },
 

@@ -15,7 +15,15 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { UserService } from './services/user.service';
 import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './components/topbar/topbar.component';
+import { SessionDetailsComponent } from "./components/session-details/session-details.component";
+import { SessionAttendanceComponent } from "./pages/session-attendance/session-attendance.component";
+import { AttendanceTableComponent } from "./components/attendance-table/attendance-table.component";
+import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 import { MainLayoutComponent } from './Layout/main-layout/main-layout.component';
+import { EditAccountModalComponent } from "./components/edit-account-modal/edit-account-modal.component";
+
+import { LoginComponent } from "./pages/login/login.component";
+
 
 @Component({
   selector: 'app-root',
@@ -23,23 +31,10 @@ import { MainLayoutComponent } from './Layout/main-layout/main-layout.component'
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   imports: [
-    RouterOutlet,
-    ButtonComponent,
-    ListingCardComponent,
-    BatchListingComponent,
-    AssignmentListingComponent,
-    DropdownComponent,
-    LeaveRequestComponent,
-    SidebarComponent,
-    CommonModule,
-    TopbarComponent,
-    AccountComponent,
+
     MainLayoutComponent,
-    CreateScheduleComponent,
-    EvaluateAssessmentsComponent,
-    DoughnutGraphChartComponent,
-    DoughnutGraphCarouselComponent,
   ],
+
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent {

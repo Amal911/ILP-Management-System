@@ -42,7 +42,7 @@ export class AppComponent {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    const user = { name: 'DCruz', role: 'trainer' };
+    const user = { name: 'DCruz', role: 'trainee' };
     this.userService.setCurrentUser(user);
   }
 }

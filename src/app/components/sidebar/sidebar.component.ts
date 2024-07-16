@@ -35,7 +35,6 @@ export class SidebarComponent{
         { name: 'Home', link: '', icon: 'fa-solid fa-house' },
         // { name: 'Curriculum', link: '/', icon: 'fa-solid fa-book-bookmark' },
         { name: 'Schedule', link: '/', icon: 'bi bi-calendar-week-fill' },
-
         { name: 'Batches', link: 'batches', icon: 'fa-solid fa-users' },
         { name: 'Accounts', link: 'account', icon: 'fa-solid fa-user-gear' },
         { name: 'Leave Requests', link: 'leave', icon: 'bi bi-briefcase-fill' }
@@ -49,11 +48,11 @@ export class SidebarComponent{
         { name: 'Leave Requests', link: 'leave', icon: 'bi bi-briefcase-fill' }
       ],
       trainee: [
-        { name: 'Home', link: '/', icon: 'fa-solid fa-house' },
-        { name: 'Schedule', link: '/', icon: 'fa-solid fa-calendar-days' },
-        { name: 'Tasks', link: '/', icon: 'bi bi-list-task' },
+        { name: 'Home', link: '', icon: 'fa-solid fa-house' },
+        { name: 'Schedule', link: '', icon: 'fa-solid fa-calendar-days' },
+        { name: 'Assessments', link: 'assessments', icon: 'bi bi-list-task' },
         { name: 'Online Assessments', link: '/', icon: 'fa-solid fa-clipboard-list' },
-        { name: 'Leave Requests', link: '/', icon: 'bi bi-briefcase-fill' }
+        { name: 'Leave Requests', link: 'trainee/leave', icon: 'bi bi-briefcase-fill' }
       ]
     };
 

@@ -32,20 +32,37 @@
                     <div *ngIf="applyLeaveForm.get('days')?.value === 1" class="mb-3">
                         <label for="date" class="form-label">Date</label>
                         <input type="date" class="form-control" id="date" formControlName="date">
+                        <div *ngIf="applyLeaveForm.get('date')?.invalid && applyLeaveForm.get('date')?.touched">
+                            <div *ngIf="applyLeaveForm.get('date')?.errors?.['required']" class="text-danger">This field is required.</div>
+                            <div *ngIf="applyLeaveForm.get('date')?.errors?.['futureDate']" class="text-danger">Date must be in the future.</div>
+                        </div>
                     </div>
                     <div *ngIf="applyLeaveForm.get('days')?.value > 1" class="row mb-3">
                         <div class="col">
                             <label for="fromDate" class="form-label">From</label>
                             <input type="date" class="form-control" id="fromDate" formControlName="fromDate">
+                            <div *ngIf="applyLeaveForm.get('fromDate')?.invalid && applyLeaveForm.get('fromDate')?.touched">
+                                <div *ngIf="applyLeaveForm.get('fromDate')?.errors?.['required']" class="text-danger">This field is required.</div>
+                                <div *ngIf="applyLeaveForm.get('fromDate')?.errors?.['futureDate']" class="text-danger">Date must be in the future.</div>
+                            </div>
                         </div>
                         <div class="col">
                             <label for="toDate" class="form-label">To</label>
                             <input type="date" class="form-control" id="toDate" formControlName="toDate">
+                            <div *ngIf="applyLeaveForm.get('toDate')?.invalid && applyLeaveForm.get('toDate')?.touched">
+                                <div *ngIf="applyLeaveForm.get('toDate')?.errors?.['required']" class="text-danger">This field is required.</div>
+                                <div *ngIf="applyLeaveForm.get('toDate')?.errors?.['futureDate']" class="text-danger">Date must be in the future.</div>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="reason" class="form-label">Reason</label>
                         <input type="text" class="form-control" id="reason" formControlName="reason">
+                        <div *ngIf="applyLeaveForm.get('reason')?.invalid && applyLeaveForm.get('reason')?.touched">
+                            <div *ngIf="applyLeaveForm.get('reason')?.errors?.['required']" class="text-danger">This
+                                field
+                                is required.</div>
+                        </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
@@ -53,24 +70,41 @@
                             <select class="form-select" id="trainerPoc" formControlName="trainerPoc">
                                 <option *ngFor="let poc of trainerPocs" [value]="poc">{{ poc }}</option>
                             </select>
+                            <div
+                                *ngIf="applyLeaveForm.get('trainerPoc')?.invalid && applyLeaveForm.get('trainerPoc')?.touched">
+                                <div *ngIf="applyLeaveForm.get('trainerPoc')?.errors?.['required']" class="text-danger">
+                                    Select One</div>
+                            </div>
                         </div>
                         <div class="col">
                             <label for="ldPoc" class="form-label">L&D POC</label>
                             <select class="form-select" id="ldPoc" formControlName="ldPoc">
                                 <option *ngFor="let poc of ldPocs" [value]="poc">{{ poc }}</option>
                             </select>
+                            <div *ngIf="applyLeaveForm.get('ldPoc')?.invalid && applyLeaveForm.get('ldPoc')?.touched">
+                                <div *ngIf="applyLeaveForm.get('ldPoc')?.errors?.['required']" class="text-danger">
+                                    Select One</div>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <textarea class="form-control" id="description" formControlName="description"></textarea>
+                        <div
+                            *ngIf="applyLeaveForm.get('description')?.invalid && applyLeaveForm.get('description')?.touched">
+                            <div *ngIf="applyLeaveForm.get('description')?.errors?.['required']" class="text-danger">
+                                This field
+                                is required.</div>
+                        </div>
+                    </div>
+                    <div *ngIf="applyLeaveForm.errors?.['durationMismatch']" class="text-danger mb-3">
+                        The date range does not match the number of days.
                     </div>
                     <div class="modal-footer">
                         <app-button [buttonLabel]="'Submit'" class="custom-button" data-bs-dismiss="modal"
                             (click)="onSubmit()"></app-button>
                         <app-hollow-button [hollowButtonLabel]="'Cancel'" class="custom-button"
                             data-bs-dismiss="modal"></app-hollow-button>
-                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> -->
                     </div>
                 </form>
             </div>

@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class HollowButtonComponent {
   @Input() hollowButtonLabel: string='';
+  @Input() attr: { [key: string]: string } = {};
 
 
 
@@ -31,6 +32,6 @@ export class HollowButtonComponent {
 
 
 
-  
+
 
 }

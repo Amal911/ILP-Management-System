@@ -9,10 +9,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './leave-request-card.component.scss'
 })
 export class LeaveRequestCardComponent {
-  @Input() cardItems:any[]=[];
-
-  getLeftIconColor(is_approved_trainer: boolean): string {
-    return is_approved_trainer ? 'green' : 'red';
-  }
-
+  @Input() leave:any ;
 }

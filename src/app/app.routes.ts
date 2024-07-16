@@ -8,6 +8,8 @@ import { LeaveRequestComponent } from './pages/leave-request/leave-request.compo
 import { AssignmentListingComponent } from './pages/assignment-listing/assignment-listing.component';
 import { EvaluateAssessmentsComponent } from './pages/evaluate-assessments/evaluate-assessments.component';
 import { CreateScheduleComponent } from './pages/create-schedule/create-schedule.component';
+
+import { HandedInAssignmentsComponent } from './pages/handed-in-assignments/handed-in-assignments.component';
 import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 
 import { CreateAssessmentComponent } from './pages/create-assessment/create-assessment.component';
@@ -39,6 +41,15 @@ export const routes: Routes = [
     { path: 'handed-in', component: AssessmentHandedinComponent },//thulasi
     { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent },//thulasi
 
+
+
+
+
+
+
+
+    // Trainee
+    {path:'assessment/handed/id',component:HandedInAssignmentsComponent},
 
 
 

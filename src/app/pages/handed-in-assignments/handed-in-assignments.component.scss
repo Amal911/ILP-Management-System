@@ -1,0 +1,182 @@
+.container {
+    width: 100%;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+    border: 0;
+    margin: 0 2em;
+    height: auto;
+  }
+  .subcards{
+    border: 0;
+    height: auto;
+    min-height: 300px;
+  }
+  .card-body{
+    padding: 2rem;
+  }
+  
+  .form-label {
+  }
+  
+  .text-danger {
+    font-size: 0.875em;
+    margin-top: 0.25em;
+  }
+  
+  .my-work-container {
+    width: 50%;
+    margin: 2em 0;
+    
+  }
+  .my-work-container-notsubmitted {
+    width: 100%;
+    margin: 2em 0;
+    
+  }
+  
+  .uploadbtn {
+    border-radius: 50px;
+  }
+  
+  .inputBox {
+    border: solid 1px #000;
+    background-color: #F5FAFF;
+  }
+  
+  .d-none {
+    display: none;
+  }
+
+  .score-card {
+    max-width: 300px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  }
+  .score-value {
+    font-weight: bold;
+    font-size: 2rem;
+
+  }
+  .score-label, .comments-label {
+    color: #333;
+  }
+  .trash-icon{
+    margin-top: 30px !important;
+    position: relative;
+  }
+  
+//prime ng customisation
+:host ::ng-deep .p-fileupload .p-fileupload-buttonbar {
+    height:10% !important;
+
+}
+:host ::ng-deep .p-fileupload .p-fileupload-buttonbar .p-fileupload-choose {
+    width: 15%;
+    height:10% !important;
+    background-color: #5576D9;
+}
+
+:host ::ng-deep .p-fileupload .p-fileupload-buttonbar .p-element {
+    padding: 2px;
+    background-color: #5576D9;
+    border-radius: 10px;
+    
+}
+
+  
+
+
+
+
+  /* Media Queries */
+  
+  @media (max-width: 1200px) {
+    .container {
+      padding: 0 1.5em;
+    }
+  
+    .card {
+      margin: 0 1.5em;
+    }
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+  }
+  
+  @media (max-width: 992px) {
+    .container {
+      padding: 0 1em;
+    }
+  
+    .card {
+      margin: 0 1em;
+    }
+  
+    .my-work-container {
+      width: 75%;
+    }
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 0.5em;
+    }
+  
+    .card {
+      margin: 0 0.5em;
+    }
+  
+    .my-work-container {
+      width: 100%;
+    }
+  
+    .d-flex {
+      flex-direction: row;
+      align-items: stretch;
+    }
+  
+    .d-flex button {
+      margin-bottom: 10px;
+    }
+    .btn {
+        width: 100%;
+      }
+  }
+  
+  @media (max-width: 576px) {
+    
+  
+    .d-flex {
+      flex-direction: row;
+      align-items: stretch;
+    }
+  
+   
+  
+    
+    .my-work-container {
+      width: 100%;
+      margin: 1em 0;
+    }
+   
+      .btn {
+        width: 100%;
+        margin-bottom: 10px;
+        flex: 2 2 auto; 
+        padding: 0.25em;
+        justify-content: space-between;
+        margin: 0 5px;
+      }
+  
+   
+  }
+  

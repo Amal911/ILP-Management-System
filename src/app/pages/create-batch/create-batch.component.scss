@@ -1,175 +1,263 @@
 //Custom CSS
-.div{
-    display: flex;
+.div {
+  display: flex;
 }
-.sidebar{
-    min-height: 100vh;
-    min-width:20vw;
-    background-color: rgb(0, 21, 255);
+.sidebar {
+  min-height: 100vh;
+  min-width: 20vw;
+  background-color: rgb(0, 21, 255);
 }
-.container{
-    background-color:#FFFFFF;
-    padding:0 40px;
-    width: 100%;
-    // overflow-y: scroll;
-    // min-height: 100vh;
-    // min-width: 400px;
-    
+.container {
+  background-color: #ffffff;
+  padding: 0 40px;
+  width: 100%;
 }
-.inputBox{
-    background-color: #F5FAFF;
-    border-bottom: solid 1px #000000;
-}
-.createBatchInputBox{
-width: 100%;
-background-color: aqua !important;
-}
-.col{
-    margin-left: 0px;
-}
-label{
-    font-size: small;
-
-}
-.btn{
-    font-size: small;
-
+.inputBox {
+  background-color: #f5faff;
+  border-bottom: solid 1px #000000;
 }
 
-.form-body{
-    background-color: #FFFFFF;
-    
+.col {
+  margin-left: 0px;
 }
- .text-danger {
-    font-size: small;
- }
- .dropdown .buttons {
-    border: solid 1px #000000;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    box-sizing: border-box;
-  }
- .dropdown-menu {
-    min-width: 100%;
-  }
-  
-  .dropdown-item {
-    width: 100%;
-  }
-  
+label {
+  font-size: small;
+}
+.btn {
+  font-size: small;
+}
+
+.form-body {
+  background-color: #ffffff;
+}
+.text-danger {
+  font-size: small;
+}
+#locationDropdown,
+#learningLeaveApproverDropdown,
+#batchType,
+#selectProgram,
+#trainerLeaveApproverDropdown,
+#evaluationCriteria,
+#phaseName {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/> </svg>')
+    no-repeat right 1rem center/1em auto;
+  padding-right: 2.5rem;
+  background-color: #f5faff;
+  border-bottom: solid 1px #000
+}
+.dropdown-menu {
+  min-width: 100%;
+}
+
+.dropdown-item {
+  width: 100%;
+}
+
 .upload {
-    border-radius: 2.25rem; 
-  }
-  
-  .upload.btn-outline-primary {
-    border: 1px solid #007bff; 
-    color: #007bff; 
-  }
-  
-  .upload.btn-outline-primary:hover {
-    background-color: #007bff;
-    color: white;
-  }
+  border-radius: 2.25rem;
+}
+
+.upload.btn-outline-primary {
+  border: 1px solid #007bff;
+  color: #007bff;
+}
+
+.upload.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: white;
+}
 //Stepper CSS
 .h-12rem {
-    height: 42rem;
-  }
-  
-  .flex {
-    display: flex;
-  }
-  
-  .flex-column {
-    flex-direction: column;
-  }
-  
-  .flex-auto {
-    flex: 1 1 auto;
-  }
-  
-  .border-2 {
-    border-width: 0px !important;
-  }
-  
-  .border-dashed {
-    border-style:groove;
-  }
-  
-  .border-round {
-    border-radius: 5px;
-  }
-  
-  .surface-border {
-    border-color: var(--surface-border);
-  }
-  
-  .surface-ground {
-    // background-color: var(--surface-ground);
-  }
-  
-  .font-medium {
-    font-weight: 500;
-  }
-  
-  .pt-4 {
-    padding-top: 1rem;
-  }
-  
-  .justify-content-center {
-    justify-content: center;
-  }
-  
-  .align-items-center {
-    align-items: center;
-  }
-  
-  .justify-content-end {
-    justify-content: flex-end;
-  }
-  
-//   .justify-content-between {
-//     justify-content: space-between;
-//   }
-  
-  .justify-content-start {
-    justify-content: flex-start;
-  }
-  .phase-container{
-    // margin-top: 20px;
-    // margin-bottom: 20px;
-  }
+  height: 42rem;
+}
 
-  .form-container {
-    max-width: 100%;
-    margin: 20px auto;
-    padding: 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  .form-container h4, .form-container h5 {
-    text-align: left;
-    margin-bottom: 20px;
-    margin-left: 20px;
-  }
+.flex {
+  display: flex;
+}
 
-.createbatch-p{
-    font-size: smaller;
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.border-2 {
+  border-width: 0px !important;
+}
+
+.border-dashed {
+  border-style: groove;
+}
+
+.border-round {
+  border-radius: 5px;
+}
+
+.surface-border {
+  border-color: var(--surface-border);
+}
+
+.surface-ground {
+  // background-color: var(--surface-ground);
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.pt-4 {
+  padding-top: 1rem;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.justify-content-start {
+  justify-content: flex-start;
+}
+.phase-container {
+  // margin-top: 20px;
+  // margin-bottom: 20px;
+}
+
+.form-container {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form-container h4,
+.form-container h5 {
+  text-align: left;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.createbatch-p {
+  font-size: smaller;
 }
 input[type="file"] {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  
-  table {
-    margin-top: 20px;
-  }
- 
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
-  
+table {
+  margin-top: 20px;
+}
+
+.phase-container {
+  position: relative;
+  border: 1px solid #5576d9;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.remove-phase-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.remove-assessment-btn {
+  position: relative;
+  padding-top: 10px;
+}
+//Media Queries
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 20px;
+  }
+  .form-container {
+    padding: 15px;
+  }
+  .inputBox,
+  .dropdown .buttons,
+  .form-container h4,
+  .form-container h5 {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    min-width: 25vw;
+  }
+  .inputBox,
+  .dropdown .buttons,
+  .form-container h4,
+  .form-container h5 {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .div {
+    flex-direction: column;
+  }
+  .sidebar {
+    min-width: 100%;
+    height: auto;
+  }
+  .container {
+    padding: 0 15px;
+  }
+  .inputBox,
+  .dropdown .buttons,
+  .form-container h4,
+  .form-container h5 {
+    font-size: 0.8rem;
+  }
+  .form-container {
+    padding: 10px;
+  }
+  .remove-phase-btn,
+  .remove-assessment-btn {
+    font-size: 0.85rem;
+  }
+  .phase-container {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0 10px;
+  }
+  .form-container {
+    padding: 5px;
+  }
+  .inputBox,
+  .dropdown .buttons,
+  .form-container h4,
+  .form-container h5 {
+    font-size: 0.75rem;
+  }
+  .remove-phase-btn,
+  .remove-assessment-btn {
+    font-size: 0.8rem;
+    flex-grow: 1;
+    flex-shrink: 2;
+    flex-direction: row;
+  }
+  .phase-container {
+    padding: 5px;
+  }
+}

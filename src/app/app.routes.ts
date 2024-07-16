@@ -12,6 +12,7 @@ import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.compo
 
 import { CreateAssessmentComponent } from './pages/create-assessment/create-assessment.component';
 import { AssessmentHandedinComponent } from './pages/assessment-handedin/assessment-handedin.component';
+import { CreateBatchComponent } from './pages/create-batch/create-batch.component';
 
 export const routes: Routes = [
 
@@ -19,7 +20,7 @@ export const routes: Routes = [
     {path:'account', component:AccountComponent},
     {path:'scorecard',component:DashboardScorecardComponent},      //amal
     {path:'batches',component:BatchListingComponent},
-    // {path:'batches/create',component:}, //jisna
+    {path:'batches/create',component:CreateBatchComponent}, //jisna
     // {path:'batches/manage/{id}',component:}, //jisna
     {path:'assessments',component:AssignmentListingComponent},
     {path:'assessments/create',component:CreateAssessmentComponent}, //reshmi

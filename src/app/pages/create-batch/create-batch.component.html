@@ -1,6 +1,4 @@
 <div class="div">
-  <div class="sidebar"></div>
-
   <div class="container">
     <form [formGroup]="createBatchForm" (ngSubmit)="createBatch()">
       <p-stepper>
@@ -12,15 +10,15 @@
                   <h4>CREATE BATCH</h4>
                   <div class="row mt-5">
                     <div class="col-md-6 mb-3">
-                      <label for="selectYear">Select Year</label>
+                      <label for="selectYear">Select Program</label>
                       <div class="dropdown form-group">
-                        <select id="selectYear" class="form-control" formControlName="selectYear">
-                          <option value="" disabled>Select the year</option>
+                        <select id="selectProgram" class="form-control" formControlName="selectProgram">
+                          <option value="" disabled>Select the Program</option>
                           <option value="2023">2023</option>
                           <option value="2024">2024</option>
                           <option value="2025">2025</option>
                         </select>
-                        <div *ngIf="getFormControl('selectYear').invalid && getFormControl('selectYear').touched" class="text-danger">
+                        <div *ngIf="getFormControl('selectProgram').invalid && getFormControl('selectProgram').touched" class="text-danger">
                           * Year is required
                         </div>
                       </div>
@@ -95,7 +93,7 @@
                       <label for="locationDropdown">Location (Optional)</label>
                       <div class="dropdown form-group">
                         <select id="locationDropdown" class="form-control" formControlName="locationDropdown">
-                          <option value="" disabled>Select a Location</option>
+                          <option value="" disabled>Select a Location<i class="bi bi-chevron-down"></i></option>
                           <option value="Thiruvanathapuram">Thiruvanathapuram</option>
                           <option value="Kochi">Kochi</option>
                           <option value="Bangalore">Bangalore</option>
@@ -196,256 +194,123 @@
           </ng-template>
         </p-stepperPanel>
 
-        <!-- <p-stepperPanel header="">
+       <p-stepperPanel header="">
           <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
             <div class="flex flex-column h-12rem">
               <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
                 <div class="container form-container">
                   <h4>Create Batch</h4>
                   <h5>Curriculum for the batch</h5>
-                  <form>
-                    <div class="row mt-5">
-                        <div class="col-md-6">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <label for="phaseName">Phase Name</label>
-                            <input type="text" id="phaseName" class="form-control inputBox" name="phaseName" ngDefaultControl formControlName="phaseName">
-                            <div *ngIf="getFormControl('phaseName').invalid && getFormControl('phaseName').touched" class="text-danger">
-                              * Phase name is required
+                  
+                  <div formArrayName="phases">
+                    <div *ngFor="let phase of phasesArray().controls; let phaseIndex = index">
+                      <div [formGroupName]="phaseIndex" class="phase-container">
+                        <button type="button" class="btn btn-outline-primary remove-phase-btn" (click)="removePhase(phaseIndex)">
+                          <i class="pi pi-trash">&ensp;Remove Phase</i>
+                        </button>
+
+                        <div class="row mb-3 mt-3 phase-item">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              
+                              <label for="phaseName{{ phaseIndex }}">Phase Name</label>
+                              <select id="phaseName" class="form-control" formControlName="phaseName">
+                                <option value="" disabled>Select the Phase</option>
+                                <option value="Tech Fundamentals">Tech Fundamentals</option>
+                                <option value="Business Orientation">Business Orientation</option>
+                                <option value="OJT">OJT</option>
+                              </select>
+                              <div *ngIf="getFormControl('phases.' + phaseIndex + '.phaseName').touched && getFormControl('phases.' + phaseIndex + '.phaseName').invalid" class="text-danger">
+                                * Phase name is required
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      <div class="col-md-6">
-                        <div class="form-group" [formGroup]="createBatchForm">
-                          <label for="numberOfDays">Number of days</label>
-                          <input type="text" id="numberOfDays" class="form-control inputBox" formControlName="numberOfDays">
-                          <div *ngIf="getFormControl('numberOfDays').invalid && getFormControl('numberOfDays').touched" class="text-danger">
-                            * Number of days is required
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group" [formGroup]="createBatchForm">
-                          <label for="phaseStartDate">Start Date (Tentative)</label>
-                          <input type="date" id="phaseStartDate" class="form-control inputBox" formControlName="phaseStartDate">
-                          <div *ngIf="getFormControl('phaseStartDate').invalid && getFormControl('phaseStartDate').touched" class="text-danger">
-                            * Start date is required
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group" [formGroup]="createBatchForm">
-                          <label for="endDate">End Date (Tentative)</label>
-                          <input type="date" id="endDate" class="form-control inputBox" formControlName="endDate">
-                          <div *ngIf="getFormControl('endDate').invalid && getFormControl('endDate').touched" class="text-danger">
-                            * End date is required
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="criteriaList">
-                      <div class="row mb-3 mt-3 criteria-item">
-                        <div class="col-md-6">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <label for="evaluationCriteriaOne">Evaluation Criteria</label>
-                            <input type="text" id="evaluationCriteriaOne" class="form-control inputBox" formControlName="evaluationCriteriaOne">
-                            <div *ngIf="getFormControl('evaluationCriteriaOne').invalid && getFormControl('evaluationCriteriaOne').touched" class="text-danger">
-                              * Evaluation criteria is required
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label for="numberOfDays{{ phaseIndex }}">Number of days</label>
+                              <input type="text" id="numberOfDays{{ phaseIndex }}" class="form-control inputBox" formControlName="numberOfDays">
+                              <div *ngIf="getFormControl('phases.' + phaseIndex + '.numberOfDays').touched && getFormControl('phases.' + phaseIndex + '.numberOfDays').invalid" class="text-danger">
+                                * Number of days is required
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <label for="weightageOne">Weightage</label>
-                            <input type="text" id="weightageOne" class="form-control inputBox" formControlName="weightageOne">
-                            <div *ngIf="getFormControl('weightageOne').invalid && getFormControl('weightageOne').touched" class="text-danger">
-                              * Weightage is required
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="phaseStartDate{{ phaseIndex }}">Start Date (Tentative)</label>
+                              <input type="date" id="phaseStartDate{{ phaseIndex }}" class="form-control inputBox" formControlName="phaseStartDate">
+                              <div *ngIf="getFormControl('phases.' + phaseIndex + '.phaseStartDate').touched && getFormControl('phases.' + phaseIndex + '.phaseStartDate').invalid" class="text-danger">
+                                * Start date is required
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      <div class="row mb-3 criteria-item">
-                        <div class="col-md-6">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <input type="text" id="evaluationCriteriaTwo" class="form-control inputBox" formControlName="evaluationCriteriaTwo">
-                            <div *ngIf="getFormControl('evaluationCriteriaTwo').invalid && getFormControl('evaluationCriteriaTwo').touched" class="text-danger">
-                              * Evaluation criteria is required
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="phaseEndDate{{ phaseIndex }}">End Date (Tentative)</label>
+                              <input type="date" id="phaseEndDate{{ phaseIndex }}" class="form-control inputBox" formControlName="phaseEndDate">
+                              <div *ngIf="getFormControl('phases.' + phaseIndex + '.phaseEndDate').touched && getFormControl('phases.' + phaseIndex + '.phaseEndDate').invalid" class="text-danger">
+                                * End date is required
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <input type="text" id="weightageTwo" class="form-control inputBox" formControlName="weightageTwo">
-                            <div *ngIf="getFormControl('weightageTwo').invalid && getFormControl('weightageTwo').touched" class="text-danger">
-                              * Weightage is required
+
+                          <div class="col-md-12">
+                            <h6 class="mt-1">Assessment Criteria</h6>
+                            <div formArrayName="assessmentTypeList">
+                              <div *ngFor="let assessment of assessmentTypeListArray(phaseIndex).controls; let i = index">
+                                <div [formGroupName]="i" id="criteriaList">
+                                  <div class="row mb-3 mt-3 criteria-item">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label for="evaluationCriteria{{ phaseIndex }}-{{ i }}">Assessment Type</label>
+                                        <select id="evaluationCriteria" class="form-control" formControlName="evaluationCriteria">
+                                          <option value="" disabled>Select Assessment Type</option>
+                                          <option value="Daily Assessment">Daily Assessment</option>
+                                          <option value="Live Assessment">Live Assessment</option>
+                                          <option value="Project">Project</option>
+                                          <option value="Module">Module</option>
+                                          <option value="Case study">Case Study</option>
+
+                                        </select>
+                                        <div *ngIf="assessment.get('evaluationCriteria')?.touched && assessment.get('evaluationCriteria')?.invalid" class="text-danger">
+                                          <div *ngIf="assessment.get('evaluationCriteria')?.hasError('required')">
+                                            * Assessment type is required
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                      <div class="form-group">
+                                        <label for="weightage{{ phaseIndex }}-{{ i }}">Weightage</label>
+                                        <input type="text" id="weightage{{ phaseIndex }}-{{ i }}" class="form-control inputBox" formControlName="weightage">
+                                        <div *ngIf="assessment.get('weightage')?.touched && assessment.get('weightage')?.invalid" class="text-danger">
+                                          <div *ngIf="assessment.get('weightage')?.hasError('required')">
+                                            * Weightage is required
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col pt-4 ">
+                                      <i class="pi pi-trash remove-assessment-btn" style="font-size: 1rem" (click)="removeAssessmentType(phaseIndex, i)"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row mb-3 criteria-item">
-                        <div class="col-md-6">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <input type="text" id="evaluationCriteriaThree" class="form-control inputBox" formControlName="evaluationCriteriaThree">
-                            <div *ngIf="getFormControl('evaluationCriteriaThree').invalid && getFormControl('evaluationCriteriaThree').touched" class="text-danger">
-                              * Evaluation criteria is required
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <input type="text" id="weightageThree" class="form-control inputBox" formControlName="weightageThree">
-                            <div *ngIf="getFormControl('weightageThree').invalid && getFormControl('weightageThree').touched" class="text-danger">
-                              * Weightage is required
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row mb-3 criteria-item">
-                        <div class="col-md-6">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <input type="text" id="evaluationCriteriaFour" class="form-control inputBox" formControlName="evaluationCriteriaFour">
-                            <div *ngIf="getFormControl('evaluationCriteriaFour').invalid && getFormControl('evaluationCriteriaFour').touched" class="text-danger">
-                              * Evaluation criteria is required
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <input type="text" id="weightageFour" class="form-control inputBox" formControlName="weightageFour">
-                            <div *ngIf="getFormControl('weightageFour').invalid && getFormControl('weightageFour').touched" class="text-danger">
-                              * Weightage is required
+                            <div class="d-flex justify-content-start mb-3">
+                              <button type="button" class="btn btn-light" id="addCriteriaBtn" (click)="addAssessmentType(phaseIndex)">+ Add New Criteria</button>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="d-flex justify-content-start mb-3">
-                      <button type="button" class="btn btn-light" id="addCriteriaBtn">+ Add New Criteria</button>
-                    </div>
-                    <div class="row">
-                      <div class="col-10 mx-auto">
-                        <div class="btn btn-light w-100">+ Add New Phase</div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="flex pt-4 justify-content-between">
-                <p-button 
-                  label="Back" 
-                  icon="pi pi-arrow-left" 
-                  iconPos="left" 
-                  (onClick)="prevCallback.emit()" />
-                <p-button 
-                  type="submit"
-                  label="Submit" 
-                  icon="pi pi-arrow-right" 
-                  iconPos="right" 
-                  (onClick)="prevCallback.emit()" />
-              </div>
-            </div>
-          </ng-template>
-        </p-stepperPanel> -->
-        <p-stepperPanel header="">
-          <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
-            <div class="flex flex-column h-12rem">
-              <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
-                <div class="container form-container">
-                  <h4>Create Batch</h4>
-                  <h5>Curriculum for the batch</h5>
-                  <form>
-                    <div class="row mt-5">
-                      <div class="col-md-6 mb-3">
-                        <label for="locationDropdown">Location (Optional)</label>
-                        <div class="dropdown form-group">
-                          <select id="locationDropdown" class="form-control" formControlName="locationDropdown">
-                            <option value="" disabled>Select a Location</option>
-                            <option value="Thiruvanathapuram">Thiruvanathapuram</option>
-                            <option value="Kochi">Kochi</option>
-                            <option value="Bangalore">Bangalore</option>
-                          </select>
-                        </div>
-                      </div>
-                        <div class="col-md-6">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <label for="phaseName">Phase Name</label>
-                            <input type="text" id="phaseName" class="form-control inputBox" name="phaseName" ngDefaultControl formControlName="phaseName">
-                            <div *ngIf="getFormControl('phaseName').invalid && getFormControl('phaseName').touched" class="text-danger">
-                              * Phase name is required
-                            </div>
-                          </div>
-                        </div>
-                      <div class="col-md-6">
-                        <div class="form-group" [formGroup]="createBatchForm">
-                          <label for="numberOfDays">Number of days</label>
-                          <input type="text" id="numberOfDays" class="form-control inputBox" formControlName="numberOfDays">
-                          <div *ngIf="getFormControl('numberOfDays').invalid && getFormControl('numberOfDays').touched" class="text-danger">
-                            * Number of days is required
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group" [formGroup]="createBatchForm">
-                          <label for="phaseStartDate">Start Date (Tentative)</label>
-                          <input type="date" id="phaseStartDate" class="form-control inputBox" formControlName="phaseStartDate">
-                          <div *ngIf="getFormControl('phaseStartDate').invalid && getFormControl('phaseStartDate').touched" class="text-danger">
-                            * Start date is required
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group" [formGroup]="createBatchForm">
-                          <label for="endDate">End Date (Tentative)</label>
-                          <input type="date" id="endDate" class="form-control inputBox" formControlName="endDate">
-                          <div *ngIf="getFormControl('endDate').invalid && getFormControl('endDate').touched" class="text-danger">
-                            * End date is required
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div [formGroup]="createBatchForm">
-                    <div formArrayName="assessmentTypeList" >
-                      <div *ngFor="let assessment of assessmentTypeListArray().controls; let index=index">
-                        <div [formGroupName]="index">
-                    <div id="criteriaList">
-                      <div class="row mb-3 mt-3 criteria-item">
-                        <div class="col-md-6">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <label for="assessmentType{{index}}">Evaluation Criteria</label>
-                            <input type="text" id="assessmentType{{index}}" class="form-control inputBox" formControlName="evaluationCriteriaOne">
-                            <div *ngIf="getFormControl('assessmentTypeList').invalid && getFormControl('evaluationCriteriaOne').touched" class="text-danger">
-                              * Evaluation criteria is required
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="form-group" [formGroup]="createBatchForm">
-                            <label for="weightageOne">Weightage</label>
-                            <input type="text" id="weightageOne{{index}}" class="form-control inputBox" formControlName="weightageOne">
-                            <div *ngIf="getFormControl('weightageOne').invalid && getFormControl('weightageOne').touched" class="text-danger">
-                              * Weightage is required
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col pt-4">
-                          <!-- <i class="fa-solid fa-trash-can" (click)="removeAssessmentType(index)"></i> -->
-                          <i class="pi pi-trash" style="font-size: 1rem" (click)="removeAssessmentType(index)"></i>
-                        </div>
-                      </div>
-                    </div>
-                    
                   </div>
-                </div>
-                </div>
-                <div class="d-flex justify-content-start mb-3">
-                  <button type="button" class="btn btn-light" id="addCriteriaBtn" (click)="addAssessmentType()">+ Add New Criteria</button>
-                </div>
-              </div>
-                    <div class="row">
-                      <div class="col-10 mx-auto">
-                        <div class="btn btn-light w-100">+ Add New Phase</div>
-                      </div>
+
+                  <div class="row">
+                    <div class="col-10 mx-auto">
+                      <button type="button" class="btn btn-light w-100" (click)="addPhase()">+ Add New Phase</button>
                     </div>
-                  </form>
+                  </div>
+
                 </div>
               </div>
               <div class="flex pt-4 justify-content-between">
@@ -464,7 +329,8 @@
             </div>
           </ng-template>
         </p-stepperPanel>
+        
       </p-stepper>
-    </form>
+            </form>
   </div>
 </div>

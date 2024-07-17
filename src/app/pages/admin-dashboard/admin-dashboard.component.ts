@@ -1,17 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { Chart, PieController } from 'chart.js/auto';
+import { LatestActivityDashboardComponent } from '../../components/latest-activity-dashboard/latest-activity-dashboard.component';
+import { PhaseProgressDashboardComponent } from '../../components/phase-progress-dashboard/phase-progress-dashboard.component';
+import { ScorecardOverviewDashboardComponent } from '../../components/scorecard-overview-dashboard/scorecard-overview-dashboard.component';
+import { AttendanceGraphDashboardComponent } from '../../components/attendance-graph-dashboard/attendance-graph-dashboard.component';
+import { CriteriawiseGraphDashboardComponent } from "../../components/criteriawise-graph-dashboard/criteriawise-graph-dashboard.component";
+import { BasicDetailsDashboardComponent } from "../../components/basic-details-dashboard/basic-details-dashboard.component";
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [ChartModule],
+  imports: [
+    ChartModule,
+    LatestActivityDashboardComponent,
+    PhaseProgressDashboardComponent,
+    ScorecardOverviewDashboardComponent,
+    AttendanceGraphDashboardComponent,
+    CriteriawiseGraphDashboardComponent,
+    BasicDetailsDashboardComponent
+],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss',
 })
 export class AdminDashboardComponent implements OnInit {
-
-  //Data of each batches 
+  //Data of each batches
   batches: any[] = [
     {
       name: 'Batch1',
@@ -58,34 +70,41 @@ export class AdminDashboardComponent implements OnInit {
   currentPhaseIndex = this.phases.length - 1;
 
   //Data about the latest schedule of the batch
-  schedule:any={
-    module:"Bootstrap",
-    session:"Introduction to bootstrap"
-  }
+  schedule: any = {
+    module: 'Bootstrap',
+    session: 'Introduction to bootstrap',
+  };
 
   //Data needed for graphs
-  phaseProgressData: any;
-  phaseProgressOptions: any;
-  batchScoreOverviewData: any;
-  batchScoreOverviewOptions: any;
-  attendanceData: any;
-  attendanceOptions: any;
-  categoryWiseScoreData: any;
-  categoryWiseScoreOptions: any;
   phaseCompletedDays: number = 14;
   phaseTotaldays: number = 26;
+  batchScoreOverviewData: number[] = [2, 4, 3, 1];
+  //Data for attendance graph
+  thisWeekDays: string[] = [
+    'May 1',
+    'May 2',
+    'May 3',
+    'May 4',
+    'May 5',
+    'May 6',
+  ];
+  attendanceThisWeek: number[] = [89, 91, 91, 78, 99, 65];
+  categoryWiseModules: string[] = [
+    'Case Study',
+    'Module',
+    'Live Assessment',
+    'Project',
+    'Daily',
+    'Total',
+  ];
+  categoryWiseScores: number[] = [65, 59, 80, 81, 56, 78];
 
   //Function that helps to set the batch to the first batch on startup/refresh
   isFirst(batch: any) {
     return this.batches.indexOf(batch) === 0;
   }
 
-  ngOnInit() {
-    this.phaseProgressGraph();
-    this.batchScoreOverviewGraph();
-    this.attendanceGraph();
-    this.categoryWiseScoreGraph();
-  }
+  ngOnInit(): void {}
 
   //Function to change phases using the arrow buttons
   previousPhaseNav() {
@@ -95,199 +114,5 @@ export class AdminDashboardComponent implements OnInit {
 
   nextPhaseNav() {
     this.currentPhaseIndex = (this.currentPhaseIndex + 1) % this.phases.length;
-  }
-
-  //Functions to generate graphs
-  phaseProgressGraph() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-
-    this.phaseProgressData = {
-      // labels: ['A', 'B', 'C'],
-      datasets: [
-        {
-          data: [
-            this.phaseCompletedDays,
-            this.phaseTotaldays - this.phaseCompletedDays,
-          ],
-          backgroundColor: [
-            documentStyle.getPropertyValue('--blue-500'),
-            '#f5faff',
-          ],
-          hoverBorderColor: [
-            documentStyle.getPropertyValue('--blue-500'),
-            '#f5faff',
-          ],
-          hoverBackgroundColor: [
-            documentStyle.getPropertyValue('--blue-500'),
-            '#f5faff',
-          ],
-        },
-      ],
-    };
-
-    this.phaseProgressOptions = {
-      cutout: '70%',
-      style: { border: 'none' },
-      plugins: {
-        hover: { enabled: false },
-        tooltip: { enabled: false },
-        legend: {
-          labels: {
-            color: '#000',
-          },
-        },
-      },
-    };
-  }
-
-  batchScoreOverviewGraph() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-
-    this.batchScoreOverviewData = {
-      // labels: ['A', 'B', 'C','D'],
-      datasets: [
-        {
-          data: [4, 3, 2, 1],
-          backgroundColor: [
-            documentStyle.getPropertyValue('--blue-500'),
-            documentStyle.getPropertyValue('--yellow-500'),
-            documentStyle.getPropertyValue('--green-500'),
-            documentStyle.getPropertyValue('--red-500'),
-          ],
-          hoverBackgroundColor: [
-            documentStyle.getPropertyValue('--blue-400'),
-            documentStyle.getPropertyValue('--yellow-400'),
-            documentStyle.getPropertyValue('--green-400'),
-            documentStyle.getPropertyValue('--red-400'),
-          ],
-        },
-      ],
-    };
-
-    this.batchScoreOverviewOptions = {
-      cutout: '70%',
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor,
-          },
-        },
-      },
-    };
-  }
-
-  attendanceGraph() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue(
-      '--text-color-secondary'
-    );
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-    this.attendanceData = {
-      labels: ['May 1', 'May 2', 'May 3', 'May 4', 'May 6'],
-      datasets: [
-        {
-          // label: 'My First dataset',
-          backgroundColor: [documentStyle.getPropertyValue('--blue-500')],
-          borderColor: [documentStyle.getPropertyValue('--blue-500')],
-          data: [65, 59, 80, 81, 56, 55],
-        },
-      ],
-    };
-
-    this.attendanceOptions = {
-      maintainAspectRatio: true,
-      aspectRatio: 1.2,
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: textColorSecondary,
-            font: {
-              weight: 500,
-            },
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false,
-          },
-        },
-        y: {
-          ticks: {
-            color: textColorSecondary,
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false,
-          },
-        },
-      },
-    };
-  }
-
-  categoryWiseScoreGraph() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue(
-      '--text-color-secondary'
-    );
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-    this.categoryWiseScoreData = {
-      labels: [
-        'Case Study',
-        'Module',
-        'Live Assessment',
-        'Project',
-        'Daily',
-        'Total',
-      ],
-      datasets: [
-        {
-          // label: 'My First dataset',
-          backgroundColor: [documentStyle.getPropertyValue('--green-500')],
-          borderColor: [documentStyle.getPropertyValue('--green-500')],
-          data: [65, 59, 80, 81, 56, 55, 78],
-        },
-      ],
-    };
-
-    this.categoryWiseScoreOptions = {
-      maintainAspectRatio: true,
-      aspectRatio: 1.2,
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: textColorSecondary,
-            font: {
-              weight: 500,
-            },
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false,
-          },
-        },
-        y: {
-          ticks: {
-            color: textColorSecondary,
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false,
-          },
-        },
-      },
-    };
   }
 }

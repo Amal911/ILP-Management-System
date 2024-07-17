@@ -22,7 +22,6 @@
     background-color: #5576D9;
     box-shadow: 4px 0px 18px 0px rgb(85, 118, 217, 0.2), -4px 0px 18px 0px rgb(85, 118, 217, 0.2);
 }
- 
 .current-phase {
     font-size: 10px;
 }
@@ -36,9 +35,7 @@
     box-shadow: 0px 4px 18px 0px rgb(85, 118, 217, 0.2);
     border-radius: 8px;
     height: 100%;
- 
-    //width:20%;
-    .title {
+     .title {
         font-size: 0.75rem;
     }
  
@@ -101,23 +98,5 @@
 .download-data-btn{
     font-size: 10px;
     background-color: #5576D9;
-}
-
-.phaseProgressDays{
-    font-size: 12px;
-}
-
-.graph-key{
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.todays-schedule{
-    color: #5576D9;
-    font-weight: 700;
-    font-size: 1.2rem;
-}
-
-.avg-attendance{
-    font-size: 12px;
+    box-shadow: 0px 4px 18px 0px rgb(85, 118, 217, 0.3);
 }

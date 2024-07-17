@@ -1,0 +1,15 @@
+<div class="container p-3 text-center">
+    <div class="title text-start mb-2">Attendance</div>
+    <div class="d-flex flex-row">
+      <div class="col-md-8">
+        <p-chart type="bar" [data]="attendanceData" [options]="attendanceOptions" />
+      </div>
+      <div class="col-md-4 text-start avg-attendance mt-2 mx-2">
+        <div class="mb-3">This week:</div>
+        <div class="mb-1">Total absents: <b>16</b></div>
+        <div class="mb-1">Average attendance: <b>97%</b></div>
+        
+      </div>
+    </div>
+
+  </div>

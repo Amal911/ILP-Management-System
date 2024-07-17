@@ -1,0 +1,14 @@
+<div class="container p-3 text-center">
+    <div class="title text-start">Batch Score Overview</div>
+    <div class="d-flex flex-row">
+      <div class="graph-key col-6 align-items-center justify-content-center mt-3 text-start">
+        <div><i class="score-tier-1 bi bi-circle-fill"></i>Above 80%: <b>{{batchScores[0]}}</b></div>
+        <div><i class="score-tier-2 bi bi-circle-fill"></i>70% to 80%: <b>{{batchScores[1]}}</b></div>
+        <div><i class="score-tier-3 bi bi-circle-fill"></i>60% to 70%: <b>{{batchScores[2]}}</b></div>
+        <div><i class="score-tier-4 bi bi-circle-fill"></i>Below 60%: <b>{{batchScores[3]}}</b></div>
+      </div>
+      <div class="chart col-6 mt-0">
+        <p-chart type="doughnut" [data]="batchScoreOverviewData" [options]="batchScoreOverviewOptions"></p-chart>
+      </div>
+    </div>
+  </div>

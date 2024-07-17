@@ -23,3 +23,12 @@
 .button-space {
   width: 40px;
 }
+
+td{
+  padding: 9px !important;
+}
+@media (max-width: 768px) {
+  table {
+    width: 100%;
+  }
+}

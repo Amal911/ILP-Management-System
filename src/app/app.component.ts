@@ -20,6 +20,7 @@ import { SessionAttendanceComponent } from "./pages/session-attendance/session-a
 import { AttendanceTableComponent } from "./components/attendance-table/attendance-table.component";
 import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 import { MainLayoutComponent } from './Layout/main-layout/main-layout.component';
+import { EditAccountModalComponent } from "./components/edit-account-modal/edit-account-modal.component";
 
 import { LoginComponent } from "./pages/login/login.component";
 

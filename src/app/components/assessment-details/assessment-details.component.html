@@ -1,0 +1,29 @@
+<div class="container session-details-container">
+  <div class="heading">
+    <h2>{{assessment.assessment_title}}</h2>
+    <p>{{assessment.description}}</p>
+    <div class="details row">
+      <div class="detail-content col-4">
+        <p class="detail-title">Title : {{ assessment.assessment_title }}</p>
+      </div>
+      <div class="detail-content col-4">
+        <p class="detail-title">Trainer : {{ assessment.trainer_name }}</p>
+      </div>
+      <div class="detail-content col-4">
+        <p class="detail-title">Comments : {{ assessment.comments }}</p>
+      </div>
+      <div class="mb-3 detail-content col-4">
+        <div class="input-group mb-3">
+          <label>Due date : </label>
+          <input type="date" class="form-control " [(ngModel)]="assessment.due_date" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        </div>
+        </div>
+        <div class="mb-3 detail-content col-4">
+        <div class="input-group mb-3 ">
+          <label>End time : </label>
+          <input type="time" class="form-control" [value]="assessment.end_time" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

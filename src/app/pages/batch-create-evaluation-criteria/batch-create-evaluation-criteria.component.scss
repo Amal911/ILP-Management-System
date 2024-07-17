@@ -1,0 +1,28 @@
+.eC-container
+{
+    box-shadow: 0px 3px 18px 0px rgb(85, 118, 217, 0.2);
+    width: 90%;
+    margin: 50px;
+    padding: 50px;
+}
+
+input{
+  border:  1px solid #5576d9;
+}
+
+.add-phase-button{
+  width: 90%;
+  border: none;
+  background-color: #f5faff;
+}
+
+i{
+  color: #5576d9;
+}
+.search,.new-phase-name {
+  width: 16vw;
+  background-color: #f5faff;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  border-bottom: 2px solid #000;}

@@ -36,22 +36,12 @@
           <tr>
             <td>{{ rowIndex + 1 }}</td>
             <td>{{ trainee.name }}</td>
-            <td>
-              <!-- <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" [checked]="trainee.attendance !== false">
-              </div> -->
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                role="switch"
-                id="flexCheckDefault"
-                [(ngModel)]="trainee.attendance"
-                [checked]="trainee.attendance !== false"
-
-
-              />
-            </td>
+            <td><input
+              type="checkbox"
+              [(ngModel)]="trainee.attendance"
+              aria-label="attendance-checkbox"
+              [checked]="trainee.attendance"
+            /></td>
             <td>
               <input
                 type="text"

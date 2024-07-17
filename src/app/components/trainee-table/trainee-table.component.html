@@ -1,0 +1,46 @@
+<div class="container d-flex justify-content-center align-items-center p-5" >
+  <div
+    class="table-and-search d-flex flex-column align-items-center justify-content-end"
+  >
+    <div
+      class="input-group d-flex flex-row align-items-center justify-content-end"
+    >
+      <input
+        type="text"
+        pInputText
+        class="search"
+        placeholder="Search"
+        [formControl]="searchControl"
+        aria-label="Search-text"
+        aria-describedby="button-addon2"
+      />
+    </div>
+    <div class="">
+      <p-table
+        [value]="filteredColumns"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 10%">SL No.</th>
+            <th style="width: 30%">Name</th>
+            <th style="width: 30%">Status</th>
+            <th style="width: 30%">Marks</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-trainee let-rowIndex="rowIndex">
+          <tr (click)="onRowClick(trainee)">
+            <td>{{ rowIndex + 1 }}</td>
+            <td>{{ trainee.name }}</td>
+            <td>{{trainee.status}}</td>
+            <td>{{trainee.score}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

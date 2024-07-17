@@ -23,6 +23,7 @@ import { MainLayoutComponent } from './Layout/main-layout/main-layout.component'
 import { EditAccountModalComponent } from "./components/edit-account-modal/edit-account-modal.component";
 
 import { LoginComponent } from "./pages/login/login.component";
+import { AdminDashboardComponent } from "./pages/admin-dashboard/admin-dashboard.component";
 
 
 @Component({
@@ -31,9 +32,9 @@ import { LoginComponent } from "./pages/login/login.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   imports: [
-
     MainLayoutComponent,
-  ],
+    AdminDashboardComponent
+],
 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -1,0 +1,26 @@
+<div class="col-md-6" formArrayName="links" *ngFor="let link of links.controls; let i = index">
+    <div [formGroupName]="i">
+      <label for="link" class="form-label">Add link</label>
+      <input
+        type="url"
+        id="link"
+        class="form-control inputBox"
+        formControlName="link"
+        placeholder="https://link"
+      />
+      <div
+        *ngIf="links.controls[i].get('link')?.touched && links.controls[i].get('link')?.invalid"
+        class="text-danger"
+      >
+        <div *ngIf="links.controls[i].get('link')?.hasError('required')">
+          * Link is required
+        </div>
+        <div *ngIf="links.controls[i].get('link')?.hasError('pattern')">
+          !Invalid URL format
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-danger" (click)="removeLink(i)">Remove</button>
+  </div>
+<button type="button" class="btn btn-success mb-3" (click)="addLink()">Add Link</button>
+</div>

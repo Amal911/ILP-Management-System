@@ -1,28 +1,47 @@
-.eC-container
-{
-    box-shadow: 0px 3px 18px 0px rgb(85, 118, 217, 0.2);
-    width: 90%;
-    margin: 50px;
-    padding: 50px;
-}
-
-input{
-  border:  1px solid #5576d9;
-}
-
-.add-phase-button{
+.eC-container {
+  box-shadow: 0px 3px 18px 0px rgba(85, 118, 217, 0.2);
   width: 90%;
-  border: none;
-  background-color: #f5faff;
+  margin: 50px auto;
+  padding: 50px;
+
 }
 
-i{
-  color: #5576d9;
+.input-group {
+  width: 100%;
+  margin-bottom: 10px;
 }
-.search,.new-phase-name {
-  width: 16vw;
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 10px;
+}
+
+.search, .new-phase-name {
+  width: 100%;
+  max-width: 300px;
   background-color: #f5faff;
   color: #000;
   border: none;
   border-radius: 5px;
-  border-bottom: 2px solid #000;}
+  border-bottom: 2px solid #000;
+}
+
+.add-phase-button {
+  width: 100%;
+  max-width: 300px;
+  border: none;
+  background-color: #f5faff;
+}
+
+
+
+.buttons {
+  margin-top: 20px;
+}
+
+@media (max-width: 576px) {
+  .table-and-search .p-table {
+    overflow-x: auto;
+  }
+}

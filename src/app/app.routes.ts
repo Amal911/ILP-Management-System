@@ -17,7 +17,11 @@ import { OnlineAssessmentListComponent } from './pages/online-assessment-list/on
 import { OnlineAssessmentCreateComponent } from './pages/online-assessment-create/online-assessment-create.component';
 import { BatchCreatePhaseTableComponent } from './pages/batch-create-phase-table/batch-create-phase-table.component';
 import { AssessmentHandedinComponent } from './pages/assessment-handedin/assessment-handedin.component';
+
+import { CreateBatchComponent } from './pages/create-batch/create-batch.component';
+
 import { BatchCreateEvaluationCriteriaComponent } from './pages/batch-create-evaluation-criteria/batch-create-evaluation-criteria.component';
+
 
 export const routes: Routes = [
 
@@ -25,7 +29,7 @@ export const routes: Routes = [
     {path:'account', component:AccountComponent},
     {path:'scorecard',component:DashboardScorecardComponent},      //amal
     {path:'batches',component:BatchListingComponent},
-    // {path:'batches/create',component:}, //jisna
+    {path:'batches/create',component:CreateBatchComponent}, //jisna
     // {path:'batches/manage/{id}',component:}, //jisna
     {path:'assessments',component:AssignmentListingComponent},
     {path:'assessments/create',component:CreateAssessmentComponent}, //reshmi

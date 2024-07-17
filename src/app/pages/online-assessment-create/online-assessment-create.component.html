@@ -1,0 +1,129 @@
+<form [formGroup]="assessmentForm">
+  <div class="container m-5">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="title-line">ONLINE ASSESSMENTS</h2>
+      </div>
+      <div class="col-md-5 d-flex justify-content-end">
+        <div class="batch-dropdown">
+          <app-select-dropdown label="Batch"
+            [options]="['ILP Batch-02', 'ILP Batch-03', 'ILP Batch-04', 'ILP Batch-05']"
+            defaultOption="Choose Batch" name="batch" controlId="batch" (change)="batchSelected($event)">
+          </app-select-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="sessions-allied">
+      <div class="card-container d-flex flex-column mt-4">
+        <h5>Pending</h5>
+        <ng-container *ngFor="let assessment of pendingAssessments">
+          <app-online-assessment-list-card [assessment]="assessment">
+          </app-online-assessment-list-card>
+        </ng-container>
+      </div>
+
+      <div class="card-container d-flex flex-column mt-4">
+        <h5>Scheduled</h5>
+        <ng-container *ngFor="let assessment of scheduledAssessments">
+          <app-online-assessment-list-card [assessment]="assessment">
+          </app-online-assessment-list-card>
+        </ng-container>
+      </div>
+
+      <div class="card-container d-flex flex-column mt-4">
+        <h5>Completed</h5>
+        <ng-container *ngFor="let assessment of completedAssessments">
+          <app-online-assessment-list-card [assessment]="assessment"></app-online-assessment-list-card>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Online Assessment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="assessmentForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group p-3">
+                <label for="title" class="form-label title-modal">Title</label>
+                <p id="title" class="form-control-static">{{ assessmentForm.get('title')?.value }}</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group p-3">
+                <label for="testDate" class="form-label title-modal">Test Date</label>
+                <p id="testDate" class="form-control-static">{{ assessmentForm.get('testDate')?.value }}</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group p-3">
+                <label for="testTime" class="form-label title-modal">Test Time</label>
+                <p id="testTime" class="form-control-static">{{ assessmentForm.get('testTime')?.value }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group p-3">
+                <label for="link" class="form-label title-modal">Link</label>
+                <input type="text" id="link" class="form-control" formControlName="link" readonly>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group p-3 title-modal">
+                <app-select-dropdown label="Phase"
+                  [options]="['E-learning', 'Technical', 'Business Orientation', 'On-Job Training']"
+                  defaultOption="Select phase" controlId="phase" ngDefaultControl name="phaseControl"
+                  [formControl]="phaseControl">
+                </app-select-dropdown>
+                <div *ngIf="phaseControl?.invalid && phaseControl?.touched" class="validation-message">
+                  <div *ngIf="phaseControl?.errors?.['required']">* This is a required field.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group p-3 title-modal">
+                <app-select-dropdown label="Module"
+                  [options]="['OOPs-Java', 'Html-Css', 'JavaScript', 'Bootstrap', 'TypeScript']"
+                  defaultOption="Select Module" controlId="moduleControl" name="moduleControl" ngDefaultControl
+                  [formControl]="moduleControl">
+                </app-select-dropdown>
+                <div *ngIf="moduleControl?.invalid && moduleControl?.touched" class="validation-message">
+                  <div *ngIf="moduleControl?.errors?.['required']">* This is a required field.</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group p-3 title-modal">
+                <app-select-dropdown label="Evaluation Criteria"
+                  [options]="['Case Study', 'Live Assessment', 'Daily Assessment', 'Module', 'Project']"
+                  defaultOption="Evaluation Criteria" controlId="evaluationCriteria" name="evaluationCriteriaControl"
+                  formControlName="module" ngDefaultControl [formControl]="evaluationCriteriaControl">
+                </app-select-dropdown>
+                <div *ngIf="evaluationCriteriaControl?.invalid && evaluationCriteriaControl?.touched"
+                  class="validation-message">
+                  <div *ngIf="evaluationCriteriaControl?.errors?.['required']">* This is a required field.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn custom-btn-1" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn custom-btn-2">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

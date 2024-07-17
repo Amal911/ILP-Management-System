@@ -1,0 +1,144 @@
+<div class="container my-3">
+  <ul class="nav nav-pills  flex-nowrap overflow-auto" id="pills-tab" role="tablist">
+    @for(batch of batches;track batch){
+    <li class="nav-item text-center" role="presentation">
+      <button class="nav-link px-5" id="pills-{{batch.name}}-tab" [class.active]="isFirst(batch)" data-bs-toggle="pill"
+        [attr.data-bs-target]="'#pills-' + batch.name" type="button" role="tab"
+        [attr.aria-controls]="'pills-' + batch.name" aria-selected="true">
+        <div class="batch-name">
+          @if(batch.status==="active"){
+          <i class="bi bi-circle-fill"></i>
+          }
+          {{ batch.name }}
+        </div>
+        <div class="current-phase">{{ batch.phase }}</div>
+      </button>
+    </li>
+    }
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    @for(batch of batches;track batch){
+    <div class="tab-pane fade" [class.show]="isFirst(batch)" [class.active]="isFirst(batch)" id="pills-{{batch.name}}"
+      role="tabpanel" [attr.aria-labelledby]="'pills-' + batch.name + '-tab'">
+
+      <div class="row">
+
+        <div class="col-sm-6 col-md-3 mt-3">
+          <div class="batch-basic-details p-3 text-center">
+            <div class="title">Total trainees</div>
+            <div class="details">{{ batch.totalTrainees }}</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3 mt-3">
+          <div class="batch-basic-details p-3 text-center">
+            <div class="title">Start Date</div>
+            <div class="details">{{ batch.startDate }}</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3 mt-3">
+          <div class="batch-basic-details p-3 text-center">
+            <div class="title">End Date</div>
+            <div class="details">{{ batch.endDate }}</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3 mt-3">
+          <div class="batch-basic-details p-3 text-center">
+            <div class="title">Current Phase</div>
+            <div class="details">{{ batch.phase }}</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    }
+    <div class="container">
+      <div class="row">
+        <div class=" col-sm-9 col-md-10 d-flex justify-content-center align-items-center">
+          <div class="phase-navigator d-flex flex-row justify-content-between align-items-center mt-5">
+            <button class="btn btn-primary m-1" (click)="previousPhaseNav()"><i
+                class="bi bi-arrow-left p-3"></i></button>
+            <div class="mx-5 text-bold">{{phases[currentPhaseIndex]}}</div>
+            <button class="btn btn-primary m-1" (click)="nextPhaseNav()"><i class="bi bi-arrow-right p-3"></i></button>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-2 d-flex justify-content-end align-items-center mt-5">
+          <button class="download-data-btn btn btn-primary"><i class="bi bi-download mx-1"></i>Download batch
+            data</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+
+      <div class="col-sm-6 col-md-3 mt-3">
+        <div class="batch-basic-details p-3 text-center">
+          <div class="title text-start">Phase Progress</div>
+          <p-chart type="doughnut" [data]="phaseProgressData" [options]="phaseProgressOptions"></p-chart>
+          <div class="phaseProgressDays mt-1">Completed: <b>{{phaseCompletedDays}}</b>/{{phaseTotaldays}} days</div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-3 mt-3">
+        <div class="batch-basic-details p-3 text-start">
+          <div class="title mb-2">Latest Activity</div>
+          <div class="todays-schedule">{{schedule.module}}</div>
+          <div class="">{{schedule.session}}</div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 mt-3">
+        <div class="batch-basic-details p-3 text-center">
+          <div class="title text-start">Batch Score Overview</div>
+          <div class="d-flex flex-row">
+            <div class="graph-key col-6 align-items-center justify-content-center mt-3 text-start">
+              <div><i class="score-tier-1 bi bi-circle-fill"></i>Above 80%</div>
+              <div><i class="score-tier-2 bi bi-circle-fill"></i>Between 70% and 80%</div>
+              <div><i class="score-tier-3 bi bi-circle-fill"></i>Between 60% and 70%</div>
+              <div><i class="score-tier-4 bi bi-circle-fill"></i>Below 60%</div>
+            </div>
+            <div class="col-6 mt-0">
+              <p-chart type="doughnut" [data]="batchScoreOverviewData" [options]="batchScoreOverviewOptions"></p-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-12 col-md-6 mt-3">
+        <div class="batch-basic-details p-3 text-center">
+          <div class="title text-start mb-2">Attendance</div>
+          <div class="d-flex flex-row">
+            <div class="col-md-8">
+              <p-chart type="bar" [data]="attendanceData" [options]="attendanceOptions" />
+            </div>
+            <div class="col-md-4 text-start avg-attendance mt-2 mx-2">
+              <div class="mb-3">This week:</div>
+              <div class="mb-1">Total absents: <b>16</b></div>
+              <div class="mb-1">Average attendance: <b>97%</b></div>
+              
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 mt-3">
+        <div class="batch-basic-details p-3 text-center">
+          <div class="title text-start mb-2">Criteria-wise scorecard</div>
+          <p-chart type="bar" [data]="categoryWiseScoreData" [options]="categoryWiseScoreOptions" />
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,123 @@
+.nav {
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 18px 0px rgb(85, 118, 217, 0.2);
+    border-radius: 32px;
+}
+ 
+.nav-link {
+    border-radius: 32px;
+    color: #5576D9;
+    min-width: 20vw;
+    transition: color 0.4s ease, box-shadow 0.6 ease;
+ 
+    .bi.bi-circle-fill {
+        color: #1ED667;
+        font-size: 12px;
+        align-items: center;
+        padding-right: 8px;
+    }
+}
+ 
+.nav-link.active {
+    background-color: #5576D9;
+    box-shadow: 4px 0px 18px 0px rgb(85, 118, 217, 0.2), -4px 0px 18px 0px rgb(85, 118, 217, 0.2);
+}
+ 
+.current-phase {
+    font-size: 10px;
+}
+ 
+.nav-link {
+    transition: background-color 0.4s ease, box-shadow 0.6s ease;
+}
+ 
+.batch-basic-details {
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 18px 0px rgb(85, 118, 217, 0.2);
+    border-radius: 8px;
+    height: 100%;
+ 
+    //width:20%;
+    .title {
+        font-size: 0.75rem;
+    }
+ 
+    .details {
+        font-weight: bold;
+        font-size: 1rem;
+        //line-height: 120%;
+    }
+    .score-tier-1{
+        color: #22C55E;
+        margin-right: 4px;
+    }
+    .score-tier-2{
+        color: #3B82F6;
+        margin-right: 4px;
+    }
+    .score-tier-3{
+        color: #EAB308;
+        margin-right: 4px;
+    }
+    .score-tier-4{
+        color: #FF3D32;
+        margin-right: 4px;
+    }
+}
+ 
+.nav-pills {
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+ 
+.nav-pills::-webkit-scrollbar {
+    display: none;
+}
+ 
+.nav-pills .nav-link {
+    padding: 0.5rem 1rem;
+}
+ 
+ 
+.phase-navigator {
+    background-color: #ffffff;
+    box-shadow: 0px 4px 18px 0px rgb(85, 118, 217, 0.3);
+    // width:fit-content;
+    width: 50vw;
+    min-width: fit-content;
+    border-radius: 64px;
+    font-weight: 600;
+ 
+    .btn-primary {
+        border-radius: 50%;
+        height: 48px;
+        width: 48px;
+        padding: 0;
+        background-color: rgb(85, 118, 217);
+        box-shadow: 4px 0px 18px 0px rgb(85, 118, 217, 0.2), -4px 0px 18px 0px rgb(85, 118, 217, 0.2);
+    }
+}
+ 
+.download-data-btn{
+    font-size: 10px;
+    background-color: #5576D9;
+}
+
+.phaseProgressDays{
+    font-size: 12px;
+}
+
+.graph-key{
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.todays-schedule{
+    color: #5576D9;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.avg-attendance{
+    font-size: 12px;
+}

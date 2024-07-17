@@ -13,11 +13,17 @@ import { HandedInAssignmentsComponent } from './pages/handed-in-assignments/hand
 import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 
 import { CreateAssessmentComponent } from './pages/create-assessment/create-assessment.component';
+import { OnlineAssessmentListComponent } from './pages/online-assessment-list/online-assessment-list.component';
+import { OnlineAssessmentCreateComponent } from './pages/online-assessment-create/online-assessment-create.component';
 import { BatchCreatePhaseTableComponent } from './pages/batch-create-phase-table/batch-create-phase-table.component';
 import { AssessmentHandedinComponent } from './pages/assessment-handedin/assessment-handedin.component';
+
+import { CreateBatchComponent } from './pages/create-batch/create-batch.component';
+
 import { BatchCreateEvaluationCriteriaComponent } from './pages/batch-create-evaluation-criteria/batch-create-evaluation-criteria.component';
 import { MsalGuard } from '@azure/msal-angular';
 import { LoginComponent } from './pages/login/login.component';
+
 
 export const routes: Routes = [
 
@@ -25,7 +31,7 @@ export const routes: Routes = [
     {path:'account', component:AccountComponent},
     {path:'scorecard',component:DashboardScorecardComponent, canActivate: [MsalGuard] },      //amal
     {path:'batches',component:BatchListingComponent},
-    // {path:'batches/create',component:}, //jisna
+    {path:'batches/create',component:CreateBatchComponent}, //jisna
     // {path:'batches/manage/{id}',component:}, //jisna
     {path:'assessments',component:AssignmentListingComponent},
     {path:'assessments/create',component:CreateAssessmentComponent}, //reshmi
@@ -36,7 +42,8 @@ export const routes: Routes = [
     {path:'schedule/create',component:CreateScheduleComponent}, //kailas
     // {path:'schedule/upload',component:}, //
     {path:'schedule/edit',component:EditScheduleComponent}, //kailas
-    // {path:'assessments/online',component:}, // reshmi
+    {path:'assessments/online',component:OnlineAssessmentListComponent}, // reshmi
+    {path:'assessments/online/create',component:OnlineAssessmentCreateComponent}, // reshmi
     {path:'leave',component:LeaveRequestComponent},
     { path: 'trainee/leave', component: TraineeLeaveRequestComponent },
     {path:'batch/create-phase',component:BatchCreatePhaseTableComponent}, //jisna

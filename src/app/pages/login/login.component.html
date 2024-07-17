@@ -1,4 +1,6 @@
-<div class="row login-page">
+
+@if(!loginDisplay){
+    <div class="row login-page">
     <div class="col image-container h-100">
         <img src="images/Rectangle 3.svg" alt="firstLogin SVG" class="svg-image first-image">
         <img src="images/Rectangle 9.svg" alt="secondLogin SVG" class="svg-image second-image">
@@ -31,12 +33,23 @@
                     </div>
                 </div>
                 <div class="form-group d-flex justify-content-center">
-                    <input class="btn btn-primary" type="submit" value="LOGIN">
+                    <input class="btn btn-primary" type="submit" value="LOGIN" (click)="loginRedirect()">
                 </div>
+                <div><button (click)="loginRedirect()">MS Login</button></div>
             </form>
         </div>
     </div>
 </div>
+}
+
+
+
+@if (loginDisplay) {
+    @if (!isIframe) {
+    <app-main-layout />}
+    }
+
+    
 
 
 <!-- @if ((loginForm.controls.username.touched || submitted)

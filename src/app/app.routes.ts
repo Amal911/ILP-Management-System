@@ -16,12 +16,14 @@ import { CreateAssessmentComponent } from './pages/create-assessment/create-asse
 import { BatchCreatePhaseTableComponent } from './pages/batch-create-phase-table/batch-create-phase-table.component';
 import { AssessmentHandedinComponent } from './pages/assessment-handedin/assessment-handedin.component';
 import { BatchCreateEvaluationCriteriaComponent } from './pages/batch-create-evaluation-criteria/batch-create-evaluation-criteria.component';
+import { MsalGuard } from '@azure/msal-angular';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
 
-    // {path:'',component:},
+    // {path:'',component:LoginComponent},
     {path:'account', component:AccountComponent},
-    {path:'scorecard',component:DashboardScorecardComponent},      //amal
+    {path:'scorecard',component:DashboardScorecardComponent, canActivate: [MsalGuard] },      //amal
     {path:'batches',component:BatchListingComponent},
     // {path:'batches/create',component:}, //jisna
     // {path:'batches/manage/{id}',component:}, //jisna

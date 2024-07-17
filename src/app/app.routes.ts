@@ -21,6 +21,7 @@ import { AssessmentHandedinComponent } from './pages/assessment-handedin/assessm
 import { CreateBatchComponent } from './pages/create-batch/create-batch.component';
 
 import { BatchCreateEvaluationCriteriaComponent } from './pages/batch-create-evaluation-criteria/batch-create-evaluation-criteria.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
 
 
 export const routes: Routes = [
@@ -35,7 +36,7 @@ export const routes: Routes = [
     {path:'assessments/create',component:CreateAssessmentComponent}, //reshmi
     // {path:'assessments/evaluate',component:}, //thulasi
     {path:'assessments/evaluate',component:EvaluateAssessmentsComponent}, //kailas
-    // {path:'schedule',component:}, //
+    {path:'schedule',component:CalendarComponent}, //
     {path:'schedule/id',component:SessionAttendanceComponent}, //thulasi
     {path:'schedule/create',component:CreateScheduleComponent}, //kailas
     // {path:'schedule/upload',component:}, //

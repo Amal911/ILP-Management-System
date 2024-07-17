@@ -1,0 +1,67 @@
+<div class="calendar-container">
+    <div class="calendar-main">
+        <div class="head">
+            <div class="date-selector">
+                <select [(ngModel)]="selectedMonth" (change)="onMonthChange()">
+                    <option *ngFor="let month of months; let i = index" [value]="i">{{month}}</option>
+                </select>
+                <select [(ngModel)]="selectedYear" (change)="onYearChange()">
+                    <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                </select>
+                <button (click)="backToCurrent()">This Month</button>
+            </div>
+            <div class="select-batch">
+                <select [(ngModel)]="selectedYear">
+                    <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                </select>
+                <!-- <select [(ngModel)]="selectedBatch">
+                    <option *ngFor="let batch of batches" [value]="batch">{{batch}}</option>
+                </select> -->
+                <select [(ngModel)]="selectedYear">
+                    <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="content">
+            <daypilot-month [config]="configMonth" (onTimeRangeSelected)="onDateCellClick($event)" [events]="events"
+                #month></daypilot-month>
+        </div>
+    </div>
+
+    <div class="side">
+        <button>Add Schedule</button>
+        <div class="sidebar">
+            <div class="event-heading">
+                <h1>{{ selectedDate.toString("d") }}</h1>
+                <h4>{{ selectedDate.toString("MMM yyyy") }}</h4>
+                <hr>
+            </div>
+
+            <div class="event-details">
+                <h2 class="headlineh2">Sessions</h2>
+                <div *ngIf="selectedDateEvents.length > 0; else noSessions" class="headline">
+                    <div *ngFor="let event of selectedDateEvents" class="event-item">
+                        <h3>{{ event.text }}</h3>
+                        <p>{{ getFormattedTime(event.start) }} to {{ getFormattedTime(event.end) }}</p>
+                        <p>Trainer: Suneesh</p>
+                    </div>
+                </div>
+                <ng-template #noSessions>
+                    <div class="noevent">No sessions scheduled for this date</div>
+                </ng-template>
+                <h2 class="headlineh2">Assessments</h2>
+                <div *ngIf="selectedDateEvents.length > 0; else noAssessments" class="headline">
+                    <div *ngFor="let event of selectedDateEvents" class="event-item">
+                        <h3>{{ event.text }}</h3>
+                        <p>Start: {{ getFormattedTime(event.start) }}</p>
+                        <p>End: {{ getFormattedTime(event.end) }}</p>
+                    </div>
+                </div>
+                <ng-template #noAssessments>
+                    <div class="noevent">No assesments for this date</div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

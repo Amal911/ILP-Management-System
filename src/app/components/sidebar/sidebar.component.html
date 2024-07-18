@@ -7,7 +7,7 @@
             @for (item of getSidebarItems(); track item.name) {
             <li>
                 <!-- <a [routerLink]="item.link">{{ item.name }}</a> -->
-                <a>
+                <a [routerLink]="item.link">
                     <i [class]="item.icon"></i>
                     {{ item.name }}
                 </a>

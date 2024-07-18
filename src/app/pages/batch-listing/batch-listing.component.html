@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-12 d-flex justify-content-between align-items-center py-5">
       <h4>BATCH LIST</h4>
-      <app-button [buttonLabel]="'Create New'"></app-button>
+      <app-button [buttonLabel]="'Create New'"(click)="navigateToCreateNew()"></app-button>
     </div>
   </div>
   <div class="card-container d-flex flex-column">
     @for (item of Batches; track $index) {
-    <app-listing-card [batches]="item"></app-listing-card>
+    <app-listing-card [batches]="item" (click)="navigateToManageBatch()"></app-listing-card>
     }
   </div>
  </div>

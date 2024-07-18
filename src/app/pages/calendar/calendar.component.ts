@@ -139,7 +139,7 @@ export class CalendarComponent implements AfterViewInit {
     onTimeRangeSelected: (args) => {
       this.onDateCellClick(args);
     },
-    cellHeight: 80,
+    cellHeight: 79,
     eventHeight:23,
     onBeforeCellRender: this.onBeforeCellRender.bind(this),
     onBeforeEventRender: this.onBeforeEventRender.bind(this),

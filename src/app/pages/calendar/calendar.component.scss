@@ -1,56 +1,47 @@
 
 .content {
-    flex-grow: 1;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
-    width: 65vw;
+    width: 100%;
   }
   .head {
     display: flex;
     justify-content: space-between;
-    align-items: center;    
-    margin-bottom: 1rem;
-    width: 90%;
+    align-items: center; 
+    margin-bottom: 2%;
+    width: 100%;
 
+    button{
+        height: 2rem;
+        font-size: 100%;
+        display: flex;
+        align-items: center;
+    }
     
     .date-selector{
         display: flex;
-        gap: .5rem;
+        gap: 2%;
     }
 
     .select-batch{
         display: flex;
-        gap: .5rem;
+        gap: 2%;
     }
   }
 
-  .select-batch select {
-    padding: 0.5rem;
-    font-size: 15px;
+  select {
+    padding: 0.2rem;
+    font-size: 90%;
     border: 1px solid #5576D9;
     border-radius: 4px;
+    height: 2rem;
   }
   
-  .calendar-main {
-    display: flex;
-    flex:4;
-    flex-direction: column;
-    width: 100%;
-    padding: 0.5rem;
-    margin: 0;
-    align-content: center;
-    align-items: center;
-  }
-
-  .buttons {
-    display: inline-flex;
-  }
 
   button {
     background-color: #3c78d8;
     color: white;
     border: solid 1px #5576D9;
     padding: .5rem 1rem;
-    font-size: 15px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
@@ -68,36 +59,6 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
-  .buttons button {
-    width: 80px;
-    margin-right: 1px;
-  }
-  
-  .buttons button:last-child {
-    margin-right: 0;
-  }
-  
-  .buttons button.selected {
-    background-color: #5576D9;
-  }
-  
-  .buttons button:first-child {
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-  }
-  
-  .buttons button:last-child {
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-  }
-  
-  .date-selector select {
-    padding: 0.5rem;
-    font-size: 15px;
-    border: 1px solid #5576D9;
-    border-radius: 4px;
-  }
-  
   .date-selector button {
     white-space: nowrap;
   }
@@ -105,16 +66,14 @@
 
 .calendar-container {
     display: flex;
-    width: 95%;
-    height: 95vh;
+    width: 100%;
+    height: 100%;
     flex-direction: row;
     padding-bottom: .5rem;
   }
   .sidebar{
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    width: 20vw;
     background-color: #ffffff;
     border-radius: .6rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
@@ -123,28 +82,17 @@
         text-align: center;
         h1{
             color: #5576D9;
-            margin-bottom: -1%;
-            margin-top: 10%;
+            padding-bottom: -1%;
+            padding-top: 6%;
             font-size: 3rem;
         }
         h4{
             color: rgb(93, 93, 93);
             margin-top: 0;
             font-size: 1.2rem;
-            margin-bottom: 15% !important;
+            padding-bottom: 6%;
         }
       }
-  }
-  
-  .event-details {
-    overflow-y: auto;
-    h3{
-        margin-top: 2%;
-        margin-bottom: 1%;
-    }
-  }
-  .event-details::-webkit-scrollbar {
-    display: none;
   }
   
   .event-item {
@@ -157,47 +105,59 @@
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
     margin-bottom: 0.5rem;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+  }
+
+  .event-details {
+    overflow-y: auto;
+    height: 45vh;
+  }
+  .event-details::-webkit-scrollbar {
+    display: none;
   }
   
   .event-item p{
-    padding: 2;
+    font-size: .8rem;
     margin: 0;
-    font-size: 1rem;
   }
+
+ .event-item h3{
+    padding-top: 2%;
+    font-size: 1.2rem;
+    margin: 0;
+    padding-bottom: 5%;
+}
 
 
   .noevent{
-    margin: 6%;
+    padding: 6%;
   }
-
-//   .headline{
-//     // margin-left: 2%;
-//     // margin-right: 2%;
-
-//   }
-  .headlineh2{
-    margin-top: 1rem;
-    margin-bottom:  1rem;
-    margin-left: 10%;
+  .headline{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    padding-left: 5%;
     font-size: 20px;
 }
 
-.side{
+.left-side {
+    display: flex;
+    flex:4;
+    flex-direction: column;
+    width: 100%;
+    padding: 3%;
+    align-content: center;
+    align-items: center;
+  }
+
+.right-side{
     display: flex;
     flex-direction: column;
     flex: 1;
-
+    padding: 2%;
 
     button{
         margin-top: 8%;
         margin-bottom: 10%;
-    }
-}
-
-.main{
-    display: flex;
-
-    button{
-        margin: 1%;
     }
 }

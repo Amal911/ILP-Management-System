@@ -1,5 +1,5 @@
 <div class="calendar-container">
-    <div class="calendar-main">
+    <div class="left-side">
         <div class="head">
             <div class="date-selector">
                 <select [(ngModel)]="selectedMonth" (change)="onMonthChange()">
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="side">
+    <div class="right-side">
         <button>Add Schedule</button>
         <div class="sidebar">
             <div class="event-heading">
@@ -39,8 +39,8 @@
             </div>
 
             <div class="event-details">
-                <h2 class="headlineh2">Sessions</h2>
-                <div *ngIf="selectedDateEvents.length > 0; else noSessions" class="headline">
+                <h2 class="headline">Sessions</h2>
+                <div *ngIf="selectedDateEvents.length > 0; else noSessions">
                     <div *ngFor="let event of selectedDateEvents" class="event-item">
                         <h3>{{ event.text }}</h3>
                         <p>{{ getFormattedTime(event.start) }} to {{ getFormattedTime(event.end) }}</p>
@@ -50,8 +50,8 @@
                 <ng-template #noSessions>
                     <div class="noevent">No sessions scheduled for this date</div>
                 </ng-template>
-                <h2 class="headlineh2">Assessments</h2>
-                <div *ngIf="selectedDateEvents.length > 0; else noAssessments" class="headline">
+                <h2 class="headline">Assessments</h2>
+                <div *ngIf="selectedDateEvents.length > 0; else noAssessments">
                     <div *ngFor="let event of selectedDateEvents" class="event-item">
                         <h3>{{ event.text }}</h3>
                         <p>Start: {{ getFormattedTime(event.start) }}</p>

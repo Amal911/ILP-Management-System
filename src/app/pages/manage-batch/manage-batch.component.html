@@ -1,0 +1,549 @@
+<div class="div">
+  <div class="container mt-5">
+    <form
+      [formGroup]="batchForm"
+      class="manage-batch-form"
+      (ngSubmit)="saveBatchDetails()"
+    >
+      <h2 class="mt-5">Manage Batch</h2>
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <h2></h2>
+        <div>
+          <button
+            type="button"
+            class="btn btn-secondary mr-2"
+            (click)="downloadBatch()"
+          >
+            Download
+          </button>
+          <button type="button" class="btn btn-primary" (click)="editBatch()">
+            Edit
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="program">Program</label>
+            <select id="program" class="form-control inputBox" formControlName="program">
+              <option value="ILP 2023-24">ILP 2022-23</option>
+              <option value="ILP 2023-24">ILP 2023</option>
+              <option value="ILP 2023-24">ILP 2024</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="status">Status</label>
+            <div class="d-flex align-items-center">
+              <span class="dot" [ngClass]="getStatusClass()"></span>
+              <select
+                id="statusDropDown"
+                class="form-control status-select"
+                formControlName="status"
+                [disabled]="!isEditable"
+              >
+                <option value="Active">
+                  <span class="dot bg-success"></span>Active
+                </option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="batchCode">Batch Code</label>
+            <input
+              type="text"
+              id="batchCode"
+              class="form-control inputBox"
+              formControlName="batchCode"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="numberOfDays">Number of days</label>
+            <input
+              type="text"
+              id="numberOfDays"
+              class="form-control inputBox"
+              formControlName="numberOfDays"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="batchName">Batch Name</label>
+            <input
+              type="text"
+              id="batchName"
+              class="form-control inputBox"
+              formControlName="batchName"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="startDate">Start Date</label>
+            <input
+              type="date"
+              id="startDate"
+              class="form-control inputBox"
+              formControlName="startDate"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="numberOfTrainees">Number of trainees</label>
+            <input
+              type="text"
+              id="numberOfTrainees"
+              class="form-control inputBox"
+              formControlName="numberOfTrainees"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="endDate">End Date (Tentative)</label>
+            <input
+              type="date"
+              id="endDate"
+              class="form-control inputBox"
+              formControlName="endDate"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="location">Location</label>
+            <select
+              id="locationDropdown"
+              class="form-control"
+              formControlName="location"
+            >
+              <option value="" disabled>Select the Location</option>
+              <option value="Trivandrum">Trivandrum</option>
+              <option value="Kochi">Kochi</option>
+              <option value="Bangalore">Bangalore</option>
+            </select>
+            
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="batchType">Batch Type</label>
+            <select
+              id="batchType"
+              class="form-control"
+              formControlName="batchType"
+            >
+              <option value="" disabled>Select the Batch Type</option>
+              <option value="Developers">Developers</option>
+              <option value="Testers">BA Batch</option>
+              <option value="Managers">Testers</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="traineelist mt-5 mb-2">
+          <h5>List of Trainees</h5>
+          <p-table
+            [value]="trainees"
+            [paginator]="true"
+            [rows]="5"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [rowsPerPageOptions]="[5, 10, 20]"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Sl. No.</th>
+                <th>Name</th>
+                @if (isEditable) {
+                <th>Actions</th>
+                }
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-trainee let-i="rowIndex">
+              <tr>
+                <td class="tabletd">{{ i + 1 }}</td>
+                <td class="tabletd">{{ trainee.name }}</td>
+                @if (isEditable) {
+
+                <td class="tabletd">
+                  <button
+                    type="button"
+                    class="btn p-0"
+                    [disabled]="!isEditable"
+                    [pTooltip]="editTooltipContent"
+                    severity="primary"
+                    tooltipPosition="bottom"
+                  >
+                  <ng-template #editTooltipContent>
+                    <div class="flex align-items-center">
+                      <span><b>Edit</b></span>
+                    </div>
+                  </ng-template>
+                    <i
+                      class="pi pi-pencil action-icon"
+                      (click)="editTrainee(i)"
+                      style="margin-right: 1rem; color: rgb(68, 137, 217)"
+                    ></i>
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn p-0"
+                    [disabled]="!isEditable"
+                    [pTooltip]="removeTooltipContent"
+                    severity="danger"
+                    tooltipPosition="bottom"
+                  >
+                    <ng-template #removeTooltipContent>
+                      <div class="flex align-items-center">
+                        <span><b>Remove</b></span>
+                      </div>
+                    </ng-template>
+                    <i
+                      class="pi pi-trash action-icon"
+                      (click)="confirm(i)"
+                      style="
+                        margin-right: 1rem;
+                        color: rgba(192, 31, 31, 0.615);
+                      "
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn p-0"
+                    [disabled]="!isEditable"
+                    [pTooltip]="moveTooltipContent"
+                    severity="success"
+                    tooltipPosition="bottom"
+                  >
+                    <ng-template #moveTooltipContent>
+                      <div class="flex align-items-center">
+                        <span><b>Move to</b></span>
+                      </div>
+                    </ng-template>
+                    <i
+                      class="pi pi-arrow-right action-icon"
+                      (click)="moveTrainee(i)"
+                      style="margin-right: 1rem; color: forestgreen"
+                    ></i>
+                  </button>
+                </td>
+                }
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+      <div class="card flex justify-content-center">
+        <p-toast />
+        <p-confirmDialog #cd>
+          <ng-template pTemplate="headless" let-message>
+            <div
+              class="flex flex-column align-items-center p-5 surface-overlay border-round bg-white"
+            >
+              <div
+                class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem"
+              >
+                <i class="pi pi-question text-5xl"></i>
+              </div>
+              <span class="font-bold text-2xl block mb-2 mt-4">
+                {{ message.header }}
+              </span>
+              <p class="mb-0">{{ message.message }}</p>
+              <div class="flex align-items-center gap-2 mt-4">
+                <button
+                  type="button"
+                  pButton
+                  label="Save"
+                  (click)="cd.accept()"
+                  class="w-8rem"
+                ></button>
+                <button
+                  type="button"
+                  pButton
+                  label="Cancel"
+                  (click)="cd.reject()"
+                  class="p-button-outlined w-8rem"
+                ></button>
+              </div>
+            </div>
+          </ng-template>
+        </p-confirmDialog>
+        <!-- <p-button (onClick)="confirm()" icon="pi pi-check" label="Confirm" /> -->
+      </div>
+      <div class="curriculum">
+        <h5>Curriculum for the Batch</h5>
+
+        <div class="row">
+          <div formArrayName="phases">
+            <div
+              *ngFor="
+                let phase of phasesArray().controls;
+                let phaseIndex = index
+              "
+            >
+              <div [formGroupName]="phaseIndex" class="phase-container">
+                <div *ngIf="isEditable">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary remove-phase-btn"
+                    (click)="removePhase(phaseIndex)"
+                    [disabled]="!isEditable"
+                  >
+                    <i class="pi pi-trash">&ensp;Remove Phase</i>
+                  </button>
+                </div>
+                <div class="row mb-3 mt-3 phase-item">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="phaseName{{ phaseIndex }}">Phase Name</label>
+                      <select
+                        id="phaseName"
+                        class="form-control"
+                        formControlName="phaseName"
+                      >
+                        <option value="" disabled>Select the Phase</option>
+                        <option value="Tech Fundamentals">
+                          Tech Fundamentals
+                        </option>
+                        <option value="Business Orientation">
+                          Business Orientation
+                        </option>
+                        <option value="OJT">OJT</option>
+                      </select>
+                      <div
+                        *ngIf="
+                          getFormControl('phases.' + phaseIndex + '.phaseName')
+                            .touched &&
+                          getFormControl('phases.' + phaseIndex + '.phaseName')
+                            .invalid
+                        "
+                        class="text-danger"
+                      >
+                        * Phase name is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="numberOfDays{{ phaseIndex }}"
+                        >Number of days</label
+                      >
+                      <input
+                        type="text"
+                        id="numberOfDays{{ phaseIndex }}"
+                        class="form-control inputBox"
+                        formControlName="numberOfDays"
+                      />
+                      <div
+                        *ngIf="
+                          getFormControl(
+                            'phases.' + phaseIndex + '.numberOfDays'
+                          ).touched &&
+                          getFormControl(
+                            'phases.' + phaseIndex + '.numberOfDays'
+                          ).invalid
+                        "
+                        class="text-danger"
+                      >
+                        * Number of days is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="phaseStartDate{{ phaseIndex }}"
+                        >Start Date (Tentative)</label
+                      >
+                      <input
+                        type="date"
+                        id="phaseStartDate{{ phaseIndex }}"
+                        class="form-control inputBox"
+                        formControlName="phaseStartDate"
+                      />
+                      <div
+                        *ngIf="
+                          getFormControl(
+                            'phases.' + phaseIndex + '.phaseStartDate'
+                          ).touched &&
+                          getFormControl(
+                            'phases.' + phaseIndex + '.phaseStartDate'
+                          ).invalid
+                        "
+                        class="text-danger"
+                      >
+                        * Start date is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="phaseEndDate{{ phaseIndex }}"
+                        >End Date (Tentative)</label
+                      >
+                      <input
+                        type="date"
+                        id="phaseEndDate{{ phaseIndex }}"
+                        class="form-control inputBox"
+                        formControlName="phaseEndDate"
+                      />
+                      <div
+                        *ngIf="
+                          getFormControl(
+                            'phases.' + phaseIndex + '.phaseEndDate'
+                          ).touched &&
+                          getFormControl(
+                            'phases.' + phaseIndex + '.phaseEndDate'
+                          ).invalid
+                        "
+                        class="text-danger"
+                      >
+                        * End date is required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <p class="mt-1">Assessment Criteria</p>
+                    <div formArrayName="assessmentTypeList">
+                      <div
+                        *ngFor="
+                          let assessment of assessmentTypeListArray(phaseIndex)
+                            .controls;
+                          let i = index
+                        "
+                      >
+                        <div [formGroupName]="i" id="criteriaList">
+                          <div class="row mb-3 mt-3 criteria-item">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label
+                                  for="evaluationCriteria{{ phaseIndex }}-{{
+                                    i
+                                  }}"
+                                  >Assessment Type</label
+                                >
+                                <select
+                                  id="evaluationCriteria"
+                                  class="form-control"
+                                  formControlName="evaluationCriteria"
+                                >
+                                  <option value="" disabled>
+                                    Select Assessment Type
+                                  </option>
+                                  <option value="Daily Assessment">
+                                    Daily Assessment
+                                  </option>
+                                  <option value="Live Assessment">
+                                    Live Assessment
+                                  </option>
+                                  <option value="Project">Project</option>
+                                  <option value="Module">Module</option>
+                                  <option value="Case study">Case Study</option>
+                                </select>
+                                <div
+                                  *ngIf="
+                                    assessment.get('evaluationCriteria')
+                                      ?.touched &&
+                                    assessment.get('evaluationCriteria')
+                                      ?.invalid
+                                  "
+                                  class="text-danger"
+                                >
+                                  <div
+                                    *ngIf="
+                                      assessment
+                                        .get('evaluationCriteria')
+                                        ?.hasError('required')
+                                    "
+                                  >
+                                    * Assessment type is required
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <label for="weightage{{ phaseIndex }}-{{ i }}"
+                                  >Weightage</label
+                                >
+                                <input
+                                  type="text"
+                                  id="weightage{{ phaseIndex }}-{{ i }}"
+                                  class="form-control inputBox"
+                                  formControlName="weightage"
+                                />
+                                <div
+                                  *ngIf="
+                                    assessment.get('weightage')?.touched &&
+                                    assessment.get('weightage')?.invalid
+                                  "
+                                  class="text-danger"
+                                >
+                                  <div
+                                    *ngIf="
+                                      assessment
+                                        .get('weightage')
+                                        ?.hasError('required')
+                                    "
+                                  >
+                                    * Weightage is required
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col pt-4">
+                              <div *ngIf="isEditable">
+                                <i
+                                  class="pi pi-trash remove-assessment-btn"
+                                  style="font-size: 1rem"
+                                  (click)="removeAssessmentType(phaseIndex, i)"
+                                  [ariaDisabled]="!isEditable"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-start mb-3">
+                      <div *ngIf="isEditable">
+                        <button
+                          type="button"
+                          class="btn btn-light"
+                          id="addCriteriaBtn"
+                          (click)="addAssessmentType(phaseIndex)"
+                          [disabled]="!isEditable"
+                        >
+                          + Add New Criteria
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-10 mx-auto">
+              <div *ngIf="isEditable">
+                <button
+                  type="button"
+                  class="btn btn-light w-100 mt-3"
+                  (click)="addPhase()"
+                >
+                  + Add New Phase
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="d-flex justify-content-around align-content-lg-start my-5"
+          >
+            <button
+              type="button"
+              class="btn btn-outline-secondary w-25"
+              (click)="onCancel()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary w-25">Save</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

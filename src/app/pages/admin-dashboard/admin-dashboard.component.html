@@ -1,0 +1,84 @@
+<div class="container my-3">
+  <ul class="nav nav-pills  flex-nowrap overflow-auto" id="pills-tab" role="tablist">
+    @for(batch of batches;track batch){
+    <li class="nav-item text-center" role="presentation">
+      <button class="nav-link px-5" id="pills-{{batch.name}}-tab" [class.active]="isFirst(batch)" data-bs-toggle="pill"
+        [attr.data-bs-target]="'#pills-' + batch.name" type="button" role="tab"
+        [attr.aria-controls]="'pills-' + batch.name" aria-selected="true">
+        <div class="batch-name">
+          @if(batch.status==="active"){
+          <i class="bi bi-circle-fill"></i>
+          }
+          {{ batch.name }}
+        </div>
+        <div class="current-phase">{{ batch.phase }}</div>
+      </button>
+    </li>
+    }
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    @for(batch of batches;track batch){
+    <div class="tab-pane fade" [class.show]="isFirst(batch)" [class.active]="isFirst(batch)" id="pills-{{batch.name}}"
+      role="tabpanel" [attr.aria-labelledby]="'pills-' + batch.name + '-tab'">
+
+      <div class="row">
+        <div class="col-sm-6 col-md-3 mt-3">
+          <app-basic-details-dashboard [title]="'Total trainees'"
+            [details]="batch.totalTrainees"></app-basic-details-dashboard>
+        </div>
+        <div class="col-sm-6 col-md-3 mt-3">
+          <app-basic-details-dashboard [title]="'Start Date'" [details]="batch.startDate"></app-basic-details-dashboard>
+        </div>
+        <div class="col-sm-6 col-md-3 mt-3">
+          <app-basic-details-dashboard [title]="'End Date'" [details]="batch.endDate"></app-basic-details-dashboard>
+        </div>
+        <div class="col-sm-6 col-md-3 mt-3">
+          <app-basic-details-dashboard [title]="'Current Phase'" [details]="batch.phase"></app-basic-details-dashboard>
+        </div>
+      </div>
+    </div>
+    }
+
+    <div class="container">
+      <div class="row">
+        <div class=" col-sm-9 col-md-10 d-flex justify-content-center align-items-center">
+          <div class="phase-navigator d-flex flex-row justify-content-between align-items-center mt-5">
+            <button class="btn btn-primary m-1" (click)="previousPhaseNav()"><i
+                class="bi bi-arrow-left p-3"></i></button>
+            <div class="mx-5 text-bold">{{phases[currentPhaseIndex]}}</div>
+            <button class="btn btn-primary m-1" (click)="nextPhaseNav()"><i class="bi bi-arrow-right p-3"></i></button>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-2 d-flex justify-content-end align-items-center mt-5">
+          <button class="download-data-btn btn btn-primary"><i class="bi bi-download mx-1"></i>Download batch
+            data</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-sm-6 col-md-3 mt-3">
+        <app-phase-progress-dashboard [phaseCompletedDays]="phaseCompletedDays"
+          [phaseTotaldays]="phaseTotaldays"></app-phase-progress-dashboard>
+      </div>
+      <div class="col-sm-6 col-md-3 mt-3">
+        <app-latest-activity-dashboard [schedule]="schedule"></app-latest-activity-dashboard>
+      </div>
+      <div class="col-sm-12 col-md-6 mt-3">
+        <app-scorecard-overview-dashboard [batchScores]="batchScoreOverviewData"></app-scorecard-overview-dashboard>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6 mt-3">
+        <app-attendance-graph-dashboard [graphLabels]="thisWeekDays"
+          [graphData]="attendanceThisWeek"></app-attendance-graph-dashboard>
+      </div>
+      <div class="col-sm-12 col-md-6 mt-3">
+        <app-criteriawise-graph-dashboard [modules]="categoryWiseModules"
+          [scores]="categoryWiseScores"></app-criteriawise-graph-dashboard>
+      </div>
+    </div>
+  </div>
+</div>

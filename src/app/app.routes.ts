@@ -22,11 +22,12 @@ import { CreateBatchComponent } from './pages/create-batch/create-batch.componen
 
 import { BatchCreateEvaluationCriteriaComponent } from './pages/batch-create-evaluation-criteria/batch-create-evaluation-criteria.component';
 import { ManageBatchComponent } from './pages/manage-batch/manage-batch.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
 
 export const routes: Routes = [
 
-    // {path:'',component:},
+    {path:'',component:AdminDashboardComponent},
     {path:'account', component:AccountComponent},
     {path:'scorecard',component:DashboardScorecardComponent},      //amal
     {path:'batches',component:BatchListingComponent},

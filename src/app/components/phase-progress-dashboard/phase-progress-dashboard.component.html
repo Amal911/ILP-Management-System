@@ -1,0 +1,14 @@
+<div class="container p-3 text-center">
+    <div class="title text-start">Phase Progress</div>
+    <div class="position-relative d-flex justify-content-center align-items-center">
+        <div class="flex justify-content-center">
+            <div class="chart">
+                <p-chart type="doughnut" [data]="phaseProgressData" [options]="phaseProgressOptions" />
+            </div>
+        </div>
+        <div class="position-absolute">
+            <p class="m-0 phaseProgressDays"><b class="fs-5">{{ phaseCompletedDays }}</b>/{{phaseTotaldays}}</p>
+            <div class="phaseProgressDays">days</div>
+        </div>
+    </div>
+</div>

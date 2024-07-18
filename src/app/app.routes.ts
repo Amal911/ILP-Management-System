@@ -21,17 +21,19 @@ import { AssessmentHandedinComponent } from './pages/assessment-handedin/assessm
 import { CreateBatchComponent } from './pages/create-batch/create-batch.component';
 
 import { BatchCreateEvaluationCriteriaComponent } from './pages/batch-create-evaluation-criteria/batch-create-evaluation-criteria.component';
+import { ManageBatchComponent } from './pages/manage-batch/manage-batch.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 
 
 export const routes: Routes = [
 
-    // {path:'',component:},
+    {path:'',component:AdminDashboardComponent},
     {path:'account', component:AccountComponent},
     {path:'scorecard',component:DashboardScorecardComponent},      //amal
     {path:'batches',component:BatchListingComponent},
+    {path:'batches/manage/{id}',component:ManageBatchComponent}, //jisna
     {path:'batches/create',component:CreateBatchComponent}, //jisna
-    // {path:'batches/manage/{id}',component:}, //jisna
     {path:'assessments',component:AssignmentListingComponent},
     {path:'assessments/create',component:CreateAssessmentComponent}, //reshmi
     // {path:'assessments/evaluate',component:}, //thulasi

@@ -1,0 +1,156 @@
+//Custom CSS
+  .div {
+    display: flex;
+    margin: 0 5%;
+  }
+  .container {
+    background-color: #ffffff;
+    padding: 0 40px;
+    width: 100%;
+    margin: 20px auto;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .inputBox {
+    background-color: #f5faff;
+    border-bottom: solid 1px #000000;
+  }
+  label {
+    font-size: small;
+  }
+  .btn {
+    font-size: small;
+  }
+//status icons
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    color: green;
+  }
+  
+  .status-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+//  
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+  }
+  
+  .card-header h2 {
+    margin: 0;
+  }
+  
+  .btn-secondary {
+    margin-right: 10px;
+  }
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  .phase-container {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border: 1px solid #5576d9;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    position: relative;
+    width:100%;
+    padding: 1.25rem;
+
+  }
+  
+  .remove-phase-btn, .remove-assessment-btn {
+    cursor: pointer;
+  }
+  
+  .criteria-item, .phase-item {
+    margin-top: 1rem;
+  }
+  
+  .text-danger {
+    color: #dc3545;
+  }
+  
+  .btn-light {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+  }
+  .remove-phase-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    align-items: end;
+  }
+  .remove-assessment-btn {
+    position: relative;
+    padding-top: 10px;
+  }
+  @media (max-width: 576px) {
+    .card-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .card-header h2 {
+      margin-bottom: 10px;
+    }
+  
+    .btn-secondary {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+  
+  
+  .form-body {
+    background-color: #ffffff;
+  }
+  .text-danger {
+    font-size: small;
+  }
+  #locationDropdown,
+  #learningLeaveApproverDropdown,
+  #batchType,
+  #selectProgram,
+  #trainerLeaveApproverDropdown,
+  #evaluationCriteria,
+  #phaseName {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/> </svg>')
+      no-repeat right 1rem center/1em auto;
+    padding-right: 2.5rem;
+    background-color: #f5faff;
+    border-bottom: solid 1px #000
+  }
+  #statusDropDown {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/> </svg>')
+      no-repeat right 1rem center/1em auto;
+  }
+
+  //table styling
+  .tabletd{
+padding-top: 0.5rem;
+padding-bottom: 1rem;
+  }
+  
+  

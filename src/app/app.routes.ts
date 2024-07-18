@@ -23,6 +23,7 @@ import { CreateBatchComponent } from './pages/create-batch/create-batch.componen
 import { BatchCreateEvaluationCriteriaComponent } from './pages/batch-create-evaluation-criteria/batch-create-evaluation-criteria.component';
 import { ManageBatchComponent } from './pages/manage-batch/manage-batch.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
 
 
 export const routes: Routes = [
@@ -37,7 +38,7 @@ export const routes: Routes = [
     {path:'assessments/create',component:CreateAssessmentComponent}, //reshmi
     // {path:'assessments/evaluate',component:}, //thulasi
     {path:'assessments/evaluate',component:EvaluateAssessmentsComponent}, //kailas
-    // {path:'schedule',component:}, //
+    {path:'schedule',component:CalendarComponent}, //
     {path:'schedule/id',component:SessionAttendanceComponent}, //thulasi
     {path:'schedule/create',component:CreateScheduleComponent}, //kailas
     // {path:'schedule/upload',component:}, //

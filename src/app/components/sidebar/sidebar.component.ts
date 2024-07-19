@@ -34,14 +34,14 @@ export class SidebarComponent{
       admin: [
         { name: 'Home', link: '', icon: 'fa-solid fa-house' },
         // { name: 'Curriculum', link: '/', icon: 'fa-solid fa-book-bookmark' },
-        { name: 'Schedule', link: '/', icon: 'bi bi-calendar-week-fill' },
+        { name: 'Schedule', link: 'schedule', icon: 'bi bi-calendar-week-fill' },
         { name: 'Batches', link: 'batches', icon: 'fa-solid fa-users' },
         { name: 'Accounts', link: 'account', icon: 'fa-solid fa-user-gear' },
         { name: 'Leave Requests', link: 'leave', icon: 'bi bi-briefcase-fill' }
       ],
       trainer: [
         { name: 'Home', link: '', icon: 'fa-solid fa-house' },
-        { name: 'Schedule', link: '', icon: 'bi bi-calendar-week-fill' },
+        { name: 'Schedule', link: 'schedule', icon: 'bi bi-calendar-week-fill' },
         { name: 'Batches', link: 'batches', icon: 'fa-solid fa-users' },
         { name: 'Assessments', link: 'assessments', icon: 'bi bi-list-task' },
         { name: 'Online Assessments', link: '/', icon: 'fa-solid fa-clipboard-list' },
@@ -49,7 +49,7 @@ export class SidebarComponent{
       ],
       trainee: [
         { name: 'Home', link: '', icon: 'fa-solid fa-house' },
-        { name: 'Schedule', link: '', icon: 'fa-solid fa-calendar-days' },
+        { name: 'Schedule', link: 'schedule', icon: 'fa-solid fa-calendar-days' },
         { name: 'Assessments', link: 'assessments', icon: 'bi bi-list-task' },
         { name: 'Online Assessments', link: '/', icon: 'fa-solid fa-clipboard-list' },
         { name: 'Leave Requests', link: 'trainee/leave', icon: 'bi bi-briefcase-fill' }

@@ -23,6 +23,7 @@ import { MainLayoutComponent } from './Layout/main-layout/main-layout.component'
 import { EditAccountModalComponent } from "./components/edit-account-modal/edit-account-modal.component";
 
 import { LoginComponent } from "./pages/login/login.component";
+import { AdminDashboardComponent } from "./pages/admin-dashboard/admin-dashboard.component";
 import { filter, Subject, takeUntil } from 'rxjs';
 import { EventMessage, InteractionStatus, RedirectRequest, PopupRequest, AuthenticationResult } from '@azure/msal-browser';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
@@ -36,7 +37,8 @@ import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalSe
   imports: [
     LoginComponent,
     MainLayoutComponent,
-  ],
+    AdminDashboardComponent
+],
 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

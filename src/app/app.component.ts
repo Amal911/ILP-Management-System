@@ -43,7 +43,7 @@ import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalSe
 export class AppComponent {
   title = 'ilp-management-system';
   loginDisplay = false;
-  private readonly _destroying$ = new Subject<void>();
+  // private readonly _destroying$ = new Subject<void>();
 
   constructor(
     private userService: UserService,

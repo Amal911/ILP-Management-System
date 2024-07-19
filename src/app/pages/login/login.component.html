@@ -35,7 +35,8 @@
                 <div class="form-group d-flex justify-content-center">
                     <input class="btn btn-primary" type="submit" value="LOGIN" (click)="loginRedirect()">
                 </div>
-                <div><button (click)="loginRedirect()">MS Login</button></div>
+                <div class="ms d-flex text-center"><p>Login using<span><button><img src="images/msoffice.png" alt="" (click)="loginRedirect()" id="msimage"></button></span></p></div>
+
             </form>
         </div>
     </div>
@@ -48,9 +49,3 @@
     @if (!isIframe) {
     <app-main-layout />}
     }
-
-    
-
-
-<!-- @if ((loginForm.controls.username.touched || submitted)
-&&loginForm.controls.username.errors?.required) -->

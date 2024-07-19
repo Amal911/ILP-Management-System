@@ -43,7 +43,7 @@ export class LoginComponent {
     });
 
     this.authService.handleRedirectObservable().subscribe();
-    this.isIframe = window !== window.parent && !window.opener; 
+    // this.isIframe = window !== window.parent && !window.opener; 
 
         this.setLoginDisplay();
         this.authService.instance.enableAccountStorageEvents();

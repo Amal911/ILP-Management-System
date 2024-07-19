@@ -30,10 +30,10 @@ import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
 
-    {path:'',component:AdminDashboardComponent},
+    {path:'',component:AdminDashboardComponent, canActivate: [MsalGuard]},
     // {path:'',component:LoginComponent},
     {path:'account', component:AccountComponent},
-    {path:'scorecard',component:DashboardScorecardComponent, canActivate: [MsalGuard] },      //amal
+    {path:'scorecard',component:DashboardScorecardComponent },      //amal
     {path:'batches',component:BatchListingComponent},
     {path:'batches/manage/{id}',component:ManageBatchComponent}, //jisna
     {path:'batches/create',component:CreateBatchComponent}, //jisna

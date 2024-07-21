@@ -27,4 +27,8 @@ export class ScheduleService {
     return this.http.put<any>(update_API, formData);
   }
 
+  getAllSessions(): Observable<any> {
+    return this.http.get(`${this.baseURL}/GetAllSessions`);
+  }
+
 }

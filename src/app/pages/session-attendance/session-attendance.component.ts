@@ -4,6 +4,8 @@ import { HollowButtonComponent } from '../../components/hollow-button/hollow-but
 import { ButtonComponent } from '../../components/button/button.component';
 import { AttendanceTableComponent } from '../../components/attendance-table/attendance-table.component';
 import { SessionDetailsComponent } from '../../components/session-details/session-details.component';
+import { ActivatedRoute } from '@angular/router';
+import { ScheduleService } from '../../services/schedule.service';
 
 @Component({
   selector: 'app-session-attendance',
@@ -19,15 +21,26 @@ export class SessionAttendanceComponent implements OnInit {
   searchControl: FormControl = new FormControl('');
   sessionDetails: any;
   attendanceDetails: any;
+
+  constructor(
+    private route: ActivatedRoute,
+    private scheduleService: ScheduleService
+  ) {}
+  
   ngOnInit() {
-    this.session = {
-      id: 1,
-      session_name: 'Angular Workshop',
-      trainer_name: 'John Doe',
-      date: '2024-07-11',
-      start_time: '10:00',
-      end_time: '12:00',
-    };
+    const id = this.route.snapshot.paramMap.get('id');
+    
+    if (id) {
+      this.loadSessionDetails(+id);
+    }
+    // this.session = {
+    //   id: 1,
+    //   session_name: 'Angular Workshop',
+    //   trainer_name: 'John Doe',
+    //   date: '2024-07-11',
+    //   start_time: '10:00',
+    //   end_time: '12:00',
+    // };
 
     this.traineeTable = [
       { id: 1, name: 'John Doe' },
@@ -76,6 +89,28 @@ export class SessionAttendanceComponent implements OnInit {
     } else {
       console.log('Session or attendance details are missing.');
     }
+  }
+
+  loadSessionDetails(id: number) {
+    this.scheduleService.fetchSession(id).subscribe(
+      (response) => {
+        if (response.isSuccess) {          
+          this.session = {
+            id: response.result.id,
+            session_name: response.result.sessionName,
+            trainer_name: response.result.trainerId,
+            date: new Date(response.result.startTime).toISOString().split('T')[0],
+            start_time: new Date(response.result.startTime).toTimeString().slice(0, 5),
+            end_time: new Date(response.result.endTime).toTimeString().slice(0, 5),
+          };
+        } else {
+          console.error('Failed to load session details:', response.message);
+        }
+      },
+      (error) => {
+        console.error('Error loading session details:', error);
+      }
+    );
   }
 }
 

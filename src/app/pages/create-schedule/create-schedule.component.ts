@@ -67,8 +67,10 @@ export class CreateScheduleComponent {
 
 
   onSubmit() {
-
+    console.log("adasd");
+    
     if (this.createScheduleForm.valid) {
+      
       const startDateTime = new Date(`${this.createScheduleForm.get('date')?.value}T${this.createScheduleForm.get('startTime')?.value}`);
       const endDateTime = new Date(`${this.createScheduleForm.get('date')?.value}T${this.createScheduleForm.get('endTime')?.value}`);
       const formData = {
@@ -80,6 +82,8 @@ export class CreateScheduleComponent {
         batchId:1,
         programId:3
       };
+      console.log(formData);
+      
 
       this.scheduleSevice.createSchedule(formData).subscribe(
         (response) => {

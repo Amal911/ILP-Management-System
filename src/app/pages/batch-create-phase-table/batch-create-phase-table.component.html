@@ -2,7 +2,7 @@
   <div class="heading">
     <h4> PHASES : CREATE AND EDIT </h4>
   </div>
-  <div class="container d-flex justify-content-center align-items-center p-5" >
+  <div class="container d-flex justify-content-center align-items-center p-1" >
     <div
       class="table-and-search d-flex flex-column align-items-center justify-content-end"
     >
@@ -23,17 +23,16 @@
         <p-table
           [value]="filteredColumns"
           [paginator]="true"
-          [rows]="6"
+          [rows]="10"
           [showCurrentPageReport]="true"
-
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         >
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 10%">SL No.</th>
               <th style="width: 70%">Name of Phase</th>
-              <th style="width: 10%"></th>
-              <th style="width: 10%"></th>
+              <th style="width: 20%">Action</th>
+
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-phase let-rowIndex="rowIndex">
@@ -41,12 +40,12 @@
               <td>{{ rowIndex + 1 }}</td>
               <td>
                 <ng-container *ngIf="!phase.editing; else editPhaseName">
-                  {{ phase.phase_name }}
+                  {{ phase.phaseName }}
                 </ng-container>
                 <ng-template #editPhaseName>
                   <input
                     type="text"
-                    [(ngModel)]="phase.phase_name"
+                    [(ngModel)]="phase.phaseName"
                     (keydown.enter)="toggleEdit(phase)"
                     (blur)="toggleEdit(phase)"
                     class="form-control"
@@ -54,14 +53,16 @@
                 </ng-template>
               </td>
               <td>
-                <button class="btn btn-link" (click)="toggleEdit(phase)">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-              </td>
-              <td>
-                <button class="btn btn-link" (click)="deletePhase(phase)">
-                  <i class="bi bi-trash"></i>
-                </button>
+                <div class="d-flex">
+
+                  <button class="btn btn-link" (click)="toggleEdit(phase)">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  
+                  <button class="btn btn-link" (click)="deletePhase(phase)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
               </td>
             </tr>
           </ng-template>

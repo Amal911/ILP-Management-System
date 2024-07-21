@@ -7,6 +7,8 @@ import { FormGroup, FormBuilder, ReactiveFormsModule, Validators, FormControl, F
 import * as XLSX from 'xlsx';
 import { NgModule } from '@angular/core';
 import { DropdownComponent } from "../../components/dropdown/dropdown.component";
+import { ApiService } from '../../services/api.service';
+
 @Component({
   selector: 'app-create-batch',
   standalone: true,
@@ -23,51 +25,79 @@ import { DropdownComponent } from "../../components/dropdown/dropdown.component"
 })
 export class CreateBatchComponent {
     createBatchForm!: FormGroup;
-    cols: any;
-    products: any;
+    // cols: any;
+    // products: any;
     // phaseNames = ['Phase 1', 'Phase 2', 'Phase 3'];
     // evaluationCriteriaOptions = ['Criteria 1', 'Criteria 2', 'Criteria 3'];
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder, private api: ApiService) {}
+    batchtype:any;
+    batchLocation:any;
+    phasesData:any;
+    assessmentType:any;
 
     ngOnInit(): void {
+      this.api.getBatchType().subscribe(res=>{
+        this.batchtype = res;
+        console.log(this.batchtype);
+        
+      })
+      this.api.getBatchLocation().subscribe(res=>{
+        this.batchLocation = res;
+        console.log(this.batchLocation);
+        
+      })
+      this.api.getPhases().subscribe(res=>{
+        this.phasesData = res;
+        console.log(this.phasesData);
+        
+      })
+      this.api.getAssessmentTypes().subscribe(res=>{
+        this.assessmentType = res;
+        console.log(this.assessmentType);
+        
+      })
+        
       this.createBatchForm = this.fb.group({
-        selectProgram: ['', Validators.required],
-        numberOfTotalDays: ['', Validators.required],
-        batchCode: ['', Validators.required],
-        startDate: ['', Validators.required],
-        batchName: ['', Validators.required],
-        endDate: ['', Validators.required],
-        batchType: ['', Validators.required],
-        trainerLeaveApproverDropdown: ['', Validators.required],
-        learningLeaveApproverDropdown: ['', Validators.required],
-        locationDropdown: ['', Validators.required],
-        phases: this.fb.array([this.createPhase()])
+        batchDetails:this.fb.group({
+          
+          programId: ['', Validators.required],
+          batchDuration: ['', Validators.required],
+          batchCode: ['', Validators.required],
+          startDate: ['', Validators.required],
+          batchName: ['', Validators.required],
+          endDate: ['', Validators.required],
+          batchTypeId: ['', Validators.required],
+          // trainerLeaveApproverDropdown: ['', Validators.required],
+          // learningLeaveApproverDropdown: ['', Validators.required],
+          locationId: ['', Validators.required],
+        }),
+        phaseDetails: this.fb.array([this.createPhase()])
       });
     }
   
     createPhase(): FormGroup {
       return this.fb.group({
-        phaseName: ['', Validators.required],
-        phaseStartDate: ['', Validators.required],
-        phaseEndDate: ['', Validators.required],
+        phaseId: ['', Validators.required],
+        startDate: ['', Validators.required],
+        endDate: ['', Validators.required],
         numberOfDays: ['', Validators.required],
-        assessmentTypeList: this.fb.array([this.createAssessmentType()])
+        phaseAssessmentMapping: this.fb.array([this.createAssessmentType()])
       });
     }
   
     createAssessmentType(): FormGroup {
       return this.fb.group({
-        evaluationCriteria: ['', Validators.required],
+        assessmentTypeId: Number(['', Validators.required]),
         weightage: ['', Validators.required]
       });
     }
   
     phasesArray(): FormArray {
-      return this.createBatchForm.get('phases') as FormArray;
+      return this.createBatchForm.get('phaseDetails') as FormArray;
     }
   
     assessmentTypeListArray(phaseIndex: number): FormArray {
-      return this.phasesArray().at(phaseIndex).get('assessmentTypeList') as FormArray;
+      return this.phasesArray().at(phaseIndex).get('phaseAssessmentMapping') as FormArray;
     }
   
     addPhase(): void {
@@ -86,9 +116,7 @@ export class CreateBatchComponent {
       this.assessmentTypeListArray(phaseIndex).removeAt(assessmentIndex);
     }
   
-    // getFormControl(controlName: string): FormControl {
-    //   return this.createBatchForm.get(controlName) as FormControl;
-    // }
+    
     getFormControl(controlName: string, phaseIndex?: number): FormControl {
       if (phaseIndex !== undefined) {
         return this.phasesArray().at(phaseIndex).get(controlName) as FormControl;
@@ -97,7 +125,20 @@ export class CreateBatchComponent {
     }
   
     createBatch(): void {
-      console.log(this.createBatchForm.value);
+      // console.log(this.createBatchForm.value);
+      let batchData = this.createBatchForm.value;
+      
+      batchData.batchDetails.startDate =new Date(batchData.batchDetails.startDate).toISOString();
+      batchData.batchDetails.endDate =new Date(batchData.batchDetails.endDate).toISOString();
+
+      batchData.phaseDetails.forEach((phase:any,i:number)=>{
+        batchData.phaseDetails[i].startDate = new Date(phase.startDate).toISOString()
+        batchData.phaseDetails[i].endDate = new Date(phase.endDate).toISOString()
+      });
+      console.log(batchData);
+      this.api.createNewBatch(batchData).subscribe(res=>{
+        console.log(res);
+      })
     }
   
     columns: string[] = [];

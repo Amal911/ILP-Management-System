@@ -25,44 +25,30 @@ import { ManageBatchComponent } from './pages/manage-batch/manage-batch.componen
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 
-
 export const routes: Routes = [
+  { path: '', component: AdminDashboardComponent },
+  { path: 'account', component: AccountComponent },
+  { path: 'scorecard', component: DashboardScorecardComponent }, //amal
+  { path: 'batches', component: BatchListingComponent },
+  { path: 'batches/manage/{id}', component: ManageBatchComponent }, //jisna
+  { path: 'batches/create', component: CreateBatchComponent }, //jisna
+  { path: 'assessments', component: AssignmentListingComponent },
+  { path: 'assessments/create', component: CreateAssessmentComponent }, //reshmi
+  // {path:'assessments/evaluate',component:}, //thulasi
+  { path: 'assessments/evaluate', component: EvaluateAssessmentsComponent }, //kailas
+  { path: 'schedule', component: CalendarComponent }, //
+  { path: 'schedule/id', component: SessionAttendanceComponent }, //thulasi
+  { path: 'schedule/create', component: CreateScheduleComponent }, //kailas
+  // {path:'schedule/upload',component:}, //
+  { path: 'schedule/edit', component: EditScheduleComponent }, //kailas
+  { path: 'assessments/online', component: OnlineAssessmentListComponent }, // reshmi
+  { path: 'assessments/online/create', component: OnlineAssessmentCreateComponent}, // reshmi
+  { path: 'leave', component: LeaveRequestComponent },
+  { path: 'trainee/leave', component: TraineeLeaveRequestComponent },
+  { path: 'handed-in', component: AssessmentHandedinComponent }, //thulasi
+  { path: 'batch/create-phase', component: BatchCreatePhaseTableComponent }, //jisna
+  { path: 'batch/create-evaluation-criteria',component: BatchCreateEvaluationCriteriaComponent }, //thulasi
 
-    {path:'',component:AdminDashboardComponent},
-    {path:'account', component:AccountComponent},
-    {path:'scorecard',component:DashboardScorecardComponent},      //amal
-    {path:'batches',component:BatchListingComponent},
-    {path:'batches/manage/{id}',component:ManageBatchComponent}, //jisna
-    {path:'batches/create',component:CreateBatchComponent}, //jisna
-    {path:'assessments',component:AssignmentListingComponent},
-    {path:'assessments/create',component:CreateAssessmentComponent}, //reshmi
-    // {path:'assessments/evaluate',component:}, //thulasi
-    {path:'assessments/evaluate',component:EvaluateAssessmentsComponent}, //kailas
-    {path:'schedule',component:CalendarComponent}, //
-    {path:'schedule/id',component:SessionAttendanceComponent}, //thulasi
-    {path:'schedule/create',component:CreateScheduleComponent}, //kailas
-    // {path:'schedule/upload',component:}, //
-    {path:'schedule/edit',component:EditScheduleComponent}, //kailas
-    {path:'assessments/online',component:OnlineAssessmentListComponent}, // reshmi
-    {path:'assessments/online/create',component:OnlineAssessmentCreateComponent}, // reshmi
-    {path:'leave',component:LeaveRequestComponent},
-    { path: 'trainee/leave', component: TraineeLeaveRequestComponent },
-    {path:'batch/create-phase',component:BatchCreatePhaseTableComponent}, //jisna
-    { path: 'handed-in', component: AssessmentHandedinComponent },//thulasi
-    { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent },//thulasi
-
-
-
-
-
-
-
-
-    // Trainee
-    {path:'assessment/handed/id',component:HandedInAssignmentsComponent},
-
-
-
-
-
+  // Trainee
+  { path: 'assessment/handed/id', component: HandedInAssignmentsComponent },
 ];

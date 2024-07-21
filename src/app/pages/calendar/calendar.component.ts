@@ -11,11 +11,12 @@ import { DataService } from '../../services/data.service';
 import { CalendarEvent } from '../../interfaces/calendar-event';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [ DayPilotModule, CommonModule, FormsModule],
+  imports: [ DayPilotModule, CommonModule, FormsModule,RouterLink],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss'
 })

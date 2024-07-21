@@ -32,7 +32,7 @@ export const routes: Routes = [
     {path:'account', component:AccountComponent},
     {path:'scorecard',component:DashboardScorecardComponent},      //amal
     {path:'batches',component:BatchListingComponent},
-    {path:'batches/manage/{id}',component:ManageBatchComponent}, //jisna
+    { path: 'batches/manage/:id', component: ManageBatchComponent }, // corrected this line
     {path:'batches/create',component:CreateBatchComponent}, //jisna
     {path:'assessments',component:AssignmentListingComponent},
     {path:'assessments/create',component:CreateAssessmentComponent}, //reshmi
@@ -57,9 +57,15 @@ export const routes: Routes = [
 
 
 
-
     // Trainee
     {path:'assessment/handed/id',component:HandedInAssignmentsComponent},
+
+
+
+
+
+    { path: '**', redirectTo: '/batches' }
+
 
 
 

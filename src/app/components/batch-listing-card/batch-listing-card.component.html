@@ -4,15 +4,15 @@
       <img src="assets/Vector.svg" class="custom-batch-icon">
     </div>
     <div class="card-writings col-8 d-flex flex-column justify-content-center  align-items-start" >
-      <h5 class="card-title text-left  custom-title">{{batches.batch_name}}</h5>
+      <h5 class="card-title text-left  custom-title">{{batches.batchName}}</h5>
       <p class="card-text text-left mb-0 custom-text">{{batches.batch_strength}} &nbsp; Trainees</p>
-      <p class="card-text text-left custom-text">{{batches.batch_type_name}}</p>
+      <p class="card-text text-left custom-text">{{batches.batchType}}</p>
     </div>
     <div class="col-2 d-flex flex-column justify-content-end align-items-start ">
       <div class="d-flex flex-row align-items-center justify-content-start custom-icon-and-text" >
         <p></p>
-        <p [ngStyle]="{'color':batches.is_active?'green':'red'}"  class="custom-status-icon mb-3 mx-2"><i class="bi bi-circle-fill"></i></p>
-        <p class="custom-status" [ngClass]="{'green': batches.is_active, 'red': !batches.is_active}">{{batches.is_active?'Active':'Inactive'}}</p>
+        <p [ngStyle]="{'color':batches.isActive?'green':'red'}"  class="custom-status-icon mb-3 mx-2"><i class="bi bi-circle-fill"></i></p>
+        <p class="custom-status" [ngClass]="{'green': batches.isActive, 'red': !batches.isActive}">{{batches.isActive?'Active':'Inactive'}}</p>
       </div>
     </div>
   </div>

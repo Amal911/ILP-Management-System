@@ -21,7 +21,7 @@ export class ManageBatchComponent {
 
   batchForm!:FormGroup;
   isEditable = false;
-  
+
   trainees = [
     { name: 'Amal E A' },
     { name: 'Devipriya M S' },
@@ -128,14 +128,14 @@ export class ManageBatchComponent {
         }),
       ])
     });
-  
+
     this.batchForm.disable();
   }
   getStatusClass() {
     const status = this.batchForm.get('status')?.value;
     return status === 'Active' ? 'bg-success' : 'bg-danger';
   }
-  
+
   createPhase(): FormGroup {
     return this.fb.group({
       phaseName: new FormControl('', Validators.required),
@@ -145,14 +145,14 @@ export class ManageBatchComponent {
       assessmentTypeList: this.fb.array([this.createAssessmentType()])
     });
   }
-  
+
   createAssessmentType(): FormGroup {
     return this.fb.group({
       evaluationCriteria: new FormControl('', Validators.required),
       weightage: new FormControl('', Validators.required)
     });
   }
-  
+
   phasesArray(): FormArray {
     return this.batchForm.get('phases') as FormArray;
   }
@@ -173,9 +173,9 @@ export class ManageBatchComponent {
       this.phasesArray().push(newPhase);
     }
   }
-  
- 
-  
+
+
+
   removePhase(index: number): void {
     if (this.isEditable) {
       this.phasesArray().removeAt(index);
@@ -217,7 +217,7 @@ ngAfterViewInit(): void {
   editBatch() {
     this.isEditable = true;
     this.batchForm.enable();
-  
+
     this.phasesArray().controls.forEach(phase => {
       phase.enable();
       const assessmentTypeList = phase.get('assessmentTypeList') as FormArray;
@@ -239,8 +239,8 @@ ngAfterViewInit(): void {
     return (control: AbstractControl): ValidationErrors | null => {
       const selectedDate = new Date(control.value);
       const today = new Date();
-      today.setHours(0, 0, 0, 0); 
-  
+      today.setHours(0, 0, 0, 0);
+
       return selectedDate >= today ? null : { pastDate: true };
     };
   }
@@ -256,7 +256,7 @@ ngAfterViewInit(): void {
   moveTrainee(index: number) {
     console.log('Move trainee:', this.trainees[index]);
   }
-  
+
   tooltipOptions = {
     showDelay: 150,
     autoHide: false,

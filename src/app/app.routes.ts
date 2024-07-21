@@ -39,7 +39,7 @@ export const routes: Routes = [
     // {path:'assessments/evaluate',component:}, //thulasi
     {path:'assessments/evaluate',component:EvaluateAssessmentsComponent}, //kailas
     {path:'schedule',component:CalendarComponent}, //
-    {path:'schedule/id',component:SessionAttendanceComponent}, //thulasi
+    {path:'schedule/:id',component:SessionAttendanceComponent}, //thulasi
     {path:'schedule/create',component:CreateScheduleComponent}, //kailas
     // {path:'schedule/upload',component:}, //
     {path:'schedule/edit',component:EditScheduleComponent}, //kailas

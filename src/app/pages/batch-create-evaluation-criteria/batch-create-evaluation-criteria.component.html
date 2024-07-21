@@ -37,12 +37,12 @@
               <td>{{ rowIndex + 1 }}</td>
               <td>
                 <ng-container *ngIf="!eC.editing; else editECName">
-                  {{ eC.assessment_type_name }}
+                  {{ eC.assessmentTypeName}}
                 </ng-container>
                 <ng-template #editECName>
                   <input
                     type="text"
-                    [(ngModel)]="eC.assessment_type_name"
+                    [(ngModel)]="eC.assessmentTypeName"
                     (keydown.enter)="toggleEdit(eC)"
                     (blur)="toggleEdit(eC)"
                     class="form-control"
@@ -105,7 +105,7 @@
           </div>
           <div class="modal-footer">
             <app-hollow-button [hollowButtonLabel]="'Cancel'" [attr.data-bs-dismiss]="'modal'"></app-hollow-button>
-            <app-button [buttonLabel]="'Save'" (click)="saveNewEC()"></app-button>
+            <app-button [buttonLabel]="'Save'" (click)="saveNewEC()"[attr.data-bs-dismiss]="'modal'"></app-button>
           </div>
         </div>
       </div>

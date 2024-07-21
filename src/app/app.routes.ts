@@ -50,14 +50,6 @@ export const routes: Routes = [
     {path:'batch/create-phase',component:BatchCreatePhaseTableComponent}, //jisna
     { path: 'handed-in', component: AssessmentHandedinComponent },//thulasi
     { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent },//thulasi
-
-
-
-
-
-
-
-
     // Trainee
     {path:'assessment/handed/id',component:HandedInAssignmentsComponent},
 

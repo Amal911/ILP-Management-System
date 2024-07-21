@@ -25,8 +25,8 @@ import { ManageBatchComponent } from './pages/manage-batch/manage-batch.componen
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 
-
 export const routes: Routes = [
+
 
     {path:'',component:AdminDashboardComponent},
     {path:'account', component:AccountComponent},
@@ -51,24 +51,10 @@ export const routes: Routes = [
     { path: 'handed-in', component: AssessmentHandedinComponent },//thulasi
     { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent },//thulasi
 
-
-
-
-
-
-
     // Trainee
     {path:'assessment/handed/id',component:HandedInAssignmentsComponent},
 
 
-
-
-
     { path: '**', redirectTo: '/batches' }
-
-
-
-
-
 
 ];

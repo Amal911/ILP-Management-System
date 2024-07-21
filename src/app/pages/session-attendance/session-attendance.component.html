@@ -1,5 +1,6 @@
 <div class="attendance-marking d-flex flex-column justify-content-center m-5 gap-5">
   <app-session-details
+    [editPageLink]="'/schedule/edit'"
     [session]="session"
     (sessionDetailEmitter)="onSessionDetailsEmit($event)"
   />

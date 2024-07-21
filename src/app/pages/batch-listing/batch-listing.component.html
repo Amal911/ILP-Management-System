@@ -7,7 +7,9 @@
   </div>
   <div class="card-container d-flex flex-column">
     @for (item of Batches; track $index) {
-    <app-listing-card [batches]="item" (click)="navigateToManageBatch()"></app-listing-card>
+    <app-listing-card [batches]="item" (click)="navigateToManageBatch(item.id)"></app-listing-card>
     }
   </div>
  </div>
+
+ 

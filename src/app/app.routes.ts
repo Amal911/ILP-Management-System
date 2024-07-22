@@ -42,7 +42,7 @@ export const routes: Routes = [
     {path:'schedule/create',component:CreateScheduleComponent}, //kailas
     {path:'schedule/:id',component:SessionAttendanceComponent}, //thulasi
     // {path:'schedule/upload',component:}, //
-    {path:'schedule/edit',component:EditScheduleComponent}, //kailas
+    {path:'schedule/:id/edit',component:EditScheduleComponent}, //kailas
     {path:'assessments/online',component:OnlineAssessmentListComponent}, // reshmi
     {path:'assessments/online/create',component:OnlineAssessmentCreateComponent}, // reshmi
     {path:'leave',component:LeaveRequestComponent},

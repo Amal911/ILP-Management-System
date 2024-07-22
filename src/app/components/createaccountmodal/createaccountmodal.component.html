@@ -9,38 +9,49 @@
             <div class="modal-body">
                 <form [formGroup]="createAccountForm" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" formControlName="name">
-                        <div *ngIf="createAccountForm.get('name')?.invalid && createAccountForm.get('name')?.touched">
-                            <div *ngIf="createAccountForm.get('name')?.errors?.['required']" class="text-danger">This
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" formControlName="firstName">
+                        <div *ngIf="createAccountForm.get('firstName')?.invalid && createAccountForm.get('firstName')?.touched">
+                            <div *ngIf="createAccountForm.get('firstName')?.errors?.['required']" class="text-danger">This
                                 field is
                                 required.</div>
-                            <div *ngIf="createAccountForm.get('name')?.errors?.['minLength']" class="text-danger">
+                            <div *ngIf="createAccountForm.get('firstName')?.errors?.['minLength']" class="text-danger">
                                 Minimum 3 characters required.</div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email ID</label>
-                        <input type="email" class="form-control" id="email" formControlName="email">
-                        <div *ngIf="createAccountForm.get('email')?.invalid && createAccountForm.get('email')?.touched">
-                            <div *ngIf="createAccountForm.get('email')?.errors?.['required']" class="text-danger">This
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                        <div *ngIf="createAccountForm.get('lastName')?.invalid && createAccountForm.get('lastName')?.touched">
+                            <div *ngIf="createAccountForm.get('lastName')?.errors?.['required']" class="text-danger">This
                                 field is
                                 required.</div>
-                            <div *ngIf="createAccountForm.get('email')?.errors?.['email']" class="text-danger">Please
+                            <div *ngIf="createAccountForm.get('lastName')?.errors?.['minLength']" class="text-danger">
+                                Minimum 1 character is required.</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailId" class="form-label">Email ID</label>
+                        <input type="email" class="form-control" id="emailId" formControlName="emailId">
+                        <div *ngIf="createAccountForm.get('emailId')?.invalid && createAccountForm.get('emailId')?.touched">
+                            <div *ngIf="createAccountForm.get('emailId')?.errors?.['required']" class="text-danger">This
+                                field is
+                                required.</div>
+                            <div *ngIf="createAccountForm.get('emailId')?.errors?.['emailId']" class="text-danger">Please
                                 enter a
                                 valid email.</div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="role" class="form-label-placeholder">Select Role</label>
-                        <select class="form-select" id="role" formControlName="role" aria-label="Default select example">
+                        <label for="roleId" class="form-label-placeholder">Select Role</label>
+                        <select class="form-select" id="roleId" formControlName="roleId" aria-label="Default select example">
                               <option selected>Select Role</option>
                               <option value="admin">L&D Admin</option>
                               <option value="trainer">Trainer</option>
                               <option value="trainee">Trainee</option>
                             </select>
-                        <div *ngIf="createAccountForm.get('role')?.invalid && createAccountForm.get('role')?.touched">
-                            <div *ngIf="createAccountForm.get('role')?.errors?.['required']" class="text-danger">Please
+                        <div *ngIf="createAccountForm.get('roleId')?.invalid && createAccountForm.get('roleId')?.touched">
+                            <div *ngIf="createAccountForm.get('roleId')?.errors?.['required']" class="text-danger">Please
                                 select one role.</div>
                         </div>
                     </div>
@@ -66,10 +77,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="mobile" class="form-label">Mobile Number</label>
-                        <input type="text" class="form-control" id="mobile" formControlName="mobile">
-                        <div *ngIf="createAccountForm.get('mobile')?.invalid && createAccountForm.get('mobile')?.touched">
-                            <div *ngIf="createAccountForm.get('mobile')?.errors?.['required']" class="text-danger">This field is required.</div>
-                            <div *ngIf="createAccountForm.get('mobile')?.errors?.['pattern']" class="text-danger">Please enter a valid mobile number.</div>
+                        <input type="text" class="form-control" id="mobileNumber" formControlName="mobileNumber">
+                        <div *ngIf="createAccountForm.get('mobileNumber')?.invalid && createAccountForm.get('mobileNumber')?.touched">
+                            <div *ngIf="createAccountForm.get('mobileNumber')?.errors?.['required']" class="text-danger">This field is required.</div>
+                            <div *ngIf="createAccountForm.get('mobileNumber')?.errors?.['pattern']" class="text-danger">Please enter a valid mobile number.</div>
                         </div>
                     </div>
                     <div class="modal-footer">

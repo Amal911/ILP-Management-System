@@ -9,7 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ScheduleService } from '../../services/schedule.service';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-edit-schedule',
@@ -20,7 +20,7 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class EditScheduleComponent {
 
-  id:number=1;
+  idToFetch:any;
 
   batches = [
     {
@@ -70,8 +70,18 @@ export class EditScheduleComponent {
     },
   ];
 
-  constructor(private formBuilder: FormBuilder,private scheduleService:ScheduleService,private router:Router) {}
+  constructor(private formBuilder: FormBuilder,private scheduleService:ScheduleService,private router:Router,private route:ActivatedRoute) {}
 
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      this.idToFetch = id ? +id : null;
+      // if (this.idToFetch) {
+      //   this.fetchSchedule(this.idToFetch);
+      // }
+    });
+    this.fetchSchedule();
+  }
   public createScheduleForm = new FormGroup({
     program: new FormControl({ value: '', disabled: true },[Validators.required]),
     batch: new FormControl({ value: '', disabled: true },[Validators.required]),
@@ -85,7 +95,7 @@ export class EditScheduleComponent {
   });
 
   fetchSchedule(){
-    this.scheduleService.fetchSession(this.id).subscribe(
+    this.scheduleService.fetchSession(this.idToFetch).subscribe(
       (response) => {
         console.log(response); 
         const fetchedStartDate = new Date(response.result.startTime).toISOString().split('T')[0];
@@ -117,9 +127,7 @@ export class EditScheduleComponent {
     this.createScheduleForm.enable();
   }
 
-  ngOnInit(): void {
-    this.fetchSchedule();
-  }
+
 
   onSubmit() {
     if (this.createScheduleForm.valid) {
@@ -134,7 +142,7 @@ export class EditScheduleComponent {
         batchId:1,
         programId:3
       };
-      this.scheduleService.updateSchedule(formData,this.id).subscribe(
+      this.scheduleService.updateSchedule(formData,this.idToFetch).subscribe(
         (response) => {
           console.log('Session updated successfully:', response);
           //this.router.navigate(['/schedule']);

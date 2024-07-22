@@ -33,9 +33,8 @@
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 10%">SL No.</th>
-              <th style="width: 70%">Name of Phase</th>
-              <th style="width: 20%">Action</th>
-
+              <th style="width: 80%">Name of Phase</th>
+              <th style="width: 10%">Actions</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-phase let-rowIndex="rowIndex">
@@ -57,15 +56,14 @@
               </td>
               <td>
                 <div class="d-flex">
-
                   <button class="btn btn-link" (click)="toggleEdit(phase)">
-                    <i class="bi bi-pencil-square"></i>
-                  </button>
+                  <i class="bi bi-pencil-square"></i>
+                </button>
 
-                  <button class="btn btn-link" (click)="deletePhase(phase)">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </div>
+                <button class="btn btn-link" (click)="deletePhase(phase)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
               </td>
             </tr>
           </ng-template>

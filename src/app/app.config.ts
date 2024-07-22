@@ -40,13 +40,17 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication(msalConfig);
 }
 
-export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-  const protectedResourceMap = new Map<string, Array<string>>();
-  protectedResourceMap.set(apiConfig.uri, apiConfig.scopes);
 
+export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+  // const protectedResourceMap = new Map<string, Array<string>>();
+  // protectedResourceMap.set(apiConfig.uri, apiConfig.scopes);
   return {
       interactionType: InteractionType.Redirect,
-      protectedResourceMap,
+      // protectedResourceMap,
+      protectedResourceMap: new Map([
+        ['https://graph.microsoft.com/v1.0/me', ['User.Read']],
+        ['https://localhost:7009/api/*', ['api://d85e6ad5-324d-41e5-9666-b9fb9a1a4aa3/access_as_user']], // Update with your API URL and scope
+      ]),
   };
 }
 
@@ -73,9 +77,13 @@ export const appConfig: ApplicationConfig = {
           multi: true,
       },
       {
-          provide: MSAL_INSTANCE,
-          useFactory: MSALInstanceFactory,
+        provide: MSAL_INSTANCE,
+        useFactory: () => new PublicClientApplication(msalConfig),
       },
+      // {
+      //     provide: MSAL_INSTANCE,
+      //     useFactory: MSALInstanceFactory,
+      // },
       {
           provide: MSAL_GUARD_CONFIG,
           useFactory: MSALGuardConfigFactory,

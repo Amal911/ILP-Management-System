@@ -13,6 +13,9 @@ export class ApiService {
   creatNewPhase(body:any){
     return this.http.post('https://localhost:7009/Phase/AddNewPhase',body)
   }
+  updatePhase(id: number, body: any) {
+    return this.http.put(`https://localhost:7009/Phase/UpdatePhase/${id}`, body);
+}
   deletePhase(id:number){
     return this.http.delete('https://localhost:7009/Phase/Deletephase/'+id);
   }

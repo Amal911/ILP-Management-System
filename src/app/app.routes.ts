@@ -8,18 +8,14 @@ import { LeaveRequestComponent } from './pages/leave-request/leave-request.compo
 import { AssignmentListingComponent } from './pages/assignment-listing/assignment-listing.component';
 import { EvaluateAssessmentsComponent } from './pages/evaluate-assessments/evaluate-assessments.component';
 import { CreateScheduleComponent } from './pages/create-schedule/create-schedule.component';
-
 import { HandedInAssignmentsComponent } from './pages/handed-in-assignments/handed-in-assignments.component';
 import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
-
 import { CreateAssessmentComponent } from './pages/create-assessment/create-assessment.component';
 import { OnlineAssessmentListComponent } from './pages/online-assessment-list/online-assessment-list.component';
 import { OnlineAssessmentCreateComponent } from './pages/online-assessment-create/online-assessment-create.component';
 import { BatchCreatePhaseTableComponent } from './pages/batch-create-phase-table/batch-create-phase-table.component';
 import { AssessmentHandedinComponent } from './pages/assessment-handedin/assessment-handedin.component';
-
 import { CreateBatchComponent } from './pages/create-batch/create-batch.component';
-
 import { BatchCreateEvaluationCriteriaComponent } from './pages/batch-create-evaluation-criteria/batch-create-evaluation-criteria.component';
 import { ManageBatchComponent } from './pages/manage-batch/manage-batch.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';

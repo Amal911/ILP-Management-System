@@ -14,25 +14,28 @@ import { HollowButtonComponent } from '../hollow-button/hollow-button.component'
 export class CreateaccountmodalComponent {
 
   createAccountForm = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    role: new FormControl(''),
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    emailId: new FormControl(''),
+    roleId: new FormControl(''),
     gender: new FormControl(''),
-    mobile: new FormControl('')
+    mobileNumber: new FormControl('')
   });
 
   ngOnInit(): void {
     
     this.createAccountForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      role: new FormControl('', Validators.required),
+      firstName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      lastName: new FormControl('', [Validators.required, Validators.minLength(1)]),
+      emailId: new FormControl('', [Validators.required, Validators.email]),
+      roleId: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
-      mobile: new FormControl('', [Validators.required, Validators.pattern('^\\d{10}$')])
+      mobileNumber: new FormControl('', [Validators.required, Validators.pattern('^\\d{10}$')])
     });
   }
 
   onSubmit(): void {
+    
     if (this.createAccountForm.valid) {
       console.log('Form Submitted', this.createAccountForm.value);
     }

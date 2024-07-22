@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './session-details.component.scss',
 })
 export class SessionDetailsComponent implements OnInit {
-  @Input() session: any = '';
+  @Input() session: any;
   @Input() editPageLink:string="";
   @Output() sessionDetailEmitter = new EventEmitter<any>();
 

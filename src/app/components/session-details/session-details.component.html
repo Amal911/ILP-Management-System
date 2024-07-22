@@ -6,16 +6,16 @@
     </div> 
     <div class="details row">
       <div class="detail-content col-4">
-        <p class="detail-title">Title : {{ session.session_name }}</p>
+        <p class="detail-title">Title : {{ session?.session_name }}</p>
       </div>
       <div class="detail-content col-4">
-        <p class="detail-title">Trainer : {{ session.trainer_name }}</p>
+        <p class="detail-title">Trainer : {{ session?.trainer_name }}</p>
       </div>
       <div class="detail-content col-4">
-        <p class="detail-title">Date : {{ session.date }}</p>
+        <p class="detail-title">Date : {{ session?.date }}</p>
       </div>
       <div class="mb-3 detail-content col-4">
-        <p class="detail-title">Time : {{ session.start_time }}-{{ session.end_time }}</p>
+        <p class="detail-title">Time : {{ session?.start_time }}-{{ session?.end_time }}</p>
       </div>
     </div>
   </div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ListingCardComponent } from "../../components/batch-listing-card/batch-listing-card.component";
 import { ButtonComponent } from "../../components/button/button.component";
 import { Router } from '@angular/router';
+import { BatchListingService } from '../../services/API/batch-listing.service';
 
 @Component({
     selector: 'app-batch-listing',
@@ -11,74 +12,20 @@ import { Router } from '@angular/router';
     imports: [ListingCardComponent, ButtonComponent]
 })
 export class BatchListingComponent {
-  Batches = [
-    {
-      id:1,
-      batch_name: 'ILP Batch 03',
-      batch_strength: '39',
-      batch_type_name: 'Developer batch',
-      is_active: false,
+  Batches:any[] = [];
+  constructor(private router: Router,private batchListingService:BatchListingService) {}
+  ngOnInit(): void {
+      this.loadBatch();
+  }
+  loadBatch(): void {
+    this.batchListingService.getBatches().subscribe(data => {
+      this.Batches = data;
     },
-    {
-      id:2,
-      cardMainIconSRC: 'assets/Vector.svg',
-      batch_name: 'ILP Batch 02',
-      batch_strength: '30',
-      batch_type_name: 'BA batch',
-      is_active: true,
-    },
-    {
-      id:3,
-      cardMainIconSRC: 'assets/Vector.svg',
-      batch_name: 'ILP Batch 01',
-      batch_strength: '33',
-      batch_type_name: 'Developer batch',
-      is_active: false,
-    },
-    {
-      id:4,
-      cardMainIconSRC: 'assets/Vector.svg',
-      batch_name: 'ILP Batch 03',
-      batch_strength: '31',
-      batch_type_name: 'BA batch',
-      is_active: true,
-    },
-    {
-      id:5,
-      cardMainIconSRC: 'assets/Vector.svg',
-      batch_name: 'ILP Batch 02',
-      batch_strength: '34',
-      batch_type_name: 'Developer batch',
-      is_active: false,
-    },
-    {
-      id:6,
-      cardMainIconSRC: 'assets/Vector.svg',
-      batch_name: 'ILP Batch 01',
-      batch_strength: '12',
-      batch_type_name: 'BA batch',
-      is_active: true,
-    },
-    {
-      id:7,
-      cardMainIconSRC: 'assets/Vector.svg',
-      batch_name: 'ILP Batch 02',
-      batch_strength: '34',
-      batch_type_name: 'Developer batch',
-      is_active: false,
-    },
-    {
-      id:8,
-      cardMainIconSRC: 'assets/Vector.svg',
-      batch_name: 'ILP Batch 01',
-      batch_strength: '39',
-      batch_type_name: 'Developer batch',
-      is_active: true,
-    }
-  ];
-  constructor(private router: Router) {}
-  navigateToManageBatch() {
-    this.router.navigate(['leave']);
+    error =>{console.error('Error:', error)}
+  );
+  }
+  navigateToManageBatch(batchId: number): void {
+    this.router.navigate([`batches/manage/${batchId}`]);
   }
   navigateToCreateNew(){
     this.router.navigate(['assessments/create']);

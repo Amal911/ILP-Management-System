@@ -2,13 +2,16 @@ import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DropdownComponent } from "../../components/dropdown/dropdown.component";
+import { ScheduleService } from '../../services/schedule.service';
+import { timestamp } from 'rxjs';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-create-schedule',
     standalone: true,
     templateUrl: './create-schedule.component.html',
     styleUrl: './create-schedule.component.scss',
-    imports: [FormsModule, ReactiveFormsModule, NgIf, DropdownComponent]
+    imports: [FormsModule, ReactiveFormsModule, NgIf, DropdownComponent,RouterLink]
 })
 export class CreateScheduleComponent {
 
@@ -57,15 +60,40 @@ export class CreateScheduleComponent {
   });
 
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,private scheduleSevice:ScheduleService,private router:Router) { }
 
   ngOnInit(): void {
   }
 
 
   onSubmit() {
+    console.log("adasd");
+    
     if (this.createScheduleForm.valid) {
-      // Process the form data (e.g., send it to backend)
+      
+      const startDateTime = new Date(`${this.createScheduleForm.get('date')?.value}T${this.createScheduleForm.get('startTime')?.value}`);
+      const endDateTime = new Date(`${this.createScheduleForm.get('date')?.value}T${this.createScheduleForm.get('endTime')?.value}`);
+      const formData = {
+        SessionName: this.createScheduleForm.get('title')?.value,
+        SessionDescription: this.createScheduleForm.get('description')?.value,
+        startTime: startDateTime.toISOString(),
+        endTime: endDateTime.toISOString(),
+        trainerId:2,
+        batchId:1,
+        programId:3
+      };
+      console.log(formData);
+      
+
+      this.scheduleSevice.createSchedule(formData).subscribe(
+        (response) => {
+          console.log(response);
+          this.router.navigate(['/schedule']); 
+        },
+        (error) => {
+          console.error('Error creating coupon:', error);
+        }
+      );
       console.log(this.createScheduleForm.value);
       // You can reset the form after successful submission
       this.createScheduleForm.reset();

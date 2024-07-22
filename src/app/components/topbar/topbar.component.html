@@ -19,7 +19,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <button (click)="logout()">LogOut</button>
+                <app-button [buttonLabel]="'LogOut'" class="custom-button" (click)="logout()"></app-button>
             </div>
         </div>
     </div>

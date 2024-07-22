@@ -12,14 +12,18 @@
     .experion_logo {
         display: flex;
         justify-content: center;
+        align-items: center;
+        height: 12.5rem;
+        padding: 2rem;
 
         img {
-            padding-top: 30%;
-            padding-bottom: 15%;
+            // padding-top: 5vw;
+            // padding-bottom: 3vw;
 
-            padding-left: 10%;
-            padding-right: 10%;
-            width: 8.5rem;
+            // padding-left: 1vw;
+            // padding-right: 1vw;
+            width: 70%;
+            min-width: 4rem;
         }
     }
 

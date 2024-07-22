@@ -12,6 +12,7 @@ import { CalendarEvent } from '../../interfaces/calendar-event';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { ScheduleService } from '../../services/schedule.service';
 
 @Component({
   selector: 'app-calendar',
@@ -77,7 +78,7 @@ export class CalendarComponent implements AfterViewInit {
     },
   };
 
-   constructor (private ds: DataService) {  
+   constructor (private scheduleService: ScheduleService,private ds: DataService) {  
     this.viewMonth();
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -161,12 +162,31 @@ export class CalendarComponent implements AfterViewInit {
   async loadEvents() {
     const from = this.date.firstDayOfMonth();
     const to = this.date.lastDayOfMonth();
-    this.ds.getEvents(from, to).subscribe((result: DayPilot.EventData[]) => {
-      this.events = result;
-      this.updateSelectedDateEvents();
-      return result;
-    });
     
+    this.scheduleService.getAllSessions().subscribe(
+      (response) => {
+        if (response.isSuccess) {
+          this.events = response.result
+            .filter((session: any) => {
+              const sessionStart = new DayPilot.Date(session.startTime);
+              return sessionStart >= from && sessionStart <= to;
+            })
+            .map((session: any) => ({
+              id: session.id,
+              text: session.sessionName,
+              start: new DayPilot.Date(session.startTime),
+              end: new DayPilot.Date(session.endTime)
+            }));
+          
+          this.updateSelectedDateEvents();
+        } else {
+          console.error('Failed to load sessions:', response.message);
+        }
+      },
+      (error) => {
+        console.error('Error loading sessions:', error);
+      }
+    );
   }
 
   viewMonth(): void {

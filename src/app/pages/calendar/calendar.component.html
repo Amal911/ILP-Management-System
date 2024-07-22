@@ -10,17 +10,21 @@
                 </select>
                 <button (click)="backToCurrent()">This Month</button>
             </div>
-            <div class="select-batch">
-                <select [(ngModel)]="selectedYear">
-                    <option *ngFor="let year of years" [value]="year">{{year}}</option>
-                </select>
-                <!-- <select [(ngModel)]="selectedBatch">
-                    <option *ngFor="let batch of batches" [value]="batch">{{batch}}</option>
-                </select> -->
-                <select [(ngModel)]="selectedYear">
-                    <option *ngFor="let year of years" [value]="year">{{year}}</option>
-                </select>
-            </div>
+
+            @if (!true) {
+                            
+                <div class="select-batch">
+                    <select [(ngModel)]="selectedYear">
+                        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                    </select>
+                    <!-- <select [(ngModel)]="selectedBatch">
+                        <option *ngFor="let batch of batches" [value]="batch">{{batch}}</option>
+                    </select> -->
+                    <select [(ngModel)]="selectedYear">
+                        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                    </select>
+                </div>
+            }
         </div>
 
         <div class="content">
@@ -41,7 +45,7 @@
             <div class="event-details">
                 <h2 class="headline">Sessions</h2>
                 <div *ngIf="selectedDateEvents.length > 0; else noSessions">
-                    <div *ngFor="let event of selectedDateEvents" class="event-item">
+                    <div *ngFor="let event of selectedDateEvents" class="event-item" [routerLink]="[event.id]">
                         <h3>{{ event.text }}</h3>
                         <p>{{ getFormattedTime(event.start) }} to {{ getFormattedTime(event.end) }}</p>
                         <p>Trainer: Suneesh</p>
@@ -50,7 +54,7 @@
                 <ng-template #noSessions>
                     <div class="noevent">No sessions scheduled for this date</div>
                 </ng-template>
-                <h2 class="headline">Assessments</h2>
+                <!-- <h2 class="headline">Assessments</h2>
                 <div *ngIf="selectedDateEvents.length > 0; else noAssessments">
                     <div *ngFor="let event of selectedDateEvents" class="event-item">
                         <h3>{{ event.text }}</h3>
@@ -60,7 +64,7 @@
                 </div>
                 <ng-template #noAssessments>
                     <div class="noevent">No assesments for this date</div>
-                </ng-template>
+                </ng-template> -->
             </div>
         </div>
     </div>

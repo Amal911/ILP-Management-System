@@ -94,7 +94,8 @@ export class SessionAttendanceComponent implements OnInit {
   loadSessionDetails(id: number) {
     this.scheduleService.fetchSession(id).subscribe(
       (response) => {
-        if (response.isSuccess) {          
+        if (response.isSuccess) { 
+          console.log(response);         
           this.session = {
             id: response.result.id,
             session_name: response.result.sessionName,

@@ -44,17 +44,18 @@ export class SidebarComponent{
         { name: 'Schedule', link: 'schedule', icon: 'bi bi-calendar-week-fill' },
         { name: 'Batches', link: 'batches', icon: 'fa-solid fa-users' },
         { name: 'Assessments', link: 'assessments', icon: 'bi bi-list-task' },
-        { name: 'Online Assessments', link: '/', icon: 'fa-solid fa-clipboard-list' },
+        { name: 'Online Assessments', link: 'assessments/online/create', icon: 'fa-solid fa-clipboard-list' },
         { name: 'Leave Requests', link: 'leave', icon: 'bi bi-briefcase-fill' }
       ],
       trainee: [
         { name: 'Home', link: '', icon: 'fa-solid fa-house' },
         { name: 'Schedule', link: 'schedule', icon: 'fa-solid fa-calendar-days' },
         { name: 'Assessments', link: 'assessments', icon: 'bi bi-list-task' },
-        { name: 'Online Assessments', link: '/', icon: 'fa-solid fa-clipboard-list' },
+        { name: 'Online Assessments', link: 'assessments/online', icon: 'fa-solid fa-clipboard-list' },
         { name: 'Leave Requests', link: 'trainee/leave', icon: 'bi bi-briefcase-fill' }
       ]
     };
+
 
     return sidebarItems[this.userRole] || [];
   }

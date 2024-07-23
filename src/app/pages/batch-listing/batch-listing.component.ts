@@ -28,7 +28,7 @@ export class BatchListingComponent {
     this.router.navigate([`batches/manage/${batchId}`]);
   }
   navigateToCreateNew(){
-    this.router.navigate(['assessments/create']);
+    this.router.navigate(['batches/create']);
   }
 
 }

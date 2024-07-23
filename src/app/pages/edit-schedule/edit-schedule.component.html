@@ -1,48 +1,7 @@
 <div class="col-md-11 mb-3 ml-5">
     <div class="container mt-5 mx-5">
         <form [formGroup]="createScheduleForm" (ngSubmit)="onSubmit()">
-            <div class="d-flex flex-row justify-content-end mx-0 gap-2">
-                <div class="mb-3">
-                    <div class="form-group">
-                        <label>Program</label>
-                        <select class="form-control" formControlName="program" name="program">
-                            <option value="">Select Program</option>
-                            @for(program of programs;track program){
-                            <option value="{{program.name}}">{{program.name}}</option>
-
-                            }
-                        </select>
-                        <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
-                            class="text-danger">
-                            <div *ngIf="createScheduleForm.get('module')?.errors?.['required']">Module
-                                is
-                                required.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="form-group">
-                        <label>Batch</label>
-                        <select class="form-control" formControlName="batch" name="batch">
-                            <option value="">Select Batch</option>
-                            @for(batch of batches;track batch){
-                            <option value="{{batch.name}}">{{batch.name}}</option>
-                            }
-                        </select>
-                        <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
-                            class="text-danger">
-                            <div *ngIf="createScheduleForm.get('module')?.errors?.['required']">Module
-                                is
-                                required.
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div><button type="button" class="btn btn-primary mt-4" (click)="editPage();">Edit page</button>
-                </div>
-            </div>
+            
 
             <div class="flex flex-column h-12rem">
                 <div class="">
@@ -50,6 +9,49 @@
                         <div class="d-flex flex-row justify-content-between">
                             <div class="page-title">
                                 <h2>EDIT SCHEDULE</h2>
+                            </div>
+                            <div class="d-flex flex-row justify-content-end align-items-center mx-0 gap-2">
+                                <div class="">
+                                    <div class="form-group">
+                                        <!-- <label>Program</label> -->
+                                        <select class="form-control" formControlName="program" name="program">
+                                            <option disabled value="">Select Program</option>
+                                            @for(program of programs;track program){
+                                            <option value="{{program.name}}">{{program.name}}</option>
+                
+                                            }
+                                        </select>
+                                        <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('module')?.errors?.['required']">Module
+                                                is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="form-group">
+                                        <!-- <label>Batch</label> -->
+                                        <select class="form-control" formControlName="batch" name="batch">
+                                            <option disabled value="">Select Batch</option>
+                                            @for(batch of batches;track batch){
+                                            <option value="{{batch.name}}">{{batch.name}}</option>
+                                            }
+                                        </select>
+                                        <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
+                                            class="text-danger">
+                                            <div *ngIf="createScheduleForm.get('module')?.errors?.['required']">Module
+                                                is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                </div>
+                                <!-- <div class="">
+                                    <button type="button" class="btn btn-primary" (click)="editPage();">Edit page</button>
+                                </div> -->
                             </div>
                             <!-- <div class="upload-button justify-content-between">
                                     <button class="btn btn-outline-secondary"><i class="bi bi-plus"></i>Upload

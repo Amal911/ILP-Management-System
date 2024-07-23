@@ -83,7 +83,7 @@
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
                         <label for="endDate">End Date (Tentative)</label>
-                        <input type="date" id="endDate" class="form-control inputBox" formControlName="endDate" readonly>
+                        <input type="date" id="endDate" class="form-control inputBox" formControlName="endDate" >
                         <div *ngIf="createBatchForm.get('batchDetails.endDate')?.invalid && createBatchForm.get('batchDetails.endDate')?.touched" class="text-danger">
                           * End date is required
                         </div>
@@ -272,7 +272,7 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="endDate{{ phaseIndex }}">End Date (Tentative)</label>
-                              <input type="date" id="endDate{{ phaseIndex }}" class="form-control inputBox" formControlName="endDate" readonly>
+                              <input type="date" id="endDate{{ phaseIndex }}" class="form-control inputBox" formControlName="endDate" >
                               <div *ngIf="getFormControl('endDate', phaseIndex).touched && getFormControl('endDate', phaseIndex).invalid" class="text-danger">
                                 * End date is required
                               </div>

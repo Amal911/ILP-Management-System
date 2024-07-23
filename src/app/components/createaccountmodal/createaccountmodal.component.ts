@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
 import { HollowButtonComponent } from '../hollow-button/hollow-button.component';
+import { UserService } from '../../services/API/user.service';
 
 @Component({
   selector: 'app-createaccountmodal',
@@ -12,6 +13,9 @@ import { HollowButtonComponent } from '../hollow-button/hollow-button.component'
   styleUrl: './createaccountmodal.component.scss'
 })
 export class CreateaccountmodalComponent {
+  constructor(private userApi:UserService){
+
+  }
 
   createAccountForm = new FormGroup({
     firstName: new FormControl(''),
@@ -38,6 +42,10 @@ export class CreateaccountmodalComponent {
     
     if (this.createAccountForm.valid) {
       console.log('Form Submitted', this.createAccountForm.value);
+      this.userApi.addNewUser(this.createAccountForm.value).subscribe(res=>{
+        console.log(res);
+        
+      })
     }
   }
 

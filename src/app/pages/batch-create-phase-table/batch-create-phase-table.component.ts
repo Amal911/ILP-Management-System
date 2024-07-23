@@ -73,7 +73,7 @@ export class BatchCreatePhaseTableComponent {
     // this.filteredColumns = this.filteredColumns.filter(
     //   (columns) => columns.id !== phase.id
     // );
-    
+
     this.api.deletePhase(phase.id).subscribe(res=>{
       this.api.getPhases().subscribe(res=>{
         this.phasesData = res;

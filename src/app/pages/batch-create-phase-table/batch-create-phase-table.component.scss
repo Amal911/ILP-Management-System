@@ -6,14 +6,18 @@
     padding: 50px;
 }
 
-input{
-  border:  1px solid #5576d9;
+.input-group {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .add-phase-button{
   width: 90%;
   border: none;
   background-color: #f5faff;
+}
+td{
+  padding: 0px 1rem;
 }
 
 i{

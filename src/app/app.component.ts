@@ -33,7 +33,7 @@ import { AdminDashboardComponent } from "./pages/admin-dashboard/admin-dashboard
   styleUrl: './app.component.scss',
   imports: [
     MainLayoutComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
 ],
 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

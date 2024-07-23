@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 interface SidebarItem {
   name: string;
@@ -21,17 +21,17 @@ interface SidebarItems {
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent{
-  userRole: string = '';
+  userRole!: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.userRole = this.userService.getUserRole();
+    this.userRole = this.authService.getCurrentUserRole();
   }
 
   getSidebarItems() {
     const sidebarItems: SidebarItems = {
-      admin: [
+      Admin: [
         { name: 'Home', link: '', icon: 'fa-solid fa-house' },
         // { name: 'Curriculum', link: '/', icon: 'fa-solid fa-book-bookmark' },
         { name: 'Schedule', link: 'schedule', icon: 'bi bi-calendar-week-fill' },
@@ -39,7 +39,7 @@ export class SidebarComponent{
         { name: 'Accounts', link: 'account', icon: 'fa-solid fa-user-gear' },
         { name: 'Leave Requests', link: 'leave', icon: 'bi bi-briefcase-fill' }
       ],
-      trainer: [
+      Trainer: [
         { name: 'Home', link: '', icon: 'fa-solid fa-house' },
         { name: 'Schedule', link: 'schedule', icon: 'bi bi-calendar-week-fill' },
         { name: 'Batches', link: 'batches', icon: 'fa-solid fa-users' },
@@ -47,7 +47,7 @@ export class SidebarComponent{
         { name: 'Online Assessments', link: '/', icon: 'fa-solid fa-clipboard-list' },
         { name: 'Leave Requests', link: 'leave', icon: 'bi bi-briefcase-fill' }
       ],
-      trainee: [
+      Trainee: [
         { name: 'Home', link: '', icon: 'fa-solid fa-house' },
         { name: 'Schedule', link: 'schedule', icon: 'fa-solid fa-calendar-days' },
         { name: 'Assessments', link: 'assessments', icon: 'bi bi-list-task' },

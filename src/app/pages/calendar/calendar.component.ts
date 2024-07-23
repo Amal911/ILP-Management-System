@@ -13,11 +13,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ScheduleService } from '../../services/schedule.service';
+import { RoleBasedDirective } from '../../role-based.directive';
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [ DayPilotModule, CommonModule, FormsModule,RouterLink],
+  imports: [ DayPilotModule, CommonModule, FormsModule,RouterLink,RoleBasedDirective],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss'
 })
@@ -145,12 +146,14 @@ export class CalendarComponent implements AfterViewInit {
     eventHeight:23,
     onBeforeCellRender: this.onBeforeCellRender.bind(this),
     onBeforeEventRender: this.onBeforeEventRender.bind(this),
+    eventResizeHandling: "Disabled",
+    timeRangeSelectedHandling: "Disabled"
 
   };
 
   onBeforeCellRender(args: any) {
-    console.log("onBeforeCellRender called for cell:", args.cell.start);
-
+    // console.log("onBeforeCellRender called for cell:", args.cell.start);
+    
     args.cell.fontColor = "#ffff99";
 
     const today = DayPilot.Date.today();
@@ -175,7 +178,7 @@ export class CalendarComponent implements AfterViewInit {
               id: session.id,
               text: session.sessionName,
               start: new DayPilot.Date(session.startTime),
-              end: new DayPilot.Date(session.endTime)
+              end: new DayPilot.Date(session.endTime)              
             }));
           
           this.updateSelectedDateEvents();
@@ -196,6 +199,7 @@ export class CalendarComponent implements AfterViewInit {
 
   onBeforeEventRender(args: any) {
   args.data.backColor = "#e0d9d9";
+
   // args.data.fontColor = "#00ff3c";
   args.data.fontColor = "#fa0d0d";
 
@@ -235,10 +239,10 @@ export class CalendarComponent implements AfterViewInit {
 
   getFormattedTime(time: string | DayPilot.Date): string {
     if (typeof time === 'string') {
-      return DayPilot.Date.parse(time, 'yyyy-MM-ddTHH:mm:ss').toString('HH:mm');
+      return DayPilot.Date.parse(time, 'yyyy-MM-ddTHH:mm:ss').addHours(5.5).toString('HH:mm');
     } else {
-      return time.toString('HH:mm');
+      return time.addHours(5.5).toString('HH:mm');
     }
-  }
+  } 
 
 }

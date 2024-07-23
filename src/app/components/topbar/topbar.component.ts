@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-topbar',
@@ -12,10 +13,10 @@ import { CommonModule } from '@angular/common';
 export class TopbarComponent{
   userName: string = '';
 
-  constructor(private userService: UserService) { }
+  constructor(private authService:AuthService) { }
 
   ngOnInit() {
-    this.userName = this.userService.getUserName();
+    this.userName = this.authService.getCurrentUser().name;
   }
 
 }

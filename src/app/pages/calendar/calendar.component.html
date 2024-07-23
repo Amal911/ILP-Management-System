@@ -11,20 +11,18 @@
                 <button (click)="backToCurrent()">This Month</button>
             </div>
 
-            @if (!true) {
-                            
-                <div class="select-batch">
+                <!-- <div class="select-batch" *appRoleBased="['Admin', 'Trainer']">
                     <select [(ngModel)]="selectedYear">
                         <option *ngFor="let year of years" [value]="year">{{year}}</option>
                     </select>
-                    <!-- <select [(ngModel)]="selectedBatch">
+                    <select [(ngModel)]="selectedBatch">
                         <option *ngFor="let batch of batches" [value]="batch">{{batch}}</option>
-                    </select> -->
+                    </select>
                     <select [(ngModel)]="selectedYear">
                         <option *ngFor="let year of years" [value]="year">{{year}}</option>
                     </select>
-                </div>
-            }
+                </div> -->
+            
         </div>
 
         <div class="content">
@@ -33,8 +31,10 @@
         </div>
     </div>
 
-    <div class="right-side">
-        <button routerLink="/schedule/create">Add Schedule</button>
+    <div class="right-side col">
+        <div style="height: 60px;" class="d-flex justify-content-center align-items-center"> 
+            <button routerLink="/schedule/create" *appRoleBased="['Admin', 'Trainer']">Add Schedule</button> 
+        </div>
         <div class="sidebar">
             <div class="event-heading">
                 <h1>{{ selectedDate.toString("d") }}</h1>

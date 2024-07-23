@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    text-align: center;
+}
+
+h1 {
+    font-size: 6em;
+    margin: 0;
+    color: #5576D9;
+}
+
+p {
+    font-size: 2em;
+    margin: 0;
+    color: #27314B;
+}
+
+a {
+    cursor: pointer;
+    color: #27314B;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #5576D9;
+}

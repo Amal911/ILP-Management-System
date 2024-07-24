@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  // private currentUser: {name:string, role: string }={name:"Kavita", role:"Admin"};
+  private currentUser: {name:string, role: string }={name:"Kavita", role:"Admin"};
   // private currentUser: {name:string, role: string }={name:"Lekshmi", role:"Trainer"};
-  private currentUser: {name:string, role: string }={name:"Thulasi", role:"Trainee"};
+  // private currentUser: {name:string, role: string }={name:"Thulasi", role:"Trainee"};
   
 
   login(user: { name:string, role: string}) {

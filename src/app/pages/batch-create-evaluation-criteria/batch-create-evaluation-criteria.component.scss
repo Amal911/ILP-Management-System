@@ -1,9 +1,8 @@
 .eC-container {
   box-shadow: 0px 3px 18px 0px rgba(85, 118, 217, 0.2);
-  width: 90%;
-  margin: 50px auto;
+  width: 100%;
+  // margin: 50px;
   padding: 50px;
-
 }
 
 .input-group {
@@ -11,37 +10,30 @@
   margin-bottom: 10px;
 }
 
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-  margin-bottom: 10px;
+td {
+  padding: 0px 1rem;
 }
 
-.search, .new-phase-name {
-  width: 100%;
-  max-width: 300px;
+.search,.new-phase-name {
+  width: 16vw;
   background-color: #f5faff;
   color: #000;
   border: none;
   border-radius: 5px;
-  border-bottom: 2px solid #000;
-}
+  border-bottom: 2px solid #000;}
 
 .add-phase-button {
-  width: 100%;
-  max-width: 300px;
+  width: 90%;
   border: none;
   background-color: #f5faff;
 }
 
-
-
 .buttons {
   margin-top: 20px;
 }
-
-@media (max-width: 576px) {
-  .table-and-search .p-table {
-    overflow-x: auto;
-  }
+p-table {
+  width: 100%;
+  overflow-x: auto;
 }
+
+

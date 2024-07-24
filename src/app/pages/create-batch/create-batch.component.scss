@@ -1,16 +1,24 @@
 //Custom CSS
-.div {
-  display: flex;
-}
-.sidebar {
-  min-height: 100vh;
-  min-width: 20vw;
-  background-color: rgb(0, 21, 255);
-}
+
+// ::ng-deep .span .p-stepper-number{
+//   z-index: 10;
+//   position: fixed;
+//   margin-top: 20px;
+//   background-color: #fff; 
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+
+// }
+// ::ng-deep .p-stepper-separator{
+//   z-index: 10;
+//   position: fixed;
+// }
+
 .container {
   background-color: #ffffff;
   padding: 0 40px;
   width: 100%;
+  height: max-content;
+  
 }
 .inputBox {
   background-color: #f5faff;
@@ -33,13 +41,13 @@ label {
 .text-danger {
   font-size: small;
 }
-#locationDropdown,
+#locationId,
 #learningLeaveApproverDropdown,
-#batchType,
-#selectProgram,
+#batchTypeId,
+#programId,
 #trainerLeaveApproverDropdown,
-#evaluationCriteria,
-#phaseName {
+#assessmentTypeId,
+#phaseId {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -70,6 +78,31 @@ label {
   background-color: #007bff;
   color: white;
 }
+
+.validation-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.remove-assessment-btn {
+  cursor: pointer;
+}
+
+.text-danger {
+  color: red;
+  margin-left: 0.5rem; 
+}
+
+.d-flex {
+  display: flex;
+  align-items: center; 
+}
+
+.ms-2 {
+  margin-left: 0.5rem; 
+}
+
+
 //Stepper CSS
 .h-12rem {
   height: 42rem;
@@ -174,10 +207,11 @@ table {
   position: absolute;
   top: 10px;
   right: 10px;
+  font-family: sans-serif!important;
 }
 .remove-assessment-btn {
   position: relative;
-  padding-top: 10px;
+  // padding-top: 10px;
 }
 //Media Queries
 
@@ -261,3 +295,4 @@ table {
     padding: 5px;
   }
 }
+

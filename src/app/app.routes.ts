@@ -20,6 +20,7 @@ import { BatchCreateEvaluationCriteriaComponent } from './pages/batch-create-eva
 import { ManageBatchComponent } from './pages/manage-batch/manage-batch.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { MsalGuard } from '@azure/msal-angular';
 import { LoginComponent } from './pages/login/login.component';
 
@@ -54,6 +55,6 @@ export const routes: Routes = [
     {path:'assessment/handed/id',component:HandedInAssignmentsComponent},
 
 
-    { path: '**', redirectTo: '/batches' }
+    { path: '**', component: NotFoundComponent }
 
 ];

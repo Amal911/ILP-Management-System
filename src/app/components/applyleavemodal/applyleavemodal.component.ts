@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
 import { HollowButtonComponent } from '../hollow-button/hollow-button.component';
+import { UserService } from '../../services/user.service';
 
 declare const bootstrap: any;
 
@@ -16,10 +17,10 @@ declare const bootstrap: any;
 export class ApplyleavemodalComponent {
 
   applyLeaveForm: FormGroup;
-  trainerPocs: string[] = ['Trainer 1', 'Trainer 2', 'Trainer 3'];
-  ldPocs: string[] = ['L&D 1', 'L&D 2', 'L&D 3'];
+  admins: any[] = [];
+  trainers: any[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
     this.applyLeaveForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       // email: ['', [Validators.required, Validators.email]],
@@ -38,6 +39,10 @@ export class ApplyleavemodalComponent {
 
   ngOnInit(): void {
     this.applyLeaveForm.get('days')?.valueChanges.subscribe(() => this.onDaysChange());
+    this.userService.getUsersRoles().subscribe(data => {
+      this.admins = data.admins;
+      this.trainers = data.trainers;
+    });
   }
 
   onDaysChange() {

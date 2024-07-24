@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from '../interfaces/user';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,15 @@ import { User } from '../interfaces/user';
 export class UserService {
   private currentUser: any = null;
 
-  constructor() { }
+  //For Leave Management
+  private getUsersRole = 'https://localhost:7009/api/User';
+
+  constructor(private http: HttpClient) {}
+
+  getUsersRoles(): Observable<any> {
+    return this.http.get<any>(this.getUsersRole);
+  }
+  //For Leave Management
 
   setCurrentUser(user: any) {
     this.currentUser = user;

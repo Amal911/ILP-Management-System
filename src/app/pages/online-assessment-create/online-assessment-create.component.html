@@ -6,10 +6,12 @@
       </div>
       <div class="col-md-5 d-flex justify-content-end">
         <div class="batch-dropdown">
-          <app-select-dropdown label="Batch"
-            [options]="['ILP Batch-02', 'ILP Batch-03', 'ILP Batch-04', 'ILP Batch-05']"
-            defaultOption="Choose Batch" name="batch" controlId="batch" (change)="batchSelected($event)">
-          </app-select-dropdown>
+          <app-dropdown [dropDownLabel]="batchControl.value || 'Choose Batch'"
+          [isValid]="batchControl.valid || !(batchControl.dirty || batchControl.touched)"
+          [dropDownElements]="['ILP Batch-02', 'ILP Batch-03', 'ILP Batch-04', 'ILP Batch-05']"
+          (selectionChange)="onBatchChange($event)" class="custom-button">
+        </app-dropdown>
+       
         </div>
       </div>
     </div>
@@ -51,19 +53,19 @@
         <form [formGroup]="assessmentForm" (ngSubmit)="onSubmit()">
           <div class="row">
             <div class="col-md-4">
-              <div class="form-group p-3">
+              <div class="form-group ">
                 <label for="title" class="form-label title-modal">Title</label>
                 <p id="title" class="form-control-static">{{ assessmentForm.get('title')?.value }}</p>
               </div>
             </div>
             <div class="col-md-4">
-              <div class="form-group p-3">
+              <div class="form-group ">
                 <label for="testDate" class="form-label title-modal">Test Date</label>
                 <p id="testDate" class="form-control-static">{{ assessmentForm.get('testDate')?.value }}</p>
               </div>
             </div>
             <div class="col-md-4">
-              <div class="form-group p-3">
+              <div class="form-group ">
                 <label for="testTime" class="form-label title-modal">Test Time</label>
                 <p id="testTime" class="form-control-static">{{ assessmentForm.get('testTime')?.value }}</p>
               </div>
@@ -71,52 +73,38 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <div class="form-group p-3">
-                <label for="link" class="form-label title-modal">Link</label>
-                <input type="text" id="link" class="form-control" formControlName="link" readonly>
+              <div class="form-group title-modal">
+                <label>Assessment Type</label>
+          <app-dropdown [dropDownLabel]="evaluationCriteriaControl.value || 'Evaluation Criteria'"
+            [isValid]="evaluationCriteriaControl.valid || !(evaluationCriteriaControl.dirty || evaluationCriteriaControl.touched)"
+            [dropDownElements]="['Case Study', 'Live Assessment', 'Daily Assessment', 'Module', 'Project']"
+            (selectionChange)="onEvaluationCriteriaChange($event)" class="custom-button">
+          </app-dropdown>
+               
               </div>
             </div>
+
             <div class="col-md-6">
-              <div class="form-group p-3 title-modal">
-                <app-select-dropdown label="Phase"
-                  [options]="['E-learning', 'Technical', 'Business Orientation', 'On-Job Training']"
-                  defaultOption="Select phase" controlId="phase" ngDefaultControl name="phaseControl"
-                  [formControl]="phaseControl">
-                </app-select-dropdown>
-                <div *ngIf="phaseControl?.invalid && phaseControl?.touched" class="validation-message">
-                  <div *ngIf="phaseControl?.errors?.['required']">* This is a required field.</div>
-                </div>
+              <div class="form-group  title-modal">
+                <label>Phase</label>
+                <app-dropdown [dropDownLabel]="phaseControl.value || 'Select phase'"
+                [isValid]="phaseControl.valid || !(phaseControl.dirty || phaseControl.touched)"
+                [dropDownElements]="['E-learning', 'Technical', 'Business Orientation', 'On-Job Training']"
+                (selectionChange)="onPhaseChange($event)" class="custom-button">
+              </app-dropdown>
+               
               </div>
             </div>
           </div>
 
-          <div class="row">
+           
             <div class="col-md-6">
-              <div class="form-group p-3 title-modal">
-                <app-select-dropdown label="Module"
-                  [options]="['OOPs-Java', 'Html-Css', 'JavaScript', 'Bootstrap', 'TypeScript']"
-                  defaultOption="Select Module" controlId="moduleControl" name="moduleControl" ngDefaultControl
-                  [formControl]="moduleControl">
-                </app-select-dropdown>
-                <div *ngIf="moduleControl?.invalid && moduleControl?.touched" class="validation-message">
-                  <div *ngIf="moduleControl?.errors?.['required']">* This is a required field.</div>
-                </div>
+              <div class="form-group mb-2">
+                <label for="link" class="form-label title-modal">Link</label>
+                <input type="text" id="link" class="form-control" formControlName="link" readonly>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group p-3 title-modal">
-                <app-select-dropdown label="Evaluation Criteria"
-                  [options]="['Case Study', 'Live Assessment', 'Daily Assessment', 'Module', 'Project']"
-                  defaultOption="Evaluation Criteria" controlId="evaluationCriteria" name="evaluationCriteriaControl"
-                  formControlName="module" ngDefaultControl [formControl]="evaluationCriteriaControl">
-                </app-select-dropdown>
-                <div *ngIf="evaluationCriteriaControl?.invalid && evaluationCriteriaControl?.touched"
-                  class="validation-message">
-                  <div *ngIf="evaluationCriteriaControl?.errors?.['required']">* This is a required field.</div>
-                </div>
-              </div>
-            </div>
-          </div>
+         
 
           <div class="modal-footer">
             <button type="button" class="btn custom-btn-1" data-bs-dismiss="modal">Cancel</button>

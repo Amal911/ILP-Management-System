@@ -1,6 +1,6 @@
+
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { SelectDropdownComponent } from '../../components/select-dropdown/select-dropdown.component';
 import { CommonModule, NgIf } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
@@ -10,6 +10,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessageService } from 'primeng/api';
+import { DropdownComponent } from "../../components/dropdown/dropdown.component";
 
 
 
@@ -22,7 +23,7 @@ interface UploadEvent {
 @Component({
   selector: 'app-create-assessment',
   standalone: true,
-  imports: [ReactiveFormsModule, SelectDropdownComponent,NgIf,FormsModule,TableModule,FileUploadModule, ButtonModule, ProgressBarModule, ToastModule, CommonModule,InputTextareaModule],
+  imports: [ReactiveFormsModule, NgIf, FormsModule, TableModule, FileUploadModule, ButtonModule, ProgressBarModule, ToastModule, CommonModule, InputTextareaModule, DropdownComponent],
   templateUrl: './create-assessment.component.html',
   styleUrl: './create-assessment.component.scss',
   providers: [MessageService]
@@ -56,11 +57,12 @@ constructor(private messageService: MessageService) { }
       }
 ngOnInit(): void {
     this.assessmentForm = new FormGroup({
+      program: new FormControl('',Validators.required),
       batch: new FormControl('', Validators.required),
       phase: new FormControl('', Validators.required),
       title: new FormControl('', [Validators.required, Validators.minLength(3)]),
       evaluationCriteria: new FormControl('', Validators.required),
-      module: new FormControl('', Validators.required),
+      // module: new FormControl('', Validators.required),
       trainer: new FormControl('', Validators.required),
       submissionRequired: new FormControl('true', Validators.required),
       dueDate: new FormControl('', this.getDueDateValidators(true)),
@@ -79,19 +81,17 @@ ngOnInit(): void {
 
   }
 
-  // updateMarks(rowIndex: number): void {
-  //   const marksArray = this.assessmentForm.get('marks') as FormArray;
-  //   marksArray.at(rowIndex).setValue(this.columns[rowIndex].marks);
-  //   console.log(marksArray.at(rowIndex).getRawValue);
-  // }
+  
 
 
   updateMarks(): void {
     this.columns.forEach((column, index) => {
       const marksArray = this.assessmentForm.get('marks') as FormArray;
       marksArray.at(index).setValue(column.marks);
+        return { id: column.id, marks: column.marks };
     });
-    console.log('Table Data:', this.columns);
+   
+    // console.log('Table Data:', updatedMarks);
   }
 
 
@@ -104,7 +104,9 @@ ngOnInit(): void {
   }
  
 
-  
+  get ProgramControl(): FormControl {
+    return this.assessmentForm.get('program') as FormControl;
+  }
 
   get batchControl(): FormControl {
     return this.assessmentForm.get('batch') as FormControl;
@@ -122,10 +124,6 @@ ngOnInit(): void {
     return this.assessmentForm.get('evaluationCriteria') as FormControl;
   }
 
-  get moduleControl(): FormControl {
-    return this.assessmentForm.get('module') as FormControl;
-  }
-
   get trainerControl(): FormControl {
     return this.assessmentForm.get('trainer') as FormControl;
   }
@@ -136,7 +134,12 @@ ngOnInit(): void {
 
  
 onSubmit(): void {
+
+    console.log(this.assessmentForm);
+    
     if (this.assessmentForm.invalid) {
+
+      this.validateAllFormFields(this.assessmentForm);
       console.log('Invalid Form');
       return;
     }
@@ -145,9 +148,10 @@ onSubmit(): void {
     console.log('Form Data:', formData);
 
     if (formData.submissionRequired === 'false') {
-      const marks = this.columns.map(column => column.marks);
+      const marks = this.columns.map(column =>  column.marks);
       formData.marks = marks;
-      console.log('Marks:', marks);
+      
+      console.log( 'Marks:', marks);
     }
 
     console.log('Final Form Data:', formData);
@@ -176,12 +180,31 @@ onSubmit(): void {
   futureDateValidator(control: AbstractControl): ValidationErrors | null {
     const selectedDate = new Date(control.value);
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set to midnight to compare only the date part
+    today.setHours(0, 0, 0, 0); 
 
     if (selectedDate < today) {
       return { futureDate: true };
     }
     return null;
+  }
+
+  onProgramChange(selectedValue: string) {
+    this.assessmentForm.get('program')?.setValue(selectedValue);
+  }
+
+  onBatchChange(selectedValue: string) {
+    this.assessmentForm.get('batch')?.setValue(selectedValue);
+  }
+  onPhaseChange(event: any) {
+    this.assessmentForm.get('phase')?.setValue(event);
+  }
+
+  onEvaluationCriteriaChange(event: any) {
+    this.assessmentForm.get('evaluationCriteria')?.setValue(event);
+  }
+
+  onTrainerChange(event: any) {
+    this.assessmentForm.get('trainer')?.setValue(event);
   }
 
   

@@ -1,10 +1,13 @@
+
 <div class="dropdown">
-  <button class="btn btn-transparent dropdown-toggle custom-dropdown-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    {{dropDownLabel}}
+  <button class="btn btn-transparent dropdown-toggle custom-dropdown-button"
+    [ngStyle]="{'border-color': isValid ? 'black' : 'red'}" type="button" id="dropdownMenuButton"
+    data-bs-toggle="dropdown" aria-expanded="false">
+    {{ dropDownLabel || 'Select an option' }}
   </button>
-  <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li *ngFor="let elements of dropDownElements">
-      <a class="dropdown-item custom-dropdown-item" href="#">{{ elements }}</a>
+  <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li *ngFor="let element of dropDownElements">
+      <a class="dropdown-item custom-dropdown-item" (click)="selectElement(element)">{{ element }}</a>
     </li>
   </ul>
 </div>

@@ -4,8 +4,23 @@
             {{userName}}
         </div>
         <div class="user-avatar">
-            <img src="assets\person-circle.svg" alt="user avatar">
+            <img data-bs-toggle="modal" data-bs-target="#logout" src="assets\person-circle.svg" alt="user avatar">
         </div>
-       
+    </div>
+</div>
+
+
+<div class="modal fade" id="logout" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">LogOut</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <app-button [buttonLabel]="'LogOut'" class="custom-button" (click)="logout()"></app-button>
+            </div>
+        </div>
     </div>
 </div>

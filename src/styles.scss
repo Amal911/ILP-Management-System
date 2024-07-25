@@ -29,3 +29,7 @@ body .month_default_event_inner {
 // @layer bootstrap-reboot, primeng;
 
 // @import "bootstrap-reboot.css" layer(bootstrap-rebooot);
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,5 +1,5 @@
 .login-page{
-  height: 100vh;
+  width: 100%;
 }
 
 .login-card {
@@ -7,11 +7,10 @@
   width: 20rem;
   height: 450px;
   display: flex;
+  justify-items: center;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  // margin-left: 20px;
-  // margin: 80px;
+  margin-top: 11%;
 }
 
 .form-group {
@@ -57,14 +56,10 @@
 .svg-image {
   // max-width: 500px;
   min-width: 300px;
-  width: 80%;
+  width: 70%;
   height: auto;
   position: absolute;  
 }
-
-// .first-image{
-
-// }
 
 .second-image {
   margin-top: 30px;
@@ -79,4 +74,20 @@
     display: flex;
     flex-direction: row;
     margin-left: 10px;
+  }
+
+  #msimage{
+    width: 100%;
+  }
+
+  .ms{
+    color: white;
+    font-weight: 500;
+
+    button{
+      width: 6%;
+      height: 6%;
+      padding: 0;
+      border: none;
+    }
   }

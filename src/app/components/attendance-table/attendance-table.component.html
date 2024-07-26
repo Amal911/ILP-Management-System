@@ -1,27 +1,30 @@
-<div class="container d-flex justify-content-center align-items-center p-5" >
+<div class="main-container d-flex justify-content-center align-items-center p-5" >
   <div
-    class="table-and-search d-flex flex-column align-items-center justify-content-end"
+    class="table-and-search d-flex flex-column align-items-center justify-content-end w-100"
   >
     <div
-      class="input-group d-flex flex-row align-items-center justify-content-end"
+      class="input-group d-flex flex-row justify-content-end m-4"
     >
+    <div class="input-container d-flex justify-content-between p-1">
+      <i class="bi bi-search search-icon p-1"></i>
       <input
         type="text"
         pInputText
         class="search"
-        placeholder="Search"
+        placeholder="Enter trainee Name"
         [formControl]="searchControl"
         aria-label="Search-text"
         aria-describedby="button-addon2"
       />
     </div>
-    <div class="">
+
+    </div>
+    <div class="w-100">
       <p-table
         [value]="filteredColumns"
         [paginator]="true"
         [rows]="10"
         [showCurrentPageReport]="true"
-        [tableStyle]="{ 'min-width': '50rem' }"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       >
         <ng-template pTemplate="header">

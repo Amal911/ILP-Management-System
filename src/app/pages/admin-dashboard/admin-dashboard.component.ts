@@ -1,3 +1,4 @@
+import { ScheduleService } from './../../services/schedule.service';
 import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { LatestActivityDashboardComponent } from '../../components/latest-activity-dashboard/latest-activity-dashboard.component';
@@ -6,7 +7,7 @@ import { ScorecardOverviewDashboardComponent } from '../../components/scorecard-
 import { AttendanceGraphDashboardComponent } from '../../components/attendance-graph-dashboard/attendance-graph-dashboard.component';
 import { CriteriawiseGraphDashboardComponent } from "../../components/criteriawise-graph-dashboard/criteriawise-graph-dashboard.component";
 import { BasicDetailsDashboardComponent } from "../../components/basic-details-dashboard/basic-details-dashboard.component";
-
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
@@ -26,6 +27,7 @@ export class AdminDashboardComponent implements OnInit {
   //Data of each batches
   batches: any[] = [
     {
+      batchId:1,
       name: 'Batch1',
       status: 'completed',
       phase: 'Completed',
@@ -34,6 +36,7 @@ export class AdminDashboardComponent implements OnInit {
       totalTrainees: 33,
     },
     {
+      batchId:2,
       name: 'Batch2',
       status: 'completed',
       phase: 'Completed',
@@ -42,6 +45,7 @@ export class AdminDashboardComponent implements OnInit {
       totalTrainees: 31,
     },
     {
+      batchId:3,
       name: 'Batch3',
       status: 'active',
       phase: 'Specialization',
@@ -50,6 +54,7 @@ export class AdminDashboardComponent implements OnInit {
       totalTrainees: 38,
     },
     {
+      batchId:4,
       name: 'Batch4',
       status: 'active',
       phase: 'Tech fundamentals',
@@ -70,10 +75,34 @@ export class AdminDashboardComponent implements OnInit {
   currentPhaseIndex = this.phases.length - 1;
 
   //Data about the latest schedule of the batch
-  schedule: any = {
-    module: 'Bootstrap',
-    session: 'Introduction to bootstrap',
-  };
+  schedule: any = {};
+  currentBatchId: number = 0;
+
+  constructor(private scheduleService: ScheduleService) {}
+
+  ngOnInit(): void {
+    this.fetchSchedule(1);
+  }
+
+  fetchSchedule(batchId:number) {
+    this.scheduleService.getTodaysSession(batchId).subscribe({
+      next: (data) => {
+        console.log('Fetched Data:', data);  // Log the entire response
+        if (data.isSuccess && data.result) {
+          this.schedule = data.result;
+        } else {
+          console.error('Error fetching data:', data.message);
+        }
+        console.log('Assigned Schedule:', this.schedule);  // Log the assigned schedule
+      },
+      error: (err) => {
+        console.error('HTTP Error:', err);
+      }
+    });}
+    onBatchChange(newBatchId: number): void {
+      this.currentBatchId = newBatchId;
+      this.fetchSchedule(newBatchId);
+    }
 
   //Data needed for graphs
   phaseCompletedDays: number = 14;
@@ -104,7 +133,7 @@ export class AdminDashboardComponent implements OnInit {
     return this.batches.indexOf(batch) === 0;
   }
 
-  ngOnInit(): void {}
+
 
   //Function to change phases using the arrow buttons
   previousPhaseNav() {

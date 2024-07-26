@@ -5,10 +5,11 @@
     </div>
     <div class="card-writings col-8 d-flex flex-column justify-content-center  align-items-start">
       <h5 class="card-title text-left custom-title ms-1 mt-1 mb-0">{{leave.reason}}</h5>
-      <p class="card-text text-left custom-text m-1">Requested from {{leave.leave_date_from}} to {{leave.leave_date_to}}
+      <p class="card-text text-left custom-text m-1" *ngIf="leave.numofDays == '1'">Requested for {{leave.leaveDate}}</p>
+      <p class="card-text text-left custom-text m-1" *ngIf="leave.numofDays > '1'">Requested from {{leave.leaveDateFrom}} to {{leave.leaveDateTo}}
       </p>
-      <p class="card-text text-left custom-text ms-1 mb-0"></p>
-      <p class="card-text text-left custom-text m-1">Requested on: {{leave.requested_date}}</p>
+      <!-- <p class="card-text text-left custom-text ms-1 mb-0"></p> -->
+      <p class="card-text text-left custom-text m-1">Requested on: {{leave.createdDate}}</p>
     </div>
     <div class="col-2 d-flex flex-column justify-content-end align-items-start mt-3">
       <div *ngIf="!leave. is_pending"

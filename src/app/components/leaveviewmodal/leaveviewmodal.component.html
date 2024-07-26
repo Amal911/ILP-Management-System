@@ -32,7 +32,7 @@
                     <label for="rejectReason" class="form-label"><b>Remarks</b></label>
                     <textarea class="form-control" id="rejectReason" formControlName="rejectReason"></textarea>
                     <div class="mt-3">
-                        <app-button [buttonLabel]="'Submit'" class="custom-button" (click)="onSubmit()"></app-button>
+                        <app-button [buttonLabel]="'Submit'" class="custom-button" (click)="onSubmit()" (click)="rejectLeave()"></app-button>
                     </div>
                 </form>
             </div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { HollowButtonComponent } from '../hollow-button/hollow-button.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +19,10 @@ export class LeaveviewmodalComponent {
   @Input() leave: any;
   showRejectReason: boolean = false;
   leaveRequestForm: FormGroup;
+  @Output() approve = new EventEmitter<any>();
+  @Output() reject = new EventEmitter<any>();
+
+
 
   constructor(private fb: FormBuilder) {
     this.leaveRequestForm = this.fb.group({
@@ -28,6 +32,7 @@ export class LeaveviewmodalComponent {
 
   approveLeave() {
     // Logic to approve the leave request
+    this.approve.emit(this.leave);
     const modalElement = document.getElementById('leaveviewModal');
     if (modalElement) {
       const modal = bootstrap.Modal.getInstance(modalElement);
@@ -37,6 +42,10 @@ export class LeaveviewmodalComponent {
 
   showRejectReasonField() {
     this.showRejectReason = true;
+  }
+
+  rejectLeave() {
+    this.reject.emit(this.leave);
   }
 
   onSubmit() {

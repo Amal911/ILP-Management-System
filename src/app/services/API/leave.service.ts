@@ -15,5 +15,17 @@ export class LeaveService {
     return this.http.post<any>(this.applyLeave, leaveDto);
   }
 
+  getappliedLeaves(): Observable<any>{
+    return this.http.get<any>(this.applyLeave)
+  }
+
+  getLeaveRequests(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.applyLeave}/leaveRequests`);
+  }
+
+  updateApprovalStatus(id: number, approvalData: any): Observable<any> {
+    return this.http.put(`${this.applyLeave}/updateApprovalStatus/${id}`, approvalData);
+  }
+
 }
 

@@ -91,62 +91,51 @@ export class ApplyleavemodalComponent {
     };
   }
 
-  
-
-
-  // onSubmit() {
-  //   if (this.applyLeaveForm.valid) {
-  //     console.log(this.applyLeaveForm.value);
-  //     this.leaveService.postLeaveRequest(this.applyLeaveForm.value).subscribe(response => {
-  //       console.log('Leave request created successfully', response);
-  //       this.applyLeaveForm.reset();
-  //     }, error => {
-  //       console.error('Error creating leave request', error);
-  //     });
-  //     const modalElement = document.getElementById('applyLeaveModal');
-  //     if (modalElement) {
-  //       const modal = bootstrap.Modal.getInstance(modalElement);
-  //       modal.hide();
-  //     }
-  //   } else {
-  //     this.applyLeaveForm.markAllAsTouched();
-  //     console.log("not validated")
-  //   }
-  // }
-
   onSubmit() {
     if (this.applyLeaveForm.valid) {
-      const formValue = this.applyLeaveForm.value;
-      // Ensure dates are formatted correctly
-      if (formValue.days === 1) {
-        formValue.leaveDate = formValue.date ? new Date(formValue.date).toISOString() : '';
-        formValue.leaveDateFrom = null;
-        formValue.leaveDateTo = null;
-    } else if (formValue.days > 1) {
-        formValue.leaveDateFrom = new Date(formValue.fromDate).toISOString();
-        formValue.leaveDateTo = new Date(formValue.toDate).toISOString();
-        formValue.leaveDate = null;
-    } else {
-        formValue.leaveDate = null;
-        formValue.leaveDateFrom = null;
-        formValue.leaveDateTo = null;
-    }
-      console.log(formValue);
+      let startDate: string | null = null;
+      let endDate: string | null = null;
+      let singledate: string | null = null;
+
+      const days = this.applyLeaveForm.get('days')?.value;
+      const dateValue = this.applyLeaveForm.get('date')?.value;
+      const fromDateValue = this.applyLeaveForm.get('fromDate')?.value;
+      const toDateValue = this.applyLeaveForm.get('toDate')?.value;
+
+      if (days === 1 && dateValue) {
+        singledate = new Date(`${dateValue}T00:00:00Z`).toISOString();
+        startDate = endDate = new Date(0).toISOString();
+      } 
+      else if (days > 1 && fromDateValue && toDateValue) {
+        startDate = new Date(`${fromDateValue}T00:00:00Z`).toISOString();
+        endDate = new Date(`${toDateValue}T00:00:00Z`).toISOString();
+        singledate = new Date(0).toISOString();
+      }
+
+      const formData = {
+        name: this.applyLeaveForm.get('name')?.value,
+        numofDays: this.applyLeaveForm.get('days')?.value,
+        leaveDate: singledate,
+        leaveDateFrom: startDate,
+        leaveDateTo: endDate,
+        reason: this.applyLeaveForm.get('reason')?.value,
+        description: this.applyLeaveForm.get('description')?.value,
+        pocIds: [
+          0
+        ]
+      }
+
       const pocIds: number[] = [];
-
-      if (formValue.trainerPoc) {
-        pocIds.push(formValue.trainerPoc);
+      if (this.applyLeaveForm.get('trainerPoc')?.value) {
+        pocIds.push(this.applyLeaveForm.get('trainerPoc')?.value);
       }
-
-      if (formValue.ldPoc) {
-        pocIds.push(formValue.ldPoc);
+      if (this.applyLeaveForm.get('ldPoc')?.value) {
+        pocIds.push(this.applyLeaveForm.get('ldPoc')?.value);
       }
+      const uniquePocIds = [...new Set(pocIds)];      // Ensure pocIds is unique
 
-      // Ensure pocIds is unique
-      const uniquePocIds = [...new Set(pocIds)];
-
-      // Include pocIds in the leave request
-      this.leaveService.postLeaveRequest({ ...formValue, pocIds: uniquePocIds }).subscribe(
+      console.log(formData);
+      this.leaveService.postLeaveRequest({ ...formData, pocIds: uniquePocIds }).subscribe(
         response => {
           console.log('Leave request created successfully', response);
           this.applyLeaveForm.reset();

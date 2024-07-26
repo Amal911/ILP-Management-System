@@ -30,5 +30,8 @@ export class ScheduleService {
   getAllSessions(): Observable<any> {
     return this.http.get(`${this.baseURL}/GetAllSessions`);
   }
+  getTodaysSession(batchId:number): Observable<any> {
+    return this.http.get(`${this.baseURL}/GetTodaysSessions/${batchId}`);
+  }
 
 }

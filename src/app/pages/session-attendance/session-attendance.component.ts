@@ -1,3 +1,4 @@
+import { SessionService } from './../../services/API/session.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HollowButtonComponent } from '../../components/hollow-button/hollow-button.component';
@@ -24,23 +25,17 @@ export class SessionAttendanceComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private scheduleService: ScheduleService
+    private scheduleService: ScheduleService,
+    private sessionService:SessionService
   ) {}
-  
+
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    
+
     if (id) {
       this.loadSessionDetails(+id);
     }
-    // this.session = {
-    //   id: 1,
-    //   session_name: 'Angular Workshop',
-    //   trainer_name: 'John Doe',
-    //   date: '2024-07-11',
-    //   start_time: '10:00',
-    //   end_time: '12:00',
-    // };
+
 
     this.traineeTable = [
       { id: 1, name: 'John Doe' },
@@ -74,19 +69,23 @@ export class SessionAttendanceComponent implements OnInit {
   onSubmit() {
     if (this.attendanceDetails && this.sessionDetails) {
       const attendees = this.attendanceDetails.columns.map((trainee: any) => ({
-        id: trainee.id,
-        name: trainee.name,
-        attendance: trainee.attendance,
-        remarks: trainee.remarks || '',
+        TraineeId: trainee.id,
+      IsPresent: trainee.attendance,
+      Remarks: trainee.remarks || '',
       }));
 
       const output = {
-        session_id: this.session.id,
+        sessionId: this.session.id,
         attendees: attendees,
-      };
-
-      console.log('Session Wise attendance:', output);
-    } else {
+      }; this.sessionService.PostAttendance(output).subscribe(
+        (response) => {
+          console.log('Attendance added successfully:', response);
+        },
+        (error) => {
+          console.error('Error adding attendance:', error);
+        }
+      );
+    }else {
       console.log('Session or attendance details are missing.');
     }
   }
@@ -94,8 +93,8 @@ export class SessionAttendanceComponent implements OnInit {
   loadSessionDetails(id: number) {
     this.scheduleService.fetchSession(id).subscribe(
       (response) => {
-        if (response.isSuccess) { 
-          console.log(response);         
+        if (response.isSuccess) {
+          console.log(response);
           this.session = {
             id: response.result.id,
             session_name: response.result.sessionName,

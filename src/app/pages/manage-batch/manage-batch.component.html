@@ -27,7 +27,7 @@
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="program">Program</label>
-            <select id="program" class="form-control inputBox" formControlName="program">
+            <select id="program" class="form-control inputBox" formControlName="programId">
               <option value="ILP 2023-24">ILP 2022-23</option>
               <option value="ILP 2023-24">ILP 2023</option>
               <option value="ILP 2023-24">ILP 2024</option>
@@ -60,12 +60,12 @@
             />
           </div>
           <div class="col-md-6 mb-3">
-            <label for="numberOfDays">Number of days</label>
+            <label for="batchDuration">Number of days</label>
             <input
               type="text"
-              id="numberOfDays"
+              id="batchDuration"
               class="form-control inputBox"
-              formControlName="numberOfDays"
+              formControlName="batchDuration"
             />
           </div>
           <div class="col-md-6 mb-3">
@@ -105,30 +105,31 @@
             />
           </div>
           <div class="col-md-6 mb-3">
-            <label for="location">Location</label>
+            <label for="locationId">Location</label>
             <select
               id="locationDropdown"
               class="form-control"
-              formControlName="location"
+              formControlName="locationId"
             >
-              <option value="" disabled>Select the Location</option>
-              <option value="Trivandrum">Trivandrum</option>
-              <option value="Kochi">Kochi</option>
-              <option value="Bangalore">Bangalore</option>
+            
+            @for (location of batchLocation; track $index) {
+                <option value="{{location.id}}">{{location.locationName}}</option>
+              }
+             
             </select>
             
           </div>
           <div class="col-md-6 mb-3">
-            <label for="batchType">Batch Type</label>
+            <label for="batchTypeId">Batch Type</label>
             <select
               id="batchType"
               class="form-control"
-              formControlName="batchType"
+              formControlName="batchTypeId"
             >
-              <option value="" disabled>Select the Batch Type</option>
-              <option value="Developers">Developers</option>
-              <option value="Testers">BA Batch</option>
-              <option value="Managers">Testers</option>
+            <option value="" disabled>Select a Batch Type</option>
+            @for (type of batchtype; track $index) {
+              <option value="{{type.id}}">{{type.batchTypeName}}</option>
+            }
             </select>
           </div>
         </div>
@@ -172,9 +173,9 @@
                     </div>
                   </ng-template>
                     <i
-                      class="pi pi-pencil action-icon"
+                      class="bi bi-pencil action-icon"
                       (click)="editTrainee(i)"
-                      style="margin-right: 1rem; color: rgb(68, 137, 217)"
+                      style="size:1rem"
                     ></i>
                   </button>
 
@@ -192,11 +193,9 @@
                       </div>
                     </ng-template>
                     <i
-                      class="pi pi-trash action-icon"
+                      class="bi bi-trash m-1 action-icon"
                       (click)="confirm(i)"
-                      style="
-                        margin-right: 1rem;
-                        color: rgba(192, 31, 31, 0.615);
+                      style="size:1rem;
                       "
                     ></i>
                   </button>
@@ -214,9 +213,9 @@
                       </div>
                     </ng-template>
                     <i
-                      class="pi pi-arrow-right action-icon"
+                      class="bi bi-arrow-right action-icon"
                       (click)="moveTrainee(i)"
-                      style="margin-right: 1rem; color: forestgreen"
+                      style="size: 1rem;"
                     ></i>
                   </button>
                 </td>
@@ -276,44 +275,46 @@
             >
               <div [formGroupName]="phaseIndex" class="phase-container">
                 <div *ngIf="isEditable">
-                  <button
+                    <!-- <i
+                                  class="bi bi-trash remove-assessment-btn"
+                                  style="font-size: 1rem"
+                                  (click)="removeAssessmentType(phaseIndex, i)"
+                                  [ariaDisabled]="!isEditable"
+                                ></i> -->
+                  <!-- <button
                     type="button"
-                    class="btn btn-outline-primary remove-phase-btn"
+                    class="btn btn-outline-danger remove-phase-btn"
                     (click)="removePhase(phaseIndex)"
                     [disabled]="!isEditable"
-                  >
-                    <i class="pi pi-trash">&ensp;Remove Phase</i>
-                  </button>
+                  > -->
+                    <i class="bi bi-trash m-1 remove-phase-btn" style="color: red;" (click)="removePhase(phaseIndex)"></i>
+                  <!-- </button> -->
                 </div>
                 <div class="row mb-3 mt-3 phase-item">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="phaseName{{ phaseIndex }}">Phase Name</label>
+                      <label for="phaseId{{ phaseIndex }}">Phase Name</label>
                       <select
                         id="phaseName"
                         class="form-control"
-                        formControlName="phaseName"
+                        
                       >
-                        <option value="" disabled>Select the Phase</option>
-                        <option value="Tech Fundamentals">
-                          Tech Fundamentals
-                        </option>
-                        <option value="Business Orientation">
-                          Business Orientation
-                        </option>
-                        <option value="OJT">OJT</option>
+                      <option value="" hidden selected disabled>Select the Phase</option>
+                      @for (phase of phasesData; track $index) {
+                        <option value="{{phase.id}}">{{phase.phaseName}}</option>
+                      }
                       </select>
-                      <div
+                      <!-- <div
                         *ngIf="
-                          getFormControl('phases.' + phaseIndex + '.phaseName')
+                          getFormControl('phases.' + phaseIndex + '.phaseId')
                             .touched &&
-                          getFormControl('phases.' + phaseIndex + '.phaseName')
+                          getFormControl('phases.' + phaseIndex + '.phaseId')
                             .invalid
                         "
                         class="text-danger"
                       >
                         * Phase name is required
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <div class="col-md-2">
@@ -327,7 +328,7 @@
                         class="form-control inputBox"
                         formControlName="numberOfDays"
                       />
-                      <div
+                      <!-- <div
                         *ngIf="
                           getFormControl(
                             'phases.' + phaseIndex + '.numberOfDays'
@@ -339,7 +340,7 @@
                         class="text-danger"
                       >
                         * Number of days is required
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -353,7 +354,7 @@
                         class="form-control inputBox"
                         formControlName="phaseStartDate"
                       />
-                      <div
+                      <!-- <div
                         *ngIf="
                           getFormControl(
                             'phases.' + phaseIndex + '.phaseStartDate'
@@ -365,7 +366,7 @@
                         class="text-danger"
                       >
                         * Start date is required
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -379,24 +380,35 @@
                         class="form-control inputBox"
                         formControlName="phaseEndDate"
                       />
-                      <div
-                        *ngIf="
-                          getFormControl(
-                            'phases.' + phaseIndex + '.phaseEndDate'
-                          ).touched &&
-                          getFormControl(
-                            'phases.' + phaseIndex + '.phaseEndDate'
-                          ).invalid
-                        "
-                        class="text-danger"
-                      >
-                        * End date is required
-                      </div>
+                        <!-- <div
+                            *ngIf="
+                            getFormControl(
+                                'phases.' + phaseIndex + '.phaseEndDate'
+                            ).touched &&
+                            getFormControl(
+                                'phases.' + phaseIndex + '.phaseEndDate'
+                            ).invalid
+                            "
+                            class="text-danger"
+                        >
+                            * End date is required
+                        </div> -->
                     </div>
                   </div>
 
                   <div class="col-md-12">
-                    <p class="mt-1">Assessment Criteria</p>
+                    <div class="row mb-3 mt-3 criteria-item">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Assessment Type</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label>Weightage</label>
+                        </div>
+                      </div>
+                    </div>    
                     <div formArrayName="assessmentTypeList">
                       <div
                         *ngFor="
@@ -409,31 +421,18 @@
                           <div class="row mb-3 mt-3 criteria-item">
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label
-                                  for="evaluationCriteria{{ phaseIndex }}-{{
-                                    i
-                                  }}"
-                                  >Assessment Type</label
-                                >
+                                
                                 <select
                                   id="evaluationCriteria"
                                   class="form-control"
                                   formControlName="evaluationCriteria"
                                 >
-                                  <option value="" disabled>
-                                    Select Assessment Type
-                                  </option>
-                                  <option value="Daily Assessment">
-                                    Daily Assessment
-                                  </option>
-                                  <option value="Live Assessment">
-                                    Live Assessment
-                                  </option>
-                                  <option value="Project">Project</option>
-                                  <option value="Module">Module</option>
-                                  <option value="Case study">Case Study</option>
+                                <option value="" hidden selected disabled>Select Assessment Type</option>
+                                @for (type of assessmentType; track $index) {
+                                  <option value="{{type.id}}">{{type.assessmentTypeName}}</option>
+                                }
                                 </select>
-                                <div
+                                <!-- <div
                                   *ngIf="
                                     assessment.get('evaluationCriteria')
                                       ?.touched &&
@@ -451,21 +450,19 @@
                                   >
                                     * Assessment type is required
                                   </div>
-                                </div>
+                                </div> -->
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
-                                <label for="weightage{{ phaseIndex }}-{{ i }}"
-                                  >Weightage</label
-                                >
+                               
                                 <input
                                   type="text"
                                   id="weightage{{ phaseIndex }}-{{ i }}"
                                   class="form-control inputBox"
                                   formControlName="weightage"
                                 />
-                                <div
+                                <!-- <div
                                   *ngIf="
                                     assessment.get('weightage')?.touched &&
                                     assessment.get('weightage')?.invalid
@@ -481,14 +478,15 @@
                                   >
                                     * Weightage is required
                                   </div>
-                                </div>
+                                </div> -->
                               </div>
                             </div>
-                            <div class="col pt-4">
+                            <div class="col pt-2">
                               <div *ngIf="isEditable">
+                                <!-- <i class="bi bi-trash m-1"></i> -->
                                 <i
-                                  class="pi pi-trash remove-assessment-btn"
-                                  style="font-size: 1rem"
+                                  class="bi bi-trash remove-assessment-btn"
+                                  style="font-size: 1rem; color:red;"
                                   (click)="removeAssessmentType(phaseIndex, i)"
                                   [ariaDisabled]="!isEditable"
                                 ></i>
@@ -540,7 +538,7 @@
             >
               Cancel
             </button>
-            <button type="submit" class="btn btn-primary w-25">Save</button>
+            <button type="submit" class="btn btn-primary w-25">Update</button>
           </div>
         </div>
       </div>

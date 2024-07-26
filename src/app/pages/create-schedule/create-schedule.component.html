@@ -2,8 +2,6 @@
     <div class="mb-3 ml-5">
         <div class="container">
             <form [formGroup]="createScheduleForm" (ngSubmit)="onSubmit()">
-                
-
                 <div class="flex flex-column h-12rem">
                     <div class="">
                         <div class="form-container">
@@ -20,10 +18,10 @@
                                         <div class="">
                                             <div class="form-group">
                                                 <!-- <label>Program</label> -->
-                                                <select class="form-control" formControlName="program" name="program">
-                                                    <option disabled value="">Select Program</option>
+                                                <select class="form-control" formControlName="program" name="program" (ngModelChange)="getBatch($event)">
+                                                    <option disabled value hidden="">Select Program</option>
                                                     @for(program of programs;track program){
-                                                    <option value="{{program.name}}">{{program.name}}</option>
+                                                    <option value="{{program.id}}">{{program.programName}}</option>
                                                     }
                                                 </select>
                                                 <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"
@@ -41,9 +39,12 @@
                                             <div class="form-group">
                                                 <!-- <label>Batch</label> -->
                                                 <select class="form-control" formControlName="batch" name="batch">
-                                                    <option disabled value="">Select Batch</option>
+                                                    <option disabled hidden value="">Select Batch</option>
+                                                    @if (batches.length==0) {
+                                                        <option disabled value="">Select a Program</option>
+                                                    }
                                                     @for(batch of batches;track batch){
-                                                    <option value="{{batch.name}}">{{batch.name}}</option>
+                                                    <option value="{{batch.id}}">{{batch.batchName}}</option>
                                                     }
                                                 </select>
                                                 <div *ngIf="createScheduleForm.get('module')?.invalid && createScheduleForm.get('module')?.touched"

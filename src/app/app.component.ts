@@ -22,8 +22,8 @@ export class AppComponent {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    const user = { name: 'Kavita', role: 'admin' };
-    // const user = { name: 'Lekshmi', role: 'trainer' };
+    // const user = { name: 'Kavita', role: 'admin' };
+    const user = { name: 'Lekshmi', role: 'trainer' };
     // const user = { name: 'Thulasi K', role: 'trainee' };
     this.userService.setCurrentUser(user);
   }

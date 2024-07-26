@@ -22,7 +22,7 @@ export class CreateaccountmodalComponent {
     lastName: new FormControl(''),
     emailId: new FormControl(''),
     roleId: new FormControl(''),
-    gender: new FormControl(''),
+    gender: new FormControl<number>(0),
     mobileNumber: new FormControl('')
   });
 
@@ -33,7 +33,7 @@ export class CreateaccountmodalComponent {
       lastName: new FormControl('', [Validators.required, Validators.minLength(1)]),
       emailId: new FormControl('', [Validators.required, Validators.email]),
       roleId: new FormControl('', Validators.required),
-      gender: new FormControl('', Validators.required),
+      gender: new FormControl(0,Validators.required),
       mobileNumber: new FormControl('', [Validators.required, Validators.pattern('^\\d{10}$')])
     });
   }
@@ -42,6 +42,8 @@ export class CreateaccountmodalComponent {
     
     if (this.createAccountForm.valid) {
       console.log('Form Submitted', this.createAccountForm.value);
+      let user =  this.createAccountForm.value;
+      user.gender = Number(user.gender);
       this.userApi.addNewUser(this.createAccountForm.value).subscribe(res=>{
         console.log(res);
         

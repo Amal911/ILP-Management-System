@@ -102,6 +102,7 @@ ngOnInit(): void {
       return [this.futureDateValidator];
     }
   }
+  
  
 
   get ProgramControl(): FormControl {
@@ -178,13 +179,13 @@ onSubmit(): void {
 
   
   futureDateValidator(control: AbstractControl): ValidationErrors | null {
-    const selectedDate = new Date(control.value);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); 
+    const selectedDateTime = new Date(control.value);
+    const now = new Date();
 
-    if (selectedDate < today) {
+    if (selectedDateTime < now) {
       return { futureDate: true };
     }
+
     return null;
   }
 

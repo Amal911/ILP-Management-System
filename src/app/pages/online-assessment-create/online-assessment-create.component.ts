@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OnlineAssessmentListCardComponent } from '../../components/online-assessment-list-card/online-assessment-list-card.component';
-import { SelectDropdownComponent } from '../../components/select-dropdown/select-dropdown.component';
 import { NgFor, NgIf } from '@angular/common';
+import { DropdownComponent } from '../../components/dropdown/dropdown.component';
 
 @Component({
   selector: 'app-online-assessment-create',
   standalone: true,
-  imports: [OnlineAssessmentListCardComponent,SelectDropdownComponent,NgFor,FormsModule,ReactiveFormsModule,NgIf],
+  imports: [OnlineAssessmentListCardComponent,NgFor,FormsModule,ReactiveFormsModule,NgIf,DropdownComponent],
   templateUrl: './online-assessment-create.component.html',
   styleUrl: './online-assessment-create.component.scss'
 })
@@ -107,5 +107,15 @@ export class OnlineAssessmentCreateComponent implements OnInit {
 batchSelected(event: Event) {
   const selectedValue = (event.target as HTMLSelectElement).value;
   console.log('Selected Batch:', selectedValue);
+}
+
+onBatchChange(selectedValue: string) {
+  this.assessmentForm.get('batch')?.setValue(selectedValue);
+}
+onPhaseChange(event: any) {
+  this.assessmentForm.get('phase')?.setValue(event);
+}
+onEvaluationCriteriaChange(event: any) {
+  this.assessmentForm.get('evaluationCriteria')?.setValue(event);
 }
 }

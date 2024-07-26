@@ -7,7 +7,11 @@ import { ScorecardOverviewDashboardComponent } from '../../components/scorecard-
 import { AttendanceGraphDashboardComponent } from '../../components/attendance-graph-dashboard/attendance-graph-dashboard.component';
 import { CriteriawiseGraphDashboardComponent } from "../../components/criteriawise-graph-dashboard/criteriawise-graph-dashboard.component";
 import { BasicDetailsDashboardComponent } from "../../components/basic-details-dashboard/basic-details-dashboard.component";
+
 import { BehaviorSubject } from 'rxjs';
+
+import {BrowserCacheLocation} from "@azure/msal-browser";
+
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,

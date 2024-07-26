@@ -23,16 +23,19 @@
                           id="programId"
                           class="form-control"
                           formControlName="programId"
-                          [ngClass]="{'input-error':createBatchForm.get('batchDetails.programId')?.invalid && createBatchForm.get('batchDetails.programId')?.touched}"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.programId')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.programId')
+                                ?.touched
+                          }"
                         >
-    
                           <option value="" disabled>Select the Program</option>
                           <option value="1">2023</option>
                           <option value="2">2024</option>
                           <option value="3">2025</option>
                         </select>
-
-                       
                       </div>
                     </div>
 
@@ -44,9 +47,14 @@
                           id="batchCode"
                           class="form-control inputBox"
                           formControlName="batchCode"
-                          [ngClass]="{'input-error':createBatchForm.get('batchDetails.batchCode')?.invalid && createBatchForm.get('batchDetails.batchCode')?.touched}"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.batchCode')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.batchCode')
+                                ?.touched
+                          }"
                         />
-                        
                       </div>
                     </div>
 
@@ -58,9 +66,14 @@
                           id="batchName"
                           class="form-control inputBox"
                           formControlName="batchName"
-                          [ngClass]="{'input-error':createBatchForm.get('batchDetails.batchName')?.invalid && createBatchForm.get('batchDetails.batchName')?.touched}"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.batchName')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.batchName')
+                                ?.touched
+                          }"
                         />
-                       
                       </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -72,22 +85,30 @@
                           id="batchDuration"
                           class="form-control inputBox"
                           formControlName="batchDuration"
-                          [ngClass]="{'input-error':createBatchForm.get('batchDetails.batchDuration')?.invalid && createBatchForm.get('batchDetails.batchDuration')?.touched && 
-                          createBatchForm.get('batchDetails.batchDuration')?.hasError('required')}"
-                        />
-                        <div class="text-danger"
-                            *ngIf="
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.batchDuration')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.batchDuration')
+                                ?.touched &&
                               createBatchForm
                                 .get('batchDetails.batchDuration')
-                                ?.hasError('invalidDays') &&
-                              !createBatchForm
-                                .get('batchDetails.batchDuration')
                                 ?.hasError('required')
-                            "
-                          >
-                            ! Batch duration must be at least 1 day.
-                          </div>
-                       
+                          }"
+                        />
+                        <div
+                          class="text-danger"
+                          *ngIf="
+                            createBatchForm
+                              .get('batchDetails.batchDuration')
+                              ?.hasError('invalidDays') &&
+                            !createBatchForm
+                              .get('batchDetails.batchDuration')
+                              ?.hasError('required')
+                          "
+                        >
+                          ! Batch duration must be at least 1 day.
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -98,22 +119,30 @@
                           id="startDate"
                           class="form-control inputBox"
                           formControlName="startDate"
-                          [ngClass]="{'input-error':createBatchForm.get('batchDetails.startDate')?.invalid && createBatchForm.get('batchDetails.startDate')?.touched && 
-                          createBatchForm.get('batchDetails.startDate')?.hasError('required')}"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.startDate')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.startDate')
+                                ?.touched &&
+                              createBatchForm
+                                .get('batchDetails.startDate')
+                                ?.hasError('required')
+                          }"
                         />
                         <div
-                        *ngIf="
-                          createBatchForm
-                            .get('batchDetails.startDate')
-                            ?.hasError('pastDate') &&
-                          !createBatchForm
-                            .get('batchDetails.startDate')
-                            ?.hasError('required')
-                        " class="text-danger"
-                      >
-                        ! Start date cannot be in the past.
-                      </div>
-                        
+                          *ngIf="
+                            createBatchForm
+                              .get('batchDetails.startDate')
+                              ?.hasError('pastDate') &&
+                            !createBatchForm
+                              .get('batchDetails.startDate')
+                              ?.hasError('required')
+                          "
+                          class="text-danger"
+                        >
+                          ! Start date cannot be in the past.
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -124,21 +153,30 @@
                           id="endDate"
                           class="form-control inputBox"
                           formControlName="endDate"
-                          [ngClass]="{'input-error':createBatchForm.get('batchDetails.endDate')?.invalid && createBatchForm.get('batchDetails.endDate')?.touched && 
-                          createBatchForm.get('batchDetails.endDate')?.hasError('required')}"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.endDate')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.endDate')
+                                ?.touched &&
+                              createBatchForm
+                                .get('batchDetails.endDate')
+                                ?.hasError('required')
+                          }"
                         />
                         <div
-                        *ngIf="
-                          createBatchForm
-                            .get('batchDetails.endDate')
-                            ?.hasError('pastDate') &&
-                          !createBatchForm
-                            .get('batchDetails.endDate')
-                            ?.hasError('required')
-                        " class="text-danger"
-                      >
-                        ! End date cannot be in the past.
-                      </div>
+                          *ngIf="
+                            createBatchForm
+                              .get('batchDetails.endDate')
+                              ?.hasError('pastDate') &&
+                            !createBatchForm
+                              .get('batchDetails.endDate')
+                              ?.hasError('required')
+                          "
+                          class="text-danger"
+                        >
+                          ! End date cannot be in the past.
+                        </div>
                       </div>
                     </div>
 
@@ -149,8 +187,16 @@
                           id="batchTypeId"
                           class="form-control"
                           formControlName="batchTypeId"
-                          [ngClass]="{'input-error':createBatchForm.get('batchDetails.batchTypeId')?.invalid && createBatchForm.get('batchDetails.batchTypeId')?.touched && 
-                          createBatchForm.get('batchDetails.batchTypeId')?.hasError('required')}"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.batchTypeId')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.batchTypeId')
+                                ?.touched &&
+                              createBatchForm
+                                .get('batchDetails.batchTypeId')
+                                ?.hasError('required')
+                          }"
                         >
                           <option value="" disabled>Select a Batch Type</option>
                           @for (type of batchtype; track $index) {
@@ -169,8 +215,16 @@
                           id="locationId"
                           class="form-control"
                           formControlName="locationId"
-                          [ngClass]="{'input-error':createBatchForm.get('batchDetails.locationId')?.invalid && createBatchForm.get('batchDetails.locationId')?.touched && 
-                          createBatchForm.get('batchDetails.locationId')?.hasError('required')}"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.locationId')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.locationId')
+                                ?.touched &&
+                              createBatchForm
+                                .get('batchDetails.locationId')
+                                ?.hasError('required')
+                          }"
                         >
                           <option value="" disabled>
                             Select a Location<i class="bi bi-chevron-down"></i>
@@ -228,7 +282,6 @@
           </ng-template>
         </p-stepperPanel>
 
-      
         <p-stepperPanel header="">
           <ng-template
             pTemplate="content"
@@ -257,7 +310,7 @@
                         <a href="">here</a>
                       </span>
                     </div>
-        
+
                     <div *ngIf="fileSelected">
                       <p-table
                         [value]="excelData"
@@ -270,14 +323,14 @@
                           <tr>
                             <th>Sl. No.</th>
                             <th *ngFor="let column of columns">{{ column }}</th>
-                            
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-row let-i="rowIndex">
                           <tr>
                             <td class="tabletd">{{ i + 1 }}</td>
-                            <td class="tabletd" *ngFor="let column of columns">{{ row[column] }}</td>
-                           
+                            <td class="tabletd" *ngFor="let column of columns">
+                              {{ row[column] }}
+                            </td>
                           </tr>
                         </ng-template>
                       </p-table>
@@ -342,20 +395,31 @@
                                 id="phaseId"
                                 class="form-control"
                                 formControlName="phaseId"
-                                [ngClass]="{'input-error':getFormControl('phaseId',phaseIndex)?.invalid && getFormControl('phaseId',phaseIndex)?.touched && 
-                                getFormControl('phaseId',phaseIndex)?.hasError('required')}"
+                                [ngClass]="{
+                                  'input-error':
+                                    getFormControl('phaseId', phaseIndex)
+                                      ?.invalid &&
+                                    getFormControl('phaseId', phaseIndex)
+                                      ?.touched &&
+                                    getFormControl(
+                                      'phaseId',
+                                      phaseIndex
+                                    )?.hasError('required')
+                                }"
                                 (ngModelChange)="addPhase2($event)"
                               >
                                 <option value="" disabled hidden>
                                   Select the Phase
                                 </option>
                                 @for (phase of phasesData; track $index) {
-                                <option value="{{ phase.id }}" [disabled]="phaseList.includes(phase.id)">
+                                <option
+                                  value="{{ phase.id }}"
+                                  [disabled]="phaseList.includes(phase.id)"
+                                >
                                   {{ phase.phaseName }}
                                 </option>
                                 }
                               </select>
-                              
                             </div>
                           </div>
                           <div class="col-md-6">
@@ -380,10 +444,22 @@
                                     ).hasError('required')
                                 }"
                               />
-                              
-                                <div class="text-danger" *ngIf="getFormControl('numberOfDays', phaseIndex).hasError('invalidDays') && !getFormControl('numberOfDays', phaseIndex).hasError('required')">
-                                  ! Phase duration must be at least 1.
-                                </div>
+
+                              <div
+                                class="text-danger"
+                                *ngIf="
+                                  getFormControl(
+                                    'numberOfDays',
+                                    phaseIndex
+                                  ).hasError('invalidDays') &&
+                                  !getFormControl(
+                                    'numberOfDays',
+                                    phaseIndex
+                                  ).hasError('required')
+                                "
+                              >
+                                ! Phase duration must be at least 1.
+                              </div>
                             </div>
                           </div>
                           <div class="col-md-6">
@@ -425,7 +501,6 @@
                                 id="endDate{{ phaseIndex }}"
                                 class="form-control inputBox"
                                 formControlName="endDate"
-                                
                               />
                               <div
                                 *ngIf="
@@ -450,14 +525,22 @@
                           </div>
                           <div class="col-md-12">
                             <div class="row mb-3 mt-3 criteria-item">
-                              <div class="col-md-6">
+                              <div class="col">
                                 <div class="form-group">
                                   <label>* Assessment Type</label>
                                 </div>
                               </div>
-                              <div class="col-md-2">
-                                <div class="form-group">
+                              <div class="col">
+                                <div class="form-group d-flex">
                                   <label>* Weightage(%)</label>
+                                  <div
+                                    *ngIf="assessmentTypeListArray(phaseIndex).errors?.['invalidWeightageSum']"
+                                    class="text-danger"
+                                  >
+                                  <p class="m-auto error">
+                                    *Total should be 100%
+                                  </p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -474,35 +557,54 @@
                                   <div class="row mb-3 mt-3 criteria-item">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <select id="assessmentTypeId{{phaseIndex}}-{{ i }}"
+                                        <select
+                                          id="assessmentTypeId{{
+                                            phaseIndex
+                                          }}-{{ i }}"
                                           class="form-control assessmentTypeId input-error"
                                           formControlName="assessmentTypeId"
-                                          [ngClass]="{'input-error':getFormControl(
-                                            'assessmentTypeId',
-                                            phaseIndex,
-                                            i
-                                          ).touched &&
-                                          getFormControl(
-                                            'assessmentTypeId',
-                                            phaseIndex,
-                                            i
-                                          ).invalid && getFormControl(
-                                            'assessmentTypeId',
-                                            phaseIndex,
-                                            i
-                                          ).hasError('required')}"
+                                          [ngClass]="{
+                                            'input-error':
+                                              getFormControl(
+                                                'assessmentTypeId',
+                                                phaseIndex,
+                                                i
+                                              ).touched &&
+                                              getFormControl(
+                                                'assessmentTypeId',
+                                                phaseIndex,
+                                                i
+                                              ).invalid &&
+                                              getFormControl(
+                                                'assessmentTypeId',
+                                                phaseIndex,
+                                                i
+                                              ).hasError('required')
+                                          }"
+                                          (ngModelChange)="
+                                            addAssessmentType2(
+                                              $event,
+                                              phaseIndex
+                                            )
+                                          "
                                         >
-                                          <option value="" disabled>
+                                          <option value="" disabled hidden>
                                             Select Assessment Type
                                           </option>
                                           @for (type of assessmentType; track
                                           $index) {
-                                          <option value="{{ type.id }}">
+                                          <option
+                                            value="{{ type.id }}"
+                                            [disabled]="
+                                              assessmentTypesList[
+                                                phaseIndex
+                                              ].includes(type.id)
+                                            "
+                                          >
                                             {{ type.assessmentTypeName }}
                                           </option>
                                           }
                                         </select>
-                                        
                                       </div>
                                     </div>
                                     <div class="col-md-2">
@@ -512,16 +614,19 @@
                                           id="weightage{{ phaseIndex }}-{{ i }}"
                                           class="form-control inputBox"
                                           formControlName="weightage"
-                                          [ngClass]="{'input-error':getFormControl(
-                                            'weightage',
-                                            phaseIndex,
-                                            i
-                                          ).touched &&
-                                          getFormControl(
-                                            'weightage',
-                                            phaseIndex,
-                                            i
-                                          ).invalid}"
+                                          [ngClass]="{
+                                            'input-error':
+                                              getFormControl(
+                                                'weightage',
+                                                phaseIndex,
+                                                i
+                                              ).touched &&
+                                              getFormControl(
+                                                'weightage',
+                                                phaseIndex,
+                                                i
+                                              ).invalid
+                                          }"
                                         />
                                       </div>
                                     </div>
@@ -533,33 +638,26 @@
                                           removeAssessmentType(phaseIndex, i)
                                         "
                                       ></i>
-                                      <div class="validation-container ms-2 text-danger"
-                                            *ngIf="
-                                              getFormControl(
-                                                'weightage',
-                                                phaseIndex,
-                                                i
-                                              ).hasError('invalidWeightage') &&
-                                              !getFormControl(
-                                                'weightage',
-                                                phaseIndex,
-                                                i
-                                              ).hasError('required')
-                                            "
-                                          >
-                                            ! Weightage must be between 1 and
-                                            100.
-                                          </div>
-                                      
+                                      <div
+                                        class="validation-container ms-2 text-danger"
+                                        *ngIf="
+                                          getFormControl(
+                                            'weightage',
+                                            phaseIndex,
+                                            i
+                                          ).hasError('invalidWeightage') &&
+                                          !getFormControl(
+                                            'weightage',
+                                            phaseIndex,
+                                            i
+                                          ).hasError('required')
+                                        "
+                                      >
+                                        ! Weightage must be between 1 and 100.
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div
-                                *ngIf="assessmentTypeListArray(phaseIndex).errors?.['invalidWeightageSum']"
-                                class="text-danger"
-                              >
-                                ! Total weightage exceeds 100
                               </div>
                             </div>
                             <div class="d-flex justify-content-start mb-3">

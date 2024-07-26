@@ -51,6 +51,7 @@ export class CreateBatchComponent {
   batchtype: any;
   batchLocation: any;
   phasesData: any;
+  programData: any;
   assessmentType: any;
   allPhases: any[] = [];
   phaseIds: number[] = [];
@@ -81,7 +82,7 @@ export class CreateBatchComponent {
           return sum + (weightage ? parseFloat(weightage) : 0);
         }, 0);
 
-        return totalWeightage <= 100 ? null : { invalidWeightageSum: true };
+        return totalWeightage == 100 ? null : { invalidWeightageSum: true };
       }
       return null;
     };
@@ -114,6 +115,7 @@ export class CreateBatchComponent {
       this.assessmentType = res;
       console.log(this.assessmentType);
     });
+
 
     this.createBatchForm = this.fb.group({
       batchDetails: this.fb.group({
@@ -206,6 +208,8 @@ export class CreateBatchComponent {
     console.log(phaseFormGroup.value);
 
     this.phasesArray().push(this.createPhase());
+    this.assessmentTypesList.push([]);
+    console.log(this.assessmentTypesList);
     this.subscribeToPhaseChanges();
   }
 
@@ -311,10 +315,15 @@ export class CreateBatchComponent {
   }
 
   addAssessmentType(phaseIndex: number): void {
-    this.assessmentTypeListArray(phaseIndex).push(this.createAssessmentType());
+    this.assessmentTypeListArray(phaseIndex).push(this.createAssessmentType());    
   }
 
   removeAssessmentType(phaseIndex: number, assessmentIndex: number): void {
+    let assessmentTypeId = Number(this.assessmentTypeListArray(phaseIndex).value[assessmentIndex].assessmentTypeId)
+    console.log(assessmentTypeId);
+    
+    this.assessmentTypesList[phaseIndex] = this.assessmentTypesList[phaseIndex].filter((id:number)=>id!=assessmentTypeId)
+    console.log(this.assessmentTypesList);
     this.assessmentTypeListArray(phaseIndex).removeAt(assessmentIndex);
   }
 
@@ -353,6 +362,7 @@ export class CreateBatchComponent {
       ).toISOString();
       batchData.phaseDetails[i].endDate = new Date(phase.endDate).toISOString();
     });
+    batchData.TraineeList = this.traineeDetails;
     console.log(batchData);
     this.api.createNewBatch(batchData).subscribe((res) => {
       console.log(res);
@@ -416,8 +426,16 @@ export class CreateBatchComponent {
             }
           }
         });
+        traineeDetails.forEach((trainee:any)=>{
+          console.log(Number(trainee.MobileNumber));
+          // if(Number(trainee.MobileNumber)){
+            
+            trainee.MobileNumber = trainee.MobileNumber.toString();  
+          // }
+        })
 
         console.log('Trainee Details:', traineeDetails);
+        this.traineeDetails = traineeDetails;
       }
     };
 
@@ -446,6 +464,14 @@ export class CreateBatchComponent {
     this.phaseList.push(Number(event));
     console.log(this.phaseList);
   }
+  assessmentTypesList:any = [[]];
+  addAssessmentType2(event:any,phaseIndex:number){
+    console.log(event,phaseIndex);
+    this.assessmentTypesList[phaseIndex].push(Number(event));
+    console.log(this.assessmentTypesList);
+    
+  }
+
 
   
 }

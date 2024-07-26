@@ -1,4 +1,6 @@
-<div class="attendance-marking d-flex flex-column justify-content-center m-5 gap-5">
+<div style="width: 100%; padding: 3rem;">
+
+<div class="attendance-marking d-flex flex-column justify-content-center gap-5">
   <app-session-details
     [editPageLink]="'/schedule/'+session.id+'/edit'"
     [session]="session"
@@ -13,9 +15,10 @@
     <div
       class="bottom-button d-flex flex-row align-items-center justify-content-center m-5 gap-5"
     >
-      <app-hollow-button [hollowButtonLabel]="'cancel'"></app-hollow-button>
+      <app-hollow-button [hollowButtonLabel]="'Go Back'"></app-hollow-button>
       <div class="button-space"></div>
-      <app-button [buttonLabel]="'Submit'" (click)="onSubmit()"></app-button>
+      <app-button [buttonLabel]="'Mark Attendance'" (click)="onSubmit()"></app-button>
     </div>
   </div>
+</div>
 </div>

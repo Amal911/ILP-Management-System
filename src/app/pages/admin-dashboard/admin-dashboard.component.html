@@ -2,7 +2,7 @@
   <ul class="nav nav-pills  flex-nowrap overflow-auto" id="pills-tab" role="tablist">
     @for(batch of batches;track batch){
     <li class="nav-item text-center" role="presentation">
-      <button class="nav-link px-5" id="pills-{{batch.name}}-tab" [class.active]="isFirst(batch)" data-bs-toggle="pill"
+      <button class="nav-link px-5" id="pills-{{batch.name}}-tab" [class.active]="batch.batchId === currentBatchId" (click)="onBatchChange(batch.batchId)" data-bs-toggle="pill"
         [attr.data-bs-target]="'#pills-' + batch.name" type="button" role="tab"
         [attr.aria-controls]="'pills-' + batch.name" aria-selected="true">
         <div class="batch-name">

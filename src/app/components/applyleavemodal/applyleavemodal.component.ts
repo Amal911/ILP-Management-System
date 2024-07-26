@@ -71,15 +71,18 @@ export class ApplyleavemodalComponent {
   dateRangeValidator(): ValidatorFn {
     return (group: AbstractControl): ValidationErrors | null => {
       const days = group.get('days')?.value;
-      const fromDate = new Date(group.get('fromDate')?.value);
-      const toDate = new Date(group.get('toDate')?.value);
-      if (days && fromDate && toDate) {
-        const dateDiff = Math.floor((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-        return dateDiff === days ? null : { durationMismatch: true };
+      if (days > 1) {
+        const fromDate = new Date(group.get('fromDate')?.value);
+        const toDate = new Date(group.get('toDate')?.value);
+        if (fromDate && toDate) {
+          const dateDiff = Math.floor((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+          return dateDiff === days ? null : { durationMismatch: true };
+        }
       }
       return null;
     };
   }
+
   
 
   onSubmit() {

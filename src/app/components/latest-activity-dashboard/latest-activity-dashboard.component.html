@@ -1,5 +1,7 @@
 <div class="container p-3 text-start">
-    <div class="title mb-2">Today's Activity</div>
-    <div class="todays-schedule">{{ schedule.sessionName }}</div>
-    <div>{{ schedule.sessionDescription }}</div>
+    <div class="title mb-2">Latest Activity</div>
+    @if(schedule.length!=0){
+      <div class="todays-schedule">{{ schedule[0].sessionName }}</div>
+      <div>{{ schedule[0].sessionDescription }}</div>
+    }
 </div>

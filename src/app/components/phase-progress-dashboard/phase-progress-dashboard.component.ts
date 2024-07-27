@@ -9,8 +9,8 @@ import { ChartModule } from 'primeng/chart';
   styleUrl: './phase-progress-dashboard.component.scss',
 })
 export class PhaseProgressDashboardComponent {
-  @Input() phaseCompletedDays: number = 90;
-  @Input() phaseTotaldays: number = 100;
+  @Input() phaseCompletedDays: number = 0;
+  @Input() phaseTotaldays: number = 0;
   phaseProgressData: any;
   phaseProgressOptions: any;
   ngOnInit(): void {

@@ -9,8 +9,6 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 })
 export class LatestActivityDashboardComponent implements OnChanges {
   @Input() schedule:any;
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['schedule']) {
-      console.log('schedule Input Changed:', this.schedule);
-    }}
+  
+  ngOnChanges(changes: SimpleChanges) {}
 }

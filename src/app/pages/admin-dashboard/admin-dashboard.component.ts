@@ -8,6 +8,7 @@ import { AttendanceGraphDashboardComponent } from '../../components/attendance-g
 import { CriteriawiseGraphDashboardComponent } from "../../components/criteriawise-graph-dashboard/criteriawise-graph-dashboard.component";
 import { BasicDetailsDashboardComponent } from "../../components/basic-details-dashboard/basic-details-dashboard.component";
 import { BehaviorSubject } from 'rxjs';
+import { BatchListingService } from '../../services/API/batch-listing.service';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
@@ -25,8 +26,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AdminDashboardComponent implements OnInit {
   //Data of each batches
-  // phaseCompletedDays: number = 0;
-  // phaseTotaldays: number = 0;
+  phaseCompletedDays: number = 0;
+  phaseTotaldays: number = 0;
   batches: any[] = [
     {
       batchId:1,
@@ -80,23 +81,49 @@ export class AdminDashboardComponent implements OnInit {
   schedule: any = {};
   currentBatchId: number = 0;
 
-  constructor(private scheduleService: ScheduleService) {}
+  constructor(private scheduleService: ScheduleService,private batchlistingServices:BatchListingService ) {}
 
   ngOnInit(): void {
     this.fetchSchedule(this.currentBatchId);
   }
 
+
+  loadBatchPhaseProgress(batchId: number): void {
+    this.batchlistingServices.getBatchById(batchId).subscribe({
+      next:(data)=>{
+        if(data.isSuccess&&data.result){
+          const batch = data.result[0];
+          const batchPhase=batch.batchPhases[0];
+          console.log('Batch Phase:', batchPhase);
+          this.loadBatchPhaseProgress(batchPhase);
+        }else{
+          console.error('Failed to fetch batch phase progress:', data.message);
+        }
+      },
+      error:(err)=>{
+        console.error('Http Error:', err);
+      }
+    });
+
+  }
+
+
   fetchSchedule(batchId:number) {
     this.scheduleService.getTodaysSession(batchId).subscribe({
+
       next: (data) => {
         console.log('Fetched Data:', data);  // Log the entire response
         if (data.isSuccess && data.result) {
-          this.schedule = data.result[0];
+          if(data.result.length!=0){
+            this.schedule = data.result;
+          }
+          else{
+            this.schedule = []
+          }
 
         } else {
           console.error('Error fetching data:', data.message);
         }
-        console.log('Assigned Schedule:', this.schedule);  // Log the assigned schedule
       },
       error: (err) => {
         console.error('HTTP Error:', err);
@@ -126,8 +153,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
   //Data needed for graphs
-  phaseCompletedDays: number = 14;
-  phaseTotaldays: number = 26;
+
   batchScoreOverviewData: number[] = [2, 4, 3, 1];
   //Data for attendance graph
   thisWeekDays: string[] = [

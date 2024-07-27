@@ -34,10 +34,11 @@
             <tr>
               <th style="width: 10%">SL No.</th>
               <th style="width: 80%">Name of Phase</th>
+              <th style="width: 80%">Phase Duration</th>
               <th style="width: 10%">Actions</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-phase let-rowIndex="rowIndex">
+          <!-- <ng-template pTemplate="body" let-phase let-rowIndex="rowIndex">
             <tr>
               <td>{{ rowIndex + 1 }}</td>
               <td>
@@ -48,6 +49,20 @@
                   <input
                     type="text"
                     [(ngModel)]="phase.phaseName"
+                    (keydown.enter)="toggleEdit(phase)"
+                    (blur)="toggleEdit(phase)"
+                    class="form-control"
+                  />
+                </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="!phase.editing; else editPhaseDuration">
+                  {{ phase.phaseDuration }}
+                </ng-container>
+                <ng-template #editPhaseDuration>
+                  <input
+                    type="text"
+                    [(ngModel)]="phase.phaseDuration"
                     (keydown.enter)="toggleEdit(phase)"
                     (blur)="toggleEdit(phase)"
                     class="form-control"
@@ -66,7 +81,52 @@
               </div>
               </td>
             </tr>
+          </ng-template> -->
+          <ng-template pTemplate="body" let-phase let-rowIndex="rowIndex">
+            <tr [ngClass]="{'editing': phase.editing}">
+              <td>{{ rowIndex + 1 }}</td>
+              <td>
+                <ng-container *ngIf="!phase.editing; else editPhaseName">
+                  {{ phase.phaseName }}
+                </ng-container>
+                <ng-template #editPhaseName>
+                  <input
+                    type="text"
+                    [(ngModel)]="phase.phaseName"
+                    (keydown.enter)="toggleEdit(phase)"
+                    (blur)="toggleEdit(phase)"
+                    class="form-control"
+                  />
+                </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="!phase.editing; else editPhaseDuration">
+                  {{ phase.phaseDuration }}
+                </ng-container>
+                <ng-template #editPhaseDuration>
+                  <input
+                    type="text"
+                    [(ngModel)]="phase.phaseDuration"
+                    (keydown.enter)="toggleEdit(phase)"
+                    (blur)="toggleEdit(phase)"
+                    class="form-control"
+                  />
+                </ng-template>
+              </td>
+              <td>
+                <div class="d-flex">
+                  <button class="btn btn-link" (click)="toggleEdit(phase)">
+                    <i class="bi" [ngClass]="phase.editing ? 'bi-check2' : 'bi-pencil-square'"></i>
+                  </button>
+                  <button class="btn btn-link" (click)="deletePhase(phase)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
           </ng-template>
+          
+          
         </p-table>
       </div>
       <button class="add-phase-button" data-bs-toggle="modal" data-bs-target="#addPhaseModale"><i class="bi bi-plus-lg"></i> Add a phase</button>
@@ -85,22 +145,35 @@
             <form [formGroup]="phaseForm" (ngSubmit)="saveNewPhase()">
               <div class="mb-3">
                 <div class=" d-flex flex-row justify-content-center row">
-                  <label class="col-6">Phase title :</label>
+                  <label class="col-6">* Phase title  :</label>
                   <input
                     type="text"
                     class="form-control new-phase-name col-6 "
                     placeholder="Enter Phase title here"
                     formControlName="phaseName"
+                    [ngClass]="{'input-error':phaseForm.get('phaseName')?.invalid &&
+                    phaseForm.get('phaseName')?.touched}"
                   />
                 </div>
                 <div *ngIf="phaseForm.get('phaseName')?.invalid && phaseForm.get('phaseName')?.touched" class="text-danger">
-                  <div *ngIf="phaseForm.get('phaseName')?.errors?.['required']">
-                    Phase Name is required.
-                  </div>
                   <div *ngIf="phaseForm.get('phaseName')?.errors?.['minlength']">
-                    Phase Name must be at least 3 characters long.
+                   *Phase Name must be at least 3 characters long.
                   </div>
                 </div>
+                <div class=" d-flex flex-row justify-content-center row mt-2">
+                  <label class="col-6">* Phase Duration :</label>
+                  <input
+                    type="text"
+                    class="form-control new-phase-name col-6"
+                    placeholder="Enter Phase duration here"
+                    formControlName="phaseDuration"
+                    [ngClass]="{'input-error': phaseForm.get('phaseDuration')?.invalid && phaseForm.get('phaseDuration')?.touched && 
+                    phaseForm.get('phaseDuration')?.errors?.['required'] }"
+                    
+
+                  />
+                </div>
+               
               </div>
             </form>
           </div>

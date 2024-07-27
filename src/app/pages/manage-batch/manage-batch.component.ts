@@ -33,54 +33,6 @@ export class ManageBatchComponent {
   ];
   constructor(private fb: FormBuilder,private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
-  // ngOnInit(): void {
-  //   this.batchForm = this.fb.group({
-  //     program: new FormControl({ value: 'ILP 2023-24', disabled: true }, [Validators.required]),
-  //     status: new FormControl({ value: 'Active', disabled: true }, [Validators.required]),
-  //     batchCode: new FormControl({ value: 'BAT2324ILP04', disabled: true }, [Validators.required]),
-  //     numberOfDays: new FormControl({ value: '140', disabled: true }, [Validators.required]),
-  //     batchName: new FormControl({ value: 'ILP-2023-B03', disabled: true }, [Validators.required]),
-  //     startDate: new FormControl({ value: '2024-04-15', disabled: true }, [Validators.required]),
-  //     numberOfTrainees: new FormControl({ value: '38', disabled: true }, [Validators.required]),
-  //     endDate: new FormControl({ value: '2024-08-31', disabled: true }, [Validators.required]),
-  //     location: new FormControl({ value: 'Trivandrum', disabled: true }, [Validators.required]),
-  //     batchType: new FormControl({ value: 'Developers', disabled: true }, [Validators.required]),
-  //     phases: this.fb.array([
-  //       this.fb.group({
-  //         phaseName: ['Tech Fundamentals'],
-  //         numberOfDays: ['10'],
-  //         phaseStartDate: ['2024-07-01'],
-  //         phaseEndDate: ['2024-07-10'],
-  //         assessmentTypeList: this.fb.array([
-  //           this.fb.group({
-  //             evaluationCriteria: ['Daily Assessment'],
-  //             weightage: ['50']
-  //           }),
-  //           this.fb.group({
-  //             evaluationCriteria: ['Live Assessment'],
-  //             weightage: ['50']
-  //           })
-  //         ])
-  //       }),
-  //       this.fb.group({
-  //         phaseName: ['Business Orientation'],
-  //         numberOfDays: ['15'],
-  //         phaseStartDate: ['2024-07-11'],
-  //         phaseEndDate: ['2024-07-25'],
-  //         assessmentTypeList: this.fb.array([
-  //           this.fb.group({
-  //             evaluationCriteria: ['Project'],
-  //             weightage: ['70']
-  //           }),
-  //           this.fb.group({
-  //             evaluationCriteria: ['Module'],
-  //             weightage: ['30']
-  //           })
-  //         ])
-  //       }),
-  //     ])
-  //   });
-  // }
   ngOnInit(): void {
     this.batchForm = this.fb.group({
       program: new FormControl({ value: 'ILP 2023-24', disabled: true }, [Validators.required]),
@@ -161,11 +113,7 @@ export class ManageBatchComponent {
     return this.phasesArray().at(phaseIndex).get('assessmentTypeList') as FormArray;
   }
 
-  // addPhase(): void {
-  //   if (this.isEditable) {
-  //     this.phasesArray().push(this.createPhase());
-  //   }
-  // }
+
   addPhase(): void {
     if (this.isEditable) {
       const newPhase = this.createPhase();
@@ -182,11 +130,7 @@ export class ManageBatchComponent {
     }
   }
 
-  // addAssessmentType(phaseIndex: number): void {
-  //   if (this.isEditable) {
-  //     this.assessmentTypeListArray(phaseIndex).push(this.createAssessmentType());
-  //   }
-  // }
+
   addAssessmentType(phaseIndex: number): void {
     if (this.isEditable) {
       const newAssessment = this.createAssessmentType();

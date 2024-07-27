@@ -36,6 +36,8 @@ export class BatchCreatePhaseTableComponent {
       Validators.required,
       Validators.minLength(3),
     ]),
+    phaseDuration:new FormControl('', 
+      Validators.required)
   });
   phasesData: any;
   constructor(public api: ApiService) {}
@@ -65,15 +67,22 @@ export class BatchCreatePhaseTableComponent {
     });
   }
   toggleEdit(phase: any): void {
+    if (phase.editing) {
+      this.api.updatePhase(phase.id, { phaseName: phase.phaseName, phaseDuration: phase.phaseDuration }).subscribe(() => {
+        this.api.getPhases().subscribe((res) => {
+          this.phasesData = res;
+          this.filteredColumns = this.filteredColumns.map(p =>
+            p.id === phase.id ? { ...p, phaseName: phase.phaseName, phaseDuration: phase.phaseDuration } : p
+          );
+        });
+      });
+    }
     phase.editing = !phase.editing;
   }
+  
+  
 
   deletePhase(phase: any): void {
-    // this.columns = this.columns.filter((column) => column.id !== phase.id);
-    // this.filteredColumns = this.filteredColumns.filter(
-    //   (columns) => columns.id !== phase.id
-    // );
-
     this.api.deletePhase(phase.id).subscribe(res=>{
       this.api.getPhases().subscribe(res=>{
         this.phasesData = res;
@@ -85,12 +94,14 @@ export class BatchCreatePhaseTableComponent {
   saveNewPhase(): void {
     if (this.phaseForm.valid) {
       const phaseName = this.phaseForm.get('phaseName')?.value;
+      const phaseDuraion = this.phaseForm.get('phaseDuraion')?.value;
+
       // const newId = this.columns.length
       //   ? Math.max(...this.columns.map((c) => c.id)) + 1
       //   : 1;
       // this.columns.push({ id: newId, phase_name: phaseName });
       // this.filteredColumns = [...this.columns];
-      this.api.creatNewPhase({phaseName:phaseName}).subscribe(res=>{
+      this.api.creatNewPhase({phaseName:phaseName,phaseDuraion:phaseDuraion}).subscribe(res=>{
         this.phaseForm.reset();
         this.showMessage = true;
         setTimeout(() => {

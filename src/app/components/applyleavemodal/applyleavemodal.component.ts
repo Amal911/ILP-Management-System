@@ -132,10 +132,11 @@ export class ApplyleavemodalComponent {
       if (this.applyLeaveForm.get('ldPoc')?.value) {
         pocIds.push(this.applyLeaveForm.get('ldPoc')?.value);
       }
-      const uniquePocIds = [...new Set(pocIds)];      // Ensure pocIds is unique
+      // const uniquePocIds = [...new Set(pocIds)];      // Ensure pocIds is unique
+      formData.pocIds = [...new Set(pocIds)];
 
       console.log(formData);
-      this.leaveService.postLeaveRequest({ ...formData, pocIds: uniquePocIds }).subscribe(
+      this.leaveService.postLeaveRequest(formData).subscribe(
         response => {
           console.log('Leave request created successfully', response);
           this.applyLeaveForm.reset();

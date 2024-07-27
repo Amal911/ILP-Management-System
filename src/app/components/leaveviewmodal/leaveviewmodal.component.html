@@ -5,27 +5,27 @@
                 <h5 class="modal-title" id="leaveviewModalLabel">Leave Request</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" *ngIf="leave">
+            <div class="modal-body" *ngIf="leaves">
                 <div class="d-flex">
                     <div class="me-3">
                         <p><b>Name</b></p>
                         <p><b>Batch</b></p>
                         <p><b>Reason</b></p>
                         <p><b>Description</b></p>
-                        <p *ngIf="leave.days === '1'"><b>Leave Date</b></p>
-                        <p *ngIf="leave.days !== '1'"><b>Requested From</b></p>
-                        <p *ngIf="leave.days !== '1'"><b>Requested To</b></p>
+                        <p *ngIf="leaves.days === '1'"><b>Leave Date</b></p>
+                        <p *ngIf="leaves.days !== '1'"><b>Requested From</b></p>
+                        <p *ngIf="leaves.days !== '1'"><b>Requested To</b></p>
                         <p><b>Requested Date</b></p>
                     </div>
                     <div>
-                        <p>: {{ leave.name }}</p>
-                        <p>: {{ leave.batch_name }}</p>
-                        <p>: {{ leave.reason }}</p>
-                        <p>: {{ leave.description }}</p>
-                        <p *ngIf="leave.days === '1'">: {{ leave.leave_date }}</p>
-                        <p *ngIf="leave.days !== '1'">: {{ leave.leave_date_from }}</p>
-                        <p *ngIf="leave.days !== '1'">: {{ leave.leave_date_to }}</p>
-                        <p>: {{ leave.requested_date }}</p>
+                        <p>: {{ leaves.name }}</p>
+                        <p>: {{ leaves.batch_name }}</p>
+                        <p>: {{ leaves.reason }}</p>
+                        <p>: {{ leaves.description }}</p>
+                        <p *ngIf="leaves.days === '1'">: {{ leaves.LeaveDate }}</p>
+                        <p *ngIf="leaves.days !== '1'">: {{ leaves.LeaveDateFrom }}</p>
+                        <p *ngIf="leaves.days !== '1'">: {{ leaves.LeaveDateTo }}</p>
+                        <p>: {{ leaves.CreatedDate }}</p>
                     </div>
                 </div>
                 <form [formGroup]="leaveRequestForm" (ngSubmit)="onSubmit()" *ngIf="showRejectReason">

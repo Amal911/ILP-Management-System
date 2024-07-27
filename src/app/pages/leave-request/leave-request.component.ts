@@ -32,8 +32,8 @@ export class LeaveRequestComponent {
     });
   }
 
-  openModal(leave: any) {
-    this.selectedLeave = leave;
+  openModal(leaves: any) {
+    this.selectedLeave = leaves;
   }
 
   // ngOnInit() {

@@ -16,7 +16,7 @@ declare const bootstrap: any;
 
 export class LeaveviewmodalComponent {
 
-  @Input() leave: any;
+  @Input() leaves: any;
   showRejectReason: boolean = false;
   leaveRequestForm: FormGroup;
   @Output() approve = new EventEmitter<any>();
@@ -32,7 +32,7 @@ export class LeaveviewmodalComponent {
 
   approveLeave() {
     // Logic to approve the leave request
-    this.approve.emit(this.leave);
+    this.approve.emit(this.leaves);
     const modalElement = document.getElementById('leaveviewModal');
     if (modalElement) {
       const modal = bootstrap.Modal.getInstance(modalElement);
@@ -45,7 +45,7 @@ export class LeaveviewmodalComponent {
   }
 
   rejectLeave() {
-    this.reject.emit(this.leave);
+    this.reject.emit(this.leaves);
   }
 
   onSubmit() {

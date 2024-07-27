@@ -1,4 +1,5 @@
 import { LeaveRequestComponent } from './pages/leave-request/leave-request.component';
+
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject } from '@angular/core';
 import { EventType, RouterOutlet } from '@angular/router';
 import { DoughnutGraphChartComponent } from './components/doughnut-graph-chart/doughnut-graph-chart.component';
@@ -13,32 +14,30 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { AccountComponent } from './pages/account/account.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { UserService } from './services/user.service';
-import { CommonModule } from '@angular/common';
-import { TopbarComponent } from './components/topbar/topbar.component';
-import { SessionDetailsComponent } from "./components/session-details/session-details.component";
-import { SessionAttendanceComponent } from "./pages/session-attendance/session-attendance.component";
-import { AttendanceTableComponent } from "./components/attendance-table/attendance-table.component";
-import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 import { MainLayoutComponent } from './Layout/main-layout/main-layout.component';
-import { EditAccountModalComponent } from "./components/edit-account-modal/edit-account-modal.component";
-
-import { LoginComponent } from "./pages/login/login.component";
-import { AdminDashboardComponent } from "./pages/admin-dashboard/admin-dashboard.component";
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { filter, Subject, takeUntil } from 'rxjs';
-import { EventMessage, InteractionStatus, RedirectRequest, PopupRequest, AuthenticationResult } from '@azure/msal-browser';
-import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-
+import {
+  EventMessage,
+  InteractionStatus,
+  RedirectRequest,
+  PopupRequest,
+  AuthenticationResult,
+} from '@azure/msal-browser';
+import {
+  MSAL_GUARD_CONFIG,
+  MsalBroadcastService,
+  MsalGuardConfiguration,
+  MsalService,
+} from '@azure/msal-angular';
+import { LoginComponent } from './pages/login/login.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  imports: [
-    LoginComponent,
-    MainLayoutComponent,
-    AdminDashboardComponent
-],
+  imports: [ MainLayoutComponent, AdminDashboardComponent,LoginComponent],
 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
@@ -47,13 +46,11 @@ export class AppComponent {
   loginDisplay = false;
   // private readonly _destroying$ = new Subject<void>();
 
-  constructor(
-    private userService: UserService,
-  ) {}
-
-  ngOnInit(): void {
-
-    // const user = { name: 'DCruz', role: 'trainer' };
-    // this.userService.setCurrentUser(user);
+  ngOnInit() {
+    // const user = { name: 'Kavita', role: 'admin' };
+    const user = { name: 'Lekshmi', role: 'trainer' };
+    // const user = { name: 'Thulasi K', role: 'trainee' };
+    this.userService.setCurrentUser(user);
   }
+  constructor(private userService: UserService) {}
 }

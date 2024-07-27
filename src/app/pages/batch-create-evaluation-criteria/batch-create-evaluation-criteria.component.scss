@@ -1,7 +1,11 @@
-.eC-container {
+.Main-container{
+  width: 100%;
+  padding: 3rem;
+}
+
+.eC-container.eC-container {
   box-shadow: 0px 3px 18px 0px rgba(85, 118, 217, 0.2);
   width: 100%;
-  // margin: 50px;
   padding: 50px;
 }
 
@@ -34,6 +38,14 @@ td {
 p-table {
   width: 100%;
   overflow-x: auto;
+}
+
+
+@media (max-width: 750px) {
+  .Main-container{
+    width: 100%;
+    padding:0px;
+  }
 }
 
 

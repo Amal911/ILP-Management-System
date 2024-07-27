@@ -25,6 +25,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AdminDashboardComponent implements OnInit {
   //Data of each batches
+  // phaseCompletedDays: number = 0;
+  // phaseTotaldays: number = 0;
   batches: any[] = [
     {
       batchId:1,
@@ -81,7 +83,7 @@ export class AdminDashboardComponent implements OnInit {
   constructor(private scheduleService: ScheduleService) {}
 
   ngOnInit(): void {
-    this.fetchSchedule(1);
+    this.fetchSchedule(this.currentBatchId);
   }
 
   fetchSchedule(batchId:number) {
@@ -89,7 +91,8 @@ export class AdminDashboardComponent implements OnInit {
       next: (data) => {
         console.log('Fetched Data:', data);  // Log the entire response
         if (data.isSuccess && data.result) {
-          this.schedule = data.result;
+          this.schedule = data.result[0];
+
         } else {
           console.error('Error fetching data:', data.message);
         }
@@ -99,10 +102,28 @@ export class AdminDashboardComponent implements OnInit {
         console.error('HTTP Error:', err);
       }
     });}
+
+
+    loadPhaseProgress(batchPhase: any) {
+      const currentDate = new Date();
+      const startDate = new Date(batchPhase.startDate);
+      const endDate = new Date(batchPhase.endDate);
+
+      const daysDiff = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+      const completedDays = Math.ceil((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+
+      this.phaseCompletedDays = Math.min(completedDays, daysDiff); // Ensure completed days don't exceed total days
+      this.phaseTotaldays = daysDiff;
+    }
+
+
     onBatchChange(newBatchId: number): void {
       this.currentBatchId = newBatchId;
       this.fetchSchedule(newBatchId);
     }
+
+
+
 
   //Data needed for graphs
   phaseCompletedDays: number = 14;

@@ -23,7 +23,7 @@ export class ScheduleService {
 
   updateSchedule(formData: any,couponId: number): Observable<any> {
     console.log(formData);
-    const update_API = `${this.baseURL}/UpdateSessionbyId/${couponId}`; // Adjust the endpoint according to your API
+    const update_API = `${this.baseURL}/UpdateSessionbyId/${couponId}`; 
     return this.http.put<any>(update_API, formData);
   }
 

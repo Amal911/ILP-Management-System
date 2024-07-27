@@ -46,9 +46,9 @@
                         <label for="roleId" class="form-label-placeholder">Select Role</label>
                         <select class="form-select" id="roleId" formControlName="roleId" aria-label="Default select example">
                               <option selected>Select Role</option>
-                              <option value="admin">L&D Admin</option>
-                              <option value="trainer">Trainer</option>
-                              <option value="trainee">Trainee</option>
+                              <option value="1">L&D Admin</option>
+                              <option value="2">Trainer</option>
+                              <option value="3">Trainee</option>
                             </select>
                         <div *ngIf="createAccountForm.get('roleId')?.invalid && createAccountForm.get('roleId')?.touched">
                             <div *ngIf="createAccountForm.get('roleId')?.errors?.['required']" class="text-danger">Please
@@ -59,15 +59,15 @@
                         <label class="form-label">Gender</label>
                         <div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="male" value="male" formControlName="gender">
+                                <input class="form-check-input" type="radio" id="male" value="1" formControlName="gender">
                                 <label class="form-check-label" for="male">Male</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="female" value="female" formControlName="gender">
+                                <input class="form-check-input" type="radio" id="female" value="2" formControlName="gender">
                                 <label class="form-check-label" for="female">Female</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="other" value="other" formControlName="gender">
+                                <input class="form-check-input" type="radio" id="other" value="3" formControlName="gender">
                                 <label class="form-check-label" for="other">Other</label>
                             </div>
                         </div>

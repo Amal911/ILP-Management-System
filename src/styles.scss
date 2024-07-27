@@ -2,28 +2,25 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
-
 body .calendar_default_event_inner {
-    background: #2e78d6;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 10pt;
-    padding: 5px;
-    opacity: 0.8;
+  background: #2e78d6;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 10pt;
+  padding: 5px;
+  opacity: 0.8;
 }
 
 body .month_default_event_inner {
-    background: #2e78d6;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 10pt;
-    padding: 5px;
-    opacity: 0.8;
+  background: #2e78d6;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 10pt;
+  padding: 5px;
+  opacity: 0.8;
 }
-
-
 
 
 // @layer bootstrap-reboot, primeng;

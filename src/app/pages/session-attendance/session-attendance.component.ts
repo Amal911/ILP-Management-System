@@ -99,6 +99,7 @@ export class SessionAttendanceComponent implements OnInit {
             id: response.result.id,
             session_name: response.result.sessionName,
             trainer_name: response.result.trainerId,
+            sessionDescription: response.result.sessionDescription,
             date: new Date(response.result.startTime).toISOString().split('T')[0],
             start_time: new Date(response.result.startTime).toTimeString().slice(0, 5),
             end_time: new Date(response.result.endTime).toTimeString().slice(0, 5),

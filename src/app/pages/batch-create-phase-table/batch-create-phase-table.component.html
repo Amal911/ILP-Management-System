@@ -93,8 +93,8 @@
                   <input
                     type="text"
                     [(ngModel)]="phase.phaseName"
-                    (keydown.enter)="toggleEdit(phase)"
-                    (blur)="toggleEdit(phase)"
+                    (keydown.enter)="toggleEdit(phase.phaseName)"
+                    (blur)="toggleEdit(phase.phaseName)"
                     class="form-control"
                   />
                 </ng-template>
@@ -107,8 +107,8 @@
                   <input
                     type="text"
                     [(ngModel)]="phase.phaseDuration"
-                    (keydown.enter)="toggleEdit(phase)"
-                    (blur)="toggleEdit(phase)"
+                    (keydown.enter)="toggleEdit(phase.phaseDuration)"
+                    (blur)="toggleEdit(phase.phaseDuration)"
                     class="form-control"
                   />
                 </ng-template>

@@ -38,51 +38,7 @@
               <th style="width: 10%">Actions</th>
             </tr>
           </ng-template>
-          <!-- <ng-template pTemplate="body" let-phase let-rowIndex="rowIndex">
-            <tr>
-              <td>{{ rowIndex + 1 }}</td>
-              <td>
-                <ng-container *ngIf="!phase.editing; else editPhaseName">
-                  {{ phase.phaseName }}
-                </ng-container>
-                <ng-template #editPhaseName>
-                  <input
-                    type="text"
-                    [(ngModel)]="phase.phaseName"
-                    (keydown.enter)="toggleEdit(phase)"
-                    (blur)="toggleEdit(phase)"
-                    class="form-control"
-                  />
-                </ng-template>
-              </td>
-              <td>
-                <ng-container *ngIf="!phase.editing; else editPhaseDuration">
-                  {{ phase.phaseDuration }}
-                </ng-container>
-                <ng-template #editPhaseDuration>
-                  <input
-                    type="text"
-                    [(ngModel)]="phase.phaseDuration"
-                    (keydown.enter)="toggleEdit(phase)"
-                    (blur)="toggleEdit(phase)"
-                    class="form-control"
-                  />
-                </ng-template>
-              </td>
-              <td>
-                <div class="d-flex">
-                  <button class="btn btn-link" (click)="toggleEdit(phase)">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-
-                <button class="btn btn-link" (click)="deletePhase(phase)">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </div>
-              </td>
-            </tr>
-          </ng-template> -->
-          <ng-template pTemplate="body" let-phase let-rowIndex="rowIndex">
+           <ng-template pTemplate="body" let-phase let-rowIndex="rowIndex">
             <tr [ngClass]="{'editing': phase.editing}">
               <td>{{ rowIndex + 1 }}</td>
               <td>

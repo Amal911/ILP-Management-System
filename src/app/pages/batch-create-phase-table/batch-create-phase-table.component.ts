@@ -95,12 +95,6 @@ export class BatchCreatePhaseTableComponent {
     if (this.phaseForm.valid) {
       const phaseName = this.phaseForm.get('phaseName')?.value;
       const phaseDuraion = this.phaseForm.get('phaseDuraion')?.value;
-
-      // const newId = this.columns.length
-      //   ? Math.max(...this.columns.map((c) => c.id)) + 1
-      //   : 1;
-      // this.columns.push({ id: newId, phase_name: phaseName });
-      // this.filteredColumns = [...this.columns];
       this.api.creatNewPhase({phaseName:phaseName,phaseDuraion:phaseDuraion}).subscribe(res=>{
         this.phaseForm.reset();
         this.showMessage = true;

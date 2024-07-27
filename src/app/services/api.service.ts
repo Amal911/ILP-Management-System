@@ -31,4 +31,7 @@ export class ApiService {
   createNewBatch(body:any){
     return this.http.post('https://localhost:7009/Batch/CreateNewBatch',body);
   }
+  getBatchCount(){
+    return this.http.get('');
+  }
 }

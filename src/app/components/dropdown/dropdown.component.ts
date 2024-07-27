@@ -1,16 +1,24 @@
+
+
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './dropdown.component.html',
-  styleUrl: './dropdown.component.scss'
+  styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownComponent {
-  @Input() dropDownLabel: string='';
-  @Input() dropDownElements:string[] = [];
+  @Input() dropDownLabel: string = '';
+  @Input() dropDownElements: string[] = [];
+  @Output() selectionChange = new EventEmitter<string>();
+  @Input() isValid:boolean=true;
 
-
+  selectElement(selectedElement: string) {
+    this.dropDownLabel = selectedElement;
+    this.selectionChange.emit(selectedElement);  
+  }
 }
+ 

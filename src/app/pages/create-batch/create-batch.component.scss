@@ -1,28 +1,25 @@
 //Custom CSS
 
-// ::ng-deep .span .p-stepper-number{
-//   z-index: 10;
-//   position: fixed;
-//   margin-top: 20px;
-//   background-color: #fff; 
-//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-
-// }
-// ::ng-deep .p-stepper-separator{
-//   z-index: 10;
-//   position: fixed;
-// }
+.input-error {
+  border: 1px solid red !important;
+}
 
 .container {
   background-color: #ffffff;
-  padding: 0 40px;
+  //padding: 0 10px;
   width: 100%;
-  height: max-content;
+  height: 318px  !important;
+  padding: 1rem 2rem ;
   
 }
+
 .inputBox {
   background-color: #f5faff;
   border-bottom: solid 1px #000000;
+  height: 2rem;
+  border-radius: 0 !important;
+  outline: none !important;
+    box-shadow: none;
 }
 
 .col {
@@ -46,7 +43,7 @@ label {
 #batchTypeId,
 #programId,
 #trainerLeaveApproverDropdown,
-#assessmentTypeId,
+.assessmentTypeId,
 #phaseId {
   appearance: none;
   -webkit-appearance: none;
@@ -55,8 +52,14 @@ label {
     no-repeat right 1rem center/1em auto;
   padding-right: 2.5rem;
   background-color: #f5faff;
-  border-bottom: solid 1px #000
+  border-bottom: solid 1px #000;
+  height: 2rem;
+  border-radius: 0 !important;
+  outline: none !important;
+    box-shadow: none;
+
 }
+
 .dropdown-menu {
   min-width: 100%;
 }
@@ -69,15 +72,6 @@ label {
   border-radius: 2.25rem;
 }
 
-.upload.btn-outline-primary {
-  border: 1px solid #007bff;
-  color: #007bff;
-}
-
-.upload.btn-outline-primary:hover {
-  background-color: #007bff;
-  color: white;
-}
 
 .validation-container {
   display: flex;
@@ -104,8 +98,9 @@ label {
 
 
 //Stepper CSS
+
 .h-12rem {
-  height: 42rem;
+  height: 20rem;
 }
 
 .flex {
@@ -136,16 +131,8 @@ label {
   border-color: var(--surface-border);
 }
 
-.surface-ground {
-  // background-color: var(--surface-ground);
-}
-
 .font-medium {
   font-weight: 500;
-}
-
-.pt-4 {
-  padding-top: 1rem;
 }
 
 .justify-content-center {
@@ -163,18 +150,21 @@ label {
 .justify-content-start {
   justify-content: flex-start;
 }
-.phase-container {
-  // margin-top: 20px;
-  // margin-bottom: 20px;
-}
 
+//Form elements ********************************
 .form-container {
   max-width: 100%;
-  margin: 20px auto;
-  padding: 20px;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+.form-container-one {
+  max-width: 100%;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  //overflow-y: auto;
 }
 .form-container h4,
 .form-container h5 {
@@ -191,9 +181,6 @@ input[type="file"] {
   margin-bottom: 20px;
 }
 
-table {
-  margin-top: 20px;
-}
 
 .phase-container {
   position: relative;
@@ -203,6 +190,7 @@ table {
   padding: 10px;
 }
 
+//Trash Icon ************************************************
 .remove-phase-btn {
   position: absolute;
   top: 10px;
@@ -211,9 +199,40 @@ table {
 }
 .remove-assessment-btn {
   position: relative;
-  // padding-top: 10px;
 }
-//Media Queries
+
+//p-table ************************************************
+table {
+  margin-top: 20px;
+}
+.tabletd
+{
+  padding-top: 0.5rem !important;
+  padding-bottom: 1rem !important;
+  }
+
+  
+
+
+::ng-deep .p-button{
+  background-color: #5576d9; 
+  color: white; 
+  border: 1px solid transparent; 
+  border-radius: 4px; 
+  transition: background-color 0.3s ease; 
+  padding: 0.2rem .5rem;
+  font-size: .9rem;
+}
+
+
+
+::ng-deep .p-stepper .p-stepper-nav{
+  padding-left: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+
+//Media Queries ************************************************
 
 @media (max-width: 1200px) {
   .container {
@@ -296,3 +315,6 @@ table {
   }
 }
 
+.error{
+  font-size: .6rem;
+}

@@ -31,6 +31,7 @@ import {
   MsalService,
 } from '@azure/msal-angular';
 import { LoginComponent } from './pages/login/login.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -48,9 +49,15 @@ export class AppComponent {
 
   ngOnInit() {
     // const user = { name: 'Kavita', role: 'admin' };
-    const user = { name: 'Lekshmi', role: 'trainer' };
-    // const user = { name: 'Thulasi K', role: 'trainee' };
-    this.userService.setCurrentUser(user);
+    // // const user = { name: 'Lekshmi', role: 'trainer' };
+    // // const user = { name: 'Thulasi K', role: 'trainee' };
+    // this.userService.setCurrentUser(user);
+    const userData = JSON.parse( localStorage.getItem("user") as string);
+    let user = {name:userData.UserName,role:userData.roleName}
+    console.log(user);
+    
+    this.authService.setCurrentUser(user);
+
   }
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private authService:AuthService) {}
 }

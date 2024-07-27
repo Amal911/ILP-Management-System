@@ -6,14 +6,19 @@
     padding: 50px;
 }
 
-input{
-  border:  1px solid #5576d9;
+.input-group {
+  width: 100%;
+  margin-bottom: 10px;
+
 }
 
 .add-phase-button{
   width: 90%;
   border: none;
   background-color: #f5faff;
+}
+td{
+  padding: 0px 1rem;
 }
 
 i{
@@ -25,7 +30,20 @@ i{
   color: #000;
   border: none;
   border-radius: 5px;
-  border-bottom: 2px solid #000;}
+  border-bottom: 1px solid #000;}
 td{
   padding: 0 1rem ;
+}
+.input-error{
+  border: 1px solid red;
+}
+.form-control{
+  outline: none !important;
+  box-shadow: none !important;;
+}
+.editing {
+  background-color: #f0f8ff; 
+ .form-control{
+  outline:#5576d9;
+ }
 }

@@ -5,9 +5,10 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { User } from '../../interfaces/user';
 import { Subscription } from 'rxjs';
-import { UserService } from '../../services/user.service';
+// import { UserService } from '../../services/user.service';
 import { EditAccountModalComponent } from "../../components/edit-account-modal/edit-account-modal.component";
 import { ButtonComponent } from '../../components/button/button.component';
+import { UserService } from '../../services/API/user.service';
 
 @Component({
     selector: 'app-account',
@@ -39,21 +40,29 @@ export class AccountComponent {
     constructor(private userService: UserService) { }
 
     ngOnInit(): void {
-        this.subscription.add(
-            this.userService.getUsers().subscribe(
-                (usersData: User | User[]) => {
-                    if (Array.isArray(usersData)) {
-                        this.users = usersData[0]; // Assuming the first item is the correct user data
-                    } else {
-                        this.users = usersData; // Single user data
-                    }
-                    this.updateTableData();
-                },
-                error => {
-                    console.error('Error fetching users:', error);
-                }
-            )
-        );
+
+        this.userService.getUserData().subscribe(res=>{
+            console.log(res);
+            
+        })
+
+        // this.subscription.add(
+        //     this.userService.getUsers().subscribe(
+        //         (usersData: User | User[]) => {
+        //             console.log(usersData);
+                    
+        //             if (Array.isArray(usersData)) {
+        //                 this.users = usersData[0]; // Assuming the first item is the correct user data
+        //             } else {
+        //                 this.users = usersData; // Single user data
+        //             }
+        //             this.updateTableData();
+        //         },
+        //         error => {
+        //             console.error('Error fetching users:', error);
+        //         }
+        //     )
+        // );
 
         this.roleControl.valueChanges.subscribe(role => {
             this.showYearSelect = (role === 'Trainee');

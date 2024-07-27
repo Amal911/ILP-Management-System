@@ -20,6 +20,7 @@ import { NgModule } from '@angular/core';
 import { DropdownComponent } from '../../components/dropdown/dropdown.component';
 import { ApiService } from '../../services/api.service';
 import { TableModule } from 'primeng/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-batch',
@@ -94,8 +95,7 @@ export class CreateBatchComponent {
       return value > 0 ? null : { invalidDays: true };
     };
   }
-  
-  constructor(private fb: FormBuilder, private api: ApiService) {}
+  constructor(private fb: FormBuilder, private api: ApiService,private route:Router) {}
 
   ngOnInit(): void {
     this.api.getBatchType().subscribe((res) => {
@@ -366,6 +366,7 @@ export class CreateBatchComponent {
     console.log(batchData);
     this.api.createNewBatch(batchData).subscribe((res) => {
       console.log(res);
+      this.route.navigate(['/team/113/user/ganesh']);
     });
   }
 

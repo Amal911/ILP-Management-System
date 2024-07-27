@@ -5,6 +5,7 @@ import { DropdownComponent } from "../../components/dropdown/dropdown.component"
 import { ScheduleService } from '../../services/schedule.service';
 import { timestamp } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
+import { BatchService } from '../../services/API/batch.service';
 
 @Component({
     selector: 'app-create-schedule',
@@ -15,15 +16,9 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class CreateScheduleComponent {
 
-  batches=[{
-    name:"Batch 1"
-  },{
-    name:"Batch 2"
-  },{
-    name:"Batch 3"
-  }];
+  batches:any=[];
 
-  programs=[{
+  programs:any=[{
     name:"Program 1"
   },{
     name:"Program 2"
@@ -60,9 +55,14 @@ export class CreateScheduleComponent {
   });
 
 
-  constructor(private formBuilder: FormBuilder,private scheduleSevice:ScheduleService,private router:Router) { }
+  constructor(private formBuilder: FormBuilder,private scheduleSevice:ScheduleService,private router:Router,private batchService:BatchService) { }
 
   ngOnInit(): void {
+    this.batchService.getProgram().subscribe(res=>{
+      this.programs = res;
+      console.log(this.programs);
+      
+    })
   }
 
 
@@ -101,5 +101,14 @@ export class CreateScheduleComponent {
       // Mark all fields as touched to display validation messages
       this.createScheduleForm.markAllAsTouched();
     }
+  }
+
+  getBatch(event:any){
+    console.log(event);
+    this.batchService.getBatchByProgram(event).subscribe(res=>{
+      console.log(res);
+      this.batches = res;
+      
+    })
   }
 }

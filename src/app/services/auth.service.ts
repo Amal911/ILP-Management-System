@@ -15,15 +15,23 @@ export class AuthService {
   // private currentUser: {name:string, role: string }={name:"Lekshmi", role:"Trainer"};
   // private currentUser: {name:string, role: string }={name:"Thulasi", role:"Trainee"};
 
+
   login(user: { name: string; role: string }) {
     this.currentUser = user;
+    console.log(user);
+    
   }
 
   getCurrentUserRole(): string {
     return this.currentUser.role;
   }
-  getCurrentUser() {
+  getCurrentUser():{ name: string; role: string } {
+
+
     return this.currentUser;
+  }
+  setCurrentUser(user: any) {
+    this.currentUser = user;
   }
 
   isAdmin(): boolean {

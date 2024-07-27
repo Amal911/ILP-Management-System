@@ -16,16 +16,18 @@ export class TopbarComponent {
   userName: string = '';
 
   constructor(
-    private userService: UserService,
-    private msalAuthService: MsalService,
-    private authService: AuthService
+    private userService: AuthService,
+    private authService: MsalService,
+    
+    // private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.userName = this.authService.getCurrentUser().name;
+    // this.userName = this.userService.getUserName();
+    this.userName = this.userService.getCurrentUser().name;
   }
 
   logout() {
-    this.msalAuthService.logoutRedirect();
+    this.authService.logoutRedirect();
   }
 }

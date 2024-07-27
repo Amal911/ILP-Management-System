@@ -28,7 +28,7 @@ import { LoginComponent } from './pages/login/login.component';
 export const routes: Routes = [
 
 
-    {path:'',component:AdminDashboardComponent, canActivate: [AuthGuard], data: { roles: ['Admin','Trainer','Trainee'] }},
+    {path:'',component:AdminDashboardComponent, canActivate: [MsalGuard,AuthGuard], data: { roles: ['Admin','Trainer','Trainee'] }},
     // {path:'',loadChildren: () => import('./pages/admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent)},
     {path:'account', component:AccountComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},
     {path:'scorecard',component:DashboardScorecardComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer','Trainee'] }},      //amal
@@ -51,16 +51,16 @@ export const routes: Routes = [
     { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] } },//thulasi
     
     
+    // {path:'',component:AdminDashboardComponent, canActivate: [MsalGuard]},
     // Trainee
     
     {path:'assessment/handed/id',component:HandedInAssignmentsComponent},
-    { path: '**', component: NotFoundComponent }
+    // { path: '**', component: NotFoundComponent }
 
 
-    
+
     
     // {path:'',component:AdminDashboardComponent},
-    // {path:'',component:AdminDashboardComponent, canActivate: [MsalGuard]},
     // {path:'',component:LoginComponent},
     // {path:'account', component:AccountComponent},
     // {path:'scorecard',component:DashboardScorecardComponent },      //amal
@@ -83,7 +83,7 @@ export const routes: Routes = [
     // {path:'batch/create-phase',component:BatchCreatePhaseTableComponent}, //jisna
     // { path: 'handed-in', component: AssessmentHandedinComponent },//thulasi
     // { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent },//thulasi
-    // { path: '**', redirectTo: '/login' },
+    // { path: '**', redirectTo: '/login' },    
 
     // { path: '**', redirectTo: '/batches' }
 

@@ -39,8 +39,13 @@ export class LoginComponent {
           
           // Pass the token to the auth service
           this.authService.getUserRole(response.accessToken).subscribe(
-            (userRole) => {
-              console.log('User role', userRole);
+            (userData) => {
+              console.log('User role', userData);
+              localStorage.setItem("user",JSON.stringify(userData));
+              let user = {name:userData.UserName,role:userData.roleName};
+              console.log(user);
+              
+              this.authService.setCurrentUser(user);
               // Navigate based on the user role
               // if (userRole.roleName === 'Admin') {
               //   this.router.navigate(['/admin']);
@@ -60,8 +65,9 @@ export class LoginComponent {
 
   ngOnInit(): void {
 
-    const user = { name: 'DCruz', role: 'trainee' };
-    this.userService.setCurrentUser(user);
+    // const userData = JSON.parse( localStorage.getItem("user") as string);
+    // let user = {name:userData.UserName,role:userData.roleName}
+    // this.userService.setCurrentUser(user);
 
 
     this.loginForm = new FormGroup({

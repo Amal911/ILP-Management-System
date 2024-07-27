@@ -27,12 +27,14 @@ export class SidebarComponent{
 
   ngOnInit() {
     this.userRole = this.authService.getCurrentUserRole();
+    console.log(this.userRole);
+    
   }
 
   getSidebarItems() {
     const sidebarItems: SidebarItems = {
       admin: [
-        { name: 'Home', link: 'dashboard', icon: 'fa-solid fa-house' },
+        { name: 'Home', link: '', icon: 'fa-solid fa-house' },
         // { name: 'Curriculum', link: '/', icon: 'fa-solid fa-book-bookmark' },
         { name: 'Schedule', link: 'schedule', icon: 'bi bi-calendar-week-fill' },
         { name: 'Batches', link: 'batches', icon: 'fa-solid fa-users' },
@@ -40,7 +42,7 @@ export class SidebarComponent{
         { name: 'Leave Requests', link: 'leave', icon: 'bi bi-briefcase-fill' }
       ],
       trainer: [
-        { name: 'Home', link: 'dashboard', icon: 'fa-solid fa-house' },
+        { name: 'Home', link: '', icon: 'fa-solid fa-house' },
         { name: 'Schedule', link: 'schedule', icon: 'bi bi-calendar-week-fill' },
         { name: 'Batches', link: 'batches', icon: 'fa-solid fa-users' },
         { name: 'Assessments', link: 'assessments', icon: 'bi bi-list-task' },
@@ -48,7 +50,7 @@ export class SidebarComponent{
         { name: 'Leave Requests', link: 'leave', icon: 'bi bi-briefcase-fill' }
       ],
       trainee: [
-        { name: 'Home', link: 'dashboard', icon: 'fa-solid fa-house' },
+        { name: 'Home', link: '', icon: 'fa-solid fa-house' },
         { name: 'Schedule', link: 'schedule', icon: 'fa-solid fa-calendar-days' },
         { name: 'Assessments', link: 'assessments', icon: 'bi bi-list-task' },
         { name: 'Online Assessments', link: 'assessments/online', icon: 'fa-solid fa-clipboard-list' },
@@ -57,6 +59,6 @@ export class SidebarComponent{
     };
 
 
-    return sidebarItems[this.userRole] || [];
+    return sidebarItems[this.userRole.toLowerCase()] || [];
   }
 }

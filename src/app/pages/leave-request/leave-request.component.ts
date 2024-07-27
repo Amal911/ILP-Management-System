@@ -112,90 +112,86 @@ export class LeaveRequestComponent  implements OnInit {
   //     is_pending: false
   //   }
   // ];
-  // constructor(private datePipe:DatePipe) { }
+  
+  constructor(private datePipe:DatePipe,
+    private leaveService: LeaveService
+  ) { 
+    this.loadLeaveRequests();
+  }
 
 
-  // ngOnInit() {
+  ngOnInit() {
+
+    this.getLeaveRequests();
 
 
-  //   this.filteredLeaveRequests = this.LeaveRequests.filter(request => !request.is_pending);
+    this.filteredLeaveRequests = this.LeaveRequests.filter(request => !request.is_pending);
 
-  //   this.LeaveRequests.forEach(request => {
-  //     request.no_of_days = this.calculateDaysBetween(request.leave_date_from, request.leave_date_to);
-  //     request.leave_date_from = this.formatDate(request.leave_date_from);
-  //     request.leave_date_to = this.formatDate(request.leave_date_to);
-  //     request.leave_date = this.formatDate(request.leave_date);
-  //   });
+    this.LeaveRequests.forEach(request => {
+      request.no_of_days = this.calculateDaysBetween(request.leave_date_from, request.leave_date_to);
+      request.leave_date_from = this.formatDate(request.leave_date_from);
+      request.leave_date_to = this.formatDate(request.leave_date_to);
+      request.leave_date = this.formatDate(request.leave_date);
+    });
 
+  }
 
-
-  // }
-
-  // calculateDaysBetween(startDate: string, endDate: string): number {
-  //   const start = new Date(startDate);
-  //   const end = new Date(endDate);
-  //   const timeDiff = end.getTime() - start.getTime();
-  //   const dayDiff = timeDiff / (1000 * 3600 * 24) + 1;
-  //   return dayDiff;
-  // }
+  calculateDaysBetween(startDate: string, endDate: string): number {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const timeDiff = end.getTime() - start.getTime();
+    const dayDiff = timeDiff / (1000 * 3600 * 24) + 1;
+    return dayDiff;
+  }
 
 
-  // formatDate(date: string): string {
-  //   const formattedDate = this.datePipe.transform(date, 'MMM d, y');
-  //   return formattedDate || '';
-  // }
+  formatDate(date: string): string {
+    const formattedDate = this.datePipe.transform(date, 'MMM d, y');
+    return formattedDate || '';
+  }
 
 
-  // selectedLeave: any;
+  selectedLeave: any;
 
 
-  // openModal(leave: any) {
-  //   this.selectedLeave = leave;
-  // constructor(private leaveService: LeaveService) {
-  //   this.loadLeaveRequests();
-  // }
+  openModal(leave: any) {
+    this.selectedLeave = leave;
+  }
 
-  // loadLeaveRequests() {
-  //   this.leaveService.getLeaveRequests().subscribe((leaves: any[]) => {
-  //     this.LeaveRequests = leaves;
-  //     this.pendingLeaveRequests = leaves.filter(leave => leave.isPending);
-  //     this.leaveRequestHistory = leaves.filter(leave => !leave.isPending);
-  //   });
-  // }
+  loadLeaveRequests() {
+    this.leaveService.getLeaveRequests().subscribe((leaves: any[]) => {
+      this.LeaveRequests = leaves;
+      this.pendingLeaveRequests = leaves.filter(leave => leave.isPending);
+      this.leaveRequestHistory = leaves.filter(leave => !leave.isPending);
+    });
+  }
 
-  // openModal(leaves: any) {
-  //   this.selectedLeave = leaves;
-  // }
+  getLeaveRequests() {
+    this.leaveService.getLeaveRequests().subscribe((data: any) => {
+      this.LeaveRequests = data;
+    });
+  }
 
-  // ngOnInit() {
-  //   this.getLeaveRequests();
-  // }
+  approveLeave(leave: any) {
+    const approvalData = {
+      userId: leave.userId,
+      isApproved: true
+    };
+    this.leaveService.updateApprovalStatus(leave.id, approvalData).subscribe(() => {
+      this.getLeaveRequests();
+    });
+  }
 
-  // getLeaveRequests() {
-  //   this.leaveService.getLeaveRequests().subscribe((data: any) => {
-  //     this.leaveRequests = data;
-  //   });
-  // }
-
-  // approveLeave(leave: any) {
-  //   const approvalData = {
-  //     userId: leave.userId,
-  //     isApproved: true
-  //   };
-  //   this.leaveService.updateApprovalStatus(leave.id, approvalData).subscribe(() => {
-  //     this.getLeaveRequests();
-  //   });
-  // }
-
-  // rejectLeave(leave: any) {
-  //   const approvalData = {
-  //     userId: leave.userId,
-  //     isApproved: false
-  //   };
-  //   this.leaveService.updateApprovalStatus(leave.id, approvalData).subscribe(() => {
-  //     this.getLeaveRequests();
-  //   });
-  // }
+  rejectLeave(leave: any) {
+    const approvalData = {
+      userId: leave.userId,
+      isApproved: false
+    };
+    this.leaveService.updateApprovalStatus(leave.id, approvalData).subscribe(() => {
+      this.getLeaveRequests();
+    });
+  }
+}
 
   // LeaveRequests = [
   //   {
@@ -284,4 +280,4 @@ export class LeaveRequestComponent  implements OnInit {
   //   }
   // ];
 
-}
+

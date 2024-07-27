@@ -52,7 +52,8 @@ export const routes: Routes = [
     { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent },//thulasi
 
     // Trainee
-    {path:'assessment/handed/id',component:HandedInAssignmentsComponent},
+    {path:'assessment/handed/id',component:HandedInAssignmentsComponent},//jisna
+
 
 
     { path: '**', component: NotFoundComponent }

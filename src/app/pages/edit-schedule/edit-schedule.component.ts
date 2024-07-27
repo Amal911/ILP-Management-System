@@ -83,15 +83,15 @@ export class EditScheduleComponent {
     this.fetchSchedule();
   }
   public createScheduleForm = new FormGroup({
-    program: new FormControl({ value: '', disabled: true },[Validators.required]),
-    batch: new FormControl({ value: '', disabled: true },[Validators.required]),
-    title: new FormControl({ value: '', disabled: true },[Validators.required]),
-    date: new FormControl({ value: '', disabled: true },[Validators.required]),
-    description: new FormControl({ value: '', disabled: true },[Validators.required]),
-    startTime: new FormControl({ value: '', disabled: true },[Validators.required]),
-    endTime: new FormControl({ value: '', disabled: true },[Validators.required]),
-    module: new FormControl({ value: '', disabled: true },[Validators.required]),
-    trainer: new FormControl({ value: '', disabled: true },[Validators.required]),
+    program: new FormControl({ value: '', disabled: false},[Validators.required]),
+    batch: new FormControl({ value: '', disabled: false},[Validators.required]),
+    title: new FormControl({ value: '', disabled: false},[Validators.required]),
+    date: new FormControl({ value: '', disabled: false},[Validators.required]),
+    description: new FormControl({ value: '', disabled: false},[Validators.required]),
+    startTime: new FormControl({ value: '', disabled: false},[Validators.required]),
+    endTime: new FormControl({ value: '', disabled: false},[Validators.required]),
+    module: new FormControl({ value: '', disabled: false},[Validators.required]),
+    trainer: new FormControl({ value: '', disabled: false},[Validators.required]),
   });
 
   fetchSchedule(){

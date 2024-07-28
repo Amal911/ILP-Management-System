@@ -4,28 +4,58 @@ import { AppliedleaveCardsComponent } from '../../components/appliedleave-cards/
 import { ApplyleavemodalComponent } from '../../components/applyleavemodal/applyleavemodal.component';
 import { LeaveService } from '../../services/API/leave.service';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { UserService } from '../../services/API/user.service';
 
 @Component({
   selector: 'app-trainee-leave-request',
   standalone: true,
   imports: [ButtonComponent, AppliedleaveCardsComponent, ApplyleavemodalComponent],
   templateUrl: './trainee-leave-request.component.html',
-  styleUrl: './trainee-leave-request.component.scss'
+  styleUrl: './trainee-leave-request.component.scss',
+  providers: [DatePipe]
 })
 export class TraineeLeaveRequestComponent {
 
   LeaveRequests:any[] = [];
-  constructor(private router: Router, private leaveService: LeaveService) {}
+  pendingLeaveRequests: any[] = [];
+  leaveRequestHistory: any[] = [];
+  traineeName: string =''
+  constructor(private datePipe: DatePipe, private router: Router, private leaveService: LeaveService, private userService: UserService) {}
 
   ngOnInit(): void{
+    const trainee = JSON.parse(localStorage.getItem('user') || '{}');
+    this.traineeName = trainee.UserName;
     this.loadAppliedLeaves();
   }
 
   loadAppliedLeaves(): void{
-    this.leaveService.getappliedLeaves().subscribe(data => {
-      this.LeaveRequests = data;
+    this.leaveService.getappliedLeaves().subscribe(async (data: any[]) => {
+      for (let leaveRequest of data) {
+        if (leaveRequest.traineeId) {
+          const trainee = await this.userService.getUserById(leaveRequest.traineeId).toPromise();
+          leaveRequest.traineeName = `${trainee.firstName} ${trainee.lastName}`;
+          console.log(trainee)
+        }
+      }
+    // this.leaveService.getappliedLeaves().subscribe((data: any[]) => {
+    //   this.LeaveRequests = data;
+      this.LeaveRequests = data.filter(leave => leave.traineeName === this.traineeName);
+      this.pendingLeaveRequests = data.filter(leave => leave.isPending);
+      this.leaveRequestHistory = data.filter(leave => !leave.isPending);
+      this.LeaveRequests.forEach(request => {
+        request.leaveDateFrom = this.formatDate(request.leaveDateFrom);
+        request.leaveDateTo = this.formatDate(request.leaveDateTo);
+        request.leaveDate = this.formatDate(request.leaveDate);
+        request.createdDate = this.formatDate(request.createdDate);
+      })
     },
   error =>{console.error('Error:', error)})
+  }
+
+  formatDate(date: string): string {
+    const formattedDate = this.datePipe.transform(date, 'MMMM d, y');
+    return formattedDate || '';
   }
 
   // LeaveRequests = [

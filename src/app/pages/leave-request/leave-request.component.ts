@@ -16,11 +16,11 @@ import { FormBuilder } from '@angular/forms';
   standalone: true,
   templateUrl: './leave-request.component.html',
   styleUrl: './leave-request.component.scss',
-  imports: [DropdownComponent, ButtonComponent, ListingCardComponent, LeaveRequestCardComponent, LeaveviewmodalComponent, TableModule,NgIf],
+  imports: [DropdownComponent, ButtonComponent, ListingCardComponent, LeaveRequestCardComponent, LeaveviewmodalComponent, TableModule, NgIf],
   providers: [DatePipe]
 
 })
-export class LeaveRequestComponent  implements OnInit {
+export class LeaveRequestComponent implements OnInit {
 
   filteredLeaveRequests: any[] = [];
   pendingLeaveRequests: any[] = [];
@@ -58,14 +58,17 @@ export class LeaveRequestComponent  implements OnInit {
 
   loadLeaveRequests() {
     this.leaveService.getLeaveRequests().subscribe((leaves: any[]) => {
-      this.pendingLeaveRequests = leaves.filter(leave => leave.is_pending);
-      this.leaveRequestHistory = leaves.filter(leave => !leave.is_pending);
+      this.LeaveRequests = leaves;
+      const loggedInUserId = this.getLoggedInUserId(); // Add this method to get the logged-in user ID
+      this.pendingLeaveRequests = leaves.filter(leave => leave.isPending && leave.pocIds.includes(loggedInUserId));
+      this.leaveRequestHistory = leaves.filter(leave => !leave.isPending && leave.pocIds.includes(loggedInUserId));
       this.filteredLeaveRequests = this.leaveRequestHistory;
       this.LeaveRequests.forEach(request => {
-        request.no_of_days = this.calculateDaysBetween(request.leave_date_from, request.leave_date_to);
-        request.leave_date_from = this.formatDate(request.leave_date_from);
-        request.leave_date_to = this.formatDate(request.leave_date_to);
-        request.leave_date = this.formatDate(request.leave_date);
+        request.no_of_days = this.calculateDaysBetween(request.leaveDateFrom, request.leaveDateTo);
+        request.leaveDateFrom = this.formatDate(request.leaveDateFrom);
+        request.leaveDateTo = this.formatDate(request.leaveDateTo);
+        request.leaveDate = this.formatDate(request.leaveDate);
+        request.createdDate = this.formatDate(request.createdDate);
       });
     });
   }
@@ -101,93 +104,99 @@ export class LeaveRequestComponent  implements OnInit {
     this.loadLeaveRequests();
   }
 
+  private getLoggedInUserId(): number {
+    // Implement this method to get the logged-in user's ID from the local storage or authentication service
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.UserId;
+  }
+
 }
 
-  // LeaveRequests = [
-  //   {
-  //     name: 'Amal E A',
-  //     batch_name: 'ILP Batch 03 2023-24',
-  //     description: 'Blah blah blah blah',
-  //     days:'1',
-  //     leave_date: '2023-06-12',
-  //     leave_date_from: '2024-07-11',
-  //     leave_date_to: '2024-07-12',
-  //     requested_date: '2024-07-01',
-  //     reason: 'Sick Leave',
-  //     is_approved_trainer: true,
-  //     is_approved_l_and_d: false,
-  //     is_pending: true
-  //   },
-  //   {
-  //     name: 'Devipriya MS',
-  //     batch_name: 'ILP Batch 03 2023-24',
-  //     description: 'what to write here !!!!!!',
-  //     days:'3',
-  //     leave_date: '2023-06-12',
-  //     leave_date_from: '2024-07-11',
-  //     leave_date_to: '2024-07-13',
-  //     requested_date: '2024-07-01',
-  //     reason: 'Sick Leave',
-  //     is_approved_trainer: true,
-  //     is_approved_l_and_d: false,
-  //     is_pending: true
-  //   },
-  //   {
-  //     name: 'Dharsan C Sajeev',
-  //     batch_name: 'ILP Batch 03 2023-24',
-  //     description: 'Hospital Emergency and need a consultation',
-  //     days:'4',
-  //     leave_date: '2023-06-12',
-  //     leave_date_from: '2024-07-11',
-  //     leave_date_to: '2024-07-14',
-  //     requested_date: '2024-07-01',
-  //     reason: 'Sick Leave',
-  //     is_approved_trainer: false,
-  //     is_approved_l_and_d: false,
-  //     is_pending: true
-  //   },
-  //   {
-  //     name: 'Amal E A',
-  //     batch_name: 'ILP Batch 03 2023-24',
-  //     description: 'Hospital Emergency and need a consultation',
-  //     days:'1',
-  //     leave_date: '2023-06-12',
-  //     leave_date_from: '2024-07-11',
-  //     leave_date_to: '2024-07-12',
-  //     requested_date: '2024-07-01',
-  //     reason: 'Sick Leave',
-  //     is_approved_trainer: true,
-  //     is_approved_l_and_d: false,
-  //     is_pending: false
-  //   },
-  //   {
-  //     name: 'Devipriya M S',
-  //     batch_name: 'ILP Batch 03 2023-24',
-  //     description: 'blah blah blah blah',
-  //     days:'1',
-  //     leave_date: '2023-06-12',
-  //     leave_date_from: '2024-07-11',
-  //     leave_date_to: '2024-07-11',
-  //     requested_date: '2024-07-01',
-  //     reason: 'Sick Leave',
-  //     is_approved_trainer: false,
-  //     is_approved_l_and_d: true,
-  //     is_pending: false
-  //   },
-  //   {
-  //     name: 'Reshmi M',
-  //     batch_name: 'ILP Batch 03 2023-24',
-  //     description: 'Hospital Emergency and need a consultation',
-  //     days:'2',
-  //     leave_date: '2023-06-12',
-  //     leave_date_from: '2024-07-11',
-  //     leave_date_to: '2024-07-12',
-  //     requested_date: '2024-07-01',
-  //     reason: 'Sick Leave',
-  //     is_approved_trainer: true,
-  //     is_approved_l_and_d: true,
-  //     is_pending: false
-  //   }
-  // ];
+// LeaveRequests = [
+//   {
+//     name: 'Amal E A',
+//     batch_name: 'ILP Batch 03 2023-24',
+//     description: 'Blah blah blah blah',
+//     days:'1',
+//     leave_date: '2023-06-12',
+//     leave_date_from: '2024-07-11',
+//     leave_date_to: '2024-07-12',
+//     requested_date: '2024-07-01',
+//     reason: 'Sick Leave',
+//     is_approved_trainer: true,
+//     is_approved_l_and_d: false,
+//     is_pending: true
+//   },
+//   {
+//     name: 'Devipriya MS',
+//     batch_name: 'ILP Batch 03 2023-24',
+//     description: 'what to write here !!!!!!',
+//     days:'3',
+//     leave_date: '2023-06-12',
+//     leave_date_from: '2024-07-11',
+//     leave_date_to: '2024-07-13',
+//     requested_date: '2024-07-01',
+//     reason: 'Sick Leave',
+//     is_approved_trainer: true,
+//     is_approved_l_and_d: false,
+//     is_pending: true
+//   },
+//   {
+//     name: 'Dharsan C Sajeev',
+//     batch_name: 'ILP Batch 03 2023-24',
+//     description: 'Hospital Emergency and need a consultation',
+//     days:'4',
+//     leave_date: '2023-06-12',
+//     leave_date_from: '2024-07-11',
+//     leave_date_to: '2024-07-14',
+//     requested_date: '2024-07-01',
+//     reason: 'Sick Leave',
+//     is_approved_trainer: false,
+//     is_approved_l_and_d: false,
+//     is_pending: true
+//   },
+//   {
+//     name: 'Amal E A',
+//     batch_name: 'ILP Batch 03 2023-24',
+//     description: 'Hospital Emergency and need a consultation',
+//     days:'1',
+//     leave_date: '2023-06-12',
+//     leave_date_from: '2024-07-11',
+//     leave_date_to: '2024-07-12',
+//     requested_date: '2024-07-01',
+//     reason: 'Sick Leave',
+//     is_approved_trainer: true,
+//     is_approved_l_and_d: false,
+//     is_pending: false
+//   },
+//   {
+//     name: 'Devipriya M S',
+//     batch_name: 'ILP Batch 03 2023-24',
+//     description: 'blah blah blah blah',
+//     days:'1',
+//     leave_date: '2023-06-12',
+//     leave_date_from: '2024-07-11',
+//     leave_date_to: '2024-07-11',
+//     requested_date: '2024-07-01',
+//     reason: 'Sick Leave',
+//     is_approved_trainer: false,
+//     is_approved_l_and_d: true,
+//     is_pending: false
+//   },
+//   {
+//     name: 'Reshmi M',
+//     batch_name: 'ILP Batch 03 2023-24',
+//     description: 'Hospital Emergency and need a consultation',
+//     days:'2',
+//     leave_date: '2023-06-12',
+//     leave_date_from: '2024-07-11',
+//     leave_date_to: '2024-07-12',
+//     requested_date: '2024-07-01',
+//     reason: 'Sick Leave',
+//     is_approved_trainer: true,
+//     is_approved_l_and_d: true,
+//     is_pending: false
+//   }
+// ];
 
 

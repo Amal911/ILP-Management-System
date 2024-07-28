@@ -7,27 +7,28 @@
             </div>
             <div class="modal-body" *ngIf="leaves">
                 <div class="d-flex">
-                    <div class="me-3">
+                    <div class="me-3 w-50">
                         <p><b>Name</b></p>
                         <p><b>Batch</b></p>
                         <p><b>Reason</b></p>
-                        <p><b>Description</b></p>
-                        <p *ngIf="leaves.days === '1'"><b>Leave Date</b></p>
-                        <p *ngIf="leaves.days !== '1'"><b>Requested From</b></p>
-                        <p *ngIf="leaves.days !== '1'"><b>Requested To</b></p>
+                        <p *ngIf="leaves.numofDays == 1"><b>Leave Date</b></p>
+                        <p *ngIf="leaves.numofDays > 1"><b>Requested From</b></p>
+                        <p *ngIf="leaves.numofDays > 1"><b>Requested To</b></p>
                         <p><b>Requested Date</b></p>
+                        <p><b>Description</b></p>
                     </div>
                     <div>
                         <p>: {{ leaves.name }}</p>
-                        <p>: {{ leaves.batch_name }}</p>
+                        <p>: {{ leaves.batchName }}</p>
                         <p>: {{ leaves.reason }}</p>
+                        <p *ngIf="leaves.numofDays == 1">: {{ leaves.leaveDate }}</p>
+                        <p *ngIf="leaves.numofDays > 1">: {{ leaves.leaveDateFrom }}</p>
+                        <p *ngIf="leaves.numofDays > 1">: {{ leaves.leaveDateTo }}</p>
+                        <p>: {{ leaves.createdDate }}</p>
                         <p>: {{ leaves.description }}</p>
-                        <p *ngIf="leaves.days === '1'">: {{ leaves.LeaveDate }}</p>
-                        <p *ngIf="leaves.days !== '1'">: {{ leaves.LeaveDateFrom }}</p>
-                        <p *ngIf="leaves.days !== '1'">: {{ leaves.LeaveDateTo }}</p>
-                        <p>: {{ leaves.CreatedDate }}</p>
                     </div>
                 </div>
+
                 <form [formGroup]="leaveRequestForm" (ngSubmit)="onSubmit()" *ngIf="showRejectReason">
                     <label for="rejectReason" class="form-label"><b>Remarks</b></label>
                     <textarea class="form-control" id="rejectReason" formControlName="rejectReason"></textarea>

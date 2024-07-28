@@ -9,16 +9,6 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
   private currentUser: any = null;
 
-  //For Leave Management
-  private getUsersRole = 'https://localhost:7009/api/User';
-
-  constructor(private http: HttpClient) {}
-
-  getUsersRoles(): Observable<any> {
-    return this.http.get<any>(this.getUsersRole);
-  }
-  //For Leave Management
-
   setCurrentUser(user: any) {
     this.currentUser = user;
   }

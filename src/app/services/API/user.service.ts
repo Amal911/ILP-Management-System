@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  baseURL:string=`https://localhost:7009/api/User`;
+  baseURL:string=`https://localhost:7009/User`;
   constructor(private http: HttpClient) { }
 
   addNewUser(formData: any): Observable<any> {
@@ -18,4 +18,14 @@ export class UserService {
     const create_API = `${this.baseURL}/GetUsers`;
     return this.http.get<any>(create_API);
   }
+
+  getUsersRoles(): Observable<any> {
+    const populate_poc_dropdown = `${this.baseURL}/GetUsers`;
+    return this.http.get<any>(populate_poc_dropdown);
+  }
+
+  getUserById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}/GetUser/${id}`);
+}
+
 }

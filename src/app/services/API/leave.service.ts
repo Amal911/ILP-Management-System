@@ -23,8 +23,8 @@ export class LeaveService {
     return this.http.get<any[]>(`${this.applyLeave}/leaveRequests`);
   }
 
-  updateApprovalStatus(id: number, approvalData: any): Observable<any> {
-    return this.http.put(`${this.applyLeave}/updateApprovalStatus/${id}`, approvalData);
+  updateApprovalStatus(id: number, LeaveApprovalUpdateDTO: any): Observable<any> {
+    return this.http.put(`${this.applyLeave}/updateApprovalStatus/${id}`, LeaveApprovalUpdateDTO);
   }
 
 }

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
 import { HollowButtonComponent } from '../hollow-button/hollow-button.component';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/API/user.service';
 import { LeaveService } from '../../services/API/leave.service';
 
 declare const bootstrap: any;
@@ -42,6 +42,12 @@ export class ApplyleavemodalComponent {
 
   ngOnInit(): void {
     this.applyLeaveForm.get('days')?.valueChanges.subscribe(() => this.onDaysChange());
+    const userInfo = JSON.parse(localStorage.getItem('user') || '{}');
+    if (userInfo && userInfo.UserName) {
+      this.applyLeaveForm.patchValue({
+        name: userInfo.UserName
+      });
+    }
     // this.userService.getUsersRoles().subscribe(data => {
     //   this.admins = data.admins;
     //   this.trainers = data.trainers;
@@ -51,8 +57,8 @@ export class ApplyleavemodalComponent {
         console.log(data); // Check the data structure
         this.admins = data.admins;
         this.trainers = data.trainers;
-        console.log('Admins:', this.admins);
-        console.log('Trainers:', this.trainers);
+        // console.log('Admins:', this.admins);
+        // console.log('Trainers:', this.trainers);
       },
       error: err => {
         console.error('Error fetching user roles', err);

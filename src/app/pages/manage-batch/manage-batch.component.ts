@@ -7,6 +7,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
+import { ApiService } from '../../services/api.service';
 
 
 @Component({
@@ -21,6 +22,11 @@ export class ManageBatchComponent {
 
   batchForm!:FormGroup;
   isEditable = false;
+  batchtype: any;
+  batchLocation: any;
+  phasesData: any;
+  assessmentType: any;
+
 
   trainees = [
     { name: 'Amal E A' },
@@ -31,20 +37,37 @@ export class ManageBatchComponent {
     { name: 'Reshmi M' },
     { name: 'Thulasi K' },
   ];
-  constructor(private fb: FormBuilder,private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(private fb: FormBuilder,private confirmationService: ConfirmationService, private messageService: MessageService,private api:ApiService) { }
 
+ 
   ngOnInit(): void {
+    this.api.getBatchType().subscribe(res => {
+      this.batchtype = res;
+      console.log(this.batchtype);
+    });
+    this.api.getBatchLocation().subscribe(res => {
+      this.batchLocation = res;
+      console.log(this.batchLocation);
+    });
+    this.api.getPhases().subscribe(res => {
+      this.phasesData = res;
+      console.log(this.phasesData);
+    });
+    this.api.getAssessmentTypes().subscribe(res => {
+      this.assessmentType = res;
+      console.log(this.assessmentType);
+    });
     this.batchForm = this.fb.group({
-      program: new FormControl({ value: 'ILP 2023-24', disabled: true }, [Validators.required]),
+      programId: new FormControl({ value: 'ILP 2023-24', disabled: true }, [Validators.required]),
       status: ['Active'],
       batchCode: new FormControl({ value: 'BAT2324ILP04', disabled: true }, [Validators.required]),
-      numberOfDays: new FormControl({ value: '140', disabled: true }, [Validators.required]),
+      batchDuration: new FormControl({ value: '140', disabled: true }, [Validators.required]),
       batchName: new FormControl({ value: 'ILP-2023-B03', disabled: true }, [Validators.required]),
       startDate: new FormControl({ value: '2024-04-15', disabled: true }, [Validators.required]),
       numberOfTrainees: new FormControl({ value: '38', disabled: true }, [Validators.required]),
       endDate: new FormControl({ value: '2024-08-31', disabled: true }, [Validators.required]),
-      location: new FormControl({ value: 'Trivandrum', disabled: true }, [Validators.required]),
-      batchType: new FormControl({ value: 'Developers', disabled: true }, [Validators.required]),
+      locationId: new FormControl({ value: 'Trivandrum', disabled: true }, [Validators.required]),
+      batchTypeId: new FormControl({ value: 'Developers', disabled: true }, [Validators.required]),
       phases: this.fb.array([
         this.fb.group({
           phaseName: new FormControl({ value: 'Tech Fundamentals', disabled: true }),
@@ -63,7 +86,7 @@ export class ManageBatchComponent {
           ])
         }),
         this.fb.group({
-          phaseName: new FormControl({ value: 'Business Orientation', disabled: true }),
+          phaseId: new FormControl({ value: 'Business Orientation', disabled: true }),
           numberOfDays: new FormControl({ value: '15', disabled: true }),
           phaseStartDate: new FormControl({ value: '2024-07-11', disabled: true }),
           phaseEndDate: new FormControl({ value: '2024-07-25', disabled: true }),

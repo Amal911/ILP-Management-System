@@ -6,16 +6,16 @@
         <div>
           <h1 class="main-title m-auto">CREATE ASSESSMENT</h1>
         </div>
-        <!-- program &batch dropdown  -->
+
         <div class="d-flex gap-4 align-items-center flex-wrap ">
           <div class="group_contents">
             <app-dropdown [dropDownLabel]="ProgramControl.value || 'Choose Program'"
               [isValid]="ProgramControl.valid || !(ProgramControl.dirty || ProgramControl.touched)"
-              [dropDownElements]="['ILP Batch-02', 'ILP Batch-03', 'ILP Batch-04', 'ILP Batch-05']"
+              [dropDownElements]="programNames"
               (selectionChange)="onProgramChange($event)" class="custom-button">
             </app-dropdown>
-
           </div>
+          
 
           <div class="group_contents">
 

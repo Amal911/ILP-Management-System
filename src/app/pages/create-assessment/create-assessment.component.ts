@@ -62,18 +62,15 @@ export class CreateAssessmentComponent implements OnInit {
   submitted = false;
 
   columns: any[] = [
-    { id: 1, trainee_name: 'John Doe', marks: '' },
-    { id: 2, trainee_name: 'DCruz', marks: '' },
-
   ];
   uploadedFiles: any[] = [];
-  phases: any[] = [];
-  assessmentTypes: any[] = [];
+  programs: any[] = [];
   trainers: string[] = [];
   batches: any[] = [];
-
+  batchPhasesData: any[] = [];
+  phases: { id: number, name: string }[] = [];
+  assessmentTypes: { id: number, name: string }[] = [];
   createAssessmentUrl = 'https://localhost:7009/Assessment/CreateAssessment';
-  // marksUrl = 'https://localhost:7009/CompletedAssessments/Create';
 
   constructor(
     private messageService: MessageService,
@@ -93,10 +90,11 @@ export class CreateAssessmentComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.getPhases();
-    this.getAssessmentTypes();
+    this.getPrograms();
+    // this.getBatches();
+    // this.getPhases();
+    // this.getAssessmentTypes();
     this.getTrainers();
-    this.getBatches();
 
     this.assessmentForm = new FormGroup({
       program: new FormControl('', Validators.required),
@@ -132,16 +130,22 @@ export class CreateAssessmentComponent implements OnInit {
       });
   }
 
-  
-
-
   updateMarks(): void {
+    const marksArray = this.assessmentForm.get('marks') as FormArray;
     this.columns.forEach((column, index) => {
-      const marksArray = this.assessmentForm.get('marks') as FormArray;
-      marksArray.at(index).setValue(column.marks);
-      return { id: column.id, marks: column.marks };
+      if (marksArray.length <= index) {
+        marksArray.push(new FormControl(column.marks));
+      } else {
+        marksArray.at(index).setValue(column.marks);
+      }
     });
-
+  }
+  updateMarksFormArray(): void {
+    const marksArray = this.assessmentForm.get('marks') as FormArray;
+    marksArray.clear();
+    this.columns.forEach(() => {
+      marksArray.push(new FormControl(''));
+    });
   }
 
   getDueDateValidators(required: boolean): ValidatorFn[] {
@@ -219,7 +223,7 @@ export class CreateAssessmentComponent implements OnInit {
   }
   
   private appendFormData(formData: FormData, isSubmitable: string): void {
-    const formValue = this.assessmentForm.value;
+    const formValue = this.assessmentForm.value;    
   
     formData.set('BatchId', this.getBatchId(formValue.batch).toString());
     formData.set('PhaseId', this.getPhaseId(formValue.phase).toString());
@@ -227,11 +231,11 @@ export class CreateAssessmentComponent implements OnInit {
     formData.set('Description', formValue.comments);
     formData.set('IsSubmitable', isSubmitable);
     formData.set('AssessmentTypeID', this.getAssessmentTypeId(formValue.evaluationCriteria).toString());
-    formData.set('DueDateTime', formValue.dueDate + 'T00:00:00Z');
     formData.set('UserId', '1');
   
     if (isSubmitable === 'true' && this.uploadedFiles.length > 0) {
       formData.append('Document', this.uploadedFiles[0]);
+      formData.set('DueDateTime', new Date(formValue.dueDate).toISOString());
     }
   }
   
@@ -274,13 +278,19 @@ export class CreateAssessmentComponent implements OnInit {
 
   onProgramChange(selectedValue: string) {
     this.assessmentForm.get('program')?.setValue(selectedValue);
+    this.getBatchesForProgram(this.getProgramId(selectedValue));
   }
 
   onBatchChange(selectedValue: string) {
     this.assessmentForm.get('batch')?.setValue(selectedValue);
+    const batchId = this.getBatchId(selectedValue);
+    this.getBatchPhasesAndAssessmentTypes(batchId);
+    this.getTraineeList(batchId);
   }
-  onPhaseChange(event: any) {
-    this.assessmentForm.get('phase')?.setValue(event);
+
+  onPhaseChange(selectedPhaseName: string) {
+    this.assessmentForm.get('phase')?.setValue(selectedPhaseName);
+    this.populateAssessmentTypes(selectedPhaseName);
   }
 
   onEvaluationCriteriaChange(event: any) {
@@ -290,27 +300,88 @@ export class CreateAssessmentComponent implements OnInit {
   onTrainerChange(event: any) {
     this.assessmentForm.get('trainer')?.setValue(event);
   }
+
+  getPrograms() {
+    this.http
+      .get('https://localhost:7009/api/BatchProgram')
+      .subscribe((data: any) => {
+        this.programs = data;
+        console.log(this.programs);
+        
+      });
+  }
+  getProgramId(programName: string): number {
+    const program = this.programs.find(p => p.programName === programName);
+    return program ? program.id : 0;
+  }
+  getBatchesForProgram(programId: number) {
+    this.http
+      .get(`https://localhost:7009/Batch/GetBatchByProgram/${programId}`)
+      .subscribe((data: any) => {
+        this.batches = data;
+      });
+  }
+
+  get programNames() {
+    return this.programs.map((program) => program.programName);
+  }
+
+  getBatchPhasesAndAssessmentTypes(batchId: number) {
+    this.http
+      .get(`https://localhost:7009/BatchPhase/GetBatchPhasesByBatchId/${batchId}`)
+      .subscribe((data: any) => {
+        this.processBatchPhasesData(data);
+      });
+  }
+
+  processBatchPhasesData(data: any) {
+    this.batchPhasesData = data;
+    
+    this.phases = data.map((phase: any) => ({
+      id: phase.phaseId,
+      name: phase.phaseName
+    }));
+    
+    this.assessmentForm.get('phase')?.setValue('');
+    this.assessmentForm.get('evaluationCriteria')?.setValue('');
+    
+    this.assessmentTypes = [];
+  }
+
+  populateAssessmentTypes(selectedPhaseName: string) {
+    const selectedPhase = this.batchPhasesData.find(phase => phase.phaseName === selectedPhaseName);
+    if (selectedPhase) {
+      this.assessmentTypes = selectedPhase.phaseAssessmentTypes.map((type: any) => ({
+        id: type.assessmentTypeId,
+        name: type.assessmentTypeName
+      }));
+    } else {
+      this.assessmentTypes = [];
+    }
+    this.assessmentForm.get('evaluationCriteria')?.setValue('');
+  }
+
   getPhases() {
     this.http
-      .get('https://localhost:7009/Phase/GetAllPhases')
+      .get('https://localhost:7009/api/Phase')
       .subscribe((data: any) => {
         this.phases = data;
       });
   }
 
   get phaseNames() {
-    return this.phases.map((phase) => phase.phaseName);
+    return this.phases.map(phase => phase.name);
   }
   getAssessmentTypes() {
     this.http
-      .get('https://localhost:7009/AssessmentType/GetAllAssessmentTypes')
+      .get('https://localhost:7009/api/AssessmentType')
       .subscribe((data: any) => {
         this.assessmentTypes = data;
       });
   }
 
   get assessmentTypeNames() {
-    return this.assessmentTypes.map((type) => type.assessmentTypeName);
+    return this.assessmentTypes.map(type => type.name);
   }
 
   getTrainers() {
@@ -343,18 +414,28 @@ export class CreateAssessmentComponent implements OnInit {
   }
 
   getPhaseId(phaseName: string): number {
-    const phase = this.phases.find((p) => p.phaseName === phaseName);
+    const phase = this.phases.find(p => p.name === phaseName);
     return phase ? phase.id : 0;
   }
-
+  
   getAssessmentTypeId(assessmentTypeName: string): number {
-    const type = this.assessmentTypes.find(
-      (t) => t.assessmentTypeName === assessmentTypeName
-    );
-    return type ? type.id : 0;
+    const assessmentType = this.assessmentTypes.find(t => t.name === assessmentTypeName);
+    return assessmentType ? assessmentType.id : 0;
   }
-
   OnTextAreaChange(){
 
+  }
+  getTraineeList(batchId: number) {
+    this.http.get(`https://localhost:7009/Batch/GetTraineeList/TraineeList/${batchId}`)
+      .subscribe((data: any) => {
+        if (data && data.length > 0 && data[0].traineeList) {
+          this.columns = data[0].traineeList.map((trainee: any) => ({
+            id: trainee.id,
+            trainee_name: `${trainee.firstName} ${trainee.lastName}`,
+            marks: ''
+          }));
+          this.updateMarksFormArray();
+        }
+      });
   }
 }

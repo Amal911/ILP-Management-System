@@ -8,8 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService {
   private currentUser: any = null;
-  private apiUrl = 'https://localhost:7009/api';
-
+  private apiUrl = 'https://localhost:7009/';
 
   constructor(private http: HttpClient) { }
 
@@ -93,17 +92,13 @@ export class UserService {
     ]
   }]
 
-  // getUsers(): Observable<User[]> {
-  //   return of(this.users);
-  // }
 
   getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/User`);
+    return this.http.get<any[]>(`${this.apiUrl}User/GetUsers`);
   }
 
   getRoles(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/Role`);
+    return this.http.get<any[]>(`${this.apiUrl}api/Role`);
   }
-
 }
 

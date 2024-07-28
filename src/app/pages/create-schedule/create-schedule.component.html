@@ -115,7 +115,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 mb-3">
+                                <!-- <div class="col-md-6 mb-3">
                                     <div class="form-group mt-3">
                                         <label>Module</label>
                                         <select class="form-control" formControlName="module" name="module">
@@ -133,7 +133,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
 
 
@@ -143,7 +143,7 @@
                                         <select class="form-control" formControlName="trainer" name="trainer">
                                             <option value="">Select Trainer</option>
                                             @for(trainer of trainers;track trainer){
-                                            <option value="{{trainer.name}}">{{trainer.name}}</option>
+                                            <option value="{{trainer.id}}">{{trainer.name}}</option>
 
                                             }
                                         </select>

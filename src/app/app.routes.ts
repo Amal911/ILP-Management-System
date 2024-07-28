@@ -46,9 +46,9 @@ export const routes: Routes = [
     {path:'assessments/online/create',component:OnlineAssessmentCreateComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, // reshmi
     {path:'leave',component:LeaveRequestComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }},
     { path: 'trainee/leave', component: TraineeLeaveRequestComponent, canActivate: [AuthGuard], data: { roles: ['Trainee'] } },
-    {path:'batch/create-phase',component:BatchCreatePhaseTableComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }}, //jisna
+    {path:'phases',component:BatchCreatePhaseTableComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }}, //jisna
     { path: 'handed-in', component: AssessmentHandedinComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] } },//thulasi
-    { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] } },//thulasi
+    { path: 'assessment-criteria', component: BatchCreateEvaluationCriteriaComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] } },//thulasi
     
     
     // {path:'',component:AdminDashboardComponent, canActivate: [MsalGuard]},

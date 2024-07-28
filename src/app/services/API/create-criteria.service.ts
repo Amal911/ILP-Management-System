@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CreateCriteriaService {
-  private getCriteriaUrl='https://localhost:7009/AssessmentType/GetAllAssessmentTypes';
-  private postCriteriaUrl='https://localhost:7009/AssessmentType/AddNewAssessmentType';
-  private deleteCriteriaUrl='https://localhost:7009/AssessmentType';
+  private getCriteriaUrl='https://localhost:7009/api/AssessmentType';
+  private postCriteriaUrl='https://localhost:7009/api/AssessmentType/';
+  private deleteCriteriaUrl='https://localhost:7009/api/AssessmentType';
 
   constructor(private http:HttpClient) { }
 

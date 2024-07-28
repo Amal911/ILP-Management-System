@@ -38,7 +38,7 @@
         <ng-template pTemplate="body" let-trainee let-rowIndex="rowIndex">
           <tr>
             <td>{{ rowIndex + 1 }}</td>
-            <td>{{ trainee.name }}</td>
+            <td>{{ trainee.firstName }}</td> 
             <td><input
               type="checkbox"
               [(ngModel)]="trainee.attendance"

@@ -15,6 +15,7 @@ export class PhaseProgressDashboardComponent {
   phaseProgressOptions: any;
   ngOnInit(): void {
     this.phaseProgressGraph();
+    console.log('PhaseProgressDashboardComponent initialized with:', this.phaseCompletedDays, this.phaseTotaldays);
   }
   phaseProgressGraph() {
     const documentStyle = getComputedStyle(document.documentElement);
@@ -57,4 +58,5 @@ export class PhaseProgressDashboardComponent {
       },
     };
   }
+
 }

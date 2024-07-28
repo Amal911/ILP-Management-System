@@ -17,7 +17,7 @@ export class BatchListingService {
   }
 
   getBatchById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.getBatchById}&{batchId}`);
+    return this.http.get<any>(`${this.getbatchbyId}&{batchId}`);
   }
 
 }

@@ -12,6 +12,8 @@ import { BehaviorSubject } from 'rxjs';
 import { BatchListingService } from '../../services/API/batch-listing.service';
 
 import {BrowserCacheLocation} from "@azure/msal-browser";
+import { SessionService } from '../../services/API/session.service';
+import { BatchService } from '../../services/API/batch.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -32,6 +34,8 @@ export class AdminDashboardComponent implements OnInit {
   //Data of each batches
   phaseCompletedDays: number = 0;
   phaseTotaldays: number = 0;
+  schedule: any = {};
+  currentBatchId: number = 0;
   batches: any[] = [
     {
       batchId:1,
@@ -82,41 +86,20 @@ export class AdminDashboardComponent implements OnInit {
   currentPhaseIndex = this.phases.length - 1;
 
   //Data about the latest schedule of the batch
-  schedule: any = {};
-  currentBatchId: number = 0;
 
-  constructor(private scheduleService: ScheduleService,private batchlistingServices:BatchListingService ) {}
+
+  constructor(private sessionService: SessionService,private batchService:BatchService ) {}
 
   ngOnInit(): void {
-    this.fetchSchedule(this.currentBatchId);
-  }
-
-
-  loadBatchPhaseProgress(batchId: number): void {
-    this.batchlistingServices.getBatchById(batchId).subscribe({
-      next:(data)=>{
-        if(data.isSuccess&&data.result){
-          const batch = data.result[0];
-          const batchPhase=batch.batchPhases[0];
-          console.log('Batch Phase:', batchPhase);
-          this.loadBatchPhaseProgress(batchPhase);
-        }else{
-          console.error('Failed to fetch batch phase progress:', data.message);
-        }
-      },
-      error:(err)=>{
-        console.error('Http Error:', err);
-      }
-    });
-
+    // this.onBatchChange(1);
+    this.onBatchChange(this.batches[0].batchId);
   }
 
 
   fetchSchedule(batchId:number) {
-    this.scheduleService.getTodaysSession(batchId).subscribe({
-
+    this.sessionService.getTodaysSession(batchId).subscribe({
       next: (data) => {
-        console.log('Fetched Data:', data);  // Log the entire response
+        console.log('Fetched Data:', data);
         if (data.isSuccess && data.result) {
           if(data.result.length!=0){
             this.schedule = data.result;
@@ -135,23 +118,84 @@ export class AdminDashboardComponent implements OnInit {
     });}
 
 
+
+
+
+    onBatchChange(batchId: number): void {
+      this.currentBatchId = batchId;
+      this.fetchSchedule(batchId);
+      this.loadBatchPhaseProgress(batchId);
+    }
+    loadBatchPhaseProgress(batchId: number): void {
+      this.batchService.getBatchById(batchId).subscribe({
+        next: (data) => {
+          console.log('Entire Batch Data:', data);
+
+          if (Array.isArray(data) && data.length > 0) {
+            const batchData = data[0];
+            console.log('Batch Data:', batchData);
+
+            const batchPhases = batchData.batchPhases;
+
+            if (batchPhases) {
+              console.log('Batch Phases:', batchPhases);
+
+              if (Array.isArray(batchPhases) && batchPhases.length > 0) {
+                const batchPhase = batchPhases[0];
+                console.log('Batch Phase:', batchPhase);
+                console.log('Start Date:', batchPhase.startDate);
+                console.log('Number of Days:', batchPhase.numberOfDays);
+                this.loadPhaseProgress(batchPhase);
+              } else {
+                console.error('No batch phases found or batch phases array is empty');
+              }
+            } else {
+              console.error('Batch phases property is missing');
+            }
+          } else {
+            console.error('No data received or data is not an array');
+          }
+        },
+        error: (err) => {
+          console.error('HTTP Error:', err);
+        }
+      });
+    }
+
+
+
+
+
+
     loadPhaseProgress(batchPhase: any) {
+
+
       const currentDate = new Date();
       const startDate = new Date(batchPhase.startDate);
-      const endDate = new Date(batchPhase.endDate);
 
-      const daysDiff = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
       const completedDays = Math.ceil((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
 
-      this.phaseCompletedDays = Math.min(completedDays, daysDiff); // Ensure completed days don't exceed total days
-      this.phaseTotaldays = daysDiff;
+      this.phaseCompletedDays = Math.min(completedDays, batchPhase.numberOfDays);
+      this.phaseTotaldays = batchPhase.numberOfDays;
+
+      console.log('Phase Progress:', { phaseCompletedDays: this.phaseCompletedDays, phaseTotaldays: this.phaseTotaldays });
     }
 
 
-    onBatchChange(newBatchId: number): void {
-      this.currentBatchId = newBatchId;
-      this.fetchSchedule(newBatchId);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

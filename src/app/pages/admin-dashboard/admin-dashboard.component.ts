@@ -126,7 +126,7 @@ export class AdminDashboardComponent implements OnInit {
       
     }
 
-    //function to fetch batchlist(fetchSchedule)-details
+    //function to fetch batchlist-details
     fetchBatchDetails(programId:number){
       this.batchService.getBatchByProgram(programId).subscribe({
         next:(data) =>{

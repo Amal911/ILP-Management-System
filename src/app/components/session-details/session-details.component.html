@@ -5,18 +5,21 @@
       <div><button class="btn btn-primary" routerLink="{{editPageLink}}">Edit</button></div>
     </div> 
     <div class="details row">
-      <div class="detail-content col-4">
+      <div class="detail-content col-3">
         <p class="detail-title">Title : {{ session?.session_name }}</p>
       </div>
-      <div class="detail-content col-4">
+      <div class="detail-content col-3">
         <p class="detail-title">Trainer : {{ session?.trainer_name }}</p>
       </div>
-      <div class="detail-content col-4">
+      <div class="detail-content col-3">
         <p class="detail-title">Date : {{ session?.date }}</p>
       </div>
-      <div class="mb-3 detail-content col-4">
+      <div class="mb-3 detail-content col-3">
         <p class="detail-title">Time : {{ session?.start_time }}-{{ session?.end_time }}</p>
       </div>
+    </div>
+    <div class="mb-3 detail-content">
+      <p class="detail-title">Description : {{ session?.sessionDescription }}</p>
     </div>
   </div>
 </div>

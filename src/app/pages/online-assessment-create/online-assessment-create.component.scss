@@ -4,34 +4,30 @@
     color: #27314b;
 }
 .custom-btn-1 {
-    color: #5576D9;
-    background-color: white;
-    border-color: #5576D9;
-    padding: 5px 10px;
-    margin-right: 10px;
-  }
+  color: #5576D9;
+  background-color: white;
+  border-color: #5576D9;
+  height: 30px;
+  width: 120px;
+  font-size: 12px;
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+ 
+}
 .custom-btn-2 {
-    background-color: #5576D9;
-    color: white;
-    border-color: #5576D9;
-    padding: 5px 10px;
-    margin-right: 10px;
-  }
+  background-color: #5576D9;
+  color: white;
+  border-color: #5576D9;
+  height: 30px;
+  width: 120px;
+  font-size: 12px;
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+
+}
 .title-modal{
     color:#6A6A6A
 }
-.validation-message{
-    color: red;
-}
 
 
-@media (max-width: 768px) {
-.title-line {
-      font-size: 24px; 
-    }
-.custom-btn-1, .custom-btn-2 {
-      padding: 3px 6px;
-      font-size: 14px; 
-    }
-  }
-  
+

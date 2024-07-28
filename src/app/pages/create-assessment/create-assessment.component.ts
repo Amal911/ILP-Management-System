@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -20,7 +21,7 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessageService } from 'primeng/api';
 import { DropdownComponent } from '../../components/dropdown/dropdown.component';
-import { SelectDropdownComponent } from '../../components/select-dropdown/select-dropdown.component';
+// import { SelectDropdownComponent } from '../../components/select-dropdown/select-dropdown.component';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
 import { Observable, forkJoin } from 'rxjs';
@@ -130,6 +131,9 @@ export class CreateAssessmentComponent implements OnInit {
         }
       });
   }
+
+  
+
 
   updateMarks(): void {
     this.columns.forEach((column, index) => {
@@ -258,13 +262,13 @@ export class CreateAssessmentComponent implements OnInit {
   }
 
   futureDateValidator(control: AbstractControl): ValidationErrors | null {
-    const selectedDate = new Date(control.value);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const selectedDateTime = new Date(control.value);
+    const now = new Date();
 
-    if (selectedDate < today) {
+    if (selectedDateTime < now) {
       return { futureDate: true };
     }
+
     return null;
   }
 

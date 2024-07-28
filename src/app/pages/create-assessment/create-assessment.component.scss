@@ -1,9 +1,120 @@
 .parent-container {
+ padding: 3rem;
+ background-color: #f5faff;
+}
+
+.form-container {
+  width: 100%;
+  font-size: 1rem;
   padding: 3rem;
-  background-color: #f5faff;
-  }
-  
-  .form-container {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+
+}
+
+.main-title {
+  font-weight: 700;
+  font-size: 30px;
+  color: #27314b;
+}
+.form-select:focus,
+.form-select:active {
+    outline: none !important;
+    box-shadow: none;
+}
+ 
+.form-control:focus,
+.form-control:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.control_form {
+  background-color: #F5FAFF;
+  width: 50%;
+  border: none;
+  border-bottom: 1px solid black;
+  box-sizing: border-box;
+}
+td{
+  padding: 0 1rem;
+  border: 1px solid #00000021;
+}
+
+
+.custom-btn-1 {
+  color: #5576D9;
+  background-color: white;
+  border-color: #5576D9;
+  height: 30px;
+  width: 120px;
+  font-size: 12px;
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+ 
+}
+
+.custom-btn-2 {
+  background-color: #5576D9;
+  color: white;
+  border-color: #5576D9;
+  height: 30px;
+  width: 120px;
+  font-size: 12px;
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+
+}
+
+.validation-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+
+
+.form-control:active{
+  border: none;
+}
+
+.marks-input{
+
+  border:1px solid #6A6A6A;
+  border-radius:0.25rem;
+  padding: 0.375rem 0.75rem;
+}
+
+::ng-deep.p-button{
+  margin-right: 1rem;
+ 
+
+ 
+  background: #5576D9;
+}
+span.p-ripple.p-element.p-button.p-component.p-fileupload-choose{
+  margin-top: 2rem;
+  padding: 0px !important;
+ 
+ 
+}
+::ng-deep .p-button.p-element{
+  font-size: 12px;
+  padding: 0.23rem 0.5rem;
+}
+::ng-deep .span{
+padding-left: 1rem;
+gap:2rem;
+}
+.invalid-field {
+  border-color: red;
+  border-width: 1px;
+  border-style: solid;
+}
+@media (max-width: 768px) {
+
+   .control_form {
     width: 100%;
     font-size: 1rem;
     padding: 3rem;
@@ -12,113 +123,7 @@
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   
   }
-  
-  .main-title {
-    font-weight: 700;
-    font-size: 30px;
-    color: #27314b;
-  }
-  .form-select:focus,
-  .form-select:active {
-      outline: none !important;
-      box-shadow: none;
-  }
-  
-  .form-control:focus,
-  .form-control:active {
-      outline: none !important;
-      box-shadow: none;
-  }
-  
-  .control_form {
-    background-color: #F5FAFF;
-    width: 50%;
-    border: none;
-    border-bottom: 1px solid black;
-    box-sizing: border-box;
-  }
-  td{
-    padding: 0 1rem;
-    border: 1px solid #00000021;
-  }
-  
-  
-  .custom-btn-1 {
-    color: #5576D9;
-    background-color: white;
-    border-color: #5576D9;
-    height: 30px;
-    width: 120px;
-    font-size: 12px;
-    text-align: center;
-    padding: 0.25rem 0.5rem;
-  
-  }
-  
-  .custom-btn-2 {
-    background-color: #5576D9;
-    color: white;
-    border-color: #5576D9;
-    height: 30px;
-    width: 120px;
-    font-size: 12px;
-    text-align: center;
-    padding: 0.25rem 0.5rem;
-  
-  }
-  
-  .validation-message {
-    color: red;
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
-  }
-  
-  
-  
-  .form-control:active{
-    border: none;
-  }
-  
-  .marks-input{
-  
-    border:1px solid #6A6A6A;
-    border-radius:0.25rem;
-    padding: 0.375rem 0.75rem;
-  }
-  
-  ::ng-deep.p-button{
-    margin-right: 1rem;
-  
-  
-  
-    background: #5576D9;
-  }
-  span.p-ripple.p-element.p-button.p-component.p-fileupload-choose{
-    margin-top: 2rem;
-    padding: 0px !important;
-  
-  
-  }
-  ::ng-deep .p-button.p-element{
-    font-size: 12px;
-    padding: 0.23rem 0.5rem;
-  }
-  ::ng-deep .span{
-  padding-left: 1rem;
-  gap:2rem;
-  }
-  .invalid-field {
-    border-color: red;
-    border-width: 1px;
-    border-style: solid;
-  }
-  @media (max-width: 768px) {
-  
-     .control_form {
-      width: 100%;
-    }
-  
-  }
-  
-  
-   
+
+}
+
+

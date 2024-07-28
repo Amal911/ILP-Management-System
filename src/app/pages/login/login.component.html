@@ -1,4 +1,6 @@
-<div class="row login-page">
+
+@if(!loginDisplay){
+    <div class="row login-page">
     <div class="col image-container h-100">
         <img src="images/Rectangle 3.svg" alt="firstLogin SVG" class="svg-image first-image">
         <img src="images/Rectangle 9.svg" alt="secondLogin SVG" class="svg-image second-image">
@@ -31,13 +33,19 @@
                     </div>
                 </div>
                 <div class="form-group d-flex justify-content-center">
-                    <input class="btn btn-primary" type="submit" value="LOGIN">
+                    <input class="btn btn-primary" type="submit" value="LOGIN" (click)="login()">
                 </div>
+                <div class="ms d-flex text-center"><p>Login using<span><button><img src="images/msoffice.png" alt="" (click)="login()" id="msimage"></button></span></p></div>
+
             </form>
         </div>
     </div>
 </div>
+}
 
 
-<!-- @if ((loginForm.controls.username.touched || submitted)
-&&loginForm.controls.username.errors?.required) -->
+
+@if (loginDisplay) {
+    <!-- @if (!isIframe) { -->
+    <app-main-layout />}
+    <!-- } -->

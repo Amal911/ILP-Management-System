@@ -9,7 +9,6 @@
         <!-- program &batch dropdown  -->
         <div class="d-flex gap-4 align-items-center flex-wrap ">
           <div class="group_contents">
-
             <app-dropdown [dropDownLabel]="ProgramControl.value || 'Choose Program'"
               [isValid]="ProgramControl.valid || !(ProgramControl.dirty || ProgramControl.touched)"
               [dropDownElements]="['ILP Batch-02', 'ILP Batch-03', 'ILP Batch-04', 'ILP Batch-05']"
@@ -36,7 +35,6 @@
           [ngClass]="{'invalid-field': titleControl.invalid && titleControl.touched}" formControlName="title"
           placeholder="Title" required>
         <div *ngIf="titleControl?.touched && titleControl?.invalid" class="validation-message">
-
           <div *ngIf="titleControl?.errors?.['minlength']">* Title must be at least 3 characters long.</div>
         </div>
       </div>
@@ -94,13 +92,13 @@
 
       <div class="form-group group_contents" *ngIf="assessmentForm?.get('submissionRequired')?.value === 'true'">
         <label for="dueDate">Due by</label>
-        <input type="date" class="form-control control_form"
+        <input type="datetime-local" class="form-control control_form"
           [ngClass]="{'invalid-field': dueDateControl.invalid && dueDateControl.touched}" name="dueDateControl"
           formControlName="dueDate" placeholder="dd/mm/yyyy"
           [required]="assessmentForm.get('submissionRequired')?.value === 'true'">
         <div *ngIf="dueDateControl?.invalid && dueDateControl?.touched" class="validation-message">
-
-          <div *ngIf="dueDateControl?.errors?.['futureDate']">* The date must be today or in the future.</div>
+       
+          <div *ngIf="dueDateControl?.errors?.['futureDate']">* The date and time must be today or later.</div>
         </div>
         <div class="card flex justify-content-center upload-file mt-3">
           <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"

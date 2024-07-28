@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  baseURL:string=`https://localhost:7009/User`;
+  baseURL:string=`https://localhost:7009/api/User`;
   constructor(private http: HttpClient) { }
 
   addNewUser(formData: any): Observable<any> {

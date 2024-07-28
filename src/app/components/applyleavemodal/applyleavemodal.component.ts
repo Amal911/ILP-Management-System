@@ -42,9 +42,21 @@ export class ApplyleavemodalComponent {
 
   ngOnInit(): void {
     this.applyLeaveForm.get('days')?.valueChanges.subscribe(() => this.onDaysChange());
-    this.userService.getUsersRoles().subscribe(data => {
-      this.admins = data.admins;
-      this.trainers = data.trainers;
+    // this.userService.getUsersRoles().subscribe(data => {
+    //   this.admins = data.admins;
+    //   this.trainers = data.trainers;
+    // });
+    this.userService.getUsersRoles().subscribe({
+      next: data => {
+        console.log(data); // Check the data structure
+        this.admins = data.admins;
+        this.trainers = data.trainers;
+        console.log('Admins:', this.admins);
+        console.log('Trainers:', this.trainers);
+      },
+      error: err => {
+        console.error('Error fetching user roles', err);
+      }
     });
   }
 

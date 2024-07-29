@@ -21,7 +21,7 @@ export class ApplyleavemodalComponent {
   admins: any[] = [];
   trainers: any[] = [];
   // selectedPocNames: string = '';
-
+  userInfo:any;
   constructor(private fb: FormBuilder, private userService: UserService, private leaveService: LeaveService) {
     this.applyLeaveForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -43,6 +43,7 @@ export class ApplyleavemodalComponent {
   ngOnInit(): void {
     this.applyLeaveForm.get('days')?.valueChanges.subscribe(() => this.onDaysChange());
     const userInfo = JSON.parse(localStorage.getItem('user') || '{}');
+    this.userInfo = userInfo;
     if (userInfo && userInfo.UserName) {
       this.applyLeaveForm.patchValue({
         name: userInfo.UserName
@@ -127,6 +128,7 @@ export class ApplyleavemodalComponent {
       }
 
       const formData = {
+        userId:this.userInfo.UserId,
         name: this.applyLeaveForm.get('name')?.value,
         numofDays: this.applyLeaveForm.get('days')?.value,
         leaveDate: singledate,

@@ -385,7 +385,9 @@ export class CreateAssessmentComponent implements OnInit {
   }
 
   getTrainers() {
-    this.userService.getUsers().subscribe((users) => {
+    this.userService.getAllUsers().subscribe((users) => {
+      console.log(users);
+      
       this.userService.getRoles().subscribe((roles) => {
         const trainerRoleId = roles.find(
           (role) => role.roleName === 'Trainer'

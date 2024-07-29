@@ -26,7 +26,7 @@ interface UploadEvent {
 export class HandedInAssignmentsComponent {
 
   workForm: FormGroup;
-  submitted: boolean = true;
+  submitted: boolean = false;
   
   constructor(private fb: FormBuilder,private messageService: MessageService) {
     this.workForm = this.fb.group({

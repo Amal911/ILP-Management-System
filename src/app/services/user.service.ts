@@ -96,7 +96,9 @@ export class UserService {
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/User/`);
   }
-  
+  getAllUsers(){
+    return this.http.get<any[]>(`${this.apiUrl}/User/GetAllUserData`);
+  }
 
   getRoles(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/Role`);

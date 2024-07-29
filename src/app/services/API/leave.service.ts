@@ -24,8 +24,14 @@ export class LeaveService {
   }
 
   updateApprovalStatus(id: number, LeaveApprovalUpdateDTO: any): Observable<any> {
+    console.log(LeaveApprovalUpdateDTO);
+    
     return this.http.put(`${this.applyLeave}/updateApprovalStatus/${id}`, LeaveApprovalUpdateDTO);
   }
+
+  getLeavesByUserId(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.applyLeave}/user/${userId}/leaves`);
+}
 
 }
 

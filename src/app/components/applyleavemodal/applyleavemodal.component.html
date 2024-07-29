@@ -75,7 +75,7 @@
                         <div class="col">
                             <label for="trainerPoc" class="form-label">Trainer POC</label>
                             <select class="form-select" id="trainerPoc" formControlName="trainerPoc">
-                                <option *ngFor="let trainer of trainers" [value]="trainer.roleId">{{ trainer.firstName }}</option>
+                                <option *ngFor="let trainer of trainers" [value]="trainer.id">{{ trainer.firstName }}</option>
                             </select>
                             <div
                                 *ngIf="applyLeaveForm.get('trainerPoc')?.invalid && applyLeaveForm.get('trainerPoc')?.touched">
@@ -86,7 +86,7 @@
                         <div class="col">
                             <label for="ldPoc" class="form-label">L&D POC</label>
                             <select class="form-select" id="ldPoc" formControlName="ldPoc">
-                                <option *ngFor="let admin of admins" [value]="admin.roleId">{{ admin.firstName }}</option>
+                                <option *ngFor="let admin of admins" [value]="admin.id">{{ admin.firstName }}</option>
                             </select>
                             <div *ngIf="applyLeaveForm.get('ldPoc')?.invalid && applyLeaveForm.get('ldPoc')?.touched">
                                 <div *ngIf="applyLeaveForm.get('ldPoc')?.errors?.['required']" class="text-danger">

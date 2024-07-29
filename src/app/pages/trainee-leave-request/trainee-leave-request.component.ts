@@ -21,37 +21,31 @@ export class TraineeLeaveRequestComponent {
   pendingLeaveRequests: any[] = [];
   leaveRequestHistory: any[] = [];
   traineeName: string =''
+  traineeId: number = 0;
   constructor(private datePipe: DatePipe, private router: Router, private leaveService: LeaveService, private userService: UserService) {}
 
   ngOnInit(): void{
-    const trainee = JSON.parse(localStorage.getItem('user') || '{}');
-    this.traineeName = trainee.UserName;
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.traineeId = user.UserId;
     this.loadAppliedLeaves();
   }
 
   loadAppliedLeaves(): void{
-    this.leaveService.getappliedLeaves().subscribe(async (data: any[]) => {
-      for (let leaveRequest of data) {
-        if (leaveRequest.traineeId) {
-          const trainee = await this.userService.getUserById(leaveRequest.traineeId).toPromise();
-          leaveRequest.traineeName = `${trainee.firstName} ${trainee.lastName}`;
-          console.log(trainee)
-        }
-      }
-    // this.leaveService.getappliedLeaves().subscribe((data: any[]) => {
-    //   this.LeaveRequests = data;
-      this.LeaveRequests = data.filter(leave => leave.traineeName === this.traineeName);
-      this.pendingLeaveRequests = data.filter(leave => leave.isPending);
-      this.leaveRequestHistory = data.filter(leave => !leave.isPending);
-      this.LeaveRequests.forEach(request => {
-        request.leaveDateFrom = this.formatDate(request.leaveDateFrom);
-        request.leaveDateTo = this.formatDate(request.leaveDateTo);
-        request.leaveDate = this.formatDate(request.leaveDate);
-        request.createdDate = this.formatDate(request.createdDate);
-      })
-    },
-  error =>{console.error('Error:', error)})
-  }
+    this.leaveService.getLeavesByUserId(this.traineeId).subscribe(
+      (data: any[]) => {
+          this.LeaveRequests = data;
+          this.pendingLeaveRequests = data.filter(leave => leave.isPending);
+          this.leaveRequestHistory = data.filter(leave => !leave.isPending);
+          this.LeaveRequests.forEach(request => {
+              request.leaveDateFrom = this.formatDate(request.leaveDateFrom);
+              request.leaveDateTo = this.formatDate(request.leaveDateTo);
+              request.leaveDate = this.formatDate(request.leaveDate);
+              request.createdDate = this.formatDate(request.createdDate);
+          });
+      },
+      error => { console.error('Error:', error) }
+  );
+}
 
   formatDate(date: string): string {
     const formattedDate = this.datePipe.transform(date, 'MMMM d, y');

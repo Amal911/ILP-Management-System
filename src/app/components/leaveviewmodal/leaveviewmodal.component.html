@@ -29,18 +29,20 @@
                     </div>
                 </div>
 
-                <form [formGroup]="leaveRequestForm" (ngSubmit)="onSubmit()" *ngIf="showRejectReason">
+                <!-- <form [formGroup]="leaveRequestForm" (ngSubmit)="onSubmit()" *ngIf="showRejectReason">
                     <label for="rejectReason" class="form-label"><b>Remarks</b></label>
                     <textarea class="form-control" id="rejectReason" formControlName="rejectReason"></textarea>
                     <div class="mt-3">
                         <app-button [buttonLabel]="'Submit'" class="custom-button" (click)="onSubmit()"></app-button>
                     </div>
-                </form>
+                </form> -->
             </div>
             <div class="modal-footer">
                 <app-button [buttonLabel]="'Approve'" class="custom-button" (click)="approveLeave()"></app-button>
                 <app-button [buttonLabel]="'Reject'" class="custom-button"
-                    (click)="showRejectReasonField()"></app-button>
+                (click)="RejectLeave()"></app-button>
+                <!-- <app-button [buttonLabel]="'Reject'" class="custom-button"
+                    (click)="showRejectReasonField()"></app-button> -->
                 <app-hollow-button [hollowButtonLabel]="'Cancel'" class="custom-button"
                     data-bs-dismiss="modal"></app-hollow-button>
             </div>

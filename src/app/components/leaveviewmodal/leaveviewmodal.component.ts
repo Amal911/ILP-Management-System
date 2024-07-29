@@ -36,11 +36,21 @@ export class LeaveviewmodalComponent {
     this.showRejectReason = true;
   }
 
+  private getLoggedInUserId(): number {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.UserId;
+  }
+
   approveLeave(): void {
+    // let userData =  localStorage.getItem("user") as string;
+    // userData  =JSON.parse(userData); 
+    const loggedInUserId = this.getLoggedInUserId();
     const approvalData = {
-      userId: this.leaves.userId,
+      userId:loggedInUserId,
       isApproved: true
     };
+    console.log(approvalData);
+    
     this.leaveService.updateApprovalStatus(this.leaves.id, approvalData).subscribe(() => {
       // Refresh leave requests or handle success message
       this.refreshRequests.emit();
@@ -52,15 +62,15 @@ export class LeaveviewmodalComponent {
     }
   }
 
-  onSubmit(): void {
-    if (this.leaveRequestForm.valid) {
+  RejectLeave(): void{
+    const loggedInUserId = this.getLoggedInUserId();
       const rejectionData = {
-        userId: this.leaves.userId,
+        userId: loggedInUserId,
         isApproved: false,
-        rejectReason: this.leaveRequestForm.value.rejectReason
+        // rejectReason: this.leaveRequestForm.value.rejectReason
       };
       this.leaveService.updateApprovalStatus(this.leaves.id, rejectionData).subscribe(() => {
-        // Refresh leave requests or handle success message
+        console.log("leave request rejected")
         this.refreshRequests.emit();
       });
       const modalElement = document.getElementById('leaveviewModal');
@@ -68,8 +78,27 @@ export class LeaveviewmodalComponent {
         const modal = bootstrap.Modal.getInstance(modalElement);
         modal.hide();
       }
-    }
   }
+
+  // onSubmit(): void {
+  //   if (this.leaveRequestForm.valid) {
+  //     const loggedInUserId = this.getLoggedInUserId();
+  //     const rejectionData = {
+  //       userId: loggedInUserId,
+  //       isApproved: false,
+  //       // rejectReason: this.leaveRequestForm.value.rejectReason
+  //     };
+  //     this.leaveService.updateApprovalStatus(this.leaves.id, rejectionData).subscribe(() => {
+  //       console.log("leave request rejected")
+  //       this.refreshRequests.emit();
+  //     });
+  //     const modalElement = document.getElementById('leaveviewModal');
+  //     if (modalElement) {
+  //       const modal = bootstrap.Modal.getInstance(modalElement);
+  //       modal.hide();
+  //     }
+  //   }
+  // }
 
 
 }

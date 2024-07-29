@@ -5,7 +5,7 @@ import { ListingCardComponent } from "../../components/batch-listing-card/batch-
 import { LeaveRequestCardComponent } from "../../components/leave-request-card/leave-request-card.component";
 import { LeaveviewmodalComponent } from '../../components/leaveviewmodal/leaveviewmodal.component';
 import { TableModule } from 'primeng/table';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf, NgSwitch } from '@angular/common';
 import { DatePipe } from '@angular/common';
 
 import { LeaveService } from '../../services/API/leave.service';
@@ -16,7 +16,7 @@ import { FormBuilder } from '@angular/forms';
   standalone: true,
   templateUrl: './leave-request.component.html',
   styleUrl: './leave-request.component.scss',
-  imports: [DropdownComponent, ButtonComponent, ListingCardComponent, LeaveRequestCardComponent, LeaveviewmodalComponent, TableModule, NgIf],
+  imports: [DropdownComponent, ButtonComponent, ListingCardComponent, LeaveRequestCardComponent, LeaveviewmodalComponent, TableModule, NgIf, NgSwitch, CommonModule],
   providers: [DatePipe]
 
 })
@@ -38,6 +38,7 @@ export class LeaveRequestComponent implements OnInit {
 
   ngOnInit() {
     this.loadLeaveRequests();
+    
   }
 
   calculateDaysBetween(startDate: string, endDate: string): number {
@@ -56,12 +57,33 @@ export class LeaveRequestComponent implements OnInit {
     this.selectedLeave = leave;
   }
 
-  loadLeaveRequests() {
+  private getLoggedInUserId(): number {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log('Logged in User:', user); // Debugging statement
+    return user.UserId;
+  }
+
+  loadLeaveRequests(): void {
     this.leaveService.getLeaveRequests().subscribe((leaves: any[]) => {
       this.LeaveRequests = leaves;
-      const loggedInUserId = this.getLoggedInUserId(); // Add this method to get the logged-in user ID
-      this.pendingLeaveRequests = leaves.filter(leave => leave.isPending && leave.pocIds.includes(loggedInUserId));
-      this.leaveRequestHistory = leaves.filter(leave => !leave.isPending && leave.pocIds.includes(loggedInUserId));
+      const loggedInUserId = this.getLoggedInUserId();
+      console.log('Logged in User ID:', loggedInUserId); // Debugging statement
+
+      // Debugging statements to inspect leave requests
+      console.log('All Leave Requests:', leaves);
+
+      this.pendingLeaveRequests = leaves.filter(leave => {
+        const pocIds = leave.pocIds.map(Number); // Convert pocIds to numbers
+        console.log('Pending Leave:', leave, 'POC IDs:', pocIds, 'Is Pending:', leave.isPending); // Debugging statement
+        return leave.isPending && pocIds.includes(loggedInUserId);
+      });
+
+      this.leaveRequestHistory = leaves.filter(leave => {
+        const pocIds = leave.pocIds.map(Number); // Convert pocIds to numbers
+        console.log('Leave History:', leave, 'POC IDs:', pocIds, 'Is Pending:', leave.isPending); // Debugging statement
+        return !leave.isPending && pocIds.includes(loggedInUserId);
+      });
+
       this.filteredLeaveRequests = this.leaveRequestHistory;
       this.LeaveRequests.forEach(request => {
         request.no_of_days = this.calculateDaysBetween(request.leaveDateFrom, request.leaveDateTo);
@@ -70,6 +92,13 @@ export class LeaveRequestComponent implements OnInit {
         request.leaveDate = this.formatDate(request.leaveDate);
         request.createdDate = this.formatDate(request.createdDate);
       });
+
+      // Debugging output
+      console.log('Pending Leave Requests:', this.pendingLeaveRequests);
+      console.log('Leave Request History:', this.leaveRequestHistory);
+    },
+    error => {
+      console.error('Error:', error);
     });
   }
 
@@ -102,12 +131,6 @@ export class LeaveRequestComponent implements OnInit {
 
   refreshLeaveRequests(): void {
     this.loadLeaveRequests();
-  }
-
-  private getLoggedInUserId(): number {
-    // Implement this method to get the logged-in user's ID from the local storage or authentication service
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.UserId;
   }
 
 }

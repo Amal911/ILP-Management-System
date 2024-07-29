@@ -31,10 +31,12 @@
                                 ?.touched
                           }"
                         >
-                          <option value="" disabled>Select the Program</option>
-                          <option value="1">2023</option>
-                          <option value="2">2024</option>
-                          <option value="3">2025</option>
+                          <option value="" disabled hidden>Select the Program</option>
+                          @for (program of programData; track $index) {
+
+                            <option value="{{program.id}}">{{program.programName}}</option>
+                          }
+                          
                         </select>
                       </div>
                     </div>
@@ -198,7 +200,7 @@
                                 ?.hasError('required')
                           }"
                         >
-                          <option value="" disabled>Select a Batch Type</option>
+                          <option value="" disabled hidden>Select a Batch Type</option>
                           @for (type of batchtype; track $index) {
                           <option value="{{ type.id }}">
                             {{ type.batchTypeName }}
@@ -226,7 +228,7 @@
                                 ?.hasError('required')
                           }"
                         >
-                          <option value="" disabled>
+                          <option value="" disabled hidden>
                             Select a Location<i class="bi bi-chevron-down"></i>
                           </option>
                           @for (location of batchLocation; track $index) {

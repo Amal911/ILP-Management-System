@@ -5,7 +5,7 @@
     </div>
     <div class="card-writings col-8 d-flex flex-column justify-content-center  align-items-start" >
       <h5 class="card-title text-left  custom-title">{{leave.name}}</h5>
-      <p class="m-0 card-small-sub-title ">{{leave.batchName}}</p>
+      <!-- <p class="m-0 card-small-sub-title ">{{leave.batchName}}</p> -->
       <p class="card-text text-left mb-0 custom-text">{{leave.reason}}</p>
       <p class="card-text text-left custom-text" *ngIf="leave.numofDays == 1">Leave Date: {{leave.leaveDate}}</p>
       <p class="card-text text-left custom-text" *ngIf="leave.numofDays > 1">Requested from {{leave.leaveDateFrom}} to {{leave.leaveDateTo}}</p>

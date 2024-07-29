@@ -9,7 +9,7 @@
                 <div class="d-flex">
                     <div class="me-3 w-50">
                         <p><b>Name</b></p>
-                        <p><b>Batch</b></p>
+                        <!-- <p><b>Batch</b></p> -->
                         <p><b>Reason</b></p>
                         <p *ngIf="leaves.numofDays == 1"><b>Leave Date</b></p>
                         <p *ngIf="leaves.numofDays > 1"><b>Requested From</b></p>
@@ -19,7 +19,7 @@
                     </div>
                     <div>
                         <p>: {{ leaves.name }}</p>
-                        <p>: {{ leaves.batchName }}</p>
+                        <!-- <p>: {{ leaves.batchName }}</p> -->
                         <p>: {{ leaves.reason }}</p>
                         <p *ngIf="leaves.numofDays == 1">: {{ leaves.leaveDate }}</p>
                         <p *ngIf="leaves.numofDays > 1">: {{ leaves.leaveDateFrom }}</p>

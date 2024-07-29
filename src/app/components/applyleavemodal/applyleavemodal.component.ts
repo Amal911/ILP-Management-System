@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
 import { HollowButtonComponent } from '../hollow-button/hollow-button.component';
+import { UserService } from '../../services/API/user.service';
+import { LeaveService } from '../../services/API/leave.service';
 
 declare const bootstrap: any;
 
@@ -16,10 +18,11 @@ declare const bootstrap: any;
 export class ApplyleavemodalComponent {
 
   applyLeaveForm: FormGroup;
-  trainerPocs: string[] = ['Trainer 1', 'Trainer 2', 'Trainer 3'];
-  ldPocs: string[] = ['L&D 1', 'L&D 2', 'L&D 3'];
+  admins: any[] = [];
+  trainers: any[] = [];
+  // selectedPocNames: string = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService, private leaveService: LeaveService) {
     this.applyLeaveForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       // email: ['', [Validators.required, Validators.email]],
@@ -28,16 +31,35 @@ export class ApplyleavemodalComponent {
       fromDate: [''],
       toDate: [''],
       reason: ['', Validators.required],
+      // pocIds: [[], Validators.required],
       trainerPoc: ['', Validators.required],
       ldPoc: ['', Validators.required],
       description: ['', Validators.required]
-    },{
+    }, {
       validators: [this.dateRangeValidator()]
     });
   }
 
   ngOnInit(): void {
     this.applyLeaveForm.get('days')?.valueChanges.subscribe(() => this.onDaysChange());
+    const userInfo = JSON.parse(localStorage.getItem('user') || '{}');
+    if (userInfo && userInfo.UserName) {
+      this.applyLeaveForm.patchValue({
+        name: userInfo.UserName
+      });
+    }
+    this.userService.getUsersRoles().subscribe({
+      next: data => {
+        console.log(data); // Check the data structure
+        this.admins = data.admins;
+        this.trainers = data.trainers;
+        // console.log('Admins:', this.admins);
+        // console.log('Trainers:', this.trainers);
+      },
+      error: err => {
+        console.error('Error fetching user roles', err);
+      }
+    });
   }
 
   onDaysChange() {
@@ -83,22 +105,69 @@ export class ApplyleavemodalComponent {
     };
   }
 
-  
-
   onSubmit() {
     if (this.applyLeaveForm.valid) {
-      console.log(this.applyLeaveForm.value);
-      this.applyLeaveForm.reset();
-      const modalElement = document.getElementById('applyLeaveModal');
-      if (modalElement) {
-        const modal = bootstrap.Modal.getInstance(modalElement);
-        modal.hide();
+      let startDate: string | null = null;
+      let endDate: string | null = null;
+      let singledate: string | null = null;
+
+      const days = this.applyLeaveForm.get('days')?.value;
+      const dateValue = this.applyLeaveForm.get('date')?.value;
+      const fromDateValue = this.applyLeaveForm.get('fromDate')?.value;
+      const toDateValue = this.applyLeaveForm.get('toDate')?.value;
+
+      if (days === 1 && dateValue) {
+        singledate = new Date(`${dateValue}T00:00:00Z`).toISOString();
+        startDate = endDate = new Date(0).toISOString();
+      } 
+      else if (days > 1 && fromDateValue && toDateValue) {
+        startDate = new Date(`${fromDateValue}T00:00:00Z`).toISOString();
+        endDate = new Date(`${toDateValue}T00:00:00Z`).toISOString();
+        singledate = new Date(0).toISOString();
       }
+
+      const formData = {
+        name: this.applyLeaveForm.get('name')?.value,
+        numofDays: this.applyLeaveForm.get('days')?.value,
+        leaveDate: singledate,
+        leaveDateFrom: startDate,
+        leaveDateTo: endDate,
+        reason: this.applyLeaveForm.get('reason')?.value,
+        description: this.applyLeaveForm.get('description')?.value,
+        pocIds: [
+          0
+        ]
+      }
+
+      const pocIds: number[] = [];
+      if (this.applyLeaveForm.get('trainerPoc')?.value) {
+        pocIds.push(this.applyLeaveForm.get('trainerPoc')?.value);
+      }
+      if (this.applyLeaveForm.get('ldPoc')?.value) {
+        pocIds.push(this.applyLeaveForm.get('ldPoc')?.value);
+      }
+      // const uniquePocIds = [...new Set(pocIds)];      // Ensure pocIds is unique
+      formData.pocIds = [...new Set(pocIds)];
+
+      console.log(formData);
+      this.leaveService.postLeaveRequest(formData).subscribe(
+        response => {
+          console.log('Leave request created successfully', response);
+          this.applyLeaveForm.reset();
+          const modalElement = document.getElementById('applyLeaveModal');
+          if (modalElement) {
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            modal.hide();
+          }
+        },
+        error => {
+          console.error('Error creating leave request', error);
+        }
+      );
     } else {
       this.applyLeaveForm.markAllAsTouched();
-      console.log("not validated")
     }
   }
-
 }
+
 

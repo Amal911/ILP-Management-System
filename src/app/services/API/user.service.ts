@@ -22,4 +22,14 @@ export class UserService {
     const getTrainerDataApi = `${this.baseURL}/GetTrainers`;
     return this.http.get(getTrainerDataApi);
   }
+
+  getUsersRoles(): Observable<any> {
+    const populate_poc_dropdown = `${this.baseURL}/GetUsers`;
+    return this.http.get<any>(populate_poc_dropdown);
+  }
+
+  getUserById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}/GetUser/${id}`);
+}
+
 }

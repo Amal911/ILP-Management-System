@@ -66,6 +66,7 @@ export class LeaveRequestComponent implements OnInit {
   loadLeaveRequests(): void {
     this.leaveService.getLeaveRequests().subscribe((leaves: any[]) => {
       this.LeaveRequests = leaves;
+      
       const loggedInUserId = this.getLoggedInUserId();
       console.log('Logged in User ID:', loggedInUserId); // Debugging statement
 
@@ -73,15 +74,15 @@ export class LeaveRequestComponent implements OnInit {
       console.log('All Leave Requests:', leaves);
 
       this.pendingLeaveRequests = leaves.filter(leave => {
-        const pocIds = leave.pocIds.map(Number); // Convert pocIds to numbers
-        console.log('Pending Leave:', leave, 'POC IDs:', pocIds, 'Is Pending:', leave.isPending); // Debugging statement
-        return leave.isPending && pocIds.includes(loggedInUserId);
+        return leave.approvals.some((approval: { userId: number; isApproved: null; }) => 
+          approval.userId === loggedInUserId && approval.isApproved === null
+        );
       });
 
-      this.leaveRequestHistory = leaves.filter(leave => {
-        const pocIds = leave.pocIds.map(Number); // Convert pocIds to numbers
-        console.log('Leave History:', leave, 'POC IDs:', pocIds, 'Is Pending:', leave.isPending); // Debugging statement
-        return !leave.isPending && pocIds.includes(loggedInUserId);
+      this.leaveRequestHistory = leaves.filter((leave) => {
+        return leave.approvals.some((approval: { userId: number; isApproved: null; }) => 
+          approval.userId === loggedInUserId && approval.isApproved !== null
+        );
       });
 
       this.filteredLeaveRequests = this.leaveRequestHistory;
@@ -102,6 +103,15 @@ export class LeaveRequestComponent implements OnInit {
     });
   }
 
+  getApprovalStatus(leave: any): string {
+    const approval = leave.approvals.find((a: { userId: number; }) => a.userId === this.getLoggedInUserId());
+    if (!approval) return 'pending';
+    
+    if (approval.isApproved === true) return 'approved';
+    if (approval.isApproved === false) return 'rejected';
+    return 'pending';
+  }
+
   approveLeave() {
     if (this.selectedLeave) {
       const approvalData = { userId: this.selectedLeave.userId, isApproved: true };
@@ -116,7 +126,7 @@ export class LeaveRequestComponent implements OnInit {
       const approvalData = { userId: this.selectedLeave.userId, isApproved: false, rejectReason: this.leaveRequestForm.value.rejectReason };
       this.leaveService.updateApprovalStatus(this.selectedLeave.id, approvalData).subscribe(() => {
         this.loadLeaveRequests();
-        this.showRejectReason = false;  // Reset the form state
+        this.showRejectReason = false;  
       });
     }
   }

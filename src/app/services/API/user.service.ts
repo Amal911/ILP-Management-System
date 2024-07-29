@@ -20,7 +20,7 @@ export class UserService {
   }
 
   getUsersRoles(): Observable<any> {
-    const populate_poc_dropdown = `${this.baseURL}/GetUsers`;
+    const populate_poc_dropdown = `https://localhost:7009/api/User`;
     return this.http.get<any>(populate_poc_dropdown);
   }
 

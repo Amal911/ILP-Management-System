@@ -33,5 +33,9 @@ export class LeaveService {
     return this.http.get<any[]>(`${this.applyLeave}/user/${userId}/leaves`);
 }
 
+  getLeavesByLoggedUserId(): Observable<any[]> {
+  return this.http.get<any[]>(`https://localhost:7009/api/LeaveApproval`);
+}
+
 }
 

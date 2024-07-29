@@ -48,14 +48,14 @@
                 <ng-container *ngIf="item.numofDays == 1; else multipleDays">{{ item.leaveDate }}</ng-container>
                 <ng-template #multipleDays>{{ item.leaveDateFrom }} to {{ item.leaveDateTo }}</ng-template>
               </td>
-              <td> <ng-container *ngIf="item.isPending else notApproved ">
+              <!-- <td> <ng-container *ngIf="item.isPending else notApproved ">
                 <span style="color: red;">Rejected</span>
               </ng-container>
               <ng-template #notApproved>
                 <span style="color: green;">Approved</span>
-              </ng-template></td>
+              </ng-template></td> -->
               <!-- <td>
-                <ng-container [ngSwitch]="item.isPending">
+                <ng-container [ngSwitch]="item.isApproved">
                   <ng-container *ngSwitchCase="true" >
                     <span style="color: green;">Approved</span>
                   </ng-container>
@@ -67,6 +67,21 @@
                   </ng-container>
                 </ng-container>
               </td> -->
+              <td>
+                <ng-container *ngIf="getApprovalStatus(item) as status">
+                  <ng-container [ngSwitch]="status">
+                    <ng-container *ngSwitchCase="'approved'">
+                      <span style="color: green;">Approved</span>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'rejected'">
+                      <span style="color: red;">Rejected</span>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'pending'">
+                      <span style="color: orange;">Pending</span>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </td>
             </tr>
           </ng-template>
         </p-table>

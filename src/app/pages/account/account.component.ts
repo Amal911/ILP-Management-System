@@ -19,7 +19,7 @@ import { UserService } from '../../services/API/user.service';
 })
 export class AccountComponent {
 
-    users: User = { trainees: [], trainers: [], admins: [] };
+    users: any = { trainees: [], trainers: [], admins: [] };
     roles = ['Admin', 'Trainer', 'Trainee'];
     years = ['2023', '2024', '2025'];
     showYearSelect = false;
@@ -29,7 +29,7 @@ export class AccountComponent {
     yearControl: FormControl = new FormControl('');
 
     tableColumns: { field: string, header: string, sortable: boolean, display: boolean }[] = [
-        { field: 'name', header: 'Name', sortable: true, display: true },
+        { field: 'firstName', header: 'Name', sortable: true, display: true },
         { field: 'batch', header: 'Batch', sortable: true, display: false },
         // { field: 'year', header: 'Year', sortable: true, display: false },
     ];
@@ -42,7 +42,24 @@ export class AccountComponent {
     ngOnInit(): void {
 
         this.userService.getUserData().subscribe(res=>{
-            console.log(res);
+            // console.log(res);
+            // console.log(res[0].roleName);
+            res.forEach((user:any) => {
+                switch (user.roleName) {
+                    case 'Admin':
+                        this.users.admins.push(user);
+                        break;
+                    case 'Trainer':
+                        this.users.trainers.push(user);
+                        break;
+                    case 'Trainee':
+                        this.users.trainees.push(user);
+                        break;
+                    default:
+                        console.log('Unknown roleName:', user.roleName);
+                }
+            });
+            console.log(this.users.admins);
             
         })
 
@@ -89,6 +106,7 @@ export class AccountComponent {
             if (batchColumn) batchColumn.display = true;
             //   if (yearColumn) yearColumn.display = false;
             data = this.users.trainees;
+            console.log(data);
             if (this.yearControl.value) {
                 data = data.filter(item => item.year === parseInt(this.yearControl.value));
             }
@@ -97,8 +115,11 @@ export class AccountComponent {
             //   if (yearColumn) yearColumn.display = false;
             if (this.roleControl.value === 'Admin') {
                 data = this.users.admins;
+                console.log(data);
             } else if (this.roleControl.value === 'Trainer') {
                 data = this.users.trainers;
+                console.log(data);
+
             }
         }
 

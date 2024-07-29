@@ -21,6 +21,7 @@ import { DropdownComponent } from '../../components/dropdown/dropdown.component'
 import { ApiService } from '../../services/api.service';
 import { TableModule } from 'primeng/table';
 import { Router } from '@angular/router';
+import { BatchService } from '../../services/API/batch.service';
 
 @Component({
   selector: 'app-create-batch',
@@ -95,7 +96,7 @@ export class CreateBatchComponent {
       return value > 0 ? null : { invalidDays: true };
     };
   }
-  constructor(private fb: FormBuilder, private api: ApiService,private route:Router) {}
+  constructor(private fb: FormBuilder, private api: ApiService,private route:Router,private batchService:BatchService) {}
 
   ngOnInit(): void {
     this.api.getBatchType().subscribe((res) => {
@@ -115,6 +116,11 @@ export class CreateBatchComponent {
       this.assessmentType = res;
       console.log(this.assessmentType);
     });
+    this.batchService.getProgram().subscribe((res)=>{
+      this.programData = res;
+      console.log(this.programData);
+      
+    })
 
 
     this.createBatchForm = this.fb.group({

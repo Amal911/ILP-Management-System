@@ -7,6 +7,7 @@ import { timestamp } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { BatchService } from '../../services/API/batch.service';
 import { SessionService } from '../../services/API/session.service';
+import { UserService } from '../../services/API/user.service';
 
 @Component({
     selector: 'app-create-schedule',
@@ -19,13 +20,7 @@ export class CreateScheduleComponent {
 
   batches:any=[];
 
-  programs:any=[{
-    name:"Program 1"
-  },{
-    name:"Program 2"
-  },{
-    name:"Program 3"
-  }];
+  programs:any=[];
 
   modules=[{
     name:"Module 1"
@@ -35,12 +30,9 @@ export class CreateScheduleComponent {
     name:"Module 3"
   }];
 
-  trainers=[{
-    name:"Trainer 1"
-  },{
-    name:"Trainer 2"
-  },{
-    name:"Trainer 3"
+  trainers:any=[{
+    id:"",
+    name:"",
   }];
 
   public createScheduleForm= new FormGroup({
@@ -51,18 +43,22 @@ export class CreateScheduleComponent {
     description: new FormControl('',[Validators.required]),
     startTime: new FormControl('',[Validators.required]),
     endTime: new FormControl('', [Validators.required]),
-    module: new FormControl('', [Validators.required]),
+    // module: new FormControl('', [Validators.required]),
     trainer: new FormControl('', [Validators.required])
   });
 
 
-  constructor(private formBuilder: FormBuilder,private sessionService:SessionService,private router:Router,private batchService:BatchService) { }
+  constructor(private formBuilder: FormBuilder,private sessionService:SessionService,private scheduleSevice:ScheduleService,private router:Router,private batchService:BatchService, private userService:UserService) { }
 
   ngOnInit(): void {
     this.batchService.getProgram().subscribe(res=>{
       this.programs = res;
       console.log(this.programs);
 
+    })
+    this.userService.getTrainerData().subscribe(res=>{
+      console.log(res);
+      this.trainers = res;
     })
   }
 
@@ -79,8 +75,8 @@ export class CreateScheduleComponent {
         SessionDescription: this.createScheduleForm.get('description')?.value,
         startTime: startDateTime.toISOString(),
         endTime: endDateTime.toISOString(),
-        trainerId:2,
-        batchId:1,
+        trainerId:this.createScheduleForm.get('trainer')?.value,
+        batchId:this.createScheduleForm.get('batch')?.value,
         programId:3
       };
       console.log(formData);

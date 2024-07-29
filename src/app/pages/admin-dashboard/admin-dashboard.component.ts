@@ -8,12 +8,18 @@ import { AttendanceGraphDashboardComponent } from '../../components/attendance-g
 import { CriteriawiseGraphDashboardComponent } from "../../components/criteriawise-graph-dashboard/criteriawise-graph-dashboard.component";
 import { BasicDetailsDashboardComponent } from "../../components/basic-details-dashboard/basic-details-dashboard.component";
 
+import { DatePipe } from '@angular/common';
+
+
 import { BehaviorSubject } from 'rxjs';
 import { BatchListingService } from '../../services/API/batch-listing.service';
 
 import {BrowserCacheLocation} from "@azure/msal-browser";
 import { SessionService } from '../../services/API/session.service';
 import { BatchService } from '../../services/API/batch.service';
+
+
+
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -25,8 +31,12 @@ import { BatchService } from '../../services/API/batch.service';
     ScorecardOverviewDashboardComponent,
     AttendanceGraphDashboardComponent,
     CriteriawiseGraphDashboardComponent,
+   
     BasicDetailsDashboardComponent
+  
+  
 ],
+ providers: [DatePipe],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss',
 })
@@ -87,12 +97,15 @@ export class AdminDashboardComponent implements OnInit {
 
   //Data about the latest schedule of the batch
 
-
-  constructor(private sessionService: SessionService,private batchService:BatchService ) {}
+  constructor(private scheduleService: ScheduleService,
+              private sessionService:SessionService,
+             private batchService : BatchService,
+             private datePipe: DatePipe ) {}
 
   ngOnInit(): void {
-    // this.onBatchChange(1);
-    this.onBatchChange(this.batches[0].batchId);
+    this.fetchBatchDetails(1);
+   
+    this.fetchSchedule(1);
   }
 
 
@@ -183,25 +196,26 @@ export class AdminDashboardComponent implements OnInit {
       console.log('Phase Progress:', { phaseCompletedDays: this.phaseCompletedDays, phaseTotaldays: this.phaseTotaldays });
     }
 
+    //function to fetch batchlist-details
+    fetchBatchDetails(programId:number){
+      this.batchService.getBatchByProgram(programId).subscribe({
+        next:(data:any) =>{
+          this.batches =data;
+          
+          console.log('Batch Data :',this.batches);
+        },
+        error(error) {
+          console.log('Error fetching in Batch Data :', error);
 
+        },
+      })
+    }
+    formatDate(date: string): string {
+      const formattedDate = this.datePipe.transform(date, 'MMM d, y');
+      return formattedDate || '';
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
   //Data needed for graphs
 
   batchScoreOverviewData: number[] = [2, 4, 3, 1];

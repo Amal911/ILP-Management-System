@@ -177,6 +177,8 @@ export class AdminDashboardComponent implements OnInit {
 
       this.phaseCompletedDays = Math.min(completedDays, batchPhase.numberOfDays);
       this.phaseTotaldays = batchPhase.numberOfDays;
+      // this.phaseCompletedDays = 100;
+      // this.phaseTotaldays = 200;
 
       console.log('Phase Progress:', { phaseCompletedDays: this.phaseCompletedDays, phaseTotaldays: this.phaseTotaldays });
     }

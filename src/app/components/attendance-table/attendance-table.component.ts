@@ -38,6 +38,8 @@ export class AttendanceTableComponent implements OnInit {
   searchControl: FormControl = new FormControl('');
 
   ngOnInit(): void {
+    console.log(this.columns);
+
     this.filteredColumns = [...this.columns];
     this.searchControl.valueChanges.subscribe((searchText) => {
       this.filteredColumns = this.columns.filter((column) =>

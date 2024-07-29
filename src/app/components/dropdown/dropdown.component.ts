@@ -21,3 +21,4 @@ export class DropdownComponent {
     this.selectionChange.emit(selectedElement);  
   }
 }
+ 

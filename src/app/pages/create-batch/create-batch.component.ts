@@ -372,7 +372,7 @@ export class CreateBatchComponent {
     console.log(batchData);
     this.api.createNewBatch(batchData).subscribe((res) => {
       console.log(res);
-      this.route.navigate(['/team/113/user/ganesh']);
+      this.route.navigate(['/batches']);
     });
   }
 

@@ -55,8 +55,8 @@ export class BatchCreatePhaseTableComponent {
   ];
 
   ngOnInit(): void {
-    this.api.getPhases().subscribe((res) => {
-      this.phasesData = res;
+    this.api.getPhases().subscribe((res:any) => {
+      this.phasesData = res.result;
       console.log(res);
       this.filteredColumns = [...this.phasesData];
     });

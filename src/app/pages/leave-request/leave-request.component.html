@@ -9,10 +9,8 @@
       <h5 class="mb-5">Pending Leave Requests</h5>
       <div class="card-container d-flex flex-column gap-4">
         @for (item of pendingLeaveRequests; track $index) {
-          <!-- @if (item.is_pending) { -->
         <app-leave-request-card [leave]="item" (click)="openModal(item)" data-bs-toggle="modal"
         data-bs-target="#leaveviewModal"></app-leave-request-card>
-          <!-- } -->
         }
        <div class="completed-assignments d-flex flex-column align-items-end">
           <p>view all <i class="bi bi-arrow-right"></i></p>
@@ -48,25 +46,21 @@
                 <ng-container *ngIf="item.numofDays == 1; else multipleDays">{{ item.leaveDate }}</ng-container>
                 <ng-template #multipleDays>{{ item.leaveDateFrom }} to {{ item.leaveDateTo }}</ng-template>
               </td>
-              <td> <ng-container *ngIf="item.isPending else notApproved ">
-                <span style="color: red;">Rejected</span>
-              </ng-container>
-              <ng-template #notApproved>
-                <span style="color: green;">Approved</span>
-              </ng-template></td>
-              <!-- <td>
-                <ng-container [ngSwitch]="item.isPending">
-                  <ng-container *ngSwitchCase="true" >
-                    <span style="color: green;">Approved</span>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="false">
-                    <span style="color: red;">Rejected</span>
-                  </ng-container>
-                  <ng-container *ngSwitchDefault>
-                    <span style="color: orange;">Pending</span>
+              <td>
+                <ng-container *ngIf="getApprovalStatus(item) as status">
+                  <ng-container [ngSwitch]="status">
+                    <ng-container *ngSwitchCase="'approved'">
+                      <span style="color: green;">Approved</span>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'rejected'">
+                      <span style="color: red;">Rejected</span>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'pending'">
+                      <span style="color: orange;">Pending</span>
+                    </ng-container>
                   </ng-container>
                 </ng-container>
-              </td> -->
+              </td>
             </tr>
           </ng-template>
         </p-table>
@@ -74,7 +68,5 @@
     </div>
   </div>
  </div>
-
- <!-- <app-leaveviewmodal [leave]="selectedLeave"></app-leaveviewmodal> -->
 
  <app-leaveviewmodal [leaves]="selectedLeave" (refreshRequests)="refreshLeaveRequests()"></app-leaveviewmodal>

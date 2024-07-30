@@ -53,13 +53,13 @@ export const routes: Routes = [
     
     // {path:'',component:AdminDashboardComponent, canActivate: [MsalGuard]},
     // Trainee
-    
+
     {path:'assessment/handed/id',component:HandedInAssignmentsComponent},
     // { path: '**', component: NotFoundComponent }
 
 
 
-    
+
     // {path:'',component:AdminDashboardComponent},
     // {path:'',component:LoginComponent},
     // {path:'account', component:AccountComponent},
@@ -83,7 +83,7 @@ export const routes: Routes = [
     // {path:'batch/create-phase',component:BatchCreatePhaseTableComponent}, //jisna
     // { path: 'handed-in', component: AssessmentHandedinComponent },//thulasi
     // { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent },//thulasi
-    // { path: '**', redirectTo: '/login' },    
+    // { path: '**', redirectTo: '/login' },
 
     // { path: '**', redirectTo: '/batches' }
 

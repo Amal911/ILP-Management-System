@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
@@ -8,14 +8,41 @@ import { ChartModule } from 'primeng/chart';
   templateUrl: './phase-progress-dashboard.component.html',
   styleUrl: './phase-progress-dashboard.component.scss',
 })
-export class PhaseProgressDashboardComponent {
-  @Input() phaseCompletedDays: number = 90;
-  @Input() phaseTotaldays: number = 100;
+export class PhaseProgressDashboardComponent implements OnChanges {
+  @Input() phaseCompletedDays: number = 0;
+  @Input() phaseTotaldays: number = 0;
   phaseProgressData: any;
   phaseProgressOptions: any;
   ngOnInit(): void {
+    this.initializeChartOptions();
     this.phaseProgressGraph();
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['phaseCompletedDays'] || changes['phaseTotaldays']) {
+      this.phaseProgressGraph();
+    }
+  }
+
+
+  initializeChartOptions() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    this.phaseProgressOptions = {
+      cutout: '70%',
+      style: { border: 'none' },
+      plugins: {
+        hover: { enabled: false },
+        tooltip: { enabled: false },
+        legend: {
+          labels: {
+            color: '#000',
+          },
+        },
+      },
+    };
+  }
+
   phaseProgressGraph() {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
@@ -57,4 +84,5 @@ export class PhaseProgressDashboardComponent {
       },
     };
   }
+
 }

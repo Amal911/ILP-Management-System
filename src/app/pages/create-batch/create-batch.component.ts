@@ -107,8 +107,8 @@ export class CreateBatchComponent {
       this.batchLocation = res;
       console.log(this.batchLocation);
     });
-    this.api.getPhases().subscribe((res) => {
-      this.phasesData = res;
+    this.api.getPhases().subscribe((res:any) => {
+      this.phasesData = res.result;
       this.allPhases = [...this.phasesData];
       console.log(this.phasesData);
     });

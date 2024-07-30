@@ -16,5 +16,11 @@ export class BatchService {
   getBatchByProgram(programId:number){
     return this.http.get(`${this.batchUrl}/GetBatchByProgram/${programId}`)
   }
+  GetTraineeList(batchId:number){
+    return this.http.get<any[]>(`${this.batchUrl}/GetTraineeList/TraineeList/${batchId}`)
+  }
+  getBatchById(batchId: number) {
+    return this.http.get<any>(`${this.batchUrl}/GetBatchDetailById/${batchId}`);
+  }
 
 }

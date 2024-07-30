@@ -7,13 +7,14 @@ import {
   DayPilotMonthComponent,
   DayPilotNavigatorComponent,
 } from '@daypilot/daypilot-lite-angular';
-import { DataService } from '../../services/data.service'; 
+import { DataService } from '../../services/data.service';
 import { CalendarEvent } from '../../interfaces/calendar-event';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ScheduleService } from '../../services/schedule.service';
 import { RoleBasedDirective } from '../../role-based.directive';
+import { SessionService } from '../../services/API/session.service';
 
 @Component({
   selector: 'app-calendar',
@@ -79,15 +80,15 @@ export class CalendarComponent implements AfterViewInit {
     },
   };
 
-   constructor (private scheduleService: ScheduleService,private ds: DataService) {  
+   constructor (private sessionService: SessionService,private ds: DataService) {
     this.viewMonth();
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     this.years = Array.from({ length: 10 }, (_, i) => currentYear - 5 + i);
     this.selectedMonth = currentDate.getMonth();
     this.selectedYear = currentYear;
-    this.selectedDate = DayPilot.Date.today(); 
-    this.loadEvents();  
+    this.selectedDate = DayPilot.Date.today();
+    this.loadEvents();
   }
   ngOnInit() {
   }
@@ -153,7 +154,7 @@ export class CalendarComponent implements AfterViewInit {
 
   onBeforeCellRender(args: any) {
     // console.log("onBeforeCellRender called for cell:", args.cell.start);
-    
+
     args.cell.fontColor = "#ffff99";
 
     const today = DayPilot.Date.today();
@@ -165,8 +166,8 @@ export class CalendarComponent implements AfterViewInit {
   async loadEvents() {
     const from = this.date.firstDayOfMonth();
     const to = this.date.lastDayOfMonth();
-    
-    this.scheduleService.getAllSessions().subscribe(
+
+    this.sessionService.getAllSessions().subscribe(
       (response) => {
         if (response.isSuccess) {
           this.events = response.result
@@ -178,9 +179,9 @@ export class CalendarComponent implements AfterViewInit {
               id: session.id,
               text: session.sessionName,
               start: new DayPilot.Date(session.startTime),
-              end: new DayPilot.Date(session.endTime)              
+              end: new DayPilot.Date(session.endTime)
             }));
-          
+
           this.updateSelectedDateEvents();
         } else {
           console.error('Failed to load sessions:', response.message);
@@ -243,6 +244,6 @@ export class CalendarComponent implements AfterViewInit {
     } else {
       return time.addHours(5.5).toString('HH:mm');
     }
-  } 
+  }
 
 }

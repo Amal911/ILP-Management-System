@@ -33,7 +33,7 @@ export const routes: Routes = [
     {path:'account', component:AccountComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},
     {path:'scorecard',component:DashboardScorecardComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer','Trainee'] }},      //amal
     {path:'batches',component:BatchListingComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }},
-    {path:'batches/manage/{id}',component:ManageBatchComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //jisna
+    {path:'batches/manage/:id',component:ManageBatchComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //jisna
     {path:'batches/create',component:CreateBatchComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //jisna
     {path:'assessments',component:AssignmentListingComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer','Trainee'] }},
     {path:'assessments/create',component:CreateAssessmentComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //reshmi
@@ -41,7 +41,7 @@ export const routes: Routes = [
     {path:'schedule',component:CalendarComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer','Trainee'] }}, //
     {path:'schedule/create',component:CreateScheduleComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //kailas
     {path:'schedule/:id',component:SessionAttendanceComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //thulasi
-    {path:'schedule/edit',component:EditScheduleComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //kailas
+    {path:'schedule/:id/edit',component:EditScheduleComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //kailas
     {path:'assessments/online',component:OnlineAssessmentListComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer','Trainee'] }}, // reshmi
     {path:'assessments/online/create',component:OnlineAssessmentCreateComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, // reshmi
     {path:'leave',component:LeaveRequestComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }},
@@ -53,13 +53,13 @@ export const routes: Routes = [
     
     // {path:'',component:AdminDashboardComponent, canActivate: [MsalGuard]},
     // Trainee
-    
+
     {path:'assessment/handed/id',component:HandedInAssignmentsComponent},
     // { path: '**', component: NotFoundComponent }
 
 
 
-    
+
     // {path:'',component:AdminDashboardComponent},
     // {path:'',component:LoginComponent},
     // {path:'account', component:AccountComponent},
@@ -83,7 +83,7 @@ export const routes: Routes = [
     // {path:'batch/create-phase',component:BatchCreatePhaseTableComponent}, //jisna
     // { path: 'handed-in', component: AssessmentHandedinComponent },//thulasi
     // { path: 'batch/create-evaluation-criteria', component: BatchCreateEvaluationCriteriaComponent },//thulasi
-    // { path: '**', redirectTo: '/login' },    
+    // { path: '**', redirectTo: '/login' },
 
     // { path: '**', redirectTo: '/batches' }
 

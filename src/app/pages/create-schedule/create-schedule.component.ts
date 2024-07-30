@@ -6,6 +6,7 @@ import { ScheduleService } from '../../services/schedule.service';
 import { timestamp } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { BatchService } from '../../services/API/batch.service';
+import { SessionService } from '../../services/API/session.service';
 import { UserService } from '../../services/API/user.service';
 
 @Component({
@@ -47,13 +48,13 @@ export class CreateScheduleComponent {
   });
 
 
-  constructor(private formBuilder: FormBuilder,private scheduleSevice:ScheduleService,private router:Router,private batchService:BatchService, private userService:UserService) { }
+  constructor(private formBuilder: FormBuilder,private sessionService:SessionService,private scheduleSevice:ScheduleService,private router:Router,private batchService:BatchService, private userService:UserService) { }
 
   ngOnInit(): void {
     this.batchService.getProgram().subscribe(res=>{
       this.programs = res;
       console.log(this.programs);
-      
+
     })
     this.userService.getTrainerData().subscribe(res=>{
       console.log(res);
@@ -64,9 +65,9 @@ export class CreateScheduleComponent {
 
   onSubmit() {
     console.log("adasd");
-    
+
     if (this.createScheduleForm.valid) {
-      
+
       const startDateTime = new Date(`${this.createScheduleForm.get('date')?.value}T${this.createScheduleForm.get('startTime')?.value}`);
       const endDateTime = new Date(`${this.createScheduleForm.get('date')?.value}T${this.createScheduleForm.get('endTime')?.value}`);
       const formData = {
@@ -79,12 +80,12 @@ export class CreateScheduleComponent {
         programId:3
       };
       console.log(formData);
-      
 
-      this.scheduleSevice.createSchedule(formData).subscribe(
+
+      this.sessionService.createSchedule(formData).subscribe(
         (response) => {
           console.log(response);
-          this.router.navigate(['/schedule']); 
+          this.router.navigate(['/schedule']);
         },
         (error) => {
           console.error('Error creating coupon:', error);
@@ -104,7 +105,7 @@ export class CreateScheduleComponent {
     this.batchService.getBatchByProgram(event).subscribe(res=>{
       console.log(res);
       this.batches = res;
-      
+
     })
   }
 }

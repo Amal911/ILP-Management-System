@@ -107,8 +107,8 @@ export class CreateBatchComponent {
       this.batchLocation = res;
       console.log(this.batchLocation);
     });
-    this.api.getPhases().subscribe((res) => {
-      this.phasesData = res;
+    this.api.getPhases().subscribe((res:any) => {
+      this.phasesData = res.result;
       this.allPhases = [...this.phasesData];
       console.log(this.phasesData);
     });
@@ -372,7 +372,7 @@ export class CreateBatchComponent {
     console.log(batchData);
     this.api.createNewBatch(batchData).subscribe((res) => {
       console.log(res);
-      this.route.navigate(['/team/113/user/ganesh']);
+      this.route.navigate(['/batches']);
     });
   }
 

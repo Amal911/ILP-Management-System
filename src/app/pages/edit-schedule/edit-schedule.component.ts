@@ -84,15 +84,15 @@ export class EditScheduleComponent {
     this.fetchSchedule();
   }
   public createScheduleForm = new FormGroup({
-    program: new FormControl({ value: '', disabled: false},[Validators.required]),
-    batch: new FormControl({ value: '', disabled: false},[Validators.required]),
+    // program: new FormControl({ value: '', disabled: false},[Validators.required]),
+    // batch: new FormControl({ value: '', disabled: false},[Validators.required]),
     title: new FormControl({ value: '', disabled: false},[Validators.required]),
     date: new FormControl({ value: '', disabled: false},[Validators.required]),
     description: new FormControl({ value: '', disabled: false},[Validators.required]),
     startTime: new FormControl({ value: '', disabled: false},[Validators.required]),
     endTime: new FormControl({ value: '', disabled: false},[Validators.required]),
-    module: new FormControl({ value: '', disabled: false},[Validators.required]),
-    trainer: new FormControl({ value: '', disabled: false},[Validators.required]),
+    // module: new FormControl({ value: '', disabled: false},[Validators.required]),
+    // trainer: new FormControl({ value: '', disabled: false},[Validators.required]),
   });
 
   fetchSchedule(){
@@ -103,15 +103,15 @@ export class EditScheduleComponent {
         const fetchedStartTime = new Date(response.result.startTime).toTimeString().split(' ')[0].slice(0, 5);
         const fetchedEndTime = new Date(response.result.endTime).toTimeString().split(' ')[0].slice(0, 5);
         this.createScheduleForm.patchValue({
-          program: 'Program 1',
-          batch: 'Batch 1',
+          // program: 'Program 1', 
+          // batch: 'Batch 1',     
           title: response.result.sessionName,
           date: fetchedStartDate,
           description: response.result.sessionDescription,
-          startTime: fetchedStartTime,
-          endTime: fetchedEndTime,
-          module: 'Module 1',
-          trainer: 'Trainer 1'
+          startTime: fetchedStartTime,   
+          endTime: fetchedEndTime,     
+          // module: 'Module 1',   
+          // trainer: 'Trainer 1'  
         });
       },
       (error) => {
@@ -146,7 +146,7 @@ export class EditScheduleComponent {
       this.sessionService.updateSchedule(formData,this.idToFetch).subscribe(
         (response) => {
           console.log('Session updated successfully:', response);
-          //this.router.navigate(['/schedule']);
+          this.router.navigate(['/schedule']);
         },
         (error) => {
           console.error('Error updating session:', error);

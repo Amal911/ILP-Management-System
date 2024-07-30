@@ -25,6 +25,7 @@ import { DropdownComponent } from '../../components/dropdown/dropdown.component'
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
 import { Observable, forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -76,7 +77,8 @@ export class CreateAssessmentComponent implements OnInit {
     private messageService: MessageService,
     private http: HttpClient,
     private userService: UserService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private route:Router
   ) {}
 
   onUpload(event: FileUploadEvent) {
@@ -242,6 +244,8 @@ export class CreateAssessmentComponent implements OnInit {
 
   private handleSubmitSuccess(response: any): void {
     console.log('Success:', response);
+    this.route.navigate(['/assessments']);
+
   }
 
   private handleSubmitError(error: any): void {
@@ -385,7 +389,9 @@ export class CreateAssessmentComponent implements OnInit {
   }
 
   getTrainers() {
-    this.userService.getUsers().subscribe((users) => {
+    this.userService.getAllUsers().subscribe((users) => {
+      console.log(users);
+      
       this.userService.getRoles().subscribe((roles) => {
         const trainerRoleId = roles.find(
           (role) => role.roleName === 'Trainer'

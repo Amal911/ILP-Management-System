@@ -33,7 +33,7 @@ export const routes: Routes = [
     {path:'account', component:AccountComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }},
     {path:'scorecard',component:DashboardScorecardComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer','Trainee'] }},      //amal
     {path:'batches',component:BatchListingComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }},
-    {path:'batches/manage/{id}',component:ManageBatchComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //jisna
+    {path:'batches/manage/:id',component:ManageBatchComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //jisna
     {path:'batches/create',component:CreateBatchComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //jisna
     {path:'assessments',component:AssignmentListingComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer','Trainee'] }},
     {path:'assessments/create',component:CreateAssessmentComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Trainer'] }}, //reshmi

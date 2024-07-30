@@ -42,7 +42,9 @@ export class SessionAttendanceComponent implements OnInit {
     if (id) {
       this.loadSessionDetails(+id);
     }
-    this.getTraineeList(this.batchId);
+    console.log(this.session);
+    
+    
 
     this.absentees = [{ id: 2 }, { id: 5 }, { id: 11 }, { id: 13 }];
   }
@@ -99,7 +101,9 @@ export class SessionAttendanceComponent implements OnInit {
             end_time: new Date(response.result.endTime)
               .toTimeString()
               .slice(0, 5),
-          };
+              batchId:response.result.batchId
+            };
+            this.getTraineeList(this.session.batchId);
         } else {
           console.error('Failed to load session details:', response.message);
         }

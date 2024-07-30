@@ -15,7 +15,7 @@ export class SessionService {
   private getTraineeListUrl='https://localhost:7009/Batch/GetTraineeList/TraineeList/';
 
   PostAttendance(attendanceDTO:any):Observable<any[]>{
-    return this.http.post<any>(`${this.postUrl}`, attendanceDTO)
+    return this.http.post<any>(`${this.postUrl}/AddAttendance`, attendanceDTO)
   }
 
  

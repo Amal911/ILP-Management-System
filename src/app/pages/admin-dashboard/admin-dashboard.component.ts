@@ -116,9 +116,16 @@ export class AdminDashboardComponent implements OnInit {
         if (data.isSuccess && data.result) {
           if(data.result.length!=0){
             this.schedule = data.result;
+            
+            this.schedule[0].sessionDescription = `${data.result[0].sessionDescription.split(" ").slice(0,10).join(" ")}...`
+            
           }
           else{
-            this.schedule = []
+            this.schedule = [
+              {
+                sessionName:"No Active Sessions Now"
+              }
+            ]
           }
 
         } else {

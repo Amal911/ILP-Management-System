@@ -59,8 +59,12 @@ export class LeaveRequestComponent implements OnInit {
 
   private getLoggedInUserId(): number {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log('Logged in User:', user); // Debugging statement
+    console.log('Logged in User:', user);
     return user.UserId;
+  }
+  private getLoggedInUserRole(): string {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.roleName;
   }
 
   loadLeaveRequests(): void {
@@ -68,6 +72,7 @@ export class LeaveRequestComponent implements OnInit {
       this.LeaveRequests = leaves;
       
       const loggedInUserId = this.getLoggedInUserId();
+      const loggedInUserRole = this.getLoggedInUserRole();
       console.log('Logged in User ID:', loggedInUserId); // Debugging statement
 
       // Debugging statements to inspect leave requests
@@ -84,6 +89,21 @@ export class LeaveRequestComponent implements OnInit {
           approval.userId === loggedInUserId && approval.isApproved !== null
         );
       });
+
+      if (loggedInUserRole === 'Admin') {
+        // Filter requests approved by trainers and pending admin approval
+        this.filteredLeaveRequests = leaves.filter(leave => {
+          const trainerApproved = leave.approvals.some((approval: { role: string; isApproved: boolean }) =>
+            approval.role === 'Trainer' && approval.isApproved === true
+          );
+          const adminPending = leave.approvals.some((approval: { role: string; userId: number; isApproved: null }) =>
+            approval.role === 'Admin' && approval.userId === loggedInUserId && approval.isApproved === null
+          );
+          return trainerApproved && adminPending;
+        });
+      } else {
+        this.filteredLeaveRequests = this.leaveRequestHistory;
+      }
 
       this.filteredLeaveRequests = this.leaveRequestHistory;
       this.LeaveRequests.forEach(request => {
@@ -144,92 +164,5 @@ export class LeaveRequestComponent implements OnInit {
   }
 
 }
-
-// LeaveRequests = [
-//   {
-//     name: 'Amal E A',
-//     batch_name: 'ILP Batch 03 2023-24',
-//     description: 'Blah blah blah blah',
-//     days:'1',
-//     leave_date: '2023-06-12',
-//     leave_date_from: '2024-07-11',
-//     leave_date_to: '2024-07-12',
-//     requested_date: '2024-07-01',
-//     reason: 'Sick Leave',
-//     is_approved_trainer: true,
-//     is_approved_l_and_d: false,
-//     is_pending: true
-//   },
-//   {
-//     name: 'Devipriya MS',
-//     batch_name: 'ILP Batch 03 2023-24',
-//     description: 'what to write here !!!!!!',
-//     days:'3',
-//     leave_date: '2023-06-12',
-//     leave_date_from: '2024-07-11',
-//     leave_date_to: '2024-07-13',
-//     requested_date: '2024-07-01',
-//     reason: 'Sick Leave',
-//     is_approved_trainer: true,
-//     is_approved_l_and_d: false,
-//     is_pending: true
-//   },
-//   {
-//     name: 'Dharsan C Sajeev',
-//     batch_name: 'ILP Batch 03 2023-24',
-//     description: 'Hospital Emergency and need a consultation',
-//     days:'4',
-//     leave_date: '2023-06-12',
-//     leave_date_from: '2024-07-11',
-//     leave_date_to: '2024-07-14',
-//     requested_date: '2024-07-01',
-//     reason: 'Sick Leave',
-//     is_approved_trainer: false,
-//     is_approved_l_and_d: false,
-//     is_pending: true
-//   },
-//   {
-//     name: 'Amal E A',
-//     batch_name: 'ILP Batch 03 2023-24',
-//     description: 'Hospital Emergency and need a consultation',
-//     days:'1',
-//     leave_date: '2023-06-12',
-//     leave_date_from: '2024-07-11',
-//     leave_date_to: '2024-07-12',
-//     requested_date: '2024-07-01',
-//     reason: 'Sick Leave',
-//     is_approved_trainer: true,
-//     is_approved_l_and_d: false,
-//     is_pending: false
-//   },
-//   {
-//     name: 'Devipriya M S',
-//     batch_name: 'ILP Batch 03 2023-24',
-//     description: 'blah blah blah blah',
-//     days:'1',
-//     leave_date: '2023-06-12',
-//     leave_date_from: '2024-07-11',
-//     leave_date_to: '2024-07-11',
-//     requested_date: '2024-07-01',
-//     reason: 'Sick Leave',
-//     is_approved_trainer: false,
-//     is_approved_l_and_d: true,
-//     is_pending: false
-//   },
-//   {
-//     name: 'Reshmi M',
-//     batch_name: 'ILP Batch 03 2023-24',
-//     description: 'Hospital Emergency and need a consultation',
-//     days:'2',
-//     leave_date: '2023-06-12',
-//     leave_date_from: '2024-07-11',
-//     leave_date_to: '2024-07-12',
-//     requested_date: '2024-07-01',
-//     reason: 'Sick Leave',
-//     is_approved_trainer: true,
-//     is_approved_l_and_d: true,
-//     is_pending: false
-//   }
-// ];
 
 

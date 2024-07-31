@@ -6,19 +6,24 @@
   </div>
   <div class="assignments d-flex flex-column gap-2">
     <div class="pending-leave-requests">
-      <h5 class="mb-5">Pending Leave Requests</h5>
-      <div class="card-container d-flex flex-column gap-4">
+      <h5 class="mb-2">Pending Leave Requests</h5>
+      <div class="card-container d-flex flex-column gap-3">
+        @if (pendingLeaveRequests.length==0) {
+          <div class="p-2">
+            <p>No Pending Leave Request </p>
+          </div>
+        }
         @for (item of pendingLeaveRequests; track $index) {
         <app-leave-request-card [leave]="item" (click)="openModal(item)" data-bs-toggle="modal"
         data-bs-target="#leaveviewModal"></app-leave-request-card>
         }
-       <div class="completed-assignments d-flex flex-column align-items-end">
+       <!-- <div class="completed-assignments d-flex flex-column align-items-end">
           <p>view all <i class="bi bi-arrow-right"></i></p>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="leave-request-history mt-5">
-      <div class="col-12 d-flex justify-content-between align-items-center py-5">
+      <div class="col-12 d-flex justify-content-between align-items-center py-2">
         <h5>Leave Request History</h5>
       </div>
       <div class="w-100">

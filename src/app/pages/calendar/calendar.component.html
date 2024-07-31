@@ -11,17 +11,20 @@
                 <button (click)="backToCurrent()">This Month</button>
             </div>
 
-                <!-- <div class="select-batch" *appRoleBased="['Admin', 'Trainer']">
-                    <select [(ngModel)]="selectedYear">
-                        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                <div class="select-batch" *appRoleBased="['Admin', 'Trainer']">
+                    <select (change)="getBatch($event)">
+                        <option disable hidden >Select Program</option>
+                        @for (program of programs; track $index) {
+                            <option [value]="program.id" [selected]="program.id==currentBatch.programId" >{{program.programName}} </option>
+                        } 
                     </select>
-                    <select [(ngModel)]="selectedBatch">
-                        <option *ngFor="let batch of batches" [value]="batch">{{batch}}</option>
+                    <select (change)="loadSchedule($event)">
+                        <option disable hidden >Select Batch</option>
+                        @for (batch of batches; track $index) {
+                            <option [value]="batch.id" [selected]="batch.id==currentBatch.id">{{batch.batchName}}</option>
+                        }
                     </select>
-                    <select [(ngModel)]="selectedYear">
-                        <option *ngFor="let year of years" [value]="year">{{year}}</option>
-                    </select>
-                </div> -->
+                </div>
             
         </div>
 
@@ -45,7 +48,7 @@
             <div class="event-details">
                 <h2 class="headline">Sessions</h2>
                 <div *ngIf="selectedDateEvents.length > 0; else noSessions">
-                    <div *ngFor="let event of selectedDateEvents" class="event-item" [routerLink]="[event.id]">
+                    <div *ngFor="let event of selectedDateEvents" class="event-item" (click)="route(event.id)">
                         <h3>{{ event.text }}</h3>
                         <p>{{ getFormattedTime(event.start) }} to {{ getFormattedTime(event.end) }}</p>
                         <!-- <p>Trainer: Suneesh</p> -->

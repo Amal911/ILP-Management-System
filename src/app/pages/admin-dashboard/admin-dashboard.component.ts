@@ -45,45 +45,8 @@ export class AdminDashboardComponent implements OnInit {
   phaseCompletedDays: number = 0;
   phaseTotaldays: number = 0;
   schedule: any = {};
-  currentBatchId: number = 0;
-  batches: any[] = [
-    {
-      batchId:1,
-      name: 'Batch1',
-      status: 'completed',
-      phase: 'Completed',
-      startDate: '2023-10-16',
-      endDate: '2024-04-19',
-      totalTrainees: 33,
-    },
-    {
-      batchId:2,
-      name: 'Batch2',
-      status: 'completed',
-      phase: 'Completed',
-      startDate: '2023-11-17',
-      endDate: '2024-05-17',
-      totalTrainees: 31,
-    },
-    {
-      batchId:3,
-      name: 'Batch3',
-      status: 'active',
-      phase: 'Specialization',
-      startDate: '2024-02-29',
-      endDate: '2024-08-19',
-      totalTrainees: 38,
-    },
-    {
-      batchId:4,
-      name: 'Batch4',
-      status: 'active',
-      phase: 'Tech fundamentals',
-      startDate: '2024-04-24',
-      endDate: '2024-10-24',
-      totalTrainees: 41,
-    },
-  ];
+  currentBatchId: number = 1;
+  batches: any;
 
   //List of phases covered by each batch
   phases = [
@@ -145,6 +108,10 @@ export class AdminDashboardComponent implements OnInit {
       this.currentBatchId = batchId;
       this.fetchSchedule(batchId);
       this.loadBatchPhaseProgress(batchId);
+      console.log(batchId);
+      console.log(this.batches);
+      
+      // this.fetchBatchDetails();
     }
     loadBatchPhaseProgress(batchId: number): void {
       this.batchService.getBatchById(batchId).subscribe({
@@ -248,7 +215,8 @@ export class AdminDashboardComponent implements OnInit {
 
   //Function that helps to set the batch to the first batch on startup/refresh
   isFirst(batch: any) {
-    return this.batches.indexOf(batch) === 0;
+    // return this.batches.indexOf(batch) === 0;
+    return this.batches.filter((batch:any)=>batch.id==this.currentBatchId);
   }
 
 

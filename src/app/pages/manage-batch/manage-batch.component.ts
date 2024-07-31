@@ -21,6 +21,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ApiService } from '../../services/api.service';
 import { ManageBatchService } from '../../services/API/manage-batch.service';
 import { UpdateBatchRequestDTO } from '../../../models/BatchDetails.interface';
+import { ActivatedRoute, Route } from '@angular/router';
 
 @Component({
   selector: 'app-manage-batch',
@@ -46,6 +47,7 @@ import { UpdateBatchRequestDTO } from '../../../models/BatchDetails.interface';
 })
 export class ManageBatchComponent {
   // [x: string]: any;
+  currentBatchId:number=Number( this.route.snapshot.paramMap.get('id'));
 
   batchForm!: FormGroup;
 
@@ -56,7 +58,7 @@ export class ManageBatchComponent {
   batchLocation: any;
 
   phasesData: any;
-
+  phaseDetails:any
   assessmentType: any;
 
   batchDetails: any;
@@ -70,10 +72,12 @@ export class ManageBatchComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private api: ApiService,
-    private manageBatchService: ManageBatchService
+    private manageBatchService: ManageBatchService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+
     this.api.getBatchType().subscribe((res) => {
       this.batchtype = res;
     });
@@ -92,7 +96,9 @@ export class ManageBatchComponent {
     this.manageBatchService.getBatchProgram().subscribe((res) => {
       this.batchProgram = res;
     });
-    this.manageBatchService.getBatchDetailByID(1).subscribe((res) => {
+    console.log(this.currentBatchId);
+    
+    this.manageBatchService.getBatchDetailByID(this.currentBatchId).subscribe((res) => {
       console.log('Batch details from API:', res);
       this.batchDetails = res;
       this.populateForm(this.batchDetails);

@@ -25,7 +25,7 @@ export class SessionService {
   }
 
   fetchSession(sessionId:number):Observable<any> {
-    const fetch_API=`${this.baseURL}/GetSession/${sessionId}`;
+    const fetch_API=`${this.baseURL}/GetSessionDetails/${sessionId}`;
     return this.http.get<any>(fetch_API);
   }
 
@@ -42,6 +42,9 @@ export class SessionService {
     return this.http.get(`${this.baseURL}/GetTodaysSessions/${batchId}`);
   }
 
+  GetSessionsByBatchId(batchId:number): Observable<any>{
+    return this.http.get(`${this.baseURL}/GetSessionsByBatchId/${batchId}`)
+  }
 
 
 

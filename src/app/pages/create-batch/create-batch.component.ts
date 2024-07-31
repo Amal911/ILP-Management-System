@@ -477,7 +477,30 @@ export class CreateBatchComponent {
     this.assessmentTypesList[phaseIndex].push(Number(event));
     console.log(this.assessmentTypesList);
     
-  }  
+  }
+
+  generateBatchCode(event:any){
+    console.log(event);
+    let program = this.programData.filter((prg:any)=>prg.id==event)[0]
+    console.log(program);
+    let batchCode = "ILP";
+    let batchCount:number;
+    let batchList:any[];
+    this.batchService.getBatchByProgram(event).subscribe((res:any)=>{
+      let batches = [res];
+      console.log(batches[0].length);
+      batchCount = batches[0].length+1;
+      batchCode = batchCode+program.programName.split("-").map((year:string)=>year.slice(-2)).join("")+"BAT"+batchCount;
+      console.log(batchCode);
+      this.createBatchForm.get('batchDetails.batchCode')?.setValue(batchCode);
+
+      
+      
+      
+    })
+    
+  }
+  
 }
 
 

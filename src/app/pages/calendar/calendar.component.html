@@ -48,7 +48,7 @@
                     <div *ngFor="let event of selectedDateEvents" class="event-item" [routerLink]="[event.id]">
                         <h3>{{ event.text }}</h3>
                         <p>{{ getFormattedTime(event.start) }} to {{ getFormattedTime(event.end) }}</p>
-                        <p>Trainer: Suneesh</p>
+                        <!-- <p>Trainer: Suneesh</p> -->
                     </div>
                 </div>
                 <ng-template #noSessions>

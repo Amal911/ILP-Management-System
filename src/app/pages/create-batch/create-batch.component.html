@@ -31,10 +31,12 @@
                                 ?.touched
                           }"
                         >
-                          <option value="" disabled>Select the Program</option>
-                          <option value="1">2023</option>
-                          <option value="2">2024</option>
-                          <option value="3">2025</option>
+                          <option value="" disabled hidden>Select the Program</option>
+                          @for (program of programData; track $index) {
+
+                            <option value="{{program.id}}">{{program.programName}}</option>
+                          }
+                          
                         </select>
                       </div>
                     </div>
@@ -238,6 +240,64 @@
                         >
                           ! End date cannot be in the past.
                         </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                      <label for="batchType">Batch Type</label>
+                      <div class="dropdown form-group">
+                        <select
+                          id="batchTypeId"
+                          class="form-control"
+                          formControlName="batchTypeId"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.batchTypeId')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.batchTypeId')
+                                ?.touched &&
+                              createBatchForm
+                                .get('batchDetails.batchTypeId')
+                                ?.hasError('required')
+                          }"
+                        >
+                          <option value="" disabled hidden>Select a Batch Type</option>
+                          @for (type of batchtype; track $index) {
+                          <option value="{{ type.id }}">
+                            {{ type.batchTypeName }}
+                          </option>
+                          }
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                      <label for="locationDropdown">Location</label>
+                      <div class="dropdown form-group">
+                        <select
+                          id="locationId"
+                          class="form-control"
+                          formControlName="locationId"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.locationId')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.locationId')
+                                ?.touched &&
+                              createBatchForm
+                                .get('batchDetails.locationId')
+                                ?.hasError('required')
+                          }"
+                        >
+                          <option value="" disabled hidden>
+                            Select a Location<i class="bi bi-chevron-down"></i>
+                          </option>
+                          @for (location of batchLocation; track $index) {
+                          <option value="{{ location.id }}">
+                            {{ location.locationName }}
+                          </option>
+                          }
+                        </select>
                       </div>
                     </div>
                     <!-- 

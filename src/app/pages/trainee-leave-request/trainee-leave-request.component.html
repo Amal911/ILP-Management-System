@@ -11,8 +11,7 @@
 </div>
 <div class="container">
     @for (item of LeaveRequests; track $index) {
-    <app-appliedleave-cards [leave]="item"></app-appliedleave-cards>
-    <!-- <app-appliedleave-cards [leave]="item" (click)="openModal(item)"></app-appliedleave-cards> -->
+    <app-appliedleave-cards [leaves]="item"></app-appliedleave-cards>
     }
 
 </div>

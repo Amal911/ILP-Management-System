@@ -65,7 +65,7 @@ export class CreateAssessmentComponent implements OnInit {
   ];
   uploadedFiles: any[] = [];
   programs: any[] = [];
-  trainers: string[] = [];
+  trainers: any[] = [];
   batches: any[] = [];
   batchPhasesData: any[] = [];
   phases: { id: number, name: string }[] = [];
@@ -75,9 +75,7 @@ export class CreateAssessmentComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private http: HttpClient,
-    private userService: UserService,
-    private datePipe: DatePipe
-  ) {}
+    private userService: UserService  ) {}
 
   onUpload(event: FileUploadEvent) {
     for (let file of event.files) {
@@ -91,9 +89,6 @@ export class CreateAssessmentComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getPrograms();
-    // this.getBatches();
-    // this.getPhases();
-    // this.getAssessmentTypes();
     this.getTrainers();
 
     this.assessmentForm = new FormGroup({
@@ -191,7 +186,6 @@ export class CreateAssessmentComponent implements OnInit {
     }
   
     const formValue = this.assessmentForm.value;
-    console.log(formValue);
   
     const formData = new FormData();
     this.appendFormData(formData, formValue.submissionRequired);
@@ -231,13 +225,26 @@ export class CreateAssessmentComponent implements OnInit {
     formData.set('Description', formValue.comments);
     formData.set('IsSubmitable', isSubmitable);
     formData.set('AssessmentTypeID', this.getAssessmentTypeId(formValue.evaluationCriteria).toString());
-    formData.set('UserId', '1');
+    formData.set('UserId', this.getTrainerId(formValue.trainer).toString());
+    // formData.set('UserId', '1');    
   
-    if (isSubmitable === 'true' && this.uploadedFiles.length > 0) {
-      formData.append('Document', this.uploadedFiles[0]);
+    if (isSubmitable === 'true') {
+      if (this.uploadedFiles.length > 0) {
+        formData.append('Document', this.uploadedFiles[0]);
+      } else {
+        formData.set('Document', '');
+        formData.set('DocumentName', '');
+        formData.set('DocumentContentType', '');
+      }
       formData.set('DueDateTime', new Date(formValue.dueDate).toISOString());
+    } else {
+      formData.set('DueDateTime', '');
+      formData.set('Document', '');
+      formData.set('DocumentName', '');
+      formData.set('DocumentContentType', '');
     }
   }
+  
   
 
   private handleSubmitSuccess(response: any): void {
@@ -305,9 +312,7 @@ export class CreateAssessmentComponent implements OnInit {
     this.http
       .get('https://localhost:7009/api/BatchProgram')
       .subscribe((data: any) => {
-        this.programs = data;
-        console.log(this.programs);
-        
+        this.programs = data;        
       });
   }
   getProgramId(programName: string): number {
@@ -385,16 +390,12 @@ export class CreateAssessmentComponent implements OnInit {
   }
 
   getTrainers() {
-    this.userService.getUsers().subscribe((users) => {
-      this.userService.getRoles().subscribe((roles) => {
-        const trainerRoleId = roles.find(
-          (role) => role.roleName === 'Trainer'
-        ).id;
-        this.trainers = users
-          .filter((user) => user.roleId === trainerRoleId)
-          .map((trainer) => `${trainer.firstName} ${trainer.lastName}`);
-      });
+    this.userService.getTrainers().subscribe((data: any) => {
+      this.trainers = data;
     });
+  }
+  get trainerNames() {
+    return this.trainers.map((trainer) => trainer.name);
   }
 
   getBatches() {
@@ -416,6 +417,11 @@ export class CreateAssessmentComponent implements OnInit {
   getPhaseId(phaseName: string): number {
     const phase = this.phases.find(p => p.name === phaseName);
     return phase ? phase.id : 0;
+  }
+
+  getTrainerId(trainerName: string): number{
+    const trainer = this.trainers.find(t => t.name === trainerName);    
+    return trainer ? trainer.id : 0;
   }
   
   getAssessmentTypeId(assessmentTypeName: string): number {

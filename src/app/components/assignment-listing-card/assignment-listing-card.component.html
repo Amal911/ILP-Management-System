@@ -6,8 +6,8 @@
     <div class="card-writings col-8 d-flex flex-column justify-content-center  align-items-start p-2" >
       
       <h5 class="card-title text-left  custom-title">{{assignments.assessment_title}}</h5>
-      <p class="card-text text-left mb-0 custom-text">Posted on {{assignments.post_date}}</p>
-      <p class="card-text text-left custom-text">Due by {{assignments.due_date}}</p>
+      <p class="card-text text-left mb-0 custom-text">Posted on {{formatDate(assignments.post_date)}}</p>
+      <p class="card-text text-left custom-text">Due by {{formatDate(assignments.due_date)}}</p>
     </div>
     <div class="col-2 d-flex flex-column justify-content-end align-items-start ">
       <div class="d-flex flex-row align-items-center justify-content-start custom-icon-and-text" >

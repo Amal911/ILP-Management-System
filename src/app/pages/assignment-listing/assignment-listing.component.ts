@@ -3,7 +3,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { ListingCardComponent } from '../../components/batch-listing-card/batch-listing-card.component';
 import { DropdownComponent } from '../../components/dropdown/dropdown.component';
 import { AssignmentListingCardComponent } from '../../components/assignment-listing-card/assignment-listing-card.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProgramService } from '../../services/API/assessment-listing.service';
 
@@ -28,6 +28,7 @@ interface Assignment {
     AssignmentListingCardComponent,
     CommonModule,
   ],
+  providers:[DatePipe]
 })
 export class AssignmentListingComponent {
 
@@ -39,11 +40,20 @@ export class AssignmentListingComponent {
   selectedBatch: any;
   Assignments: any = [];
   todayDate: Date = new Date();
+  userRole: string = '';
+  userId: number = 0;
 
-  constructor(private router: Router,private programService: ProgramService) {}
+  constructor(private router: Router,private programService: ProgramService,private datePipe: DatePipe) {
+    this.userRole = localStorage.getItem('roleName') || '';
+    this.userId = parseInt(localStorage.getItem('UserId') || '0', 10);
+  }
 
   ngOnInit() {
-    this.loadPrograms();
+    if (this.userRole.toLowerCase() === 'trainee') {
+      this.loadTraineeBatchAndAssignments();
+    } else {
+      this.loadPrograms();
+    }
   }
 
   loadPrograms() {
@@ -74,6 +84,20 @@ export class AssignmentListingComponent {
         }
       },
       (error) => console.error('Error loading batches:', error)
+    );
+  }
+
+  loadTraineeBatchAndAssignments() {
+    this.programService.getBatchIdForTrainee(this.userId).subscribe(
+      (batchId) => {
+        if (batchId) {
+          this.selectedBatch = { id: batchId };
+          this.loadAssignments(batchId);
+        } else {
+          console.error('No batch found for trainee');
+        }
+      },
+      (error) => console.error('Error loading trainee batch:', error)
     );
   }
 

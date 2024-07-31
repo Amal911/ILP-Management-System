@@ -40,22 +40,32 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                      <div class="form-group">
-                        <label for="batchCode">* Batch Code</label>
-                        <input
-                          type="text"
-                          id="batchCode"
-                          class="form-control inputBox"
-                          formControlName="batchCode"
+                      <label for="batchType">Batch Type</label>
+                      <div class="dropdown form-group">
+                        <select
+                          id="batchTypeId"
+                          class="form-control"
+                          formControlName="batchTypeId"
                           [ngClass]="{
                             'input-error':
-                              createBatchForm.get('batchDetails.batchCode')
+                              createBatchForm.get('batchDetails.batchTypeId')
                                 ?.invalid &&
-                              createBatchForm.get('batchDetails.batchCode')
-                                ?.touched
+                              createBatchForm.get('batchDetails.batchTypeId')
+                                ?.touched &&
+                              createBatchForm
+                                .get('batchDetails.batchTypeId')
+                                ?.hasError('required')
                           }"
-                        />
+                        >
+                          <option value="" disabled>Select a Batch Type</option>
+                          @for (type of batchtype; track $index) {
+                          <option value="{{ type.id }}">
+                            {{ type.batchTypeName }}
+                          </option>
+                          }
+                        </select>
                       </div>
+                     
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -78,6 +88,67 @@
                     </div>
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
+                        <label for="batchCode">* Batch Code</label>
+                        <input
+                          type="text"
+                          id="batchCode"
+                          class="form-control inputBox"
+                          formControlName="batchCode"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.batchCode')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.batchCode')
+                                ?.touched
+                          }"
+                        />
+                        <div
+                          class="text-danger"
+                          *ngIf="
+                            createBatchForm
+                              .get('batchDetails.batchDuration')
+                              ?.hasError('invalidDays') &&
+                            !createBatchForm
+                              .get('batchDetails.batchDuration')
+                              ?.hasError('required')
+                          "
+                        >
+                          ! Batch duration must be at least 1 day.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="locationDropdown">Location</label>
+                      <div class="dropdown form-group">
+                        <select
+                          id="locationId"
+                          class="form-control"
+                          formControlName="locationId"
+                          [ngClass]="{
+                            'input-error':
+                              createBatchForm.get('batchDetails.locationId')
+                                ?.invalid &&
+                              createBatchForm.get('batchDetails.locationId')
+                                ?.touched &&
+                              createBatchForm
+                                .get('batchDetails.locationId')
+                                ?.hasError('required')
+                          }"
+                        >
+                          <option value="" disabled>
+                            Select a Location<i class="bi bi-chevron-down"></i>
+                          </option>
+                          @for (location of batchLocation; track $index) {
+                          <option value="{{ location.id }}">
+                            {{ location.locationName }}
+                          </option>
+                          }
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                      <div class="form-group">
                         <label for="batchDuration">* Number of Days</label>
 
                         <input
@@ -96,21 +167,11 @@
                                 ?.hasError('required')
                           }"
                         />
-                        <div
-                          class="text-danger"
-                          *ngIf="
-                            createBatchForm
-                              .get('batchDetails.batchDuration')
-                              ?.hasError('invalidDays') &&
-                            !createBatchForm
-                              .get('batchDetails.batchDuration')
-                              ?.hasError('required')
-                          "
-                        >
-                          ! Batch duration must be at least 1 day.
-                        </div>
+                        
                       </div>
                     </div>
+
+                   
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
                         <label for="startDate">Start Date (Tentative)</label>
@@ -177,64 +238,6 @@
                         >
                           ! End date cannot be in the past.
                         </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                      <label for="batchType">Batch Type</label>
-                      <div class="dropdown form-group">
-                        <select
-                          id="batchTypeId"
-                          class="form-control"
-                          formControlName="batchTypeId"
-                          [ngClass]="{
-                            'input-error':
-                              createBatchForm.get('batchDetails.batchTypeId')
-                                ?.invalid &&
-                              createBatchForm.get('batchDetails.batchTypeId')
-                                ?.touched &&
-                              createBatchForm
-                                .get('batchDetails.batchTypeId')
-                                ?.hasError('required')
-                          }"
-                        >
-                          <option value="" disabled>Select a Batch Type</option>
-                          @for (type of batchtype; track $index) {
-                          <option value="{{ type.id }}">
-                            {{ type.batchTypeName }}
-                          </option>
-                          }
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                      <label for="locationDropdown">Location</label>
-                      <div class="dropdown form-group">
-                        <select
-                          id="locationId"
-                          class="form-control"
-                          formControlName="locationId"
-                          [ngClass]="{
-                            'input-error':
-                              createBatchForm.get('batchDetails.locationId')
-                                ?.invalid &&
-                              createBatchForm.get('batchDetails.locationId')
-                                ?.touched &&
-                              createBatchForm
-                                .get('batchDetails.locationId')
-                                ?.hasError('required')
-                          }"
-                        >
-                          <option value="" disabled>
-                            Select a Location<i class="bi bi-chevron-down"></i>
-                          </option>
-                          @for (location of batchLocation; track $index) {
-                          <option value="{{ location.id }}">
-                            {{ location.locationName }}
-                          </option>
-                          }
-                        </select>
                       </div>
                     </div>
                     <!-- 

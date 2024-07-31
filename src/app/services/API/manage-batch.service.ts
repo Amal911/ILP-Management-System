@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UpdateBatchRequestDTO } from '../../../models/BatchDetails.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManageBatchService {
   private manageBatchUrl:string = 'https://localhost:7009/Batch/GetBatchDetailById';
+  private baseUrl:string = 'https://localhost:7009/Batch/GetBatchDetailById';
 
   constructor(private http:HttpClient) { }
 
@@ -18,6 +20,11 @@ export class ManageBatchService {
   getBatchDetailByID(id: number) {
     return this.http.get(`https://localhost:7009/Batch/GetBatchDetailById/${id}`);
 }
+updateBatch(id: number, batch: UpdateBatchRequestDTO): Observable<void> {
+  return this.http.put<void>(`https://localhost:7009/Batch/UpdateBatch/${id}`, batch);
+}
+
+
 
   getPhases(){
     return this.http.get('https://localhost:7009/api/Phase');

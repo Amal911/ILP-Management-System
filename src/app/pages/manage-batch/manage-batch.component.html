@@ -36,6 +36,13 @@
               id="program"
               class="form-control inputBox"
               formControlName="programId"
+              [ngClass]="{
+                'input-error':
+                  batchForm.get('programId')
+                    ?.invalid &&
+                  batchForm.get('programId')
+                    ?.touched
+              }"
             >
             @for (program of batchProgram; track $index) {
 
@@ -76,6 +83,13 @@
               id="batchCode"
               class="form-control inputBox"
               formControlName="batchCode"
+              [ngClass]="{
+                'input-error':
+                  batchForm.get('batchCode')
+                    ?.invalid &&
+                  batchForm.get('batchCode')
+                    ?.touched
+              }"
             />
           </div>
 
@@ -87,6 +101,13 @@
               id="batchDuration"
               class="form-control inputBox"
               formControlName="batchDuration"
+              [ngClass]="{
+                'input-error':
+                  batchForm.get('batchDuration')
+                    ?.invalid &&
+                  batchForm.get('batchDuration')
+                    ?.touched
+              }"
             />
           </div>
 
@@ -98,6 +119,13 @@
               id="batchName"
               class="form-control inputBox"
               formControlName="batchName"
+              [ngClass]="{
+                'input-error':
+                  batchForm.get('batchName')
+                    ?.invalid &&
+                  batchForm.get('batchName')
+                    ?.touched
+              }"
             />
           </div>
 
@@ -109,6 +137,13 @@
               id="startDate"
               class="form-control inputBox"
               formControlName="startDate"
+              [ngClass]="{
+                'input-error':
+                  batchForm.get('startDate')
+                    ?.invalid &&
+                  batchForm.get('startDate')
+                    ?.touched
+              }"
             />
           </div>
 
@@ -120,6 +155,13 @@
               id="numberOfTrainees"
               class="form-control inputBox"
               formControlName="numberOfTrainees"
+              [ngClass]="{
+                'input-error':
+                  batchForm.get('numberOfTrainees')
+                    ?.invalid &&
+                  batchForm.get('numberOfTrainees')
+                    ?.touched
+              }"
             />
           </div>
 
@@ -131,6 +173,13 @@
               id="endDate"
               class="form-control inputBox"
               formControlName="endDate"
+              [ngClass]="{
+                'input-error':
+                  batchForm.get('endDate')
+                    ?.invalid &&
+                  batchForm.get('endDate')
+                    ?.touched
+              }"
             />
           </div>
 
@@ -141,6 +190,13 @@
               id="locationDropdown"
               class="form-control"
               formControlName="locationId"
+              [ngClass]="{
+                'input-error':
+                  batchForm.get('locationId')
+                    ?.invalid &&
+                  batchForm.get('locationId')
+                    ?.touched
+              }"
             >
               @for (location of batchLocation; track $index) {
 
@@ -159,6 +215,13 @@
               id="batchType"
               class="form-control"
               formControlName="batchTypeId"
+              [ngClass]="{
+                'input-error':
+                  batchForm.get('batchTypeId')
+                    ?.invalid &&
+                  batchForm.get('batchTypeId')
+                    ?.touched
+              }"
             >
               <option value="" disabled>Select a Batch Type</option>
 
@@ -347,14 +410,21 @@
                     <div class="form-group">
                       <label for="phaseId{{ phaseIndex }}">Phase Name</label>
 
-                      <select id="phaseName" class="form-control">
+                      <select id="phaseName" class="form-control" formControlName="phaseName"
+                      [ngClass]="{
+                        'input-error':
+                          batchForm.get('phaseName')
+                            ?.invalid &&
+                          batchForm.get('phaseName')
+                            ?.touched
+                      }">
                         <option value="" hidden selected disabled>
                           Select the Phase
                         </option>
 
                         @for (phase of phasesData; track $index) {
 
-                        <option value="{{ phase.id }}">
+                        <option value="{{ phase.id}}">
                           {{ phase.phaseName }}
                         </option>
 
@@ -376,6 +446,13 @@
                         id="numberOfDays{{ phaseIndex }}"
                         class="form-control inputBox"
                         formControlName="numberOfDays"
+                        [ngClass]="{
+                          'input-error':
+                            batchForm.get('numberOfDays')
+                              ?.invalid &&
+                            batchForm.get('numberOfDays')
+                              ?.touched
+                        }"
                       />
 
                       <!-- <div 
@@ -417,6 +494,13 @@
                         id="phaseStartDate{{ phaseIndex }}"
                         class="form-control inputBox"
                         formControlName="phaseStartDate"
+                        [ngClass]="{
+                          'input-error':
+                            batchForm.get('phaseStartDate')
+                              ?.invalid &&
+                            batchForm.get('phaseStartDate')
+                              ?.touched
+                        }"
                       />
 
                       <!-- <div 
@@ -458,6 +542,13 @@
                         id="phaseEndDate{{ phaseIndex }}"
                         class="form-control inputBox"
                         formControlName="phaseEndDate"
+                        [ngClass]="{
+                          'input-error':
+                            batchForm.get('phaseEndDate')
+                              ?.invalid &&
+                            batchForm.get('phaseEndDate')
+                              ?.touched
+                        }"
                       />
 
                       <!-- <div 
@@ -519,6 +610,13 @@
                                   id="evaluationCriteria"
                                   class="form-control"
                                   formControlName="evaluationCriteria"
+                                  [ngClass]="{
+                                    'input-error':
+                                      batchForm.get('evaluationCriteria')
+                                        ?.invalid &&
+                                      batchForm.get('evaluationCriteria')
+                                        ?.touched
+                                  }"
                                 >
                                   <option value="" hidden selected disabled>
                                     Select Assessment Type
@@ -580,6 +678,13 @@
                                   id="weightage{{ phaseIndex }}-{{ i }}"
                                   class="form-control inputBox"
                                   formControlName="weightage"
+                                  [ngClass]="{
+                                    'input-error':
+                                      batchForm.get('weightage')
+                                        ?.invalid &&
+                                      batchForm.get('weightage')
+                                        ?.touched
+                                  }"
                                 />
 
                                 <!-- <div 

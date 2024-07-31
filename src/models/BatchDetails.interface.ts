@@ -10,26 +10,26 @@ export interface Location {
     batchTypeName: string;
   }
   
-  export interface Assessment {
-    id: number;
-    evaluationCriteria: string;
-    weightage: number;
-  }
+//   export interface Assessment {
+//     id: number;
+//     evaluationCriteria: string;
+//     weightage: number;
+//   }
   
-  export interface Phase {
-    id:number
-    phaseName: string;
-    numberOfDays: number;
-    phaseStartDate: string;
-    phaseEndDate: string;
-    assessmentTypeList: Assessment[];
-  }
+//   export interface Phase {
+//     id:number
+//     phaseName: string;
+//     numberOfDays: number;
+//     phaseStartDate: string;
+//     phaseEndDate: string;
+//     assessmentTypeList: Assessment[];
+//   }
   
   export interface BatchDetail {
     batchCode: string;
     batchDuration: number;
     batchName: string;
-    batchPhases: Phase[];
+    //batchPhases: Phase[];
     batchType: BatchType;
     batchTypeId: number;
     endDate: string;
@@ -43,4 +43,33 @@ export interface Location {
     traineeCount: number;
     traineeList: any[];  
   }
+export interface UpdateBatchRequestDTO {
+    id: number;
+    batchName: string;
+    batchCode: string;
+    batchDuration: number;
+    startDate: string;
+    endDate: string;
+    isActive: boolean;
+    programId: number;
+    locationId: number;
+    batchTypeId: number;
+    batchPhases: BatchPhaseDTO[];
+  }
+  
+  export interface BatchPhaseDTO {
+    id: number;
+    numberOfDays: number;
+    startDate: string;
+    endDate: string;
+    isCompleted: boolean;
+    phaseAssessmentTypeMappings: PhaseAssessmentTypeMappingDTO[];
+  }
+  
+  export interface PhaseAssessmentTypeMappingDTO {
+    id: number;
+    assessmentTypeId: number;
+    weightage: number;
+  }
+  
   

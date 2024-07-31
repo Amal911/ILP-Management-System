@@ -20,6 +20,7 @@ import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { ApiService } from '../../services/api.service';
 import { ManageBatchService } from '../../services/API/manage-batch.service';
+import { UpdateBatchRequestDTO } from '../../../models/BatchDetails.interface';
 
 @Component({
   selector: 'app-manage-batch',
@@ -44,7 +45,7 @@ import { ManageBatchService } from '../../services/API/manage-batch.service';
   styleUrl: './manage-batch.component.scss',
 })
 export class ManageBatchComponent {
-  [x: string]: any;
+  // [x: string]: any;
 
   batchForm!: FormGroup;
 
@@ -61,15 +62,8 @@ export class ManageBatchComponent {
   batchDetails: any;
   batchProgram: any;
 
-  trainees = [
-    // { name: 'Amal E A' },
-    // { name: 'Devipriya M S' },
-    // { name: 'Dharsan C Sajeev' },
-    // { name: 'Jisna George' },
-    // { name: 'Kailas Nadh J' },
-    // { name: 'Reshmi M' },
-    // { name: 'Thulasi K' },
-  ];
+  trainees = [];
+  phases: any;
 
   constructor(
     private fb: FormBuilder,
@@ -82,41 +76,25 @@ export class ManageBatchComponent {
   ngOnInit(): void {
     this.api.getBatchType().subscribe((res) => {
       this.batchtype = res;
-
-      console.log(this.batchtype);
     });
 
     this.api.getBatchLocation().subscribe((res) => {
       this.batchLocation = res;
-
-      console.log(this.batchLocation);
     });
 
     this.api.getPhases().subscribe((res) => {
       this.phasesData = res;
-
-      console.log(this.phasesData);
     });
 
     this.api.getAssessmentTypes().subscribe((res) => {
       this.assessmentType = res;
-
-      console.log(this.assessmentType);
     });
     this.manageBatchService.getBatchProgram().subscribe((res) => {
       this.batchProgram = res;
-
-      console.log(this.batchProgram);
     });
-    this.manageBatchService.getBatchDetailByID(1).subscribe((res) => {
+    this.manageBatchService.getBatchDetailByID(2).subscribe((res) => {
       console.log('Batch details from API:', res);
       this.batchDetails = res;
-      console.log('Batch code', this.batchDetails[0].batchCode);
-      console.log(
-        'Batch phase duration',
-        this.batchDetails[0].batchPhases[0].numberOfDays
-      );
-
       this.populateForm(this.batchDetails);
     });
 
@@ -152,14 +130,13 @@ export class ManageBatchComponent {
 
       phases: this.fb.array([
         this.fb.group({
-          
           phaseName: new FormControl({ value: '', disabled: true }),
           numberOfDays: new FormControl({ value: '', disabled: true }),
           phaseStartDate: new FormControl({ value: '', disabled: true }),
           phaseEndDate: new FormControl({ value: '', disabled: true }),
           assessmentTypeList: this.fb.array([
             this.fb.group({
-              evaluationCriteria: new FormControl({ value: '', disabled: true }),
+              evaluationCriteria: new FormControl({ value: '', disabled: true}),
               weightage: new FormControl({ value: '', disabled: true })
             }),
             this.fb.group({
@@ -171,6 +148,16 @@ export class ManageBatchComponent {
       ]),
     });
     this.batchForm.disable();
+    this.batchForm.get('startDate')?.valueChanges.subscribe(() => {
+      this.updatePhaseStartDate();
+    });
+  
+    this.batchForm.get('batchDuration')?.valueChanges.subscribe(() => {
+      this.updateEndDate();
+    });
+  
+    this.subscribeToPhaseChanges();
+    
   }
   populateForm(batchDetails: any): void {
     const phasesArray = this.fb.array([]);
@@ -196,65 +183,207 @@ export class ManageBatchComponent {
       //phases: this.fb.array([]),
     });
 
-    this.batchForm.setControl('phases', phasesArray);
+   // this.batchForm.setControl('phases', phasesArray);
     this.trainees = this.batchDetails[0].traineeList;
     this.phasesData = this.batchDetails[0].batchPhases;
-    console.log('Type of phases:', typeof this.batchDetails[0].batchPhases);
-    console.log(
-      'Type of traineeList:',
-      typeof this.batchDetails[0].traineeList
-    );
-this.setPhases(this.batchDetails[0].batchPhases[0]);
+
+    
+this.setPhases(this.batchDetails[0].batchPhases);
+this.setAssessmentTypes(this.batchDetails[0].batchPhases.phaseAssessmentTypeMappings,0)
     this.batchForm.disable();
+    this.batchForm.get('startDate')?.valueChanges.subscribe(changes => {
+      this.updateEndDate();
+    });
+    this.batchForm.get('batchDuration')?.valueChanges.subscribe(changes => {
+      this.updateEndDate();
+    });
+    this.subscribeToPhaseChanges()
+
   }
+  //Batch End date based on start date and duration number of days
+  updateEndDate(){
+    const startDateValue = this.batchForm.get('startDate')?.value;
+    const batchDurationDays = this.batchForm.get('batchDuration')?.value;
+    if (startDateValue && batchDurationDays) {
+      const startDate = new Date(startDateValue);
+      const durationDays = parseInt(batchDurationDays, 10);
 
-  setPhases(phases: any[]): void {
-    const phasesArray = this.batchForm.get('phases') as FormArray;
-    phases.forEach((phase) => {
-      phasesArray.push(
-        this.fb.group({
-          phaseName: new FormControl(
-            phase.phaseName || '',
-            Validators.required
-          ),
-          phaseStartDate: new FormControl(
-            phase.startDate || '',
-            Validators.required
-          ),
-          phaseEndDate: new FormControl(
-            phase.endDate || '',
-            Validators.required
-          ),
-          numberOfDays: new FormControl(
-            phase.numberOfDays || '',
-            Validators.required
-          ),
-          assessmentTypeList: this.fb.array([]),
-        })
-      );
+      if (!isNaN(durationDays)) {
+        const endDate = this.calcWorkingDays(startDate, durationDays);
+        this.batchForm
+          .get('endDate')
+          ?.setValue(endDate.toISOString().split('T')[0]);
+      } else {
+        console.error('Invalid batch duration');
+      }
+    }
+    
+  }
+  //Checking the changes in Phases
+  subscribeToPhaseChanges() {
+    const phases = this.phasesArray();
 
-      this.setAssessmentTypes(phase.assessmentTypeList, phasesArray.length - 1);
+    phases.controls.forEach((control: AbstractControl, index: number) => {
+      const phases = control as FormGroup;
+      phases
+        .get('numberOfDays')
+        ?.valueChanges.subscribe(() => this.updatePhaseEndDate(index));        
     });
   }
-  setAssessmentTypes(assessments: any[], phaseIndex: number): void {
-    const phaseFormArray = (this.batchForm.get('phases') as FormArray)
+  //Phase Start Date Calculation
+private updatePhaseStartDate(): void {
+  const batchStartDate = this.batchForm.get('startDate')?.value;
+  if (batchStartDate) {
+    const startDate = new Date(batchStartDate);
+
+    const phases = this.phasesArray();
+    if (phases.length > 0) {
+      const firstPhase = phases.at(0) as FormGroup;
+      firstPhase.get('phaseStartDate')?.setValue(this.formatDate(startDate));
+    }
+  }
+}
+  //Phase End Date Calculation
+private updatePhaseEndDate(index: number): void {
+  if (index < 0 || index >= this.phasesArray().length) {
+    // console.error('Index out of bounds');
+    return;
+  }
+
+  const phases = this.phasesArray();
+  const currentPhase = phases.at(index) as FormGroup;
+  const numberOfDays = currentPhase.get('numberOfDays')?.value;
+
+  let startDate: Date;
+
+  if (index > 0) {
+    const previousPhase = phases.at(index - 1) as FormGroup;
+    const previousEndDateValue = previousPhase.get('phaseEndDate')?.value;
+    if (previousEndDateValue) {
+      startDate = new Date(previousEndDateValue);
+      startDate.setDate(startDate.getDate() + 1);
+    } else {
+      // console.error('Previous phase end date not found');
+      return;
+    }
+  } else {
+    const batchStartDate = this.batchForm.get('startDate')?.value;
+    if (batchStartDate) {
+      startDate = new Date(batchStartDate);
+    } else {
+      // console.error('Batch start date not found');
+      return;
+    }
+  }
+
+  if (startDate.getDay() === 0) {
+    startDate.setDate(startDate.getDate() + 1);
+  }
+
+  currentPhase.get('phaseStartDate')?.setValue(this.formatDate(startDate));
+
+  if (numberOfDays) {
+    const durationDays = parseInt(numberOfDays, 10);
+    if (!isNaN(durationDays)) {
+      const endDate = this.calcWorkingDays(startDate, durationDays);
+      currentPhase.get('phaseEndDate')?.setValue(this.formatDate(endDate));
+    } else {
+      console.error('Invalid number of days');
+    }
+  }
+
+  this.updateSubsequentPhases(index);
+}
+  // Update subsequent phases
+
+private updateSubsequentPhases(fromIndex: number): void {
+  const phases = this.phasesArray();
+  for (let i = fromIndex + 1; i < phases.length; i++) {
+    this.updatePhaseEndDate(i);
+  }
+}
+  getPreviousPhaseStartDate() {
+    let phaseCount = this.batchForm.get('phases')?.value.length;
+    if (phaseCount >= 1) {
+      let endDate =
+        this.batchForm.get('phases')?.value[phaseCount - 1].endDate;
+      console.log(endDate);
+      return endDate;
+    }
+  }
+  //Calculating Working days
+  calcWorkingDays(fromDate: Date, days: number): Date {
+    let count = 0;
+
+    while (count < days) {
+      if (fromDate.getDay() !== 0) {
+        count++;
+      }
+      if (count < days) {
+        fromDate.setDate(fromDate.getDate() + 1);
+      }
+    }
+    return fromDate;
+  }
+  //Populating the phase details from API response
+setPhases(phases: any[]): void {
+  const phasesArray = this.batchForm.get('phases') as FormArray;
+  phasesArray.clear(); 
+
+  phases.forEach((phase, index) => {
+    if (phase && phase.startDate && phase.endDate) {
+      const formattedStartDate = this.formatDate(new Date(phase.startDate));
+      const formattedEndDate = this.formatDate(new Date(phase.endDate));
+
+      const phaseGroup = this.fb.group({
+        phaseName: new FormControl(phase.phase.id, Validators.required),
+        phaseStartDate: new FormControl(formattedStartDate, Validators.required),
+        phaseEndDate: new FormControl(formattedEndDate, Validators.required),
+        numberOfDays: new FormControl(phase.numberOfDays || '', Validators.required),
+        assessmentTypeList: this.fb.array([]),
+      });
+      this.phases=phase
+
+      phasesArray.push(phaseGroup);
+      this.setAssessmentTypes(phase.phaseAssessmentTypeMappings, index);
+    } else {
+      console.error('Invalid phase object:', phase);
+    }
+  });
+}
+
+//Populating assessment types from API response
+setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
+  console.log('Setting assessment types:', assessments, 'for phase index:', phaseIndex);
+  const phaseFormArray = (this.batchForm.get('phases') as FormArray)
       .at(phaseIndex)
       .get('assessmentTypeList') as FormArray;
-    assessments.forEach((assessment) => {
-      phaseFormArray.push(
-        this.fb.group({
-          evaluationCriteria: new FormControl(
-            assessment.evaluationCriteria || '',
-            Validators.required
-          ),
-          weightage: new FormControl(
-            assessment.weightage || '',
-            Validators.required
-          ),
-        })
-      );
-    });
-  }
+  assessments.forEach((assessment) => {
+    this.assessmentType=assessments
+    console.log(assessment);
+      if (assessment && assessment.assessmentType && typeof assessment.weightage === 'number') {
+          phaseFormArray.push(
+              this.fb.group({
+                  evaluationCriteria: new FormControl(
+                      assessment.assessmentType.id,
+                      Validators.required
+                  ),
+                  weightage: new FormControl(
+                      assessment.weightage || '',
+                      Validators.required
+                  ),
+              })
+              
+          );
+
+
+      } else {
+          console.error('Invalid assessment object:', assessment);
+      }
+  });
+}
+
+
   getStatusClass() {
     const status = this.batchForm.get('status')?.value;
 
@@ -335,6 +464,7 @@ this.setPhases(this.batchDetails[0].batchPhases[0]);
     return this.batchForm.get(controlName) as FormControl;
   }
 
+  
   ngAfterViewInit(): void {
     this.disableDragAndDrop();
   }
@@ -351,9 +481,8 @@ this.setPhases(this.batchDetails[0].batchPhases[0]);
 
   editBatch() {
     this.isEditable = true;
-
     this.batchForm.enable();
-
+    
     this.phasesArray().controls.forEach((phase) => {
       phase.enable();
 
@@ -361,20 +490,166 @@ this.setPhases(this.batchDetails[0].batchPhases[0]);
 
       assessmentTypeList.controls.forEach((assessment) => assessment.enable());
     });
+    
   }
 
   downloadBatch() {}
 
   onCancel() {}
-
-  saveBatchDetails() {
-    this.isEditable = false;
-
-    this.batchForm.disable();
-
-    console.log(this.batchForm.value);
+  convertToDate(dateString: string): Date {
+    return new Date(dateString);
   }
+  
+  // saveBatchDetails() {
+  //   this.isEditable = false;
+  //   // this.batchForm.disable();
+  // console.log('Program ID:', this.batchForm.get('programId')?.value);
+  // console.log('Status:', this.batchForm.get('status')?.value);
+  // console.log('Batch Code:', this.batchForm.get('batchCode')?.value);
+  // console.log('Phases:', this.batchForm.get('phases')?.value);
+  // console.log(this.batchForm.value);
+  // console.log('Entire Form Values:', this.batchForm.value);
+  // console.log('Program ID:', this.batchForm.get('programId')?.value);
+  // console.log('Status:', this.batchForm.get('status')?.value);
+  // console.log('Batch Code:', this.batchForm.get('batchCode')?.value);
+  // console.log('Batch Duration:', this.batchForm.get('batchDuration')?.value);
+  // console.log('Batch Name:', this.batchForm.get('batchName')?.value);
+  // console.log('Start Date:', this.batchForm.get('startDate')?.value);
+  // console.log('Number of Trainees:', this.batchForm.get('numberOfTrainees')?.value);
+  // console.log('End Date:', this.batchForm.get('endDate')?.value);
+  // console.log('Location ID:', this.batchForm.get('locationId')?.value);
+  // console.log('Batch Type ID:', this.batchForm.get('batchTypeId')?.value);
+  // console.log('Phases:', this.batchForm.get('phases')?.value);
+  // const phasesArray = this.batchForm.get('phases') as FormArray;
 
+  // // Log each phaseGroup
+  // phasesArray.controls.forEach((phaseGroup, index) => {
+  //   console.log(`Phase Group ${index}:`, phaseGroup.value);
+  // });
+  
+  //    this.batchForm.disable();
+
+  // }
+  
+  // saveBatchDetails() {
+  //   if (this.batchForm.invalid) {
+  //     this.messageService.add({
+  //       severity: 'error',
+  //       summary: 'Form Error',
+  //       detail: 'Please correct the errors in the form.',
+  //       life: 3000,
+  //     });
+  //     return;
+  //   }
+  
+  //   this.isEditable = false;
+  
+  //   const batchDetails: UpdateBatchRequestDTO = {
+  //     id: this.batchForm.get('programId')?.value as number,
+  //     batchName: this.batchForm.get('batchName')?.value,
+  //     batchCode: this.batchForm.get('batchCode')?.value,
+  //     batchDuration: this.batchForm.get('batchDuration')?.value,
+  //     startDate: this.batchForm.get('startDate')?.value,
+  //     endDate: this.batchForm.get('endDate')?.value,
+  //     isActive: this.batchForm.get('status')?.value === 'Active',
+  //     programId: this.batchForm.get('programId')?.value as number,
+  //     locationId: this.batchForm.get('locationId')?.value as number,
+  //     batchTypeId: this.batchForm.get('batchTypeId')?.value as number,
+  //     batchPhases: (this.batchForm.get('phases')?.value || []).map((phase: any) => ({
+  //       BatchId: this.batchForm.get('programId')?.value as number,
+  //       PhaseId: phase.phaseName as number,
+  //       NumberOfDays: phase.numberOfDays,
+  //       StartDate: phase.phaseStartDate,
+  //       EndDate: phase.phaseEndDate,
+  //       PhaseAssessmentTypeMappings: (phase.assessmentTypeList || []).map((assessment: any) => ({
+  //         AssessmentTypeId: assessment.evaluationCriteria as number,
+  //         Weightage: assessment.weightage
+  //       }))
+  //     }))
+  //   };
+  // console.log(batchDetails);
+  
+  //   this.manageBatchService.updateBatch(batchDetails.id, batchDetails).subscribe(
+  //     () => {
+  //       this.messageService.add({
+  //         severity: 'success',
+  //         summary: 'Success',
+  //         detail: 'Batch details updated successfully!',
+  //         life: 3000,
+  //       });
+  //     },
+  //     error => {
+  //       console.error('Error updating batch:', error);
+  //       this.messageService.add({
+  //         severity: 'error',
+  //         summary: 'Update Failed',
+  //         detail: 'There was an error updating the batch details.',
+  //         life: 3000,
+  //       });
+  //     }
+  //   );
+  // }
+  saveBatchDetails() {
+    if (this.batchForm.invalid) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Form Error',
+        detail: 'Please correct the errors in the form.',
+        life: 3000,
+      });
+      return;
+    }
+  
+    this.isEditable = false;
+  
+    const batchDetails: UpdateBatchRequestDTO = {
+      // id: this.batchForm.get('programId')?.value as number,
+      id: this.batchDetails[0].id as number,
+      batchName: this.batchForm.get('batchName')?.value,
+      batchCode: this.batchForm.get('batchCode')?.value,
+      batchDuration: this.batchForm.get('batchDuration')?.value,
+      startDate: this.convertToDate(this.batchForm.get('startDate')?.value).toISOString(),
+      endDate: this.convertToDate(this.batchForm.get('endDate')?.value).toISOString(),
+      isActive: this.batchForm.get('status')?.value === 'Active',
+      programId: this.batchForm.get('programId')?.value as number,
+      locationId: this.batchForm.get('locationId')?.value as number,
+      batchTypeId: this.batchForm.get('batchTypeId')?.value as number,
+      batchPhases: (this.batchForm.get('phases')?.value || []).map((phase: any) => ({
+        BatchId: this.batchForm.get('programId')?.value as number,
+        PhaseId: phase.phaseName as number,
+        NumberOfDays: phase.numberOfDays,
+        StartDate: this.convertToDate(phase.phaseStartDate).toISOString(),
+        EndDate: this.convertToDate(phase.phaseEndDate).toISOString(),
+        PhaseAssessmentTypeMappings: (phase.assessmentTypeList || []).map((assessment: any) => ({
+          AssessmentTypeId: assessment.evaluationCriteria as number,
+          Weightage: assessment.weightage
+        }))
+      }))
+    };
+  
+    console.log(batchDetails);
+  
+    this.manageBatchService.updateBatch(batchDetails.id, batchDetails).subscribe(
+      () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Batch details updated successfully!',
+          life: 3000,
+        });
+      },
+      error => {
+        console.error('Error updating batch:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Update Failed',
+          detail: 'There was an error updating the batch details.',
+          life: 3000,
+        });
+      }
+    );
+  }
+  
   futureDateValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const selectedDate = new Date(control.value);
@@ -436,4 +711,5 @@ this.setPhases(this.batchDetails[0].batchPhases[0]);
       },
     });
   }
+  
 }

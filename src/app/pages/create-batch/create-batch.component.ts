@@ -471,10 +471,7 @@ export class CreateBatchComponent {
     this.assessmentTypesList[phaseIndex].push(Number(event));
     console.log(this.assessmentTypesList);
     
-  }
-
-
-  
+  }  
 }
 
 

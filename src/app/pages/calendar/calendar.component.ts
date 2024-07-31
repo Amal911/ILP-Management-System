@@ -11,10 +11,13 @@ import { DataService } from '../../services/data.service';
 import { CalendarEvent } from '../../interfaces/calendar-event';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Route, Router, RouterLink } from '@angular/router';
 import { ScheduleService } from '../../services/schedule.service';
 import { RoleBasedDirective } from '../../role-based.directive';
 import { SessionService } from '../../services/API/session.service';
+import { BatchService } from '../../services/API/batch.service';
+import { ApiService } from '../../services/api.service';
+import { UserService } from '../../services/API/user.service';
 
 @Component({
   selector: 'app-calendar',
@@ -41,7 +44,7 @@ export class CalendarComponent implements AfterViewInit {
 
   selectedMonth: number = 0;
   selectedYear: number = 0;
-
+  programs:any;
   months = [
     'January',
     'February',
@@ -57,7 +60,9 @@ export class CalendarComponent implements AfterViewInit {
     'December',
   ];
   years: number[] = [];
-
+  batches:any;
+  currentBatch:any;
+  user:any;
   contextMenu = new DayPilot.Menu({
     items: [
       {
@@ -80,7 +85,7 @@ export class CalendarComponent implements AfterViewInit {
     },
   };
 
-   constructor (private sessionService: SessionService,private ds: DataService) {
+   constructor (private router: Router,private sessionService: SessionService,private ds: DataService,private batchService:BatchService, private userService:UserService) {
     this.viewMonth();
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -91,6 +96,44 @@ export class CalendarComponent implements AfterViewInit {
     this.loadEvents();
   }
   ngOnInit() {
+
+    this.batchService.getProgram().subscribe(res=>{
+      this.programs = res;
+      console.log(this.programs);
+  
+    })
+
+    this.user = JSON.parse(localStorage.getItem("user") as string)
+    if(this.user.roleName=="Admin"||this.user.roleName=="Trainer"){
+      this.batchService.getBatches().subscribe(res=>{
+        console.log(res);
+        this.currentBatch = res.filter((batch:any)=>batch.isActive==true)[0];
+        // this.getBatch(this.currentBatch.programId)
+        
+        this.batchService.getBatchByProgram(this.currentBatch.programId).subscribe(res=>{
+          console.log(res);
+          this.batches = res;
+          
+        })
+      });
+    }else if(this.user.roleName=="Trainee"){
+      this.userService.getTraineeDataWithBatch(this.user.UserId).subscribe(res=>{
+        console.log(res);
+        this.batchService.getBatchById(res.batchId).subscribe(res=>{
+          console.log(res);
+          this.batches = res;
+          
+        })
+      })
+    }
+  }
+  getBatch(event:any){
+    console.log(event.target.value);
+    this.batchService.getBatchByProgram(event.target.value).subscribe(res=>{
+      console.log(res);
+      this.batches = res;
+
+    })
   }
   ngAfterViewInit(): void {
   }
@@ -162,35 +205,50 @@ export class CalendarComponent implements AfterViewInit {
       args.cell.backColor = "#ffeb3b";
     }
   }
+  loadSchedule(event:any){
+    this.loadEvents(event.target.value)
+    
+  }
 
-  async loadEvents() {
+  async loadEvents(batchId:number=1) {
     const from = this.date.firstDayOfMonth();
     const to = this.date.lastDayOfMonth();
 
-    this.sessionService.getAllSessions().subscribe(
-      (response) => {
-        if (response.isSuccess) {
-          this.events = response.result
-            .filter((session: any) => {
-              const sessionStart = new DayPilot.Date(session.startTime);
-              return sessionStart >= from && sessionStart <= to;
-            })
-            .map((session: any) => ({
-              id: session.id,
-              text: session.sessionName,
-              start: new DayPilot.Date(session.startTime),
-              end: new DayPilot.Date(session.endTime)
-            }));
+    // this.sessionService.getAllSessions().subscribe(
+    //   (response) => {
+    //     if (response.isSuccess) {
+    //       this.events = response.result
+    //         .filter((session: any) => {
+    //           const sessionStart = new DayPilot.Date(session.startTime);
+    //           return sessionStart >= from && sessionStart <= to;
+    //         })
+    //         .map((session: any) => ({
+    //           id: session.id,
+    //           text: session.sessionName,
+    //           start: new DayPilot.Date(session.startTime),
+    //           end: new DayPilot.Date(session.endTime)
+    //         }));
 
-          this.updateSelectedDateEvents();
-        } else {
-          console.error('Failed to load sessions:', response.message);
-        }
-      },
-      (error) => {
-        console.error('Error loading sessions:', error);
+    //       this.updateSelectedDateEvents();
+    //     } else {
+    //       console.error('Failed to load sessions:', response.message);
+    //     }
+    //   },
+    //   (error) => {
+    //     console.error('Error loading sessions:', error);
+    //   }
+    // );
+    this.sessionService.GetSessionsByBatchId(batchId).subscribe((response)=>{
+      if (response.isSuccess) {
+      this.events = response.result.map((session: any) => ({
+           id: session.id,
+           text: session.sessionName,
+           start: new DayPilot.Date(session.startTime),
+           end: new DayPilot.Date(session.endTime)
+         }));;
       }
-    );
+    })
+  
   }
 
   viewMonth(): void {
@@ -245,5 +303,13 @@ export class CalendarComponent implements AfterViewInit {
       return time.addHours(5.5).toString('HH:mm');
     }
   }
+
+  route(id:number){
+    if(this.user.roleName!="Trainee"){
+      this.router.navigate([`schedule/${id}`]);
+    }
+  }
+
+  
 
 }

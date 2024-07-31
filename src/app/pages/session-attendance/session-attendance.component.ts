@@ -46,7 +46,7 @@ export class SessionAttendanceComponent implements OnInit {
     
     
 
-    this.absentees = [{ id: 2 }, { id: 5 }, { id: 11 }, { id: 13 }];
+    this.absentees = [];
   }
 
   onSessionDetailsEmit(sessionDetails: any) {

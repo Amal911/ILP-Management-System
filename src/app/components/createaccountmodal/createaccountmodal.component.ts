@@ -5,6 +5,8 @@ import { ButtonComponent } from '../button/button.component';
 import { HollowButtonComponent } from '../hollow-button/hollow-button.component';
 import { UserService } from '../../services/API/user.service';
 
+declare const bootstrap: any;
+
 @Component({
   selector: 'app-createaccountmodal',
   standalone: true,
@@ -42,6 +44,11 @@ export class CreateaccountmodalComponent {
     
     if (this.createAccountForm.valid) {
       console.log('Form Submitted', this.createAccountForm.value);
+      const modalElement = document.getElementById('createAccountModal');
+          if (modalElement) {
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            modal.hide();
+          }
       let user =  this.createAccountForm.value;
       user.gender = Number(user.gender);
       this.userApi.addNewUser(this.createAccountForm.value).subscribe(res=>{

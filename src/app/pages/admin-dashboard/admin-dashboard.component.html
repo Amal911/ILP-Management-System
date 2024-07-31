@@ -18,25 +18,27 @@
   </ul>
   <div class="tab-content" id="pills-tabContent">
     @for(batch of batches;track batch){
-    <div class="tab-pane fade" [class.show]="isFirst(batch)" [class.active]="isFirst(batch)" id="pills-{{batch.batchName}}"
-      role="tabpanel" [attr.aria-labelledby]="'pills-' + batch.batchName + '-tab'">
-
-      <div class="row">
-        <div class="col-sm-6 col-md-3 mt-3">
-          <app-basic-details-dashboard [title]="'Total trainees'"
-            [details]="batch.traineeCount"></app-basic-details-dashboard>
+      @if (batch.id==currentBatchId) {
+        <div class="tab-pane fade"  [class.show]="isFirst(batch)" [class.active]="isFirst(batch)" id="pills-{{batch.batchName}}"
+          role="tabpanel" [attr.aria-labelledby]="'pills-' + batch.batchName + '-tab'">
+    
+          <div class="row">
+            <div class="col-sm-6 col-md-3 mt-3">
+              <app-basic-details-dashboard [title]="'Total trainees'"
+                [details]="batch.traineeCount"></app-basic-details-dashboard>
+            </div>
+            <div class="col-sm-6 col-md-3 mt-3">
+              <app-basic-details-dashboard [title]="'Start Date'" [details]="formatDate(batch.startDate) "></app-basic-details-dashboard>
+            </div>
+            <div class="col-sm-6 col-md-3 mt-3">
+              <app-basic-details-dashboard [title]="'End Date'" [details]="formatDate(batch.endDate)"></app-basic-details-dashboard>
+            </div>
+            <div class="col-sm-6 col-md-3 mt-3">
+              <app-basic-details-dashboard [title]="'Current Phase'" [details]="batch.phase"></app-basic-details-dashboard>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-6 col-md-3 mt-3">
-          <app-basic-details-dashboard [title]="'Start Date'" [details]="formatDate(batch.startDate) "></app-basic-details-dashboard>
-        </div>
-        <div class="col-sm-6 col-md-3 mt-3">
-          <app-basic-details-dashboard [title]="'End Date'" [details]="formatDate(batch.endDate)"></app-basic-details-dashboard>
-        </div>
-        <div class="col-sm-6 col-md-3 mt-3">
-          <app-basic-details-dashboard [title]="'Current Phase'" [details]="batch.phase"></app-basic-details-dashboard>
-        </div>
-      </div>
-    </div>
+      }
     }
 
     <div class="container">

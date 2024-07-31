@@ -29,7 +29,12 @@ export class UserService {
   }
 
   getUserById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseURL}/GetUser/${id}`);
-}
+    return this.http.get<any>(`${this.baseURL}/${id}`);
+ }
+
+ getTraineeDataWithBatch(id: number): Observable<any> {
+  return this.http.get<any>(`https://localhost:7009/getTraineeData?userId=${id}`);
+ }
+
 
 }

@@ -34,7 +34,7 @@ export class TraineeLeaveRequestComponent {
   loadAppliedLeaves(): void{
     this.leaveService.getLeavesByUserId(this.traineeId).subscribe(
       (data: LeaveRequest[]) => {
-          this.LeaveRequests = data;
+          this.LeaveRequests = data.sort((leave1,leave2)=>leave2.id-leave1.id);
           this.pendingLeaveRequests = data.filter(leave => leave.isPending);
           this.leaveRequestHistory = data.filter(leave => !leave.isPending);
           this.LeaveRequests.forEach(request => {

@@ -30,6 +30,7 @@
                               createBatchForm.get('batchDetails.programId')
                                 ?.touched
                           }"
+                          (ngModelChange)="generateBatchCode($event)"
                         >
                           <option value="" disabled hidden>Select the Program</option>
                           @for (program of programData; track $index) {
@@ -49,6 +50,7 @@
                           id="batchCode"
                           class="form-control inputBox"
                           formControlName="batchCode"
+                          readonly
                           [ngClass]="{
                             'input-error':
                               createBatchForm.get('batchDetails.batchCode')

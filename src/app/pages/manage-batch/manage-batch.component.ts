@@ -92,7 +92,7 @@ export class ManageBatchComponent {
     this.manageBatchService.getBatchProgram().subscribe((res) => {
       this.batchProgram = res;
     });
-    this.manageBatchService.getBatchDetailByID(2).subscribe((res) => {
+    this.manageBatchService.getBatchDetailByID(1).subscribe((res) => {
       console.log('Batch details from API:', res);
       this.batchDetails = res;
       this.populateForm(this.batchDetails);

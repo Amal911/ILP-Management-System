@@ -243,92 +243,7 @@
                       </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
-                      <label for="batchType">Batch Type</label>
-                      <div class="dropdown form-group">
-                        <select
-                          id="batchTypeId"
-                          class="form-control"
-                          formControlName="batchTypeId"
-                          [ngClass]="{
-                            'input-error':
-                              createBatchForm.get('batchDetails.batchTypeId')
-                                ?.invalid &&
-                              createBatchForm.get('batchDetails.batchTypeId')
-                                ?.touched &&
-                              createBatchForm
-                                .get('batchDetails.batchTypeId')
-                                ?.hasError('required')
-                          }"
-                        >
-                          <option value="" disabled hidden>Select a Batch Type</option>
-                          @for (type of batchtype; track $index) {
-                          <option value="{{ type.id }}">
-                            {{ type.batchTypeName }}
-                          </option>
-                          }
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                      <label for="locationDropdown">Location</label>
-                      <div class="dropdown form-group">
-                        <select
-                          id="locationId"
-                          class="form-control"
-                          formControlName="locationId"
-                          [ngClass]="{
-                            'input-error':
-                              createBatchForm.get('batchDetails.locationId')
-                                ?.invalid &&
-                              createBatchForm.get('batchDetails.locationId')
-                                ?.touched &&
-                              createBatchForm
-                                .get('batchDetails.locationId')
-                                ?.hasError('required')
-                          }"
-                        >
-                          <option value="" disabled hidden>
-                            Select a Location<i class="bi bi-chevron-down"></i>
-                          </option>
-                          @for (location of batchLocation; track $index) {
-                          <option value="{{ location.id }}">
-                            {{ location.locationName }}
-                          </option>
-                          }
-                        </select>
-                      </div>
-                    </div>
-                    <!-- 
-                    <div class="col-md-6 mb-3">
-                      <label for="learningLeaveApproverDropdown">L&D Leave Approver</label>
-                      <div class="dropdown form-group">
-                        <select id="learningLeaveApproverDropdown" class="form-control" formControlName="learningLeaveApproverDropdown">
-                          <option value="" disabled>Select a Person</option>
-                          <option value="Kavita Mary Thomas">Kavita Mary Thomas</option>
-                          <option value="Jordan S Ben">Jordan S Ben</option>
-                        </select>
-                        <div *ngIf="getFormControl('learningLeaveApproverDropdown').invalid && getFormControl('learningLeaveApproverDropdown').touched" class="text-danger">
-                          * L&D Leave Approver is required
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                      <label for="trainerLeaveApproverDropdown">Trainer Leave Approver</label>
-                      <div class="dropdown form-group">
-                        <select id="trainerLeaveApproverDropdown" class="form-control" formControlName="trainerLeaveApproverDropdown">
-                          <option value="" disabled>Select a Trainer</option>
-                          <option value="Suneesh Thampi">Suneesh Thampi</option>
-                          <option value="Leksmi A">Leksmi A</option>
-                          <option value="Veena">Veena</option>
-                        </select>
-                        <div *ngIf="getFormControl('trainerLeaveApproverDropdown').invalid && getFormControl('trainerLeaveApproverDropdown').touched" class="text-danger">
-                          * Trainer Leave Approver is required
-                        </div>
-                      </div>
-                    </div> -->
+                    
                   </div>
                 </div>
               </div>
@@ -543,15 +458,7 @@
                                       .touched
                                 }"
                               />
-                              <!-- <div
-                                *ngIf="
-                                  getFormControl('startDate', phaseIndex)
-                                    .hasError('pastDate') && getFormControl('startDate', phaseIndex).hasError('required') 
-                                "
-                                class="text-danger"
-                              >
-                                ! Start date can't be in the past.
-                              </div> -->
+                             
                             </div>
                           </div>
                           <div class="col-md-6">
@@ -575,15 +482,7 @@
                               >
                                 * End date is required
                               </div>
-                              <!-- <div
-                              *ngIf="
-                                getFormControl('endDate', phaseIndex)
-                                  .hasError('pastDate')
-                              "
-                              class="text-danger"
-                            >
-                              ! Start date can't be in the past.
-                            </div> -->
+                             
                             </div>
                           </div>
                           <div class="col-md-12">

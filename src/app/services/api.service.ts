@@ -11,13 +11,13 @@ export class ApiService {
     return this.http.get('https://localhost:7009/api/Phase');
   }
   creatNewPhase(body:any){
-    return this.http.post('https://localhost:7009/Phase/AddNewPhase',body)
+    return this.http.post('https://localhost:7009/api/Phase/',body)
   }
   updatePhase(id: number, body: any) {
-    return this.http.put(`https://localhost:7009/Phase/UpdatePhase/${id}`, body);
+    return this.http.put(`https://localhost:7009/api/Phase/${id}`, body);
 }
   deletePhase(id:number){
-    return this.http.delete('https://localhost:7009/Phase/Deletephase/'+id);
+    return this.http.delete('https://localhost:7009/api/Phase/'+id);
   }
   getBatchType(){
     return this.http.get('https://localhost:7009/BatchType/GetBatchTypes');

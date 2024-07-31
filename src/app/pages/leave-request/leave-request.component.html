@@ -8,11 +8,9 @@
     <div class="pending-leave-requests">
       <h5 class="mb-5">Pending Leave Requests</h5>
       <div class="card-container d-flex flex-column gap-4">
-        @for (item of LeaveRequests; track $index) {
-          @if (item.is_pending) {
+        @for (item of pendingLeaveRequests; track $index) {
         <app-leave-request-card [leave]="item" (click)="openModal(item)" data-bs-toggle="modal"
         data-bs-target="#leaveviewModal"></app-leave-request-card>
-          }
         }
        <div class="completed-assignments d-flex flex-column align-items-end">
           <p>view all <i class="bi bi-arrow-right"></i></p>
@@ -43,35 +41,32 @@
               <td>{{ rowIndex + 1 }}</td>
               <td>{{ item.name }}</td>
               <td>{{item.reason}}</td>
-              <td>{{item.no_of_days}}</td>
+              <td>{{item.numofDays}}</td>
               <td>
-                <ng-container *ngIf="item.no_of_days === 1; else multipleDays">{{ item.leave_date }}</ng-container>
-                <ng-template #multipleDays>{{ item.leave_date_from }} to {{ item.leave_date_to }}</ng-template>
+                <ng-container *ngIf="item.numofDays == 1; else multipleDays">{{ item.leaveDate }}</ng-container>
+                <ng-template #multipleDays>{{ item.leaveDateFrom }} to {{ item.leaveDateTo }}</ng-template>
               </td>
-              <td> <ng-container *ngIf="item.is_approved_trainer&&item.is_approved_l_and_d else notApproved">
-                <span style="color: green;">Approved</span>
-              </ng-container>
-              <ng-template #notApproved>
-                <span style="color: red;">Rejected</span>
-              </ng-template></td>
+              <td>
+                <ng-container *ngIf="getApprovalStatus(item) as status">
+                  <ng-container [ngSwitch]="status">
+                    <ng-container *ngSwitchCase="'approved'">
+                      <span style="color: green;">Approved</span>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'rejected'">
+                      <span style="color: red;">Rejected</span>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'pending'">
+                      <span style="color: orange;">Pending</span>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </td>
             </tr>
           </ng-template>
         </p-table>
       </div>
-
-        <!-- <div class="card-container d-flex flex-column gap-4">
-          @for (item of LeaveRequests; track $index) {
-            @if (!item.is_pending) {
-              <app-leave-request-card [leave]="item"></app-leave-request-card>
-            }
-          }
-          <div class="completed-assignments d-flex flex-column align-items-end">
-            <p>view all <i class="bi bi-arrow-right"></i></p>
-          </div>
-        </div> -->
     </div>
   </div>
  </div>
 
- <app-leaveviewmodal [leave]="selectedLeave"></app-leaveviewmodal>
-
+ <app-leaveviewmodal [leaves]="selectedLeave" (refreshRequests)="refreshLeaveRequests()"></app-leaveviewmodal>

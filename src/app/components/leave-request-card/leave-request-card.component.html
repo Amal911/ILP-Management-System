@@ -5,12 +5,12 @@
     </div>
     <div class="card-writings col-8 d-flex flex-column justify-content-center  align-items-start" >
       <h5 class="card-title text-left  custom-title">{{leave.name}}</h5>
-      <p class="m-0 card-small-sub-title ">{{leave.batch_name}}</p>
+      <!-- <p class="m-0 card-small-sub-title ">{{leave.batchName}}</p> -->
       <p class="card-text text-left mb-0 custom-text">{{leave.reason}}</p>
-      <p class="card-text text-left custom-text" *ngIf="leave.days === '1'">Leave Date: {{leave.leave_date}}</p>
-      <p class="card-text text-left custom-text" *ngIf="leave.days !== '1'">Requested from {{leave.leave_date_from}} to {{leave.leave_date_to}}</p>
+      <p class="card-text text-left custom-text" *ngIf="leave.numofDays == 1">Leave Date: {{leave.leaveDate}}</p>
+      <p class="card-text text-left custom-text" *ngIf="leave.numofDays > 1">Requested from {{leave.leaveDateFrom}} to {{leave.leaveDateTo}}</p>
     </div>
-    <div class="col-2 d-flex flex-column justify-content-end align-items-start ">
+    <!-- <div class="col-2 d-flex flex-column justify-content-end align-items-start ">
       <div  *ngIf="!leave. is_pending" class="d-flex flex-row align-items-center justify-content-start custom-icon-and-text" >
         <p></p>
         <p [ngStyle]="{'color':  leave.is_approved_l_and_d ? 'green' : 'red'}"  class="custom-status-icon mb-3 mx-2"><i class="bi bi-circle-fill"></i></p>
@@ -21,6 +21,6 @@
         <p [ngStyle]="{'color':  leave.is_approved_trainer ? 'green' : 'red'}"  class="custom-status-icon mb-3 mx-2"><i class="bi bi-circle-fill"></i></p>
         <p class="custom-status" [ngClass]="{'green': leave.is_approved_trainer, 'red': !leave.is_approved_trainer}">{{leave.is_approved_l_and_d?'Trainer Approved':'Trainer Rejected' }}</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

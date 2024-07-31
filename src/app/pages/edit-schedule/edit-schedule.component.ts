@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { ScheduleService } from '../../services/schedule.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { SessionService } from '../../services/API/session.service';
 
 @Component({
   selector: 'app-edit-schedule',
@@ -70,7 +71,7 @@ export class EditScheduleComponent {
     },
   ];
 
-  constructor(private formBuilder: FormBuilder,private scheduleService:ScheduleService,private router:Router,private route:ActivatedRoute) {}
+  constructor(private formBuilder: FormBuilder,private sessionService:SessionService,private router:Router,private route:ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -83,34 +84,34 @@ export class EditScheduleComponent {
     this.fetchSchedule();
   }
   public createScheduleForm = new FormGroup({
-    program: new FormControl({ value: '', disabled: false},[Validators.required]),
-    batch: new FormControl({ value: '', disabled: false},[Validators.required]),
+    // program: new FormControl({ value: '', disabled: false},[Validators.required]),
+    // batch: new FormControl({ value: '', disabled: false},[Validators.required]),
     title: new FormControl({ value: '', disabled: false},[Validators.required]),
     date: new FormControl({ value: '', disabled: false},[Validators.required]),
     description: new FormControl({ value: '', disabled: false},[Validators.required]),
     startTime: new FormControl({ value: '', disabled: false},[Validators.required]),
     endTime: new FormControl({ value: '', disabled: false},[Validators.required]),
-    module: new FormControl({ value: '', disabled: false},[Validators.required]),
-    trainer: new FormControl({ value: '', disabled: false},[Validators.required]),
+    // module: new FormControl({ value: '', disabled: false},[Validators.required]),
+    // trainer: new FormControl({ value: '', disabled: false},[Validators.required]),
   });
 
   fetchSchedule(){
-    this.scheduleService.fetchSession(this.idToFetch).subscribe(
+    this.sessionService.fetchSession(this.idToFetch).subscribe(
       (response) => {
-        console.log(response); 
+        console.log(response);
         const fetchedStartDate = new Date(response.result.startTime).toISOString().split('T')[0];
         const fetchedStartTime = new Date(response.result.startTime).toTimeString().split(' ')[0].slice(0, 5);
         const fetchedEndTime = new Date(response.result.endTime).toTimeString().split(' ')[0].slice(0, 5);
         this.createScheduleForm.patchValue({
-          program: 'Program 1', 
-          batch: 'Batch 1',     
+          // program: 'Program 1', 
+          // batch: 'Batch 1',     
           title: response.result.sessionName,
-          date: fetchedStartDate,   
+          date: fetchedStartDate,
           description: response.result.sessionDescription,
           startTime: fetchedStartTime,   
           endTime: fetchedEndTime,     
-          module: 'Module 1',   
-          trainer: 'Trainer 1'  
+          // module: 'Module 1',   
+          // trainer: 'Trainer 1'  
         });
       },
       (error) => {
@@ -118,10 +119,10 @@ export class EditScheduleComponent {
       }
     );
   }
-  
 
 
-  
+
+
 
   editPage(){
     this.createScheduleForm.enable();
@@ -142,15 +143,15 @@ export class EditScheduleComponent {
         batchId:1,
         programId:3
       };
-      this.scheduleService.updateSchedule(formData,this.idToFetch).subscribe(
+      this.sessionService.updateSchedule(formData,this.idToFetch).subscribe(
         (response) => {
           console.log('Session updated successfully:', response);
-          //this.router.navigate(['/schedule']);
+          this.router.navigate(['/schedule']);
         },
         (error) => {
           console.error('Error updating session:', error);
         }
-      );  
+      );
       // Process the form data (e.g., send it to backend)
       console.log(this.createScheduleForm.value);
       this.createScheduleForm.disable();

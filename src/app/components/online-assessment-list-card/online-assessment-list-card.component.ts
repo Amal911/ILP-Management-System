@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-online-assessment-list-card',
@@ -10,6 +10,17 @@ import { Component, Input } from '@angular/core';
 })
 export class OnlineAssessmentListCardComponent {
 
-  @Input() assessment: any; 
+  @Input() assessment: any;
+  @Input() score={averageScore:21,totalScore:100};
+  @Output() assessmentId=new EventEmitter<number>(); 
 
+  emitId(assessmentId:number){
+      this.assessmentId = this.assessment.assessmentId;
+      console.log(assessmentId);
+  }
+
+  ngOnInoit(){
+    console.log(this.assessment);
+    
+  }
 }

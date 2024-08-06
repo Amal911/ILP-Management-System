@@ -4,20 +4,23 @@
             <img src="assets/assessment.svg" class="online-assessment-icon">
         </div>
         <div class="card-writings col-8 d-flex flex-column justify-content-center align-items-start">
-            <h5 class="card-title text-left online-assessment-title">{{ assessment.title }}</h5>
-            <p class="card-text text-left mb-0 online-assessment-text">Created by {{ assessment.createdBy }}</p>
-            <p class="card-text text-left online-assessment-text">Due by {{ assessment.dueTime }}</p>
+            <h5 class="card-title text-left online-assessment-title">{{ assessment.assessmentName}}</h5>
+            <p class="card-text text-left mb-0 online-assessment-text">Created by {{ assessment.createdByName}}</p>
+            <p class="card-text text-left online-assessment-text">Due by {{ assessment.endDateTime}}</p>
         </div>
         <div class="col-2 d-flex  justify-content-center align-items-center">
             <div class="d-flex flex-row align-items-center justify-content-start custom-icon-and-text">
                 
-                <button *ngIf=" assessment.isScheduling" type="button" class="btn custom-btn-2" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
+                <button *ngIf=" false" type="button" class="btn custom-btn-2" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal" (click)="emitId(assessment.assessmentId);">
                     Click To Schedule
                 </button>
-                <button *ngIf=" assessment.isPending" class="btn custom-btn-2" type="submit">Click to Attend</button>
-                <p class="online-assessment-status" *ngIf="assessment.score">Score :
-                    <span class="score-value">{{assessment.score}}/{{assessment.totalScore}} </span>
+                <a [href]="assessment.link" target="_blank">
+                    <button *ngIf=" assessment.status == 0" class="btn custom-btn-2" type="submit">Click to Attend</button>
+                </a>
+                
+                <p class="online-assessment-status" *ngIf=" assessment.status == 3">Score :
+                    <span class="score-value">{{assessment.score.averageScore}}/{{assessment.score.totalScore}} </span>
                 </p>
             </div>
         </div>

@@ -6,21 +6,15 @@
       </div>
       <div class="col-md-5 d-flex justify-content-end">
         <div class="batch-dropdown">
-          <app-dropdown
-            [dropDownLabel]="batchControl.value || 'Choose Batch'"
-            [isValid]="
+          <app-dropdown [dropDownLabel]="batchControl.value || 'Choose Batch'" [isValid]="
               batchControl.valid ||
               !(batchControl.dirty || batchControl.touched)
-            "
-            [dropDownElements]="[
+            " [dropDownElements]="[
               'ILP Batch-02',
               'ILP Batch-03',
               'ILP Batch-04',
               'ILP Batch-05'
-            ]"
-            (selectionChange)="onBatchChange($event)"
-            class="custom-button"
-          >
+            ]" (selectionChange)="onBatchChange($event)" class="custom-button">
           </app-dropdown>
         </div>
       </div>
@@ -29,7 +23,7 @@
       <div class="card-container d-flex flex-column mt-4">
         <h5>Pending</h5>
         <ng-container *ngFor="let assessment of pendingAssessments">
-          <app-online-assessment-list-card [assessment]="assessment">
+          <app-online-assessment-list-card (assessmentId)="handleAssessmentId($event)" [assessment]="assessment">
           </app-online-assessment-list-card>
         </ng-container>
       </div>
@@ -45,32 +39,19 @@
       <div class="card-container d-flex flex-column mt-4">
         <h5>Completed</h5>
         <ng-container *ngFor="let assessment of completedAssessments">
-          <app-online-assessment-list-card
-            [assessment]="assessment"
-          ></app-online-assessment-list-card>
+          <app-online-assessment-list-card [assessment]="assessment"></app-online-assessment-list-card>
         </ng-container>
       </div>
     </div>
   </div>
 </form>
 
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Online Assessment</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="assessmentForm" (ngSubmit)="onSubmit()">
@@ -79,15 +60,13 @@
               <div class="form-group">
                 <label for="title" class="form-label title-modal">Title</label>
                 <p id="title" class="form-control-static">
-                  {{ assessmentForm.get("title")?.value }}
+                  {{ assessmentForm.get("assessmentName")?.value }}
                 </p>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="testDate" class="form-label title-modal"
-                  >Test Date</label
-                >
+                <label for="testDate" class="form-label title-modal">Test Date</label>
                 <p id="testDate" class="form-control-static">
                   {{ assessmentForm.get("testDate")?.value }}
                 </p>
@@ -95,9 +74,7 @@
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="testTime" class="form-label title-modal"
-                  >Test Time</label
-                >
+                <label for="testTime" class="form-label title-modal">Test Time</label>
                 <p id="testTime" class="form-control-static">
                   {{ assessmentForm.get("testTime")?.value }}
                 </p>
@@ -108,27 +85,21 @@
             <div class="col-md-6">
               <div class="form-group title-modal">
                 <label>Assessment Type</label>
-                <app-dropdown
-                  [dropDownLabel]="
+                <app-dropdown [dropDownLabel]="
                     evaluationCriteriaControl.value || 'Evaluation Criteria'
-                  "
-                  [isValid]="
+                  " [isValid]="
                     evaluationCriteriaControl.valid ||
                     !(
                       evaluationCriteriaControl.dirty ||
                       evaluationCriteriaControl.touched
                     )
-                  "
-                  [dropDownElements]="[
+                  " [dropDownElements]="[
                     'Case Study',
                     'Live Assessment',
                     'Daily Assessment',
                     'Module',
                     'Project'
-                  ]"
-                  (selectionChange)="onEvaluationCriteriaChange($event)"
-                  class="custom-button"
-                >
+                  ]" (selectionChange)="onEvaluationCriteriaChange($event)" class="custom-button">
                 </app-dropdown>
               </div>
             </div>
@@ -136,21 +107,15 @@
             <div class="col-md-6">
               <div class="form-group title-modal">
                 <label>Phase</label>
-                <app-dropdown
-                  [dropDownLabel]="phaseControl.value || 'Select phase'"
-                  [isValid]="
+                <app-dropdown [dropDownLabel]="phaseControl.value || 'Select phase'" [isValid]="
                     phaseControl.valid ||
                     !(phaseControl.dirty || phaseControl.touched)
-                  "
-                  [dropDownElements]="[
+                  " [dropDownElements]="[
                     'E-learning',
                     'Technical',
                     'Business Orientation',
                     'On-Job Training'
-                  ]"
-                  (selectionChange)="onPhaseChange($event)"
-                  class="custom-button"
-                >
+                  ]" (selectionChange)="onPhaseChange($event)" class="custom-button">
                 </app-dropdown>
               </div>
             </div>
@@ -206,22 +171,12 @@
           <div class="col-md-6">
             <div class="form-group mb-2">
               <label for="link" class="form-label title-modal">Link</label>
-              <input
-                type="text"
-                id="link"
-                class="form-control"
-                formControlName="link"
-                readonly
-              />
+              <input type="text" id="link" class="form-control" formControlName="link" readonly />
             </div>
           </div>
 
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn custom-btn-1"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn custom-btn-1" data-bs-dismiss="modal">
               Cancel
             </button>
             <button type="submit" class="btn custom-btn-2">Submit</button>

@@ -13,6 +13,7 @@
   
 }
 
+
 .inputBox {
   background-color: #f5faff;
   border-bottom: solid 1px #000000;
@@ -163,8 +164,9 @@ label {
   max-width: 100%;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
+  height: 328px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  //overflow-y: auto;
+  overflow-y: auto;
 }
 .form-container h4,
 .form-container h5 {

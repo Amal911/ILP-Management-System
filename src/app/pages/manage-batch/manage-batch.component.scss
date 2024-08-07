@@ -1,4 +1,7 @@
 //Custom CSS
+.input-error {
+  border: 1px solid red !important;
+}
   .div {
     display: flex;
     margin: 0 5%;
@@ -15,6 +18,8 @@
   .inputBox {
     background-color: #f5faff;
     border-bottom: solid 1px #000000;
+    outline: none !important;
+    box-shadow: none;
   }
   label {
     font-size: small;
@@ -137,7 +142,9 @@
       no-repeat right 1rem center/1em auto;
     padding-right: 2.5rem;
     background-color: #f5faff;
-    border-bottom: solid 1px #000
+    border-bottom: solid 1px #000;
+    outline: none !important;
+    box-shadow: none;
   }
   #statusDropDown {
     appearance: none;

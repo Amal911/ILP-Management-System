@@ -122,8 +122,11 @@ export class CalendarComponent implements AfterViewInit {
         this.batchService.getBatchById(res.batchId).subscribe(res=>{
           console.log(res);
           this.batches = res;
+          console.log(res);
+          
           
         })
+        this.loadEvents(res.batchId)
       })
     }
   }
@@ -239,6 +242,8 @@ export class CalendarComponent implements AfterViewInit {
     //   }
     // );
     this.sessionService.GetSessionsByBatchId(batchId).subscribe((response)=>{
+      console.log(response);
+      
       if (response.isSuccess) {
       this.events = response.result.map((session: any) => ({
            id: session.id,

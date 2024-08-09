@@ -5,7 +5,6 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OnlineAssessmentTrainerListingService } from '../../services/API/online-assessment-trainer-listing.service';
 import { MsalService } from '@azure/msal-angular';
 import { AccountInfo, AuthenticationResult } from '@azure/msal-browser';
-import { BatchListingService } from '../../services/API/batch-listing.service';
 import { AllBatchesService } from '../../services/API/all-batches.service';
 
 @Component({
@@ -20,27 +19,20 @@ import { AllBatchesService } from '../../services/API/all-batches.service';
   ],
   providers: [DatePipe],
   templateUrl: './online-assessment-list.component.html',
-  styleUrl: './online-assessment-list.component.scss',
+  styleUrls: ['./online-assessment-list.component.scss'],
 })
 export class OnlineAssessmentListComponent implements OnInit, OnDestroy {
   assessmentForm!: FormGroup;
-
   myToken: string = '';
-
-  pendingAssessments: any = [];
-
-  completedAssessments: any = [];
-
+  pendingAssessments: any[] = [];
+  completedAssessments: any[] = [];
   formattedDate: string[] = [];
-
   batchName: string = '';
-
   Batches: any[] = [];
-
   userEmail: string | undefined;
 
   constructor(
-    private OnlineAssessmentTrainerListingService: OnlineAssessmentTrainerListingService,
+    private onlineAssessmentTrainerListingService: OnlineAssessmentTrainerListingService,
     private msalService: MsalService,
     private datePipe: DatePipe,
     private batchListingService: AllBatchesService
@@ -67,7 +59,7 @@ export class OnlineAssessmentListComponent implements OnInit, OnDestroy {
       if (accounts.length > 0) {
         const account: AccountInfo = accounts[0];
         resolve(account.username);
-        this.userEmail=account.username;
+        this.userEmail = account.username;
         //console.log(account.username);
       } else {
         console.error('No accounts found');
@@ -79,21 +71,16 @@ export class OnlineAssessmentListComponent implements OnInit, OnDestroy {
   private async loadBatch(userEmail: string): Promise<void> {
     try {
       // Fetch batches and convert to array
-      const data: any[] = await this.batchListingService
-        .getBatches()
-        .toPromise();
+      const data: any[] = await this.batchListingService.getBatches().toPromise();
       this.Batches = data;
 
       console.log('Fetched Data:', data);
 
-      // Iterate over each batch
       for (const batch of data) {
         // Ensure traineeList is an array
-        const traineeList = Array.isArray(batch.traineeList)
-          ? batch.traineeList
-          : [];
+        const traineeList = Array.isArray(batch.traineeList) ? batch.traineeList : [];
 
-        // Debug information for each batch
+        // information for each batch
         console.log('Processing Batch:', batch.batchName);
         console.log('Trainee List:', batch.traineeList);
 
@@ -106,7 +93,7 @@ export class OnlineAssessmentListComponent implements OnInit, OnDestroy {
 
         if (traineeExists) {
           console.log('Match Found in Batch:', batch.batchName);
-          this.loadAssessments(batch.batchName);
+          await this.loadAssessments(batch.batchName);
           return;
         }
       }
@@ -115,46 +102,35 @@ export class OnlineAssessmentListComponent implements OnInit, OnDestroy {
     }
   }
 
-  async loadAssessments(batchName: string) {
+  async loadAssessments(batchName: string): Promise<void> {
     try {
       const token = await this.getToken();
       console.log(batchName, 'It reached assessments');
       this.myToken = token; // Set the token to the class variable
-      this.OnlineAssessmentTrainerListingService.getAllOnlineAssessments(
-        batchName
-      ).subscribe(
-        (data) => {
+
+      this.onlineAssessmentTrainerListingService.getAllOnlineAssessments(batchName).subscribe(
+        async (data) => {
           console.log('assignments', data);
           data = Array.isArray(data) ? data : [data];
-          data.forEach( async (assessment: any) => {
+
+          for (const assessment of data) {
             if (assessment.status === 0) {
-              assessment.link = assessment.link + '/' + this.myToken;
-              const formattedDatePart = this.datePipe.transform(
-                assessment.endDateTime,
-                'd MMMM yyyy'
-              );
-              const formattedTimePart = this.datePipe.transform(
-                assessment.endDateTime,
-                'HH:mm'
-              );
+              assessment.link = `${assessment.link}/${this.myToken}`;
+              const formattedDatePart = this.datePipe.transform(assessment.endDateTime, 'd MMMM yyyy');
+              const formattedTimePart = this.datePipe.transform(assessment.endDateTime, 'HH:mm');
               assessment.endDateTime = `${formattedDatePart} at ${formattedTimePart}`;
               this.pendingAssessments.push(assessment);
-            } else if(assessment.status==3) {
-              const formattedDatePart = this.datePipe.transform(
-                assessment.endDateTime,
-                'd MMMM yyyy'
-              );
-              const formattedTimePart = this.datePipe.transform(
-                assessment.endDateTime,
-                'HH:mm'
-              );
+            } else if (assessment.status === 3) {
+              const formattedDatePart = this.datePipe.transform(assessment.endDateTime, 'd MMMM yyyy');
+              const formattedTimePart = this.datePipe.transform(assessment.endDateTime, 'HH:mm');
               assessment.endDateTime = `${formattedDatePart} at ${formattedTimePart}`;
-              let score = await this.fetchScores(assessment);
-              assessment.score = score; 
+
+              const score = await this.fetchScores(assessment);
+              assessment.score = score;
               this.completedAssessments.push(assessment);
-              console.log("com:",assessment);
+              console.log('Completed:', assessment);
             }
-          });
+          }
         },
         (error) => console.error('Error loading assessments:', error)
       );
@@ -177,24 +153,25 @@ export class OnlineAssessmentListComponent implements OnInit, OnDestroy {
       });
   }
 
-  async fetchScores(completedAssessment: any) {
-    let data:any
-    try {
-      console.log(completedAssessment);
-      
-      //this.completedAssessments.forEach(async (element: { assessmentId: number; }) => {
-        console.log("fetch");
-         data = await this.OnlineAssessmentTrainerListingService.getScores(
-          this.userEmail,
-          completedAssessment.assessmentId
-        ).toPromise();
-        console.log("score:",data);
-      //});
-        
-    } catch (error) {
-      console.error('Error loading scores:', error);
+  async fetchScores(completedAssessment: any): Promise<any> {
+    if (!this.userEmail || !completedAssessment.assessmentId) {
+      console.error('User email or assessment ID is missing');
+      return null;
     }
-    return data;
+
+    try {
+      console.log('Fetching scores for:', completedAssessment);
+      const data = await this.onlineAssessmentTrainerListingService.getScores(
+        this.userEmail,
+        completedAssessment.assessmentId
+      ).toPromise(); // Ensure the service returns a promise
+
+      console.log('Fetched scores:', data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching scores:', error);
+      return null; // Return null in case of an error
+    }
   }
 
   ngOnDestroy(): void {

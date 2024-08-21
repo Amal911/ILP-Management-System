@@ -42,7 +42,7 @@ export class DashboardScorecardComponent {
         this.tableDetailedData = transformedData;
       },
       (error) => {
-        console.error('Error creating coupon:', error);
+        console.error('Error fetching scores:', error);
       }
     );
   }
@@ -54,7 +54,7 @@ export class DashboardScorecardComponent {
         this.categoryWiseScore = response;
       },
       (error) => {
-        console.error('Error creating coupon:', error);
+        console.error('Error fetching categorywise scores:', error);
       }
     );
   }

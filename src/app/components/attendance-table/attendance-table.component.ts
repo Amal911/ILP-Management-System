@@ -1,10 +1,13 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -39,8 +42,12 @@ export class AttendanceTableComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.columns);
+    this.initializeColumns();
+    console.log(this.absentees);
 
     this.filteredColumns = [...this.columns];
+    console.log(this.columns);
+
     this.searchControl.valueChanges.subscribe((searchText) => {
       this.filteredColumns = this.columns.filter((column) =>
         column.firstName.toLowerCase().includes(searchText.toLowerCase())
@@ -50,7 +57,6 @@ export class AttendanceTableComponent implements OnInit {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['columns'] && changes['columns'].currentValue) {
-      console.log('Columns changed:', changes['columns'].currentValue);
       this.columns = changes['columns'].currentValue || [];
       this.initializeColumns();
       this.filteredColumns = [...this.columns];
@@ -60,7 +66,9 @@ export class AttendanceTableComponent implements OnInit {
 
   initializeColumns() {
     this.columns.forEach((trainee) => {
-      const isAbsent = this.absentees.some((absent) => absent.id === trainee.id);
+      const isAbsent = this.absentees.some(
+        (absent) => absent.id === trainee.id
+      );
       trainee.attendance = !isAbsent;
     });
   }

@@ -23,7 +23,7 @@ import { BatchService } from '../../services/API/batch.service';
 export class SessionAttendanceComponent implements OnInit {
   session: any;
   traineeTable: any[] = [];
-  absentees: any[] = [6, 7, 8];
+  absentees: any[] = [];
   searchControl: FormControl = new FormControl('');
   sessionDetails: any;
   attendanceDetails: any;
@@ -45,15 +45,7 @@ export class SessionAttendanceComponent implements OnInit {
     }
     console.log(this.session);
 
-    const isSubmittedInStorage = localStorage.getItem('isSubmitted');
-    if (isSubmittedInStorage) {
-      this.isSubmitted = JSON.parse(isSubmittedInStorage);
-    }
-    if (this.isSubmitted) {
-      this.buttonComponent.buttonLabel = 'Edit Attendance';
-    } else {
-      this.buttonComponent.buttonLabel = 'Mark Attendance';
-    }
+    this.absentees = [];
   }
 
   onSessionDetailsEmit(sessionDetails: any) {
@@ -80,7 +72,7 @@ export class SessionAttendanceComponent implements OnInit {
               console.log('Attendance updated successfully:', response);
             },
             (error) => {
-              console.error('Helo Error updating attendance:', error);
+              console.error('Error updating attendance:', error);
             }
           );
       } else {
@@ -92,13 +84,8 @@ export class SessionAttendanceComponent implements OnInit {
           (response) => {
             console.log('Attendance added successfully:', response);
             this.isSubmitted = true;
-            localStorage.setItem(
-              'isSubmitted',
-              JSON.stringify(this.isSubmitted)
-            );
-            if (this.buttonComponent) {
-              this.buttonComponent.buttonLabel = 'Edit Attendance';
-            }
+            this.saveIsSubmittedState();
+            this.updateButtonLabel();
           },
           (error) => {
             console.error('Error adding attendance:', error);
@@ -109,12 +96,17 @@ export class SessionAttendanceComponent implements OnInit {
       console.log('Session or attendance details are missing.');
     }
   }
+  saveIsSubmittedState() {
+    localStorage.setItem(
+      `isSubmittedBySession_${this.session.id}`,
+      JSON.stringify(this.isSubmitted)
+    );
+  }
 
   loadSessionDetails(id: number) {
     this.sessionService.fetchSession(id).subscribe(
       (response) => {
         if (response.isSuccess) {
-          console.log(response);
           this.session = {
             id: response.result.id,
             session_name: response.result.sessionName,
@@ -132,6 +124,7 @@ export class SessionAttendanceComponent implements OnInit {
             batchId: response.result.batchId,
           };
           this.getTraineeList(this.session.batchId);
+          this.setIsSubmittedBySession();
         } else {
           console.error('Failed to load session details:', response.message);
         }
@@ -142,76 +135,61 @@ export class SessionAttendanceComponent implements OnInit {
     );
   }
 
+  setIsSubmittedBySession() {
+    const isSubmittedInStorage = localStorage.getItem(
+      `isSubmittedBySession_${this.session.id}`
+    );
+    this.isSubmitted = isSubmittedInStorage
+      ? JSON.parse(isSubmittedInStorage)
+      : false;
+    this.updateButtonLabel();
+  }
+  updateButtonLabel() {
+    if (this.buttonComponent) {
+      this.buttonComponent.buttonLabel = this.isSubmitted
+        ? 'Edit Attendance'
+        : 'Mark Attendance';
+    }
+  }
+
+
   getTraineeList(batchId: number): void {
-    this.batchService.GetTraineeList(batchId).subscribe(
-      (data: any) => {
-        console.log('API response:', data);
-        this.sessionService
-          .GetAttendanceBySessionId(this.session.id)
-          .subscribe((attendanceResponse: any) => {
-            let attendanceData;
-            if (
-              attendanceResponse.isSuccess &&
-              Array.isArray(attendanceResponse.result)
-            ) {
-              console.log('Attendance data found:', attendanceResponse.result);
-              attendanceData = attendanceResponse.result;
+    this.sessionService.GetAttendanceBySessionId(this.session.id).subscribe(
+      (attendanceResponse: any) => {
+        if (
+          attendanceResponse.isSuccess &&
+          Array.isArray(attendanceResponse.result) &&
+          attendanceResponse.result.length > 0
+        ) {
+          console.log('Attendance data found:', attendanceResponse.result);
+          this.traineeTable = attendanceResponse.result;
+        } else {
+          console.error(
+            'Failed to fetch attendance data:',
+            attendanceResponse.message
+          );
+          this.batchService.GetTraineeList(batchId).subscribe(
+            (data: any) => {
+              console.log('API response:', data);
+              if (Array.isArray(data)) {
+                const result =
+                  data.find((batch) => batch.id === batchId)?.traineeList || [];
+                this.traineeTable = result;
+              } else {
+                console.error('Invalid data format:', data);
+              }
+            },
+            (error) => {
+              console.error('Error fetching trainee list:', error);
             }
-            if (Array.isArray(data)) {
-              console.log('asdasd');
-
-              const result =
-                data.find((batch) => batch.id === batchId)?.traineeList || [];
-              this.traineeTable = result;
-
-              console.log(this.traineeTable);
-              console.log(attendanceData);
-              attendanceData.forEach((trainee: any) => {
-                if (!trainee.isPresent) {
-                  this.absentees.push(trainee.traineeId);
-                }
-              });
-              console.log(this.absentees);
-            } else {
-              console.error('Invalid data format:', data);
-            }
-          });
+          );
+        }
       },
       (error) => {
-        console.error('Error fetching trainee list:', error);
+        console.error('Error fetching attendance data:', error);
       }
     );
   }
-  // getTraineeList(batchId: number): void {
-  //   this.sessionService
-  //     .GetAttendanceBySessionId(this.session.id)
-  //     .subscribe((attendanceResponse: any) => {
-  //       if (attendanceResponse.isSuccess && Array.isArray(attendanceResponse.result)) {
-  //       console.log('Attendance data found:', attendanceResponse.result);
-  //       this.traineeTable = attendanceResponse.result;}
-  //       else{
-  //         console.error('Failed to fetch attendance data:', attendanceResponse.message);
-  //         this.batchService.GetTraineeList(batchId).subscribe(
-  //           (data: any) => {
-  //             console.log('API response:', data);
-  //             if (Array.isArray(data)) {
-  //               const result =
-  //                 data.find((batch) => batch.id === batchId)?.traineeList || [];
-  //               this.traineeTable = result;
-  //             } else {
-  //               console.error('Invalid data format:', data);
-  //             }
-  //           },
-  //           (error) => {
-  //             console.error('Error fetching trainee list:', error);
-  //           }
-  //         );
-  //       }
-  //     },(error)=>{
-  //       console.error('Error fetching attendance data:', error);
-  //     }
-
-  //   );
-
-  // }
 }
+
+

@@ -97,7 +97,7 @@ export class ManageBatchComponent {
       this.batchProgram = res;
     });
     console.log(this.currentBatchId);
-    
+
     this.manageBatchService.getBatchDetailByID(this.currentBatchId).subscribe((res) => {
       console.log('Batch details from API:', res);
       this.batchDetails = res;
@@ -157,17 +157,17 @@ export class ManageBatchComponent {
     this.batchForm.get('startDate')?.valueChanges.subscribe(() => {
       this.updatePhaseStartDate();
     });
-  
+
     this.batchForm.get('batchDuration')?.valueChanges.subscribe(() => {
       this.updateEndDate();
     });
-  
+
     this.subscribeToPhaseChanges();
-    
+
   }
   populateForm(batchDetails: any): void {
     const phasesArray = this.fb.array([]);
-    const isActive = this.batchDetails[0].isActive; 
+    const isActive = this.batchDetails[0].isActive;
 
     const startDate = new Date(this.batchDetails[0].startDate);
     const formattedStartDate = this.formatDate(startDate);
@@ -193,7 +193,7 @@ export class ManageBatchComponent {
     this.trainees = this.batchDetails[0].traineeList;
     this.phasesData = this.batchDetails[0].batchPhases;
 
-    
+
 this.setPhases(this.batchDetails[0].batchPhases);
 this.setAssessmentTypes(this.batchDetails[0].batchPhases.phaseAssessmentTypeMappings,0)
     this.batchForm.disable();
@@ -223,7 +223,7 @@ this.setAssessmentTypes(this.batchDetails[0].batchPhases.phaseAssessmentTypeMapp
         console.error('Invalid batch duration');
       }
     }
-    
+
   }
   //Checking the changes in Phases
   subscribeToPhaseChanges() {
@@ -233,7 +233,7 @@ this.setAssessmentTypes(this.batchDetails[0].batchPhases.phaseAssessmentTypeMapp
       const phases = control as FormGroup;
       phases
         .get('numberOfDays')
-        ?.valueChanges.subscribe(() => this.updatePhaseEndDate(index));        
+        ?.valueChanges.subscribe(() => this.updatePhaseEndDate(index));
     });
   }
   //Phase Start Date Calculation
@@ -334,7 +334,7 @@ private updateSubsequentPhases(fromIndex: number): void {
   //Populating the phase details from API response
 setPhases(phases: any[]): void {
   const phasesArray = this.batchForm.get('phases') as FormArray;
-  phasesArray.clear(); 
+  phasesArray.clear();
 
   phases.forEach((phase, index) => {
     if (phase && phase.startDate && phase.endDate) {
@@ -379,7 +379,7 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
                       Validators.required
                   ),
               })
-              
+
           );
 
 
@@ -397,7 +397,7 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
   }
   formatDate(date: Date): string {
   const year = date.getFullYear();
-  const month = ('0' + (date.getMonth() + 1)).slice(-2); 
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
   const day = ('0' + date.getDate()).slice(-2);
   return `${year}-${month}-${day}`;
 }
@@ -470,7 +470,7 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
     return this.batchForm.get(controlName) as FormControl;
   }
 
-  
+
   ngAfterViewInit(): void {
     this.disableDragAndDrop();
   }
@@ -488,7 +488,7 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
   editBatch() {
     this.isEditable = true;
     this.batchForm.enable();
-    
+
     this.phasesArray().controls.forEach((phase) => {
       phase.enable();
 
@@ -496,7 +496,7 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
 
       assessmentTypeList.controls.forEach((assessment) => assessment.enable());
     });
-    
+
   }
 
   downloadBatch() {}
@@ -505,7 +505,7 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
   convertToDate(dateString: string): Date {
     return new Date(dateString);
   }
-  
+
   // saveBatchDetails() {
   //   this.isEditable = false;
   //   // this.batchForm.disable();
@@ -532,11 +532,11 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
   // phasesArray.controls.forEach((phaseGroup, index) => {
   //   console.log(`Phase Group ${index}:`, phaseGroup.value);
   // });
-  
+
   //    this.batchForm.disable();
 
   // }
-  
+
   // saveBatchDetails() {
   //   if (this.batchForm.invalid) {
   //     this.messageService.add({
@@ -547,9 +547,9 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
   //     });
   //     return;
   //   }
-  
+
   //   this.isEditable = false;
-  
+
   //   const batchDetails: UpdateBatchRequestDTO = {
   //     id: this.batchForm.get('programId')?.value as number,
   //     batchName: this.batchForm.get('batchName')?.value,
@@ -574,7 +574,7 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
   //     }))
   //   };
   // console.log(batchDetails);
-  
+
   //   this.manageBatchService.updateBatch(batchDetails.id, batchDetails).subscribe(
   //     () => {
   //       this.messageService.add({
@@ -605,9 +605,9 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
       });
       return;
     }
-  
+
     this.isEditable = false;
-  
+
     const batchDetails: UpdateBatchRequestDTO = {
       // id: this.batchForm.get('programId')?.value as number,
       id: this.batchDetails[0].id as number,
@@ -632,9 +632,9 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
         }))
       }))
     };
-  
+
     console.log(batchDetails);
-  
+
     this.manageBatchService.updateBatch(batchDetails.id, batchDetails).subscribe(
       () => {
         this.messageService.add({
@@ -655,7 +655,7 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
       }
     );
   }
-  
+
   futureDateValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const selectedDate = new Date(control.value);
@@ -717,5 +717,5 @@ setAssessmentTypes(assessments: any[] = [], phaseIndex: number): void {
       },
     });
   }
-  
+
 }

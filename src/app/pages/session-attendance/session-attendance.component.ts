@@ -28,7 +28,6 @@ export class SessionAttendanceComponent implements OnInit {
   sessionDetails: any;
   attendanceDetails: any;
   batchId: number = 3;
-  isSubmitted: boolean = false;
   @ViewChild(ButtonComponent) buttonComponent!: ButtonComponent;
 
   constructor(
@@ -64,45 +63,46 @@ export class SessionAttendanceComponent implements OnInit {
         Remarks: trainee.remarks || '',
       }));
 
-      if (this.isSubmitted) {
-        this.sessionService
-          .updateAttendance(attendees, this.session.id)
-          .subscribe(
-            (response) => {
-              console.log('Attendance updated successfully:', response);
-            },
-            (error) => {
-              console.error('Error updating attendance:', error);
-            }
-          );
-      } else {
-        const output = {
-          sessionId: this.session.id,
-          attendees: attendees,
-        };
-        this.sessionService.PostAttendance(output).subscribe(
-          (response) => {
-            console.log('Attendance added successfully:', response);
-            this.isSubmitted = true;
-            this.saveIsSubmittedState();
-            this.updateButtonLabel();
-          },
-          (error) => {
-            console.error('Error adding attendance:', error);
+      this.sessionService.GetAttendanceBySessionId(this.session.id).subscribe(
+        (attendanceResponse: any) => {
+          if (
+            attendanceResponse.isSuccess &&
+            attendanceResponse.result.length > 0
+          ) {
+            this.sessionService
+              .updateAttendance(attendees, this.session.id)
+              .subscribe(
+                (response) => {
+                  console.log('Attendance updated successfully:', response);
+                  this.buttonComponent.buttonLabel = 'Edit Attendance';
+                },
+                (error) => {
+                  console.error('Error updating attendance:', error);
+                }
+              );
+          } else {
+            const output = {
+              sessionId: this.session.id,
+              attendees: attendees,
+            };
+            this.sessionService.PostAttendance(output).subscribe(
+              (response) => {
+                console.log('Attendance added successfully:', response);
+              },
+              (error) => {
+                console.error('Error adding attendance:', error);
+              }
+            );
           }
-        );
-      }
+        },
+        (error) => {
+          console.error('Error checking attendance existence:', error);
+        }
+      );
     } else {
       console.log('Session or attendance details are missing.');
     }
   }
-  saveIsSubmittedState() {
-    localStorage.setItem(
-      `isSubmittedBySession_${this.session.id}`,
-      JSON.stringify(this.isSubmitted)
-    );
-  }
-
   loadSessionDetails(id: number) {
     this.sessionService.fetchSession(id).subscribe(
       (response) => {
@@ -124,7 +124,6 @@ export class SessionAttendanceComponent implements OnInit {
             batchId: response.result.batchId,
           };
           this.getTraineeList(this.session.batchId);
-          this.setIsSubmittedBySession();
         } else {
           console.error('Failed to load session details:', response.message);
         }
@@ -135,23 +134,69 @@ export class SessionAttendanceComponent implements OnInit {
     );
   }
 
-  setIsSubmittedBySession() {
-    const isSubmittedInStorage = localStorage.getItem(
-      `isSubmittedBySession_${this.session.id}`
-    );
-    this.isSubmitted = isSubmittedInStorage
-      ? JSON.parse(isSubmittedInStorage)
-      : false;
-    this.updateButtonLabel();
-  }
-  updateButtonLabel() {
-    if (this.buttonComponent) {
-      this.buttonComponent.buttonLabel = this.isSubmitted
-        ? 'Edit Attendance'
-        : 'Mark Attendance';
-    }
-  }
+  // getTraineeList(batchId: number): void {
+  //   // First fetch the trainee list
+  //   this.batchService.GetTraineeList(batchId).subscribe(
+  //     (traineeListResponse: any) => {
+  //       console.log('Trainee list API response:', traineeListResponse);
 
+  //       if (Array.isArray(traineeListResponse)) {
+  //         const traineeList =
+  //           traineeListResponse.find((batch: any) => batch.id === batchId)
+  //             ?.traineeList || [];
+
+  //         this.sessionService
+  //           .GetAttendanceBySessionId(this.session.id)
+  //           .subscribe(
+  //             (attendanceResponse: any) => {
+  //               if (
+  //                 attendanceResponse.isSuccess &&
+  //                 Array.isArray(attendanceResponse.result) &&
+  //                 attendanceResponse.result.length > 0
+  //               ) {
+  //                 console.log(
+  //                   'Attendance data found:',
+  //                   attendanceResponse.result
+  //                 );
+  //                 this.traineeTable = attendanceResponse.result.map(
+  //                   (attendance: any) => {
+  //                     const trainee = traineeList.find(
+  //                       (t: any) => t.id === attendance.traineeId
+  //                     );
+  //                     return {
+  //                       ...attendance,
+  //                       traineeName: trainee ? trainee.name : 'Unknown',
+  //                       isPresent: attendance.isPresent || false,
+  //                       remarks: attendance.remarks || '',
+  //                     };
+  //                   }
+  //                 );
+  //               } else {
+  //                 console.log('No attencdance data found.');
+  //                 this.traineeTable = traineeList.map((trainee: any) => ({
+  //                   id: trainee.id,
+  //                   traineeName: trainee.name,
+  //                   isPresent: true,
+  //                   remarks: '',
+  //                 }));
+  //               }
+  //             },
+  //             (error) => {
+  //               console.error('Error fetching attendance data:', error);
+  //             }
+  //           );
+  //       } else {
+  //         console.error(
+  //           'Invalid data format for trainee list:',
+  //           traineeListResponse
+  //         );
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching trainee list:', error);
+  //     }
+  //   );
+  // }
 
   getTraineeList(batchId: number): void {
     this.sessionService.GetAttendanceBySessionId(this.session.id).subscribe(
@@ -162,19 +207,27 @@ export class SessionAttendanceComponent implements OnInit {
           attendanceResponse.result.length > 0
         ) {
           console.log('Attendance data found:', attendanceResponse.result);
-          this.traineeTable = attendanceResponse.result;
-        } else {
-          console.error(
-            'Failed to fetch attendance data:',
-            attendanceResponse.message
+          this.traineeTable = attendanceResponse.result.map(
+            (attendance: any) => ({
+              ...attendance,
+              isPresent:
+                attendance.isPresent !== undefined
+                  ? attendance.isPresent
+                  : false, // Ensure a default value
+              remarks: attendance.remarks || '',
+            })
           );
+        } else {
           this.batchService.GetTraineeList(batchId).subscribe(
             (data: any) => {
               console.log('API response:', data);
               if (Array.isArray(data)) {
                 const result =
                   data.find((batch) => batch.id === batchId)?.traineeList || [];
-                this.traineeTable = result;
+                this.traineeTable = result.map((trainee: any) => ({
+                  ...trainee,
+                  isPresent: true,
+                }));
               } else {
                 console.error('Invalid data format:', data);
               }
@@ -191,5 +244,3 @@ export class SessionAttendanceComponent implements OnInit {
     );
   }
 }
-
-

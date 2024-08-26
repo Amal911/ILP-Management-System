@@ -6,16 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  baseURL:string=`https://localhost:7009/User`;
+  baseURL:string=`https://localhost:7009/api/User`;
   constructor(private http: HttpClient) { }
 
   addNewUser(formData: any): Observable<any> {
-    const create_API = `${this.baseURL}/CreateUser`;
+    const create_API = `${this.baseURL}`;
     console.log(formData);
     return this.http.post<any>(create_API, formData);
   }
   getUserData(){
-    const create_API = `${this.baseURL}/GetUsers`;
+    const create_API = `${this.baseURL}`;
     return this.http.get<any>(create_API);
   }
 }

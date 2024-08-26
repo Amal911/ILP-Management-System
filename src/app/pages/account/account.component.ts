@@ -42,23 +42,25 @@ export class AccountComponent {
     ngOnInit(): void {
 
         this.userService.getUserData().subscribe(res=>{
-            // console.log(res);
+            console.log(res);
             // console.log(res[0].roleName);
-            res.forEach((user:any) => {
-                switch (user.roleName) {
-                    case 'Admin':
-                        this.users.admins.push(user);
-                        break;
-                    case 'Trainer':
-                        this.users.trainers.push(user);
-                        break;
-                    case 'Trainee':
-                        this.users.trainees.push(user);
-                        break;
-                    default:
-                        console.log('Unknown roleName:', user.roleName);
-                }
-            });
+            // res.forEach((user:any) => {
+            //     switch (user.roleName) {
+            //         case 'Admin':
+            //             this.users.admins.push(user);
+            //             break;
+            //         case 'Trainer':
+            //             this.users.trainers.push(user);
+            //             break;
+            //         case 'Trainee':
+            //             this.users.trainees.push(user);
+            //             break;
+            //         default:
+            //             console.log('Unknown roleName:', user.roleName);
+            //     }
+            // });
+            this.users=res;
+            this.users.trainees=res.userDtos;
             console.log(this.users.admins);
             
         })

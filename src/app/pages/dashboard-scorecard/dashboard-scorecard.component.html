@@ -12,8 +12,8 @@
       </select>
     </div>
   </div>
-  <app-doughnut-graph-carousel />
+  <app-doughnut-graph-carousel [scoreCardData]="avgScores" (assessmentType)="handleAssessmentType($event)"/>
   <div class="">
-    <app-forzen-column-table [tableData]="tatal_sore" />
+    <app-forzen-column-table [tableTitle]="title" [columns]="columnData" [tableData]="tableDetailedData" />
   </div>
 </div>

@@ -11,22 +11,29 @@
         <tr>
           <th style="min-width: 50px" pFrozenColumn>Id</th>
           <th style="min-width: 100px" pFrozenColumn>Name</th>
-          <th style="min-width: 50px">Daily Assessment</th>
-          <th style="min-width: 50px">Live Assessment</th>
+
+          @for(column of columns;track column){
+            <th style="min-width: 50px">{{column}}</th>
+          }
+
+          <!-- <th style="min-width: 50px">Live Assessment</th>
           <th style="min-width: 50px">Module Assessment</th>
           <th style="min-width: 50px">Case Study</th>
-          <th style="min-width: 50px">Project</th>
+          <th style="min-width: 50px">Project</th> -->
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-data>
         <tr>
           <td style="min-width: 100px" pFrozenColumn>{{ data.id }}</td>
           <td pFrozenColumn>{{ data.name }}</td>
-          <td>{{ data.daily_assessment }}</td>
-          <td>{{ data.live_assessment }}</td>
+          @for(score of data.scores;track score){
+              <td>{{ score }}</td>
+          }
+          
+          <!-- <td>{{ data.live_assessment }}</td>
           <td>{{ data.module_assessment }}</td>
           <td>{{ data.case_study }}</td>
-          <td>{{ data.project }}</td>
+          <td>{{ data.project }}</td> -->
 
         </tr>
       </ng-template>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DoughnutGraphChartComponent } from '../doughnut-graph-chart/doughnut-graph-chart.component';
 interface ScoreCardData{
   title:string;
@@ -14,48 +14,11 @@ interface ScoreCardData{
 
 export class DoughnutGraphCarouselComponent {
   
-  @Input() scoreCardData:ScoreCardData[] = [
-    {
-      title:'Total',
-      score:85
-    },
-    {
-      title:'Daily Assessment',
-      score:65
-    },
-    {
-      title:'Live Assessment',
-      score:100
-    },
-    {
-      title:'Module Assessment',
-      score:70
-    },
-    {
-      title:'Case Study',
-      score:95
-    },
-    {
-      title:'Case Study',
-      score:65
-    },
-    {
-      title:'Case Study',
-      score:35
-    },
-    {
-      title:'Case Study',
-      score:85
-    },
-    {
-      title:'Case Study',
-      score:85
-    },
-    {
-      title:'Case Study',
-      score:85
-    },
-  ]
+  @Input() scoreCardData:ScoreCardData[] = [];
+  @Output() assessmentType=new EventEmitter<string>(); 
 
-  
+  emitTitle(scorecardTitle:string){
+    this.assessmentType.emit(scorecardTitle);
+    console.log(scorecardTitle);
+  }
 }

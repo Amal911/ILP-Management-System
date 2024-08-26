@@ -1,6 +1,6 @@
 <div class="score-card-carousel">
     @for (scoreCard of scoreCardData; track $index) {
-        <div>
+        <div class="graph" (click)="emitTitle(scoreCard.title)">
             <app-doughnut-graph-chart title="{{scoreCard.title}}" value={{scoreCard.score}} />
         </div>
     }

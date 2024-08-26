@@ -23,6 +23,9 @@ export class ForzenColumnTableComponent {
 
   @Input() tableData:any;
 
+  @Input() columns:any;
+
+
   balanceFrozen: boolean = false;
 
     // customers!: Customer[];
@@ -30,8 +33,7 @@ export class ForzenColumnTableComponent {
     constructor() {}
 
     ngOnInit() {
-       console.log(this.tableData)
-       console.log(this.customer)
+       console.log("Value of table data:", this.tableData)
     } 
 
     customer = [

@@ -17,7 +17,7 @@ export class ScheduleService {
   }
 
   fetchSession(sessionId:number):Observable<any> {
-    const fetch_API=`${this.baseURL}/GetSession/${sessionId}`;
+    const fetch_API=`${this.baseURL}/GetSessionDetails/${sessionId}`;
     return this.http.get<any>(fetch_API);
   }
 

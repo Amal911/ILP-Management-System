@@ -15,7 +15,26 @@ export class UserService {
     return this.http.post<any>(create_API, formData);
   }
   getUserData(){
-    const create_API = `${this.baseURL}`;
-    return this.http.get<any>(create_API);
+    const getUserDataApi = `${this.baseURL}`;
+    return this.http.get<any>(getUserDataApi);
   }
+  getTrainerData(){
+    const getTrainerDataApi = `${this.baseURL}/GetTrainers`;
+    return this.http.get(getTrainerDataApi);
+  }
+
+  getUsersRoles(): Observable<any> {
+    const populate_poc_dropdown = `${this.baseURL}`;
+    return this.http.get<any>(populate_poc_dropdown);
+  }
+
+  getUserById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}/${id}`);
+ }
+
+ getTraineeDataWithBatch(id: number): Observable<any> {
+  return this.http.get<any>(`https://localhost:7009/getTraineeData?userId=${id}`);
+ }
+
+
 }

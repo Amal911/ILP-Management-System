@@ -3,13 +3,15 @@ import { ListingCardComponent } from "../../components/batch-listing-card/batch-
 import { ButtonComponent } from "../../components/button/button.component";
 import { Router } from '@angular/router';
 import { BatchListingService } from '../../services/API/batch-listing.service';
+import { UserService } from '../../services/API/user.service';
+import { RoleBasedDirective } from '../../role-based.directive';
 
 @Component({
     selector: 'app-batch-listing',
     standalone: true,
     templateUrl: './batch-listing.component.html',
     styleUrl: './batch-listing.component.scss',
-    imports: [ListingCardComponent, ButtonComponent]
+    imports: [ListingCardComponent, ButtonComponent,RoleBasedDirective]
 })
 export class BatchListingComponent {
   Batches:any[] = [];

@@ -2,7 +2,9 @@
   <div class="row">
     <div class="col-12 d-flex justify-content-between align-items-center">
       <h4>BATCH LIST</h4>
-      <app-button [buttonLabel]="'Create New'"(click)="navigateToCreateNew()"></app-button>
+      <div  *appRoleBased="['Admin']">
+        <app-button [buttonLabel]="'Create New'"(click)="navigateToCreateNew()"></app-button>
+      </div>
     </div>
   </div>
   <div class="card-container d-flex flex-column">

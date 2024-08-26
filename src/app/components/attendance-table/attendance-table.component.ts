@@ -1,5 +1,5 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
   FormControl,
   FormsModule,
@@ -29,7 +29,7 @@ import { ButtonComponent } from '../button/button.component';
   templateUrl: './attendance-table.component.html',
   styleUrl: './attendance-table.component.scss',
 })
-export class AttendanceTableComponent {
+export class AttendanceTableComponent implements OnInit {
   @Input() columns: any[] = [];
   @Input() absentees: any[] = [];
   @Output() attendanceDetailsEmitter = new EventEmitter<any>();
@@ -38,26 +38,37 @@ export class AttendanceTableComponent {
   searchControl: FormControl = new FormControl('');
 
   ngOnInit(): void {
-    this.columns.forEach((trainee) => {
-      const isAbsent = this.absentees.some((absent) => absent.id === trainee.id);
-      trainee.attendance = !isAbsent;
-    });
+    console.log(this.columns);
 
     this.filteredColumns = [...this.columns];
     this.searchControl.valueChanges.subscribe((searchText) => {
       this.filteredColumns = this.columns.filter((column) =>
-        column.name.toLowerCase().includes(searchText.toLowerCase())
+        column.firstName.toLowerCase().includes(searchText.toLowerCase())
       );
     });
     this.emitAttendanceDetails();
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['columns'] && changes['columns'].currentValue) {
+      console.log('Columns changed:', changes['columns'].currentValue);
+      this.columns = changes['columns'].currentValue || [];
+      this.initializeColumns();
+      this.filteredColumns = [...this.columns];
+      this.emitAttendanceDetails();
+    }
+  }
 
+  initializeColumns() {
+    this.columns.forEach((trainee) => {
+      const isAbsent = this.absentees.some((absent) => absent.id === trainee.id);
+      trainee.attendance = !isAbsent;
+    });
+  }
   emitAttendanceDetails() {
     const attendanceDetails = {
       columns: this.columns,
       absentees: this.absentees,
     };
-    console.log(attendanceDetails);
 
     this.attendanceDetailsEmitter.emit(attendanceDetails);
   }

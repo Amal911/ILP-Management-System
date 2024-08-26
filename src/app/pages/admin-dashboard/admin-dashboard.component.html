@@ -2,14 +2,14 @@
   <ul class="nav nav-pills  flex-nowrap overflow-auto" id="pills-tab" role="tablist">
     @for(batch of batches;track batch){
     <li class="nav-item text-center" role="presentation">
-      <button class="nav-link px-5" id="pills-{{batch.name}}-tab" [class.active]="batch.batchId === currentBatchId" (click)="onBatchChange(batch.batchId)" data-bs-toggle="pill"
-        [attr.data-bs-target]="'#pills-' + batch.name" type="button" role="tab"
-        [attr.aria-controls]="'pills-' + batch.name" aria-selected="true">
+      <button class="nav-link px-5" id="pills-{{batch.batchName}}-tab" [class.active]="batch.id === currentBatchId" (click)="onBatchChange(batch.id)" data-bs-toggle="pill"
+      [attr.data-bs-target]="'#pills-' + batch.batchName" type="button" role="tab"
+        [attr.aria-controls]="'pills-' + batch.batchName" aria-selected="active">
         <div class="batch-name">
-          @if(batch.status==="active"){
+          @if(batch.isActive){
           <i class="bi bi-circle-fill"></i>
           }
-          {{ batch.name }}
+          {{ batch.batchName }}
         </div>
         <div class="current-phase">{{ batch.phase }}</div>
       </button>
@@ -18,25 +18,27 @@
   </ul>
   <div class="tab-content" id="pills-tabContent">
     @for(batch of batches;track batch){
-    <div class="tab-pane fade" [class.show]="isFirst(batch)" [class.active]="isFirst(batch)" id="pills-{{batch.name}}"
-      role="tabpanel" [attr.aria-labelledby]="'pills-' + batch.name + '-tab'">
-
-      <div class="row">
-        <div class="col-sm-6 col-md-3 mt-3">
-          <app-basic-details-dashboard [title]="'Total trainees'"
-            [details]="batch.totalTrainees"></app-basic-details-dashboard>
+      @if (batch.id==currentBatchId) {
+        <div class="tab-pane fade"  [class.show]="isFirst(batch)" [class.active]="isFirst(batch)" id="pills-{{batch.batchName}}"
+          role="tabpanel" [attr.aria-labelledby]="'pills-' + batch.batchName + '-tab'">
+    
+          <div class="row">
+            <div class="col-sm-6 col-md-3 mt-3">
+              <app-basic-details-dashboard [title]="'Total trainees'"
+                [details]="batch.traineeCount"></app-basic-details-dashboard>
+            </div>
+            <div class="col-sm-6 col-md-3 mt-3">
+              <app-basic-details-dashboard [title]="'Start Date'" [details]="formatDate(batch.startDate) "></app-basic-details-dashboard>
+            </div>
+            <div class="col-sm-6 col-md-3 mt-3">
+              <app-basic-details-dashboard [title]="'End Date'" [details]="formatDate(batch.endDate)"></app-basic-details-dashboard>
+            </div>
+            <div class="col-sm-6 col-md-3 mt-3">
+              <app-basic-details-dashboard [title]="'Current Phase'" [details]="batch.phase"></app-basic-details-dashboard>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-6 col-md-3 mt-3">
-          <app-basic-details-dashboard [title]="'Start Date'" [details]="batch.startDate"></app-basic-details-dashboard>
-        </div>
-        <div class="col-sm-6 col-md-3 mt-3">
-          <app-basic-details-dashboard [title]="'End Date'" [details]="batch.endDate"></app-basic-details-dashboard>
-        </div>
-        <div class="col-sm-6 col-md-3 mt-3">
-          <app-basic-details-dashboard [title]="'Current Phase'" [details]="batch.phase"></app-basic-details-dashboard>
-        </div>
-      </div>
-    </div>
+      }
     }
 
     <div class="container">

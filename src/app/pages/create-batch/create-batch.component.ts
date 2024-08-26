@@ -21,6 +21,7 @@ import { DropdownComponent } from '../../components/dropdown/dropdown.component'
 import { ApiService } from '../../services/api.service';
 import { TableModule } from 'primeng/table';
 import { Router } from '@angular/router';
+import { BatchService } from '../../services/API/batch.service';
 
 @Component({
   selector: 'app-create-batch',
@@ -95,7 +96,7 @@ export class CreateBatchComponent {
       return value > 0 ? null : { invalidDays: true };
     };
   }
-  constructor(private fb: FormBuilder, private api: ApiService,private route:Router) {}
+  constructor(private fb: FormBuilder, private api: ApiService,private route:Router,private batchService:BatchService) {}
 
   ngOnInit(): void {
     this.api.getBatchType().subscribe((res) => {
@@ -106,8 +107,8 @@ export class CreateBatchComponent {
       this.batchLocation = res;
       console.log(this.batchLocation);
     });
-    this.api.getPhases().subscribe((res) => {
-      this.phasesData = res;
+    this.api.getPhases().subscribe((res:any) => {
+      this.phasesData = res.result;
       this.allPhases = [...this.phasesData];
       console.log(this.phasesData);
     });
@@ -115,6 +116,11 @@ export class CreateBatchComponent {
       this.assessmentType = res;
       console.log(this.assessmentType);
     });
+    this.batchService.getProgram().subscribe((res)=>{
+      this.programData = res;
+      console.log(this.programData);
+      
+    })
 
 
     this.createBatchForm = this.fb.group({
@@ -366,7 +372,7 @@ export class CreateBatchComponent {
     console.log(batchData);
     this.api.createNewBatch(batchData).subscribe((res) => {
       console.log(res);
-      this.route.navigate(['/team/113/user/ganesh']);
+      this.route.navigate(['/batches']);
     });
   }
 
@@ -473,7 +479,27 @@ export class CreateBatchComponent {
     
   }
 
+  generateBatchCode(event:any){
+    console.log(event);
+    let program = this.programData.filter((prg:any)=>prg.id==event)[0]
+    console.log(program);
+    let batchCode = "ILP";
+    let batchCount:number;
+    let batchList:any[];
+    this.batchService.getBatchByProgram(event).subscribe((res:any)=>{
+      let batches = [res];
+      console.log(batches[0].length);
+      batchCount = batches[0].length+1;
+      batchCode = batchCode+program.programName.split("-").map((year:string)=>year.slice(-2)).join("")+"BAT"+batchCount;
+      console.log(batchCode);
+      this.createBatchForm.get('batchDetails.batchCode')?.setValue(batchCode);
 
+      
+      
+      
+    })
+    
+  }
   
 }
 

@@ -48,7 +48,7 @@
                               <option selected>Select Role</option>
                               <option value="1">L&D Admin</option>
                               <option value="2">Trainer</option>
-                              <option value="3">Trainee</option>
+                              <option value="3" disabled hidden>Trainee</option>
                             </select>
                         <div *ngIf="createAccountForm.get('roleId')?.invalid && createAccountForm.get('roleId')?.touched">
                             <div *ngIf="createAccountForm.get('roleId')?.errors?.['required']" class="text-danger">Please

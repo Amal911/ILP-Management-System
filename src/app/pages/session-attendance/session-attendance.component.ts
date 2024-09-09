@@ -133,114 +133,52 @@ export class SessionAttendanceComponent implements OnInit {
       }
     );
   }
-
-  // getTraineeList(batchId: number): void {
-  //   // First fetch the trainee list
-  //   this.batchService.GetTraineeList(batchId).subscribe(
-  //     (traineeListResponse: any) => {
-  //       console.log('Trainee list API response:', traineeListResponse);
-
-  //       if (Array.isArray(traineeListResponse)) {
-  //         const traineeList =
-  //           traineeListResponse.find((batch: any) => batch.id === batchId)
-  //             ?.traineeList || [];
-
-  //         this.sessionService
-  //           .GetAttendanceBySessionId(this.session.id)
-  //           .subscribe(
-  //             (attendanceResponse: any) => {
-  //               if (
-  //                 attendanceResponse.isSuccess &&
-  //                 Array.isArray(attendanceResponse.result) &&
-  //                 attendanceResponse.result.length > 0
-  //               ) {
-  //                 console.log(
-  //                   'Attendance data found:',
-  //                   attendanceResponse.result
-  //                 );
-  //                 this.traineeTable = attendanceResponse.result.map(
-  //                   (attendance: any) => {
-  //                     const trainee = traineeList.find(
-  //                       (t: any) => t.id === attendance.traineeId
-  //                     );
-  //                     return {
-  //                       ...attendance,
-  //                       traineeName: trainee ? trainee.name : 'Unknown',
-  //                       isPresent: attendance.isPresent || false,
-  //                       remarks: attendance.remarks || '',
-  //                     };
-  //                   }
-  //                 );
-  //               } else {
-  //                 console.log('No attencdance data found.');
-  //                 this.traineeTable = traineeList.map((trainee: any) => ({
-  //                   id: trainee.id,
-  //                   traineeName: trainee.name,
-  //                   isPresent: true,
-  //                   remarks: '',
-  //                 }));
-  //               }
-  //             },
-  //             (error) => {
-  //               console.error('Error fetching attendance data:', error);
-  //             }
-  //           );
-  //       } else {
-  //         console.error(
-  //           'Invalid data format for trainee list:',
-  //           traineeListResponse
-  //         );
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching trainee list:', error);
-  //     }
-  //   );
-  // }
-
   getTraineeList(batchId: number): void {
-    this.sessionService.GetAttendanceBySessionId(this.session.id).subscribe(
-      (attendanceResponse: any) => {
-        if (
-          attendanceResponse.isSuccess &&
-          Array.isArray(attendanceResponse.result) &&
-          attendanceResponse.result.length > 0
-        ) {
-          console.log('Attendance data found:', attendanceResponse.result);
-          this.traineeTable = attendanceResponse.result.map(
-            (attendance: any) => ({
-              ...attendance,
-              isPresent:
-                attendance.isPresent !== undefined
-                  ? attendance.isPresent
-                  : false, // Ensure a default value
-              remarks: attendance.remarks || '',
-            })
-          );
-        } else {
-          this.batchService.GetTraineeList(batchId).subscribe(
-            (data: any) => {
-              console.log('API response:', data);
-              if (Array.isArray(data)) {
-                const result =
-                  data.find((batch) => batch.id === batchId)?.traineeList || [];
-                this.traineeTable = result.map((trainee: any) => ({
-                  ...trainee,
-                  isPresent: true,
-                }));
-              } else {
-                console.error('Invalid data format:', data);
-              }
+
+    this.batchService.GetTraineeList(batchId).subscribe(
+      (data: any) => {
+        console.log('API response:', data);
+        if (Array.isArray(data)) {
+          const result =
+            data.find((batch) => batch.id === batchId)?.traineeList || [];
+          this.traineeTable = result.map((trainee: any) => ({
+            ...trainee,
+            isPresent: true,
+          }));
+          this.sessionService.GetAttendanceBySessionId(this.session.id).subscribe(
+            (attendanceResponse: any) => {
+              if (
+                attendanceResponse.isSuccess &&
+                Array.isArray(attendanceResponse.result) &&
+                attendanceResponse.result.length > 0
+              ) {
+                this.buttonComponent.buttonLabel = 'Edit Attendance';
+                console.log('Attendance data found:', attendanceResponse.result);
+                this.traineeTable.forEach((trainee)=>{
+                  console.log(attendanceResponse.result.filter((attendance:any)=>attendance.traineeId==trainee.id));
+                  
+                  let attendancedata = attendanceResponse.result.filter((attendance:any)=>attendance.traineeId==trainee.id)[0];
+                  trainee.attendance= attendancedata.isPresent;
+                  trainee.remarks= attendancedata.remarks;
+
+                })
+              } 
             },
             (error) => {
-              console.error('Error fetching trainee list:', error);
+              console.error('Error fetching attendance data:', error);
             }
           );
+        } else {
+          console.error('Invalid data format:', data);
         }
       },
       (error) => {
-        console.error('Error fetching attendance data:', error);
+        console.error('Error fetching trainee list:', error);
       }
     );
+
+
+
+    
   }
 }

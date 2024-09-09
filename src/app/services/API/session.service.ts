@@ -17,8 +17,16 @@ export class SessionService {
   PostAttendance(attendanceDTO:any):Observable<any[]>{
     return this.http.post<any>(`${this.postUrl}/AddAttendance`, attendanceDTO)
   }
+  updateAttendance(attendees:any[],sessionId:number): Observable<any> {
+    return this.http.put<any>(`${this.postUrl}/UpdateAttendance?sessionId=${sessionId}`, attendees);
+  }
 
- 
+
+
+
+
+
+
   createSchedule(formData: any): Observable<any> {
     const create_API = `${this.baseURL}/CreateSession`;
     return this.http.post<any>(create_API, formData);
@@ -46,7 +54,9 @@ export class SessionService {
     return this.http.get(`${this.baseURL}/GetSessionsByBatchId/${batchId}`)
   }
 
-
+  GetAttendanceBySessionId(sessionId:number): Observable<any>{
+    return this.http.get(`${this.postUrl}/GetAttendanceBySessionId/${sessionId}`)
+  }
 
 }
 

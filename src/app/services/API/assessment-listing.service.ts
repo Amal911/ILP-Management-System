@@ -21,4 +21,8 @@ export class ProgramService {
   getAssessmentsByBatchId(batchId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/Assessment/GetAssessmentsByBatchId/GetAssessmentsByBatchId/getByBatchId/${batchId}`);
   }
+
+  getBatchIdForTrainee(traineeId: number): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/api/User/batch/${traineeId}`);
+  }
 }

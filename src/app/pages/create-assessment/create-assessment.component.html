@@ -65,7 +65,7 @@
           <label>Trainer</label>
           <app-dropdown [dropDownLabel]="trainerControl.value || 'Select Trainer'"
             [isValid]="trainerControl.valid || !(trainerControl.dirty || trainerControl.touched)"
-            [dropDownElements]="trainers" (selectionChange)="onTrainerChange($event)"
+            [dropDownElements]="trainerNames" (selectionChange)="onTrainerChange($event)"
             class="custom-button">
           </app-dropdown>
 
@@ -102,7 +102,7 @@
         </div>
         <div class="card flex justify-content-center upload-file mt-3">
           <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
-            [multiple]="true" accept="" maxFileSize="5000000">
+            [multiple]="false" accept="" maxFileSize="5000000">
             <ng-template pTemplate="content">
               <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles">

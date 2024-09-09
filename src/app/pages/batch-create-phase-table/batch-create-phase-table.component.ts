@@ -11,7 +11,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonComponent } from '../../components/button/button.component';
 import { HollowButtonComponent } from '../../components/hollow-button/hollow-button.component';
 import { ApiService } from '../../services/api.service';
-
+import { MultiSelectModule } from 'primeng/multiselect';
 @Component({
   selector: 'app-batch-create-phase-table',
   standalone: true,
@@ -23,10 +23,17 @@ import { ApiService } from '../../services/api.service';
     ButtonComponent,
     HollowButtonComponent,
     ReactiveFormsModule,
+    MultiSelectModule
   ],
   templateUrl: './batch-create-phase-table.component.html',
   styleUrl: './batch-create-phase-table.component.scss',
 })
+
+
+
+
+
+
 export class BatchCreatePhaseTableComponent {
   filteredColumns: any[] = [];
   newPhase: string = '';
@@ -40,19 +47,21 @@ export class BatchCreatePhaseTableComponent {
       Validators.required)
   });
   phasesData: any;
-  constructor(public api: ApiService) {}
+  cities!:any;
+
+    selectedCities!:[];
+  constructor(public api: ApiService) {
+    this.cities = [
+      {name: 'Assessments', code: 'NY'},
+      {name: 'Session', code: 'RM'},
+      // {name: 'London', code: 'LDN'},
+      // {name: 'Istanbul', code: 'IST'},
+      // {name: 'Paris', code: 'PRS'}
+  ];
+  }
 
   searchControl: FormControl = new FormControl('');
-  @Input() columns: any[] = [
-    { id: 1, phase_name: 'E-learning' },
-    { id: 2, phase_name: 'Tech fundamentals' },
-    { id: 3, phase_name: 'Business Orientation' },
-    { id: 4, phase_name: 'Softskills' },
-    { id: 5, phase_name: 'Specialization' },
-    { id: 6, phase_name: 'On the Job training' },
-    { id: 7, phase_name: 'Advanced Programming' },
-    { id: 8, phase_name: 'Database Management' },
-  ];
+  @Input() columns: any[] = [];
 
   ngOnInit(): void {
     this.api.getPhases().subscribe((res:any) => {

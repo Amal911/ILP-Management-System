@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DoughnutGraphCarouselComponent } from '../../components/doughnut-graph-carousel/doughnut-graph-carousel.component';
 import { ForzenColumnTableComponent } from '../../components/forzen-column-table/forzen-column-table.component';
+import { DashboardScoresService } from '../../services/API/dashboard-scores.service';
 
 @Component({
   selector: 'app-dashboard-scorecard',
@@ -10,150 +11,143 @@ import { ForzenColumnTableComponent } from '../../components/forzen-column-table
   styleUrl: './dashboard-scorecard.component.scss',
 })
 export class DashboardScorecardComponent {
-  tatal_sore = [
-    {
-      id: 1,
-      name: 'John Doe',
-      daily_assessment: 85,
-      live_assessment: 78,
-      module_assessment: 92,
-      case_study: 88,
-      project: 95,
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      daily_assessment: 90,
-      live_assessment: 82,
-      module_assessment: 88,
-      case_study: 90,
-      project: 93,
-    },
-    {
-      id: 3,
-      name: 'Michael Johnson',
-      daily_assessment: 79,
-      live_assessment: 85,
-      module_assessment: 91,
-      case_study: 87,
-      project: 90,
-    },
-    {
-      id: 4,
-      name: 'Emily Brown',
-      daily_assessment: 88,
-      live_assessment: 76,
-      module_assessment: 85,
-      case_study: 82,
-      project: 91,
-    },
-    {
-      id: 5,
-      name: 'William Wilson',
-      daily_assessment: 82,
-      live_assessment: 89,
-      module_assessment: 94,
-      case_study: 85,
-      project: 88,
-    },
-    {
-      id: 6,
-      name: 'Sophia Martinez',
-      daily_assessment: 91,
-      live_assessment: 83,
-      module_assessment: 87,
-      case_study: 92,
-      project: 94,
-    },
-    {
-      id: 7,
-      name: 'James Thompson',
-      daily_assessment: 84,
-      live_assessment: 90,
-      module_assessment: 89,
-      case_study: 86,
-      project: 92,
-    },
-    {
-      id: 8,
-      name: 'Olivia Davis',
-      daily_assessment: 87,
-      live_assessment: 88,
-      module_assessment: 93,
-      case_study: 89,
-      project: 87,
-    },
-    {
-      id: 9,
-      name: 'Daniel Garcia',
-      daily_assessment: 83,
-      live_assessment: 91,
-      module_assessment: 90,
-      case_study: 83,
-      project: 89,
-    },
-    {
-      id: 10,
-      name: 'Isabella Rodriguez',
-      daily_assessment: 89,
-      live_assessment: 84,
-      module_assessment: 86,
-      case_study: 91,
-      project: 90,
-    },
-    {
-      id: 11,
-      name: 'Liam Martinez',
-      daily_assessment: 92,
-      live_assessment: 80,
-      module_assessment: 84,
-      case_study: 93,
-      project: 88,
-    },
-    {
-      id: 12,
-      name: 'Mia Wilson',
-      daily_assessment: 80,
-      live_assessment: 86,
-      module_assessment: 92,
-      case_study: 84,
-      project: 91,
-    },
-    {
-      id: 13,
-      name: 'Alexander Thompson',
-      daily_assessment: 86,
-      live_assessment: 79,
-      module_assessment: 87,
-      case_study: 88,
-      project: 93,
-    },
-    {
-      id: 14,
-      name: 'Charlotte Harris',
-      daily_assessment: 81,
-      live_assessment: 87,
-      module_assessment: 85,
-      case_study: 90,
-      project: 89,
-    },
-    {
-      id: 15,
-      name: 'Benjamin Scott',
-      daily_assessment: 88,
-      live_assessment: 81,
-      module_assessment: 83,
-      case_study: 87,
-      project: 92,
-    },
+  total_score: any = [];
+  categoryWiseScore: any = {};
+  columns: any = [
+    'Daily Assessment',
+    'Live Assessment',
+    'Module Assessment',
+    'Case Study',
+    'Project',
   ];
+  columnData: any;
+  tableDetailedData: any;
+  title: string = 'Total Score';
 
-  score = {
-    daily_assessment: [
-      {
-        tasks: ['Task 1', 'Task 2', 'Task 3', 'Task 4'],
-        score: [{}],
+  avgScores: any[] = [];
+
+  ngOnInit() {
+    this.fetchAllScores();
+    this.calculateAverageScores();
+    this.fetchCategoryWiseScores();
+  }
+  constructor(private dashboardScoreService: DashboardScoresService) {}
+
+  fetchAllScores() {
+    this.dashboardScoreService.getAllScores().subscribe(
+      (response) => {
+        this.total_score = response;
+        const transformedData = this.transformData(this.total_score);
+        this.columnData = this.columns;
+        this.tableDetailedData = transformedData;
       },
-    ],
-  };
+      (error) => {
+        console.error('Error fetching scores:', error);
+      }
+    );
+  }
+
+  fetchCategoryWiseScores() {
+    this.dashboardScoreService.getCategoryWiseScores().subscribe(
+      (response) => {
+        console.log('Response:', response);
+        this.categoryWiseScore = response;
+      },
+      (error) => {
+        console.error('Error fetching categorywise scores:', error);
+      }
+    );
+  }
+
+    // Transform the data
+  transformData(data: any[]) {
+    return data.map((entry) => ({
+      id: entry.id,
+      name: entry.name,
+      scores: [
+        entry.daily_assessment,
+        entry.live_assessment,
+        entry.module_assessment,
+        entry.case_study,
+        entry.project,
+      ],
+    }));
+  }
+
+
+  calculateAverageScores() {
+    const totals = {
+      daily_assessment: 0,
+      live_assessment: 0,
+      module_assessment: 0,
+      case_study: 0,
+      project: 0,
+      grand_total: 0,
+    };
+
+    const numberOfStudents = this.total_score.length;
+
+    this.total_score.forEach((student: any) => {
+      totals.daily_assessment += student.daily_assessment;
+      totals.live_assessment += student.live_assessment;
+      totals.module_assessment += student.module_assessment;
+      totals.case_study += student.case_study;
+      totals.project += student.project;
+      totals.grand_total +=
+        student.daily_assessment +
+        student.live_assessment +
+        student.module_assessment +
+        student.case_study +
+        student.project;
+    });
+
+    this.avgScores = [
+      {
+        title: 'Total',
+        score: (totals.grand_total / (numberOfStudents * 5)).toFixed(0),
+      },
+      {
+        title: 'Daily Assessment',
+        score: (totals.daily_assessment / numberOfStudents).toFixed(0),
+      },
+      {
+        title: 'Live Assessment',
+        score: (totals.live_assessment / numberOfStudents).toFixed(0),
+      },
+      {
+        title: 'Module Assessment',
+        score: (totals.module_assessment / numberOfStudents).toFixed(0),
+      },
+      {
+        title: 'Case Study',
+        score: (totals.case_study / numberOfStudents).toFixed(0),
+      },
+      {
+        title: 'Project',
+        score: (totals.project / numberOfStudents).toFixed(0),
+      },
+    ];
+    console.log(this.avgScores);
+  }
+
+  handleAssessmentType(scorecardType: any) {
+    for (let key in this.categoryWiseScore) {
+      // Check if the property exists and has a valid type
+      const currentScore =
+        this.categoryWiseScore[key as keyof typeof this.categoryWiseScore];
+
+      if (currentScore && currentScore.type === scorecardType) {
+        console.log('Entered here:', scorecardType);
+        this.columnData = currentScore.tasks;
+        this.tableDetailedData = currentScore.taskWiseScores;
+        this.title = currentScore.type;
+        return;
+      } else if (scorecardType === 'Total') {
+        this.columnData = this.columns;
+        this.title = 'Total Score';
+        this.ngOnInit();
+        console.log('Entered here:', scorecardType);
+      }
+    }
+  }
 }
